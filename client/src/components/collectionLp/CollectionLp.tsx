@@ -107,7 +107,7 @@ function CollectionLp() {
                     <img
                       src={`${import.meta.env.VITE_API_URL}${brand.logo}`}
                       alt={`${brand.brandName} Logo`}
-                      className={`brand-logo-img-collectionLp brand-logo-${brand.brandName.toLowerCase().replace(/\s+/g, "")}`}
+                      className={`brand-logo-img-collectionLp brand-logo-${brand.brandName.toLowerCase().replace(/\s+/g, "")}-collectionLp`}
                     />
                   )}
                 </div>
