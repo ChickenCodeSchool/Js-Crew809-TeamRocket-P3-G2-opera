@@ -11,7 +11,6 @@ function Footer() {
 
   return (
     <div className="footer" data-nav-theme="light">
-      <Navbar />
       <footer className="bg_footer">
         <h1 className="title_footer">
           Recevez des informations exclusives sur le lancement de chaque

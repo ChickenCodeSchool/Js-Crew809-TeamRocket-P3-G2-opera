@@ -1,22 +1,24 @@
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 0 2rem;
   background-color: transparent;
-  color: white;
   font-family: "Montserrat", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: color 0.3s ease;
+  margin-top: 1.5rem;
 }
 
 .logo_navbar {
   width: 9rem;
+  height: 80px;
+  object-fit: contain;
   transition: opacity 0.3s ease;
-  border-radius: 50%; /* si le logo est rond */
-  background-color: transparent;
-}
-
-.navbar.dark .logo_navbar {
-  mix-blend-mode: multiply; /* cache le fond blanc */
 }
 
 .title_navbar {
@@ -42,6 +44,7 @@
   opacity: 0.5;
 }
 
+/* ========== THEMES ========== */
 .navbar.light {
   color: white;
 }
