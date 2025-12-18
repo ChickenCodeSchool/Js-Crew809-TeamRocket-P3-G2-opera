@@ -1,0 +1,180 @@
+.collection-container-collectionLp {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 50px 20px;
+  padding: 40px;
+  background-color: #fff;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.brand-row-collectionLp {
+  display: contents;
+}
+
+.card-interactive-collectionLp {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-bg-img-collectionLp {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.card-overlay-hover-collectionLp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-interactive-collectionLp:hover .card-overlay-hover-collectionLp {
+  opacity: 1;
+  visibility: visible;
+}
+
+.card-interactive-collectionLp:hover .card-bg-img-collectionLp {
+  transform: scale(1.05);
+}
+
+.card-blur-bg-collectionLp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(20px);
+  transform: scale(1.2);
+  z-index: 1;
+}
+
+.card-white-filter-collectionLp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.25);
+  z-index: 2;
+}
+
+.brand-logo-img-collectionLp {
+  position: relative;
+  z-index: 3;
+  width: 70%;
+  object-fit: contain;
+  transform: translateY(20px);
+  transition: transform 0.4s ease;
+}
+
+.card-interactive-collectionLp:hover .brand-logo-img-collectionLp {
+  transform: translateY(0);
+}
+
+.runway-card-collectionLp {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.runway-img-collectionLp {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/*----------------class spéficique logo plus petit----------------*/
+
+.brand-logo-cartier {
+  width: 100%;
+}
+
+.brand-logo-chanel {
+  width: 100%;
+}
+
+/*----------------class spéficique logo plus petit----------------*/
+
+/* --- RESPONSIVE : TABLETTES ET MOBILES --- */
+
+@media (max-width: 1024px) {
+  .collection-container-collectionLp {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card-overlay-hover-collectionLp {
+    opacity: 1 !important;
+    visibility: visible !important;
+    top: auto !important;
+    bottom: 0 !important;
+    height: 25% !important;
+    background-color: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(5px);
+  }
+
+  .brand-row-collectionLp:last-child .card-interactive-collectionLp {
+    grid-column: 2;
+  }
+
+  .card-blur-bg-collectionLp,
+  .card-white-filter-collectionLp {
+    display: none !important;
+  }
+
+  .brand-logo-img-collectionLp {
+    transform: translateY(0) !important;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  .brand-logo-cartier-collectionLp {
+    height: 300% !important;
+  }
+
+  .brand-logo-chanel-collectionLp {
+    height: 250% !important;
+  }
+
+  .brand-logo-louisvuitton-collectionLp {
+    height: 80% !important;
+  }
+
+  .brand-logo-yvessaintlaurent-collectionLp {
+    height: 175% !important;
+  }
+
+  .brand-logo-hermes-collectionLp {
+    height: 150% !important;
+  }
+
+  .brand-logo-dior-collectionLp {
+    height: 85% !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .collection-container-collectionLp {
+    grid-template-columns: repeat(2, 1fr) !important;
+    padding: 20px !important;
+    gap: 10px !important;
+  }
+}
