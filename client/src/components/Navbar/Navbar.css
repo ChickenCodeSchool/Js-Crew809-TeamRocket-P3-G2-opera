@@ -5,10 +5,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: color 0.3s ease;
 }
 
 .logo_navbar {
   width: 9rem;
+  transition: opacity 0.3s ease;
+  border-radius: 50%; /* si le logo est rond */
+  background-color: transparent;
+}
+
+.navbar.dark .logo_navbar {
+  mix-blend-mode: multiply; /* cache le fond blanc */
 }
 
 .title_navbar {
@@ -20,22 +28,40 @@
 .navbar_icons {
   display: flex;
   gap: 2rem;
+  transition: color 0.3s ease;
 }
+
 .burger_navbar {
   margin-right: 1.5rem;
 }
 
-.cart_navbar:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
-.user_navbar:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
+.cart_navbar:hover,
+.user_navbar:hover,
 .burger_navbar:hover {
   cursor: pointer;
   opacity: 0.5;
+}
+
+.navbar.light {
+  color: white;
+}
+
+.navbar.dark {
+  color: black;
+}
+
+.navbar.light .navbar_icons {
+  color: white;
+}
+
+.navbar.dark .navbar_icons {
+  color: black;
+}
+
+.navbar.light .title_navbar {
+  color: white;
+}
+
+.navbar.dark .title_navbar {
+  color: black;
 }

@@ -82,14 +82,16 @@ function CollectionLp() {
   }, []);
 
   return (
-    <div className="collection-container-collectionLp">
+    <div className="collection-container-collectionLp" data-nav-theme="dark">
       {brandsData.map(
         (brand) =>
           brand.collectionImages.length > 0 && (
             <div key={brand.id} className="brand-row-collectionLp">
               <div className="card-interactive-collectionLp">
                 <img
-                  src={`${import.meta.env.VITE_API_URL}${brand.collectionImages[0]}`}
+                  src={`${import.meta.env.VITE_API_URL}${
+                    brand.collectionImages[0]
+                  }`}
                   alt={`${brand.brandName} Collection`}
                   className="card-bg-img-collectionLp"
                 />
@@ -98,7 +100,9 @@ function CollectionLp() {
                   <div
                     className="card-blur-bg-collectionLp"
                     style={{
-                      backgroundImage: `url(${import.meta.env.VITE_API_URL}${brand.collectionImages[0]})`,
+                      backgroundImage: `url(${import.meta.env.VITE_API_URL}${
+                        brand.collectionImages[0]
+                      })`,
                     }}
                   />
                   <div className="card-white-filter-collectionLp" />
@@ -107,7 +111,9 @@ function CollectionLp() {
                     <img
                       src={`${import.meta.env.VITE_API_URL}${brand.logo}`}
                       alt={`${brand.brandName} Logo`}
-                      className={`brand-logo-img-collectionLp brand-logo-${brand.brandName.toLowerCase().replace(/\s+/g, "")}-collectionLp`}
+                      className={`brand-logo-img-collectionLp brand-logo-${brand.brandName
+                        .toLowerCase()
+                        .replace(/\s+/g, "")}-collectionLp`}
                     />
                   )}
                 </div>
@@ -123,7 +129,7 @@ function CollectionLp() {
                 </div>
               ))}
             </div>
-          ),
+          )
       )}
     </div>
   );
