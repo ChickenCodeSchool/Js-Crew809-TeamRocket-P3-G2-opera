@@ -1,0 +1,83 @@
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: black;
+}
+
+.landing-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.landing-section {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+
+  background-size: cover;
+  background-position: center;
+  z-index:1;
+
+  will-change: transform;
+  overflow: hidden; 
+}
+
+.landing-section video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   
+  object-position: top; 
+  pointer-events: none;
+}
+
+.collection-lp-wrapper {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.collection-lp-wrapper > * {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.discover-btn {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 24px;
+  color: white;
+  font-family: 'Montserrat', sans-serif; 
+  font-size: 2rem;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: transform 0.3s ease, text-decoration 0.3s ease;
+  text-decoration: none; 
+}
+
+.discover-btn:hover {
+  transform: translateX(-50%) translateY(-3px);
+  text-decoration: underline; 
+}
+
+.footer-section {
+  position: relative; 
+  width: 100%;
+  min-height: 85vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  
+} 
