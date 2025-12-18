@@ -46,13 +46,13 @@ function CollectionLp() {
 
         const manualOrder: Record<string, number> = {
           cartier: 1,
-          chanel: 2,
+          chanel: 7,
           dior: 3,
           gucci: 4,
           guerlain: 5,
           hermes: 6,
-          lv: 7,
-          "louis vuitton": 7,
+          lv: 2,
+          "louis vuitton": 2,
           prada: 8,
           ysl: 9,
           "yves saint laurent": 9,
