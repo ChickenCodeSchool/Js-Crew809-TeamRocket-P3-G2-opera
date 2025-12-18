@@ -1,6 +1,6 @@
-import { useEffect, useState, useRef, JSX } from "react";
-import CollectionLp from "../collectionLp/CollectionLp";
+import { type JSX, useEffect, useRef, useState } from "react";
 import Footer from "../Footer/Footer";
+import CollectionLp from "../collectionLp/CollectionLp";
 import "./landing.css";
 
 type Background = {
@@ -10,8 +10,13 @@ type Background = {
 };
 
 type Section =
-  | { type: "media"; bg: Background }
-  | { type: "component"; element: JSX.Element };
+  | { type: "media"; bg: Background; theme: "light" | "dark" }
+  | {
+      type: "component";
+      element: JSX.Element;
+      theme: "light" | "dark";
+      id: string;
+    };
 
 export default function Landing() {
   const [backgrounds, setBackgrounds] = useState<Background[]>([]);
@@ -20,14 +25,20 @@ export default function Landing() {
 
   const FRONT_ORDER = [6, 9, 1, 8];
 
+  const brandThemes: Record<number, "light" | "dark"> = {
+    6: "light",
+    9: "light",
+    1: "light",
+    8: "dark",
+  };
+
   useEffect(() => {
     fetch("http://localhost:3310/api/landing")
       .then((res) => res.json())
       .then((data: Background[]) => {
         const ordered = data.sort(
           (a, b) =>
-            FRONT_ORDER.indexOf(a.brand_id) -
-            FRONT_ORDER.indexOf(b.brand_id)
+            FRONT_ORDER.indexOf(a.brand_id) - FRONT_ORDER.indexOf(b.brand_id),
         );
         setBackgrounds(ordered);
       });
@@ -53,7 +64,7 @@ export default function Landing() {
       const direction = target > startIndex ? 1 : -1;
       const duration = 900;
       const startTime = performance.now();
-      const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+      const ease = (t: number) => 1 - (1 - t) ** 3;
 
       const animate = (time: number) => {
         const elapsed = time - startTime;
@@ -97,25 +108,40 @@ export default function Landing() {
 
   const sections: Section[] = [];
   backgrounds.forEach((bg, index) => {
-    sections.push({ type: "media", bg });
+    sections.push({
+      type: "media",
+      bg,
+      theme: brandThemes[bg.brand_id] || "light",
+    });
 
     if (index === 1) {
-      sections.push({ type: "component", element: <CollectionLp /> });
+      sections.push({
+        type: "component",
+        element: <CollectionLp />,
+        theme: "light",
+        id: "collection",
+      });
     }
   });
 
-  sections.push({ type: "component", element: <Footer /> });
+  sections.push({
+    type: "component",
+    element: <Footer />,
+    theme: "dark",
+    id: "footer",
+  });
 
   return (
     <div className="landing-wrapper">
-      {sections.map((section, index) => {
-        const zIndex = sections.length - index;
+      {sections.map((section) => {
+        const zIndex = sections.length - sections.indexOf(section);
 
         if (section.type === "media") {
           const bg = section.bg;
           return (
             <div
               className="landing-section"
+              data-nav-theme={section.theme}
               style={{
                 zIndex,
                 backgroundImage: bg.url.endsWith(".mp4")
@@ -142,12 +168,13 @@ export default function Landing() {
         return (
           <div
             className={`landing-section ${
-              section.element.type === Footer
+              section.id === "footer"
                 ? "footer-section"
                 : "collection-lp-wrapper"
             }`}
+            data-nav-theme={section.theme}
             style={{ zIndex }}
-            key={`component-${index}`}
+            key={`component-${section.id}`}
           >
             {section.element}
           </div>
@@ -156,4 +183,3 @@ export default function Landing() {
     </div>
   );
 }
-
