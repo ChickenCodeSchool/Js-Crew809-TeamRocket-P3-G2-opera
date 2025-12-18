@@ -1,0 +1,47 @@
+.navbar {
+  position: fixed;     
+  top: 0;             
+  left: 0;             
+  width: 100%;         
+  z-index: 100;
+  padding: 0 2rem;    
+  background-color: transparent;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo_navbar {
+  width: 9rem;
+}
+
+.title_navbar {
+  font-family: "Bodoni Moda SC", serif;
+  letter-spacing: 10px;
+  font-size: 24px;
+}
+
+.navbar_icons {
+  display: flex;
+  gap: 2rem;
+}
+.burger_navbar {
+  margin-right: 1.5rem;
+}
+
+.cart_navbar:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.user_navbar:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.burger_navbar:hover {
+  cursor: pointer;
+  opacity: 0.5;
+}
