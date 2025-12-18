@@ -30,7 +30,7 @@ function Navbar() {
           }
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     for (const section of sections) {

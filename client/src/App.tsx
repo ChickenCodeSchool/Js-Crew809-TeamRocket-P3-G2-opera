@@ -1,16 +1,16 @@
 import { Outlet } from "react-router";
 import "./App.css";
-import CollectionLp from "./components/collectionLp/CollectionLp";
-import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import Navbar from "./components/Navbar/Navbar";
+import CollectionLp from "./components/collectionLp/CollectionLp";
 
 function App() {
   return (
     <>
-    <Navbar/>
+      <Navbar />
       <CollectionLp />
       <Outlet />
-      <Footer/>
+      <Footer />
     </>
   );
 }

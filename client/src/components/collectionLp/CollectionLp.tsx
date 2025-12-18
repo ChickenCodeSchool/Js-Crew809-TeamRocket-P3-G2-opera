@@ -129,7 +129,7 @@ function CollectionLp() {
                 </div>
               ))}
             </div>
-          )
+          ),
       )}
     </div>
   );
