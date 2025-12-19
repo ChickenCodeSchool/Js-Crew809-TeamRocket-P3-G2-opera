@@ -159,7 +159,7 @@ export default function Landing() {
                   playsInline
                 />
               ) : (
-                <div className="discover-btn">DÃ©couvrir</div>
+                <div className="discover-btn">Découvrir</div>
               )}
             </div>
           );
