@@ -1,6 +1,7 @@
 import { type JSX, useEffect, useRef, useState } from "react";
 import Footer from "../Footer/Footer";
 import CollectionLp from "../collectionLp/CollectionLp";
+import CarouselLp from "../carouselLp/carouselLp";
 import "./landing.css";
 
 type Background = {
@@ -38,7 +39,7 @@ export default function Landing() {
       .then((data: Background[]) => {
         const ordered = data.sort(
           (a, b) =>
-            FRONT_ORDER.indexOf(a.brand_id) - FRONT_ORDER.indexOf(b.brand_id),
+            FRONT_ORDER.indexOf(a.brand_id) - FRONT_ORDER.indexOf(b.brand_id)
         );
         setBackgrounds(ordered);
       });
@@ -114,6 +115,15 @@ export default function Landing() {
       theme: brandThemes[bg.brand_id] || "light",
     });
 
+    if (index === 0) {
+      sections.push({
+        type: "component",
+        element: <CarouselLp />,
+        theme: "dark",
+        id: "carousel",
+      });
+    }
+
     if (index === 1) {
       sections.push({
         type: "component",
@@ -124,6 +134,7 @@ export default function Landing() {
     }
   });
 
+ 
   sections.push({
     type: "component",
     element: <Footer />,
@@ -161,6 +172,20 @@ export default function Landing() {
               ) : (
                 <div className="discover-btn">Découvrir</div>
               )}
+            </div>
+          );
+        }
+
+
+        if (section.id === "carousel") {
+          return (
+            <div
+              className="landing-section carousel-lp-wrapper"
+              data-nav-theme={section.theme}
+              style={{ zIndex }}
+              key={`component-${section.id}`}
+            >
+              {section.element}
             </div>
           );
         }

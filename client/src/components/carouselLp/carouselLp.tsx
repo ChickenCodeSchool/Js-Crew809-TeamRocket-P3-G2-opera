@@ -17,7 +17,7 @@ const CarouselLp: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/carouselandingpicture`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/carouselLp`)
       .then((response) => response.json())
       .then((data: CarouselBrandPicture[]) => {
         setCarouselBrandPictureData(data);
