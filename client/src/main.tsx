@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/carousel", // New route for CarouselLp component
+    path: "/carousel", 
     element: <CarouselLp />,
   },
   {
