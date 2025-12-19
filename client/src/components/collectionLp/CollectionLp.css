@@ -50,10 +50,6 @@
   visibility: visible;
 }
 
-.card-interactive-collectionLp:hover .card-bg-img-collectionLp {
-  transform: scale(1.05);
-}
-
 .card-blur-bg-collectionLp {
   position: absolute;
   top: 0;
@@ -114,11 +110,11 @@
 
 @media (max-width: 1624px) {
   .collection-container-collectionLp {
-    max-width: 1200px;
+    max-width: 1000px;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 700px) {
   .collection-container-collectionLp {
     display: flex !important;
     flex-direction: row !important;
@@ -151,6 +147,15 @@
     box-shadow: none !important;
   }
 
+  .brand-row-collectionLp:first-child .card-interactive-collectionLp {
+    animation: nudge-left-collectionLp 2.5s infinite ease-in-out;
+  }
+
+  .collection-container-collectionLp:active .card-interactive-collectionLp,
+  .collection-container-collectionLp:active .runway-card-collectionLp {
+    animation-play-state: paused;
+  }
+
   .card-bg-img-collectionLp,
   .runway-img-collectionLp {
     object-fit: cover !important;
@@ -159,17 +164,26 @@
     height: 100% !important;
     padding: 20px;
     box-sizing: border-box;
+    border-radius: 2em;
   }
 
   .card-overlay-hover-collectionLp {
     opacity: 1 !important;
     visibility: visible !important;
-    top: auto !important;
-    bottom: 0 !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    width: calc(100% - 40px) !important;
     height: 25% !important;
+    top: auto !important;
     background-color: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(10px);
     border-top: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 10;
+  }
+
+  .card-blur-bg-collectionLp,
+  .card-white-filter-collectionLp {
+    display: none !important;
   }
 
   .card-blur-bg-collectionLp,
@@ -211,6 +225,20 @@
 
 @media (max-width: 600px) {
   .brand-logo-img-collectionLp {
-    max-height: 50% !important;
+    max-height: 200% !important;
+  }
+}
+
+@keyframes nudge-left-collectionLp {
+  0%,
+  25%,
+  50% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(0);
   }
 }
