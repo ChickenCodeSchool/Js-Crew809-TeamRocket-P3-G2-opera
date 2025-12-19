@@ -1,20 +1,24 @@
 .navbar {
-  position: fixed;     
-  top: 0;             
-  left: 0;             
-  width: 100%;         
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
-  padding: 0 2rem;    
+  padding: 0 2rem;
   background-color: transparent;
-  color: white;
   font-family: "Montserrat", sans-serif;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transition: color 0.3s ease;
+  margin-top: 1.5rem;
 }
 
 .logo_navbar {
   width: 9rem;
+  height: 80px;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
 }
 
 .title_navbar {
@@ -26,22 +30,41 @@
 .navbar_icons {
   display: flex;
   gap: 2rem;
+  transition: color 0.3s ease;
 }
+
 .burger_navbar {
   margin-right: 1.5rem;
 }
 
-.cart_navbar:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
-.user_navbar:hover {
-  cursor: pointer;
-  opacity: 0.5;
-}
-
+.cart_navbar:hover,
+.user_navbar:hover,
 .burger_navbar:hover {
   cursor: pointer;
   opacity: 0.5;
+}
+
+/* ========== THEMES ========== */
+.navbar.light {
+  color: white;
+}
+
+.navbar.dark {
+  color: black;
+}
+
+.navbar.light .navbar_icons {
+  color: white;
+}
+
+.navbar.dark .navbar_icons {
+  color: black;
+}
+
+.navbar.light .title_navbar {
+  color: white;
+}
+
+.navbar.dark .title_navbar {
+  color: black;
 }
