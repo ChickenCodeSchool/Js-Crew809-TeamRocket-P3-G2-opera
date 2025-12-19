@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 // Import additional components for new routes
 // Try creating these components in the "pages" folder
 import Footer from "./components/Footer/Footer";
+import CarouselLp from "./components/carouselLp/carouselLp";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
     ],
+  },
+  {
+    path: "/carousel", // New route for CarouselLp component
+    element: <CarouselLp />,
   },
   {
     path: "/", // The root path
