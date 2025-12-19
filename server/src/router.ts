@@ -11,6 +11,9 @@ import collectionActions from "./modules/collection/collectionActions";
 
 router.get("/api/collections", collectionActions.browse);
 
+import carouselLpActions from "./modules/carouselLp/carouselLpActions";
+router.get("/api/carouselLp", carouselLpActions.browse);
+
 // Define item-related routes
 import itemActions from "./modules/item/itemActions";
 
