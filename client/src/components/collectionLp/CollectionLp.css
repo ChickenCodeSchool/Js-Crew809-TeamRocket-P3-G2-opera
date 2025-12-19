@@ -6,6 +6,8 @@
   background-color: #fff;
   max-width: 1400px;
   margin: 0 auto;
+  min-height: 100vh;
+  align-content: center;
 }
 
 .brand-row-collectionLp {
@@ -46,10 +48,6 @@
 .card-interactive-collectionLp:hover .card-overlay-hover-collectionLp {
   opacity: 1;
   visibility: visible;
-}
-
-.card-interactive-collectionLp:hover .card-bg-img-collectionLp {
-  transform: scale(1.05);
 }
 
 .card-blur-bg-collectionLp {
@@ -102,8 +100,6 @@
   display: block;
 }
 
-/*----------------class spéficique logo plus petit----------------*/
-
 .brand-logo-cartier {
   width: 100%;
 }
@@ -112,27 +108,77 @@
   width: 100%;
 }
 
-/*----------------class spéficique logo plus petit----------------*/
-
-/* --- RESPONSIVE : TABLETTES ET MOBILES --- */
-
-@media (max-width: 1024px) {
+@media (max-width: 1624px) {
   .collection-container-collectionLp {
-    grid-template-columns: repeat(3, 1fr);
+    max-width: 1000px;
+  }
+}
+
+@media (max-width: 700px) {
+  .collection-container-collectionLp {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    overflow-x: scroll !important;
+    overflow-y: hidden !important;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    width: 100vw !important;
+    height: 100dvh !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    grid-template-columns: none !important;
+    grid-template-rows: none !important;
+    align-content: stretch !important;
+  }
+
+  .card-interactive-collectionLp,
+  .runway-card-collectionLp {
+    flex: 0 0 100vw !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    scroll-snap-align: start;
+    aspect-ratio: unset !important;
+    background-color: #fff;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .brand-row-collectionLp:first-child .card-interactive-collectionLp {
+    animation: nudge-left-collectionLp 2.5s infinite ease-in-out;
+  }
+
+  .collection-container-collectionLp:active .card-interactive-collectionLp,
+  .collection-container-collectionLp:active .runway-card-collectionLp {
+    animation-play-state: paused;
+  }
+
+  .card-bg-img-collectionLp,
+  .runway-img-collectionLp {
+    object-fit: cover !important;
+    object-position: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 2em;
   }
 
   .card-overlay-hover-collectionLp {
     opacity: 1 !important;
     visibility: visible !important;
-    top: auto !important;
-    bottom: 0 !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    width: calc(100% - 40px) !important;
     height: 25% !important;
+    top: auto !important;
     background-color: rgba(255, 255, 255, 0.25);
-    backdrop-filter: blur(5px);
-  }
-
-  .brand-row-collectionLp:last-child .card-interactive-collectionLp {
-    grid-column: 2;
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    z-index: 10;
   }
 
   .card-blur-bg-collectionLp,
@@ -140,41 +186,59 @@
     display: none !important;
   }
 
+  .card-blur-bg-collectionLp,
+  .card-white-filter-collectionLp {
+    display: none !important;
+  }
+
+  .brand-row-collectionLp:last-child .card-interactive-collectionLp {
+    grid-column: auto !important;
+  }
+
   .brand-logo-img-collectionLp {
     transform: translateY(0) !important;
-    width: 100% !important;
+    width: auto !important;
     height: 100% !important;
+    max-height: 60% !important;
+    max-width: 80% !important;
   }
 
   .brand-logo-cartier-collectionLp {
     height: 300% !important;
   }
-
   .brand-logo-chanel-collectionLp {
     height: 250% !important;
   }
-
   .brand-logo-louisvuitton-collectionLp {
     height: 80% !important;
   }
-
   .brand-logo-yvessaintlaurent-collectionLp {
     height: 175% !important;
   }
-
   .brand-logo-hermes-collectionLp {
     height: 150% !important;
   }
-
   .brand-logo-dior-collectionLp {
     height: 85% !important;
   }
 }
 
 @media (max-width: 600px) {
-  .collection-container-collectionLp {
-    grid-template-columns: repeat(2, 1fr) !important;
-    padding: 20px !important;
-    gap: 10px !important;
+  .brand-logo-img-collectionLp {
+    max-height: 200% !important;
+  }
+}
+
+@keyframes nudge-left-collectionLp {
+  0%,
+  25%,
+  50% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(0);
   }
 }
