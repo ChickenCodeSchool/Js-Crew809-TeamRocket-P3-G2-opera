@@ -1,0 +1,154 @@
+.burger-menu-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  visibility: hidden;
+  transition: visibility 0.4s ease;
+}
+
+.burger-menu-root.open {
+  visibility: visible;
+}
+
+.burger-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.burger-menu-root.open .burger-overlay {
+  opacity: 1;
+}
+
+.burger-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  background-color: #fff;
+  width: 450px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  box-sizing: border-box;
+  transform: translateX(100%);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.burger-menu-root.open .burger-panel {
+  transform: translateX(0);
+}
+
+.burger-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 40px;
+}
+
+.burger-close-btn {
+  background-color: black;
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding: 0;
+}
+
+.burger-close-btn:hover {
+  transform: scale(1.1);
+}
+
+.burger-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.burger-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.burger-link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+  text-align: left;
+  cursor: pointer;
+  width: 100%;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.burger-link-btn:hover {
+  opacity: 0.6;
+}
+
+.main-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-bottom: 60px;
+}
+
+.main-list .burger-link-btn {
+  color: black;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.utility-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.utility-list .burger-link-btn {
+  color: #333;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 600px) {
+  .burger-panel {
+    width: 100%;
+    padding: 30px;
+  }
+
+  .burger-overlay {
+    display: none;
+  }
+
+  .burger-header {
+    margin-bottom: 60px;
+  }
+
+  .main-list {
+    gap: 24px;
+  }
+
+  .main-list .burger-link-btn {
+    font-size: 1.1rem;
+  }
+}
