@@ -65,7 +65,7 @@ CREATE TABLE `brand_picture` (
 
 LOCK TABLES `brand_picture` WRITE;
 /*!40000 ALTER TABLE `brand_picture` DISABLE KEYS */;
-INSERT INTO `brand_picture` VALUES (1,4,'/assets/images/landingImage/cartier/cartierLogoBlanc.png',0,'logo_white'),(2,4,'/assets/images/landingImage/cartier/cartierLogoNoir.png',0,'logo_black'),(3,4,'/assets/images/landingImage/cartier/landing_collection_cartier.jpg',1,'collection'),(4,3,'/assets/images/landingImage/chanel/chanelLogoBlanc.png',0,'logo_white'),(5,3,'/assets/images/landingImage/chanel/chanelLogoNoir.png',0,'logo_black'),(6,3,'/assets/images/landingImage/chanel/landing_collection_chanel.jpg',1,'collection'),(7,7,'/assets/images/landingImage/dior/diorLogoBlanc.png',0,'logo_white'),(8,7,'/assets/images/landingImage/dior/diorLogoNoir.png',0,'logo_black'),(9,7,'/assets/images/landingImage/dior/landing_collection_dior.jpg',1,'collection'),(10,10,'/assets/images/landingImage/gucci/gucciLogoBlanc.png',0,'logo_white'),(11,10,'/assets/images/landingImage/gucci/gucciLogoNoir.webp',0,'logo_black'),(12,10,'/assets/images/landingImage/gucci/landing_caroussel_gucci.jpeg',0,'landing_carousel'),(13,10,'/assets/images/landingImage/gucci/landing_collection_gucci.jpg',1,'collection'),(14,5,'/assets/images/landingImage/guerlain/guerlainLogoBlanc.png',0,'logo_white'),(15,5,'/assets/images/landingImage/guerlain/guerlainLogoNoir.jpg',0,'logo_black'),(16,5,'/assets/images/landingImage/guerlain/landing_caroussel_guerlain.jpeg',0,'landing_carousel'),(17,5,'/assets/images/landingImage/guerlain/landing_collection_guerlain.jpg',1,'collection'),(18,2,'/assets/images/landingImage/hermes/hermesLogoBlanc.webp',0,'logo_white'),(19,2,'/assets/images/landingImage/hermes/hermesLogoNoir.webp',0,'logo_black'),(20,2,'/assets/images/landingImage/hermes/landing_collection_hermes.jpg',1,'collection'),(21,9,'/assets/images/landingImage/louisvuitton/landing_bg_2.jpeg',0,'background'),(22,9,'/assets/images/landingImage/louisvuitton/landing_collection_louisvuitton.jpg',1,'collection'),(23,9,'/assets/images/landingImage/louisvuitton/lvLogoBlanc.jpg',0,'logo_white'),(24,9,'/assets/images/landingImage/louisvuitton/lvLogoNoir.png',0,'logo_black'),(25,8,'/assets/images/landingImage/prada/landing_bg_4.mp4',0,'background'),(26,8,'/assets/images/landingImage/prada/landing_collection_prada.jpg',1,'collection'),(27,8,'/assets/images/landingImage/prada/pradaLogoBlanc.webp',0,'logo_white'),(28,8,'/assets/images/landingImage/prada/pradaLogoNoir.png',0,'logo_black'),(29,1,'/assets/images/landingImage/rolex/landing_bg_3.jpeg',0,'background'),(30,1,'/assets/images/landingImage/rolex/landing_caroussel_rolex.jpeg',0,'landing_carousel'),(31,1,'/assets/images/landingImage/rolex/landing_collection_rolex.jpg',1,'collection'),(32,1,'/assets/images/landingImage/rolex/rolexLogoBlanc.webp',0,'logo_white'),(33,1,'/assets/images/landingImage/rolex/rolexLogoColor.jpg',0,'slide'),(34,1,'/assets/images/landingImage/rolex/rolexLogoNoir.png',0,'logo_black'),(35,6,'/assets/images/landingImage/ysl/landing_bg_1.jpeg',0,'background'),(36,6,'/assets/images/landingImage/ysl/landing_collection_ysl.jpg',1,'collection'),(37,6,'/assets/images/landingImage/ysl/yslLogoBlanc.jpg',0,'logo_white'),(38,6,'/assets/images/landingImage/ysl/yslLogoNoir.jpg',0,'logo_black'),(39,3,'/assets/images/LandingImage/chanel/landing_caroussel_chanel.jpg',0,'landing_carousel'),(40,4,'/assets/images/LandingImage/cartier/landing_caroussel_cartier.jpeg',0,'landing_carousel'),(41,7,'/assets/images/LandingImage/dior/landing_caroussel_dior.jpg',0,'landing_carousel'),(42,5,'/assets/images/LandingImage/guerlain/landing_caroussel_guerlain.jpg',0,'landing_carousel'),(43,2,'/assets/images/LandingImage/hermes/landing_caroussel_hermes.jpg',0,'landing_carousel'),(44,9,'/assets/images/LandingImage/louisvuitton/landing_caroussel_louisvuiton.jpg',0,'landing_carousel'),(45,8,'/assets/images/LandingImage/prada/landing_caroussel_prada.jpg',0,'landing_carousel'),(46,6,'/assets/images/LandingImage/ysl/landing_caroussel_ysl.jpg',0,'landing_carousel');
+INSERT INTO `brand_picture` VALUES (1,4,'/assets/images/landingImage/cartier/cartierLogoBlanc.png',0,'logo_white'),(2,4,'/assets/images/landingImage/cartier/cartierLogoNoir.png',0,'logo_black'),(3,4,'/assets/images/landingImage/cartier/landing_collection_cartier.jpg',1,'collection'),(4,3,'/assets/images/landingImage/chanel/chanelLogoBlanc.png',0,'logo_white'),(5,3,'/assets/images/landingImage/chanel/chanelLogoNoir.png',0,'logo_black'),(6,3,'/assets/images/landingImage/chanel/landing_collection_chanel.jpg',1,'collection'),(7,7,'/assets/images/landingImage/dior/diorLogoBlanc.png',0,'logo_white'),(8,7,'/assets/images/landingImage/dior/diorLogoNoir.png',0,'logo_black'),(9,7,'/assets/images/landingImage/dior/landing_collection_dior.jpg',1,'collection'),(10,10,'/assets/images/landingImage/gucci/gucciLogoBlanc.png',0,'logo_white'),(11,10,'/assets/images/landingImage/gucci/gucciLogoNoir.webp',0,'logo_black'),(12,10,'/assets/images/landingImage/gucci/landing_caroussel_gucci.jpeg',0,'landing_carousel'),(13,10,'/assets/images/landingImage/gucci/landing_collection_gucci.jpg',1,'collection'),(14,5,'/assets/images/landingImage/guerlain/guerlainLogoBlanc.png',0,'logo_white'),(15,5,'/assets/images/landingImage/guerlain/guerlainLogoNoir.jpg',0,'logo_black'),(17,5,'/assets/images/landingImage/guerlain/landing_collection_guerlain.jpg',1,'collection'),(18,2,'/assets/images/landingImage/hermes/hermesLogoBlanc.webp',0,'logo_white'),(19,2,'/assets/images/landingImage/hermes/hermesLogoNoir.webp',0,'logo_black'),(20,2,'/assets/images/landingImage/hermes/landing_collection_hermes.jpg',1,'collection'),(21,9,'/assets/images/landingImage/louisvuitton/landing_bg_2.jpeg',0,'background'),(22,9,'/assets/images/landingImage/louisvuitton/landing_collection_louisvuitton.jpg',1,'collection'),(23,9,'/assets/images/landingImage/louisvuitton/lvLogoBlanc.jpg',0,'logo_white'),(24,9,'/assets/images/landingImage/louisvuitton/lvLogoNoir.png',0,'logo_black'),(25,8,'/assets/images/landingImage/prada/landing_bg_4.mp4',0,'background'),(26,8,'/assets/images/landingImage/prada/landing_collection_prada.jpg',1,'collection'),(27,8,'/assets/images/landingImage/prada/pradaLogoBlanc.webp',0,'logo_white'),(28,8,'/assets/images/landingImage/prada/pradaLogoNoir.png',0,'logo_black'),(29,1,'/assets/images/landingImage/rolex/landing_bg_3.jpeg',0,'background'),(30,1,'/assets/images/landingImage/rolex/landing_caroussel_rolex.jpeg',0,'landing_carousel'),(31,1,'/assets/images/landingImage/rolex/landing_collection_rolex.jpg',1,'collection'),(32,1,'/assets/images/landingImage/rolex/rolexLogoBlanc.webp',0,'logo_white'),(33,1,'/assets/images/landingImage/rolex/rolexLogoColor.jpg',0,'slide'),(34,1,'/assets/images/landingImage/rolex/rolexLogoNoir.png',0,'logo_black'),(35,6,'/assets/images/landingImage/ysl/landing_bg_1.jpeg',0,'background'),(36,6,'/assets/images/landingImage/ysl/landing_collection_ysl.jpg',1,'collection'),(37,6,'/assets/images/landingImage/ysl/yslLogoBlanc.jpg',0,'logo_white'),(38,6,'/assets/images/landingImage/ysl/yslLogoNoir.jpg',0,'logo_black'),(39,3,'/assets/images/LandingImage/chanel/landing_caroussel_chanel.jpg',0,'landing_carousel'),(40,4,'/assets/images/LandingImage/cartier/landing_caroussel_cartier.jpeg',0,'landing_carousel'),(41,7,'/assets/images/LandingImage/dior/landing_caroussel_dior.jpg',0,'landing_carousel'),(42,5,'/assets/images/LandingImage/guerlain/landing_caroussel_guerlain.jpg',0,'landing_carousel'),(43,2,'/assets/images/LandingImage/hermes/landing_caroussel_hermes.jpg',0,'landing_carousel'),(44,9,'/assets/images/LandingImage/louisvuitton/landing_caroussel_louisvuiton.jpg',0,'landing_carousel'),(45,8,'/assets/images/LandingImage/prada/landing_caroussel_prada.jpg',0,'landing_carousel'),(46,6,'/assets/images/LandingImage/ysl/landing_caroussel_ysl.jpg',0,'landing_carousel');
 /*!40000 ALTER TABLE `brand_picture` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -260,7 +260,7 @@ DROP TABLE IF EXISTS `product`;
 CREATE TABLE `product` (
   `product_id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
-  `descrption` text NOT NULL,
+  `description` text,
   `brand_id` int NOT NULL,
   `price` decimal(10,2) NOT NULL,
   `color` varchar(45) NOT NULL,
@@ -272,7 +272,7 @@ CREATE TABLE `product` (
   PRIMARY KEY (`product_id`),
   KEY `fk_product_Brand1_idx` (`brand_id`),
   CONSTRAINT `fk_product_Brand1` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`Brand_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -281,6 +281,7 @@ CREATE TABLE `product` (
 
 LOCK TABLES `product` WRITE;
 /*!40000 ALTER TABLE `product` DISABLE KEYS */;
+INSERT INTO `product` VALUES (1,'Land-Dweller 40','L\'alliance parfaite entre élégance et fonctionnalité. Dotée d\'un boîtier Oystersteel de 40mm, cette montre combine un affichage GMT et un calendrier annuel dans un format raffiné. Sa lunette Cerachrom bidirectionnelle permet un réglage intuitif des fuseaux horaires, idéale pour les voyageurs exigeants. Mouvement manufacture calibre 7002, étanchéité 100m.',1,15950.00,'Argent',NULL,NULL,NULL,NULL,NULL),(2,'Land_Dweller 36','Un concentré de raffinement au poignet. Ce modèle Oyster de 36mm en platine sublimé de diamants incarne l\'excellence horlogère. Alliant prestige des matériaux nobles et complications pratiques, il offre un affichage GMT et un calendrier annuel dans un écrin d\'exception.',1,99300.00,'Argent',NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `product` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -325,7 +326,7 @@ CREATE TABLE `product_image` (
   PRIMARY KEY (`product_image_id`),
   KEY `fk_Product_image_product1_idx` (`product_id`),
   CONSTRAINT `fk_Product_image_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,6 +335,7 @@ CREATE TABLE `product_image` (
 
 LOCK TABLES `product_image` WRITE;
 /*!40000 ALTER TABLE `product_image` DISABLE KEYS */;
+INSERT INTO `product_image` VALUES (1,1,'/assets/images/ProductImage/rolex/land-dweller-36/02-Land-Dweller 36_1.png',1),(2,1,'/assets/images/ProductImage/rolex/land-dweller-36/02-Land-Dweller 36_2.png',0),(3,1,'/assets/images/ProductImage/rolex/land-dweller-36/02-Land-Dweller 36_3.png',0),(4,2,'/assets/images/ProductImage/rolex/land-dweller-40/01-Land-Dweller 40_1.png',1),(5,2,'/assets/images/ProductImage/rolex/land-dweller-40/01-Land-Dweller 40_2.png',0),(6,2,'/assets/images/ProductImage/rolex/land-dweller-40/01-Land-Dweller 40_3.jpg',0);
 /*!40000 ALTER TABLE `product_image` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -398,4 +400,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-12-17 16:59:17
+-- Dump completed on 2026-01-05 11:35:01
