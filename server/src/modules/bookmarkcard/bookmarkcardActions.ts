@@ -4,7 +4,7 @@ import BookmarkRepository from "./bookmarkcardRepository";
 const browseBookmark: RequestHandler = async (req, res, next) => {
   try {
     const brandId = Number(req.params.brandId);
-    if (isNaN(brandId)) {
+    if (Number.isNaN(brandId)) {
       res.status(400).json({ message: "Invalid brandId" }); 
       return; 
     }
