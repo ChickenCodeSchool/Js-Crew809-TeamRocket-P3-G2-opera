@@ -1,8 +1,15 @@
 html, body, #root {
   margin: 0;
   padding: 0;
-  overflow-y: auto; 
   height: auto;     
+}
+
+body {
+  overflow-y: auto;
+}
+
+body.landing-no-scroll {
+  overflow: hidden;
 }
 
 * {
