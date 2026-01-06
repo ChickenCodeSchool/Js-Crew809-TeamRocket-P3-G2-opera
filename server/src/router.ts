@@ -20,6 +20,6 @@ router.get("/brands/:brandId/bookmark-cards", bookmarkcardActions.browseBookmark
 
 
 import carouselLpActions from "./modules/carouselLp/carouselLpActions";
-router.get("/api/carouselLp", carouselLpActions.browse)
+router.get("/api/carouselLp", carouselLpActions.browse);
 
 export default router;
