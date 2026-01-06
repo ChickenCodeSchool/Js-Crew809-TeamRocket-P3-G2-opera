@@ -36,6 +36,15 @@ export default function BrandPage() {
           />
         ))}
       </div>
+       <div className="brand-cards-wrapper">
+        {cards.map((card, index) => (
+          <BookmarkCard
+            key={index}
+            image={card.image}
+            categoryName={card.categoryName}
+          />
+        ))}
+      </div>
     </div>
   );
 }
