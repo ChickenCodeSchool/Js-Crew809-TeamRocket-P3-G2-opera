@@ -23,10 +23,6 @@
   color: inherit;
 }
 
-.burger_btn:hover {
-  opacity: 0.5;
-}
-
 .logo_navbar {
   width: 9rem;
   height: 80px;
@@ -80,4 +76,49 @@
 
 .navbar.dark .title_navbar {
   color: black;
+}
+
+@media (max-width: 1024px) {
+  .navbar {
+    padding: 0 1.5rem;
+  }
+
+  .logo_navbar {
+    width: 7rem;
+  }
+
+  .title_navbar {
+    font-size: 2.5rem;
+    letter-spacing: 5px;
+  }
+
+  .navbar_icons {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 0 1rem;
+    height: 70px;
+  }
+
+  .logo_navbar {
+    width: 4rem;
+    object-position: left;
+  }
+
+  .title_navbar {
+    font-size: 2rem;
+    letter-spacing: 1.5px;
+  }
+
+  .navbar_icons {
+    gap: 1rem;
+  }
+
+  .navbar_icons svg {
+    width: 20px;
+    height: 20px;
+  }
 }
