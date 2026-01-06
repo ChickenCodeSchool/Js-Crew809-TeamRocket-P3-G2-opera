@@ -1,7 +1,7 @@
 import { type JSX, useEffect, useRef, useState } from "react";
 import Footer from "../Footer/Footer";
-import CollectionLp from "../collectionLp/CollectionLp";
 import CarouselLp from "../carouselLp/carouselLp";
+import CollectionLp from "../collectionLp/CollectionLp";
 import "./landing.css";
 
 type Background = {
@@ -39,10 +39,27 @@ export default function Landing() {
       .then((data: Background[]) => {
         const ordered = data.sort(
           (a, b) =>
-            FRONT_ORDER.indexOf(a.brand_id) - FRONT_ORDER.indexOf(b.brand_id)
+            FRONT_ORDER.indexOf(a.brand_id) - FRONT_ORDER.indexOf(b.brand_id),
         );
         setBackgrounds(ordered);
       });
+  }, []);
+
+  useEffect(() => {
+    const previousRestoration = window.history.scrollRestoration;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo(0, 0);
+    currentIndex.current = 0;
+    document.body.classList.add("landing-no-scroll");
+    return () => {
+      document.body.classList.remove("landing-no-scroll");
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = previousRestoration;
+      }
+    };
   }, []);
 
   useEffect(() => {
@@ -134,7 +151,6 @@ export default function Landing() {
     }
   });
 
- 
   sections.push({
     type: "component",
     element: <Footer />,
@@ -143,6 +159,7 @@ export default function Landing() {
   });
 
   return (
+    /* <div className="landing-zindex">*/
     <div className="landing-wrapper">
       {sections.map((section) => {
         const zIndex = sections.length - sections.indexOf(section);
@@ -176,7 +193,6 @@ export default function Landing() {
           );
         }
 
-
         if (section.id === "carousel") {
           return (
             <div
@@ -206,5 +222,6 @@ export default function Landing() {
         );
       })}
     </div>
+    /* </div>*/
   );
 }
