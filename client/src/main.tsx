@@ -1,11 +1,9 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
 import App from "./App";
 import HomePage from "./pages/HomePage";
-
-// Import additional components for new routes
+import BrandPage from "./pages/BrandPage";
 import Footer from "./components/Footer/Footer";
 import CarouselLp from "./components/carouselLp/carouselLp";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
@@ -19,7 +17,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
-      // --- ROUTES DE TEST (Menu Burger / Navbar) ---
+      {
+        path:"/book",
+        element:<BrandPage/>
+      },
       {
         path: "/login",
         element: <PageTestLink />,
@@ -48,7 +49,6 @@ const router = createBrowserRouter([
         path: "/footer",
         element: <Footer />,
       },
-      // Try adding a new route! For example, "/about" with an About component
     ],
   },
 ]);

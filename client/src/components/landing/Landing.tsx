@@ -45,6 +45,23 @@ export default function Landing() {
       });
   }, []);
 
+    useEffect(() => {
+    const previousRestoration = window.history.scrollRestoration;
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
+
+    window.scrollTo(0, 0);
+    currentIndex.current = 0;
+    document.body.classList.add("landing-no-scroll");
+    return () => {
+      document.body.classList.remove("landing-no-scroll");
+      if ("scrollRestoration" in window.history) {
+        window.history.scrollRestoration = previousRestoration;
+      }
+    };
+  }, []);
+
   useEffect(() => {
     if (!backgrounds.length) return;
 
@@ -143,6 +160,7 @@ export default function Landing() {
   });
 
   return (
+   /* <div className="landing-zindex">*/
     <div className="landing-wrapper">
       {sections.map((section) => {
         const zIndex = sections.length - sections.indexOf(section);
@@ -189,6 +207,7 @@ export default function Landing() {
             </div>
           );
         }
+        
 
         return (
           <div
@@ -206,5 +225,6 @@ export default function Landing() {
         );
       })}
     </div>
+   /* </div>*/
   );
 }
