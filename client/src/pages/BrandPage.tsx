@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import "./BrandPage.css";
 import chanelbag from "../assets/images/testcards/chanel19_3.jpg";
 import chanelhabit from "../assets/images/testcards/chanel29_3.jpg";
@@ -5,7 +6,6 @@ import chanelshoes from "../assets/images/testcards/chanel47_1.jpg";
 import chanelbijoux from "../assets/images/testcards/chanel74_2.jpg";
 import BookmarkCard from "../components/BookmarkCard/BookmarkCard";
 
-import { useEffect, useState } from "react";
 type BookmarkCardType = {
   id: number;
   image: string;

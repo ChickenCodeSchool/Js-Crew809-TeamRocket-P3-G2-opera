@@ -2,10 +2,10 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import HomePage from "./pages/HomePage";
-import BrandPage from "./pages/BrandPage";
 import Footer from "./components/Footer/Footer";
 import CarouselLp from "./components/carouselLp/carouselLp";
+import BrandPage from "./pages/BrandPage";
+import HomePage from "./pages/HomePage";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
 const router = createBrowserRouter([
@@ -18,8 +18,8 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path:"/book",
-        element:<BrandPage/>
+        path: "/book",
+        element: <BrandPage />,
       },
       {
         path: "/login",

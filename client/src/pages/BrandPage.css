@@ -15,18 +15,17 @@
 
 @media (max-width: 768px) {
   .brand-cards-wrapper {
-    display: block;          
-    overflow-x: auto;        
-    white-space: nowrap;     
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
     scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch; 
+    -webkit-overflow-scrolling: touch;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
   }
 
   .brand-cards-wrapper::-webkit-scrollbar {
-    display: none; 
+    display: none;
   }
 }
-

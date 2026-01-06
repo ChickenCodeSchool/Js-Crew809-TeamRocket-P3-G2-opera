@@ -9,7 +9,7 @@ const browseBookmark: RequestHandler = async (req, res, next) => {
       return; 
     }
     const bookmarkCards = await BookmarkRepository.getBookbrand(brandId);
-    res.json(bookmarkCards); 
+    res.json(bookmarkCards);
   } catch (err) {
     next(err);
   }
