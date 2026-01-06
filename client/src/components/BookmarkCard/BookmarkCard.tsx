@@ -5,7 +5,10 @@ type BookmarkCardProps = {
   categoryName: string;
 };
 
-export default function BookmarkCard({ image, categoryName }: BookmarkCardProps) {
+export default function BookmarkCard({
+  image,
+  categoryName,
+}: BookmarkCardProps) {
   return (
     <div className="bookmark-card">
       <img src={image} alt={categoryName} className="bookmark-card-image" />

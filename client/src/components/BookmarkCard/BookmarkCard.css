@@ -2,7 +2,7 @@
   width: 260px;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
   display: flex;
@@ -11,7 +11,7 @@
 
 .bookmark-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .bookmark-card-image {
@@ -35,17 +35,17 @@
 
 @media (max-width: 768px) {
   .bookmark-card {
-    display: inline-block;    
-    width: 100%;              
+    display: inline-block;
+    width: 100%;
     min-width: 100%;
     height: auto;
-    scroll-snap-align: start; 
+    scroll-snap-align: start;
     box-sizing: border-box;
-    margin-right: 0;          
+    margin-right: 0;
   }
 
   .bookmark-card:hover {
-    transform: none;          
-    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    transform: none;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   }
 }

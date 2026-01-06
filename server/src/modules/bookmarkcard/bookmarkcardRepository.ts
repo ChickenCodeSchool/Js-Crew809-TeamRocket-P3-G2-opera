@@ -1,14 +1,14 @@
 import databaseClient from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
 
-type BookmarkCard= {
-    image: string;
-    categoryName : string,
-}
+type BookmarkCard = {
+  image: string;
+  categoryName: string;
+};
 
 class BookmarkRepository {
-    async getBookbrand(brandId: number): Promise<BookmarkCard[]> {
-        const query=`
+  async getBookbrand(brandId: number): Promise<BookmarkCard[]> {
+    const query = `
         SELECT 
         c.name AS categoryName,
         bp.url AS image
@@ -23,8 +23,8 @@ class BookmarkRepository {
         ORDER BY c.categorie_id ASC 
         LIMIT 4
         `;
-        const [rows] = await databaseClient.query(query,  [brandId]);
-        return rows as BookmarkCard[];
-    }
+    const [rows] = await databaseClient.query(query, [brandId]);
+    return rows as BookmarkCard[];
+  }
 }
 export default new BookmarkRepository();

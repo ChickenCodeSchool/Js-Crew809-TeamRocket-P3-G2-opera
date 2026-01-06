@@ -4,12 +4,12 @@ import BookmarkRepository from "./bookmarkcardRepository";
 const browseBookmark: RequestHandler = async (req, res, next) => {
   try {
     const brandId = Number(req.params.brandId);
-    if (isNaN(brandId)) {
-      res.status(400).json({ message: "Invalid brandId" }); 
-      return; 
+    if (Number.isNaN(brandId)) {
+      res.status(400).json({ message: "Invalid brandId" });
+      return;
     }
     const bookmarkCards = await BookmarkRepository.getBookbrand(brandId);
-    res.json(bookmarkCards); 
+    res.json(bookmarkCards);
   } catch (err) {
     next(err);
   }
