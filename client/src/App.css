@@ -1,16 +1,10 @@
-
-html, body {
+html, body, #root {
   margin: 0;
   padding: 0;
+  overflow-y: auto; 
+  height: auto;     
 }
 
-#root {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  overflow: visible;
+* {
+  box-sizing: border-box;
 }

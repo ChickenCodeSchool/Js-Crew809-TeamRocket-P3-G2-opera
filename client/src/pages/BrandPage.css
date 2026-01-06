@@ -1,25 +1,25 @@
 .brand-page {
-  width: 100%;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 120px 20px 60px 20px; 
+  background-color: white;
 }
-.brand-page {
-  border: 3px solid red;
-}
+
 .brand-cards-wrapper {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
-  padding: 16px;
+  gap: 20px;
   justify-content: center;
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 996px) {
+  .brand-page {
+    padding: 60px 10px 150px 10px;
+  }
+
   .brand-cards-wrapper {
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    overflow-y: visible;  
-    scroll-snap-type: x mandatory;
+    gap: 15px;
+    justify-content: center;
   }
 }
