@@ -1,0 +1,45 @@
+.bookmark-card {
+  width: 260px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+  background-color: #000;
+}
+
+.bookmark-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+.bookmark-card-image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.bookmark-card-title {
+  padding: 18px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+  background-color: black;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-family: "Bodoni Moda SC", serif;
+}
+
+@media (max-width: 768px) {
+  .bookmark-card {
+    flex: 0 0 100vw;
+    width: 100vw;
+    scroll-snap-align: start;
+  }
+
+  .bookmark-card-image {
+    height: 70vh;
+  }
+}

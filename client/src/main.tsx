@@ -1,38 +1,20 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router";
-
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
+import BrandPage from "./pages/BrandPage";
 
-// Import additional components for new routes
-// Try creating these components in the "pages" folder
-import Footer from "./components/Footer/Footer";
-import CarouselLp from "./components/carouselLp/carouselLp";
 
 const router = createBrowserRouter([
   {
+    path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
+      { path: "", element: <HomePage /> },
+      { path: "book", element: <BrandPage /> },
     ],
   },
-  {
-    path: "/carousel", 
-    element: <CarouselLp />,
-  },
-  {
-    path: "/", // The root path
-    element: <App />, // Renders the App component for the home page
-  },
-  {
-    path: "/footer", // The root path
-    element: <Footer />, // Renders the App component for the home page
-  },
-  // Try adding a new route! For example, "/about" with an About component
 ]);
 
 const rootElement = document.getElementById("root");
