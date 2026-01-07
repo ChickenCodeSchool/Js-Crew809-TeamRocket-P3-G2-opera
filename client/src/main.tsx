@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage";
 
 // Import additional components for new routes
 import Footer from "./components/Footer/Footer";
+import BrandHero from "./components/brandHero/BrandHero";
 import CarouselLp from "./components/carouselLp/carouselLp";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       // --- ROUTES DE TEST (Menu Burger / Navbar) ---
+      {
+        path: "/BrandHero",
+        element: <BrandHero brandName={""} backgroundImage={""} />,
+      },
       {
         path: "/login",
         element: <PageTestLink />,
