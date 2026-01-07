@@ -1,0 +1,65 @@
+.brand-desc-section {
+  padding: 120px 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  position: relative;
+}
+
+.brand-desc-container {
+  max-width: 800px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-logo {
+  position: absolute;
+  top: 0%;
+  right: -30vh;
+  width: 225px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  text-align: center;
+  font-weight: 300;
+}
+
+.brand-loading,
+.brand-error {
+  padding-top: 150px;
+  text-align: center;
+}
+
+@media (max-width: 1050px) {
+  .brand-logo {
+    top: 10vh;
+    right: 2vh;
+  }
+}
+
+@media (max-width: 768px) {
+  .brand-desc-container {
+    max-width: 350px;
+  }
+
+  .brand-text {
+    font-size: 1.25rem;
+  }
+
+  .brand-logo {
+    position: static;
+    margin-bottom: 2rem;
+    width: 175px;
+  }
+
+  .brand-desc-section {
+    flex-direction: column;
+  }
+}
