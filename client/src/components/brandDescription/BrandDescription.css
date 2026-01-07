@@ -1,0 +1,58 @@
+.brand-desc-section {
+  padding: 120px 2rem 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  position: relative;
+}
+
+.brand-desc-container {
+  max-width: 800px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-logo {
+  position: absolute;
+  top: 120px;
+  right: 10%;
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  text-align: center;
+  font-weight: 300;
+}
+
+.brand-loading,
+.brand-error {
+  padding-top: 150px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .brand-desc-container {
+    max-width: 350px;
+  }
+
+  .brand-text {
+    font-size: 1rem;
+  }
+
+  .brand-logo {
+    position: static;
+    margin-bottom: 2rem;
+    width: 100px;
+  }
+
+  .brand-desc-section {
+    flex-direction: column;
+  }
+}
