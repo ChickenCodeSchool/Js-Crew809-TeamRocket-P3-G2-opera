@@ -24,4 +24,7 @@ router.get(
 import carouselLpActions from "./modules/carouselLp/carouselLpActions";
 router.get("/api/carouselLp", carouselLpActions.browse);
 
+import brandDescriptionActions from "./modules/brandDescription/brandDescriptionActions";
+router.get("/api/brands/:id", brandDescriptionActions.read);
+
 export default router;

@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import BrandDescription from "../../components/brandDescription/BrandDescription";
 
 function PageTestLink() {
   const location = useLocation();
@@ -26,6 +27,8 @@ function PageTestLink() {
       >
         Page Test Link
       </h1>
+
+      <BrandDescription />
 
       <p
         style={{
