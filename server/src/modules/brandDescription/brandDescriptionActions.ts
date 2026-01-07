@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { NextFunction, Request, Response } from "express";
 import brandDescriptionRepository from "./brandDescriptionRepository";
 
 const read = async (req: Request, res: Response, next: NextFunction) => {
