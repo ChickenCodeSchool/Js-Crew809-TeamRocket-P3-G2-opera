@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import CarouselLp from "./components/carouselLp/carouselLp";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -61,5 +62,5 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );
