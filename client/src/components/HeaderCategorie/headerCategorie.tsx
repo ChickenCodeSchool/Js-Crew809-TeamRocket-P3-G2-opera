@@ -10,7 +10,9 @@ type MiniHero = {
 const HeaderCategorie = () => {
   const [miniHero, setMiniHero] = useState<MiniHero | null>(null);
   useEffect(() => {
-    fetch("http://localhost:3310/api/mini-hero-categories")
+    fetch(
+      `${import.meta.env.VITE_API_URL}/brands/:brandId/mini-hero-categories`,
+    )
       .then((response) => response.json())
       .then((data) => setMiniHero(data));
   }, []);
