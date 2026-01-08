@@ -18,7 +18,7 @@
 .brand-logo {
   position: absolute;
   top: 0%;
-  right: -2vh;
+  right: -0vh;
   width: 225px;
   height: auto;
   object-fit: contain;
@@ -54,9 +54,7 @@
   }
 
   .brand-logo {
-    position: static;
-    margin-bottom: 2rem;
-    width: 175px;
+    display: none;
   }
 
   .brand-desc-section {

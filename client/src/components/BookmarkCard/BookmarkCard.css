@@ -1,12 +1,19 @@
+.bookmark-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; 
+  gap: 20px; 
+}
+
 .bookmark-card {
-  width: 260px;
   border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
+  width: 20%; 
+  height: 360px; /*ici modification à voir si ok avec toutes les autres cartes des autres marques après avant il n'y avait pas*/
 }
 
 .bookmark-card:hover {
@@ -16,14 +23,13 @@
 
 .bookmark-card-image {
   width: 100%;
-  height: 320px;
+  height: 300px;
   object-fit: cover;
   display: block;
 }
 
 .bookmark-card-title {
   padding: 18px;
-  height: 10px;
   text-align: center;
   font-size: 15px;
   font-weight: 500;
@@ -43,10 +49,21 @@
     scroll-snap-align: start;
     box-sizing: border-box;
     margin-right: 0;
+    background-color: white;
   }
 
   .bookmark-card:hover {
     transform: none;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+  }
+
+    .bookmark-card:first-child {
+    animation: hint-slide 2s ease-in-out infinite alternate;
+  }
+
+  @keyframes hint-slide {
+    0%   { transform: translateX(0); }
+    50%  { transform: translateX(-10px); } 
+    100% { transform: translateX(0); }
   }
 }
