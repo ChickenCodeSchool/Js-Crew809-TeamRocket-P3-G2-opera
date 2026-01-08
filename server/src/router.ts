@@ -22,6 +22,17 @@ router.get(
 import carouselLpActions from "./modules/carouselLp/carouselLpActions";
 router.get("/api/carouselLp", carouselLpActions.browse);
 
+// Catégories
+import categoryActions from "./modules/category/categoryActions";
+router.get("/api/categories", categoryActions.browse);
+router.get("/api/categories/:id/products", categoryActions.readProducts);
+
+router.get("/api/brands/:brandId/categories", categoryActions.browseByBrand);
+
+router.get(
+  "/api/brands/:brandId/categories/:categoryId/products",
+  categoryActions.browseProductsByBrandAndCategory,
+);
 import miniHeroCategorieActions from "./modules/miniHeroCategorie/miniHeroCategorieActions";
 router.get(
   "/brands/:brandId/mini-hero-categories",
