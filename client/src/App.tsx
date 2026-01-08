@@ -6,9 +6,9 @@ import "./App.css";
 function App() {
   return (
     <>
-      <Navbar />
+      <Navbar /> 
       <Outlet />
-      <Footer />
+      <Footer /> 
     </>
   );
 }

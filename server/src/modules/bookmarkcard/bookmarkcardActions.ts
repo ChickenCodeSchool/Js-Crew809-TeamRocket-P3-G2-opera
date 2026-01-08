@@ -1,13 +1,14 @@
 import type { RequestHandler } from "express";
 import BookmarkRepository from "./bookmarkcardRepository";
 
-const browseBookmark: RequestHandler = async (req, res, next) => {
+const readBookmark: RequestHandler = async (req, res, next) => {
   try {
     const brandId = Number(req.params.brandId);
     if (Number.isNaN(brandId)) {
       res.status(400).json({ message: "Invalid brandId" });
       return;
     }
+    console.log("BrandId reçu :", brandId);
     const bookmarkCards = await BookmarkRepository.getBookbrand(brandId);
     res.json(bookmarkCards);
   } catch (err) {
@@ -15,4 +16,4 @@ const browseBookmark: RequestHandler = async (req, res, next) => {
   }
 };
 
-export default { browseBookmark };
+export default { readBookmark };
