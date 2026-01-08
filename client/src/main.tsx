@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Footer from "./components/Footer/Footer";
 import CarouselLp from "./components/carouselLp/carouselLp";
+import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
         path: "/brand/:id",
         element: <PageTestLink />,
       },*/
+      {
+        path: "/brand/category/:id",
+        element: <BrandCategory />,
+      },
       {
         path: "/carousel",
         element: <CarouselLp />,

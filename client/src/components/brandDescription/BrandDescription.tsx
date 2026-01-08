@@ -17,8 +17,8 @@ function BrandDescription({ brandId }: Props) {
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/brands/${brandId}`)
-      .then(res => res.json())
-      .then(data => setBrand(data));
+      .then((res) => res.json())
+      .then((data) => setBrand(data));
   }, [brandId]);
 
   if (!brand) return null;
