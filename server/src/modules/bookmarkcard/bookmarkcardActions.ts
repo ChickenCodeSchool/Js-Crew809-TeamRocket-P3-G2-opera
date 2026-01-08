@@ -5,8 +5,8 @@ const browseBookmark: RequestHandler = async (req, res, next) => {
   try {
     const brandId = Number(req.params.brandId);
     if (Number.isNaN(brandId)) {
-      res.status(400).json({ message: "Invalid brandId" }); 
-      return; 
+      res.status(400).json({ message: "Invalid brandId" });
+      return;
     }
     const bookmarkCards = await BookmarkRepository.getBookbrand(brandId);
     res.json(bookmarkCards);

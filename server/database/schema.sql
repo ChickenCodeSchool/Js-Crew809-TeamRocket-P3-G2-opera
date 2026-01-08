@@ -1,27 +1,19 @@
--- MySQL dump 10.13  Distrib 8.0.44, for macos15 (arm64)
+-- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
 --
--- Host: localhost    Database: operaDb
+-- Host: 127.0.0.1    Database: operadb
 -- ------------------------------------------------------
 -- Server version	8.0.44
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!50503 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Current Database: `operaDb`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `operaDb` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `operaDb`;
 
 --
 -- Table structure for table `brand`
@@ -35,6 +27,7 @@ CREATE TABLE `brand` (
   `name` varchar(100) NOT NULL,
   `description` text,
   `url_hero` varchar(255) NOT NULL,
+  `url_minihero` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`Brand_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -45,7 +38,7 @@ CREATE TABLE `brand` (
 
 LOCK TABLES `brand` WRITE;
 /*!40000 ALTER TABLE `brand` DISABLE KEYS */;
-INSERT INTO `brand` VALUES (1,'Rolex','Rolex, maison horlogère suisse fondée en 1905, incarne l\'excellence et le prestige. Célèbre pour ses montres iconiques comme la Submariner et la Daytona, la marque allie innovation, précision et savoir-faire artisanal depuis plus d\'un siècle.','/assets/images/Hero/rolex_hero.jpg'),(2,'Hermes','Hermès, maison française de luxe fondée en 1837, est synonyme d\'élégance et d\'artisanat d\'exception. Réputée pour ses carrés de soie, sacs Birkin et Kelly, la marque perpétue un savoir-faire unique alliant tradition et raffinement intemporel.','/assets/images/Hero/hermes_hero.jpg'),(3,'Chanel','Chanel, emblème du luxe français, incarne l’élégance intemporelle et l’audace. Réputée pour ses parfums iconiques, sacs et haute couture, la maison allie sophistication, modernité et innovation depuis sa création par Coco Chanel en 1910.','/assets/images/Hero/chanel_hero.jpg'),(4,'Cartier','Cartier, maison de luxe française fondée en 1847, est célèbre pour ses bijoux, montres et accessoires prestigieux. Synonyme d’élégance et de savoir-faire exceptionnel, elle allie tradition, innovation et design raffiné, symbole du luxe et du prestige à travers le monde.','/assets/images/Hero/cartier_hero.png'),(5,'Guerlain','Guerlain, maison française de parfumerie fondée à Paris en 1828, incarne l\'excellence olfactive depuis près de deux siècles. Créatrice de fragrances mythiques comme Shalimar et L\'Heure Bleue, la marque perpétue un savoir-faire artisanal unique, mêlant ingrédients précieux et innovation pour sublimer l\'art du parfum.','/assets/images/Hero/guerlain_hero.jpg'),(6,'Yves Saint Laurent','Yves Saint Laurent, maison française fondée en 1961, a révolutionné la mode en démocratisant le prêt-à-porter de luxe. Pionnière du smoking féminin et du style androgyne, la marque incarne l\'audace parisienne et l\'élégance rebelle, alliant créativité avant-gardiste et sophistication intemporelle pour une clientèle moderne.','/assets/images/Hero/ysl_hero.jpg'),(7,'Dior','Fondée en 1946 par Christian Dior, la Maison Dior est une icône mondiale de la haute couture. Célèbre pour avoir révolutionné la mode avec le \"New Look\", elle incarne l\'élégance française et un savoir-faire d\'exception. Des collections prêt-à-porter aux parfums, Dior symbolise le luxe intemporel.','/assets/images/Hero/dior_hero.jpg'),(8,'Prada','Fondée à Milan en 1913, Prada incarne le luxe italien d\'avant-garde. Sous l\'impulsion de Miuccia Prada, la marque a redéfini l\'élégance par une approche intellectuelle et l\'usage iconique du nylon. Mêlant artisanat traditionnel et design innovant, Prada est synonyme de sophistication moderne.','/assets/images/Hero/prada_hero.png'),(9,'Louis Vuitton','Louis Vuitton, maison française fondée à Paris en 1854, symbolise l\'art du voyage et du luxe raffiné. Reconnue pour ses malles légendaires et son monogramme LV emblématique, la marque allie tradition artisanale et innovation créative, s\'imposant comme référence mondiale de l\'élégance intemporelle et du prestige.','/assets/images/Hero/louisvuitton_hero.jpg'),(10,'Gucci','Gucci, maison italienne fondée à Florence en 1921, incarne l\'excellence du luxe avec son savoir-faire artisanal inégalé. Célèbre pour ses motifs iconiques GG et ses créations audacieuses, la marque fusionne héritage classique et modernité avant-gardiste pour séduire une clientèle exigeante à travers le monde.','/assets/images/Hero/gucci_hero.jpg');
+INSERT INTO `brand` VALUES (1,'Rolex','Rolex, maison horlogère suisse fondée en 1905, incarne l\'excellence et le prestige. Célèbre pour ses montres iconiques comme la Submariner et la Daytona, la marque allie innovation, précision et savoir-faire artisanal depuis plus d\'un siècle.','/assets/images/Hero/rolex_hero.jpg','/assets/images/MiniHero/rolex_minihero.jpg'),(2,'Hermes','Hermès, maison française de luxe fondée en 1837, est synonyme d\'élégance et d\'artisanat d\'exception. Réputée pour ses carrés de soie, sacs Birkin et Kelly, la marque perpétue un savoir-faire unique alliant tradition et raffinement intemporel.','/assets/images/Hero/hermes_hero.jpg','/assets/images/MiniHero/hermes_minihero.jpg'),(3,'Chanel','Chanel, emblème du luxe français, incarne l’élégance intemporelle et l’audace. Réputée pour ses parfums iconiques, sacs et haute couture, la maison allie sophistication, modernité et innovation depuis sa création par Coco Chanel en 1910.','/assets/images/Hero/chanel_hero.jpg','/assets/images/MiniHero/chanel_minihero.jpg'),(4,'Cartier','Cartier, maison de luxe française fondée en 1847, est célèbre pour ses bijoux, montres et accessoires prestigieux. Synonyme d’élégance et de savoir-faire exceptionnel, elle allie tradition, innovation et design raffiné, symbole du luxe et du prestige à travers le monde.','/assets/images/Hero/cartier_hero.png','/assets/images/MiniHero/cartier_minihero.png'),(5,'Guerlain','Guerlain, maison française de parfumerie fondée à Paris en 1828, incarne l\'excellence olfactive depuis près de deux siècles. Créatrice de fragrances mythiques comme Shalimar et L\'Heure Bleue, la marque perpétue un savoir-faire artisanal unique, mêlant ingrédients précieux et innovation pour sublimer l\'art du parfum.','/assets/images/Hero/guerlain_hero.jpg','/assets/images/MiniHero/guerlain_minihero.jpg'),(6,'Yves Saint Laurent','Yves Saint Laurent, maison française fondée en 1961, a révolutionné la mode en démocratisant le prêt-à-porter de luxe. Pionnière du smoking féminin et du style androgyne, la marque incarne l\'audace parisienne et l\'élégance rebelle, alliant créativité avant-gardiste et sophistication intemporelle pour une clientèle moderne.','/assets/images/Hero/ysl_hero.jpg','/assets/images/MiniHero/ysl_minihero.jpg'),(7,'Dior','Fondée en 1946 par Christian Dior, la Maison Dior est une icône mondiale de la haute couture. Célèbre pour avoir révolutionné la mode avec le \"New Look\", elle incarne l\'élégance française et un savoir-faire d\'exception. Des collections prêt-à-porter aux parfums, Dior symbolise le luxe intemporel.','/assets/images/Hero/dior_hero.jpg','/assets/images/MiniHero/dior_minihero.jpg'),(8,'Prada','Fondée à Milan en 1913, Prada incarne le luxe italien d\'avant-garde. Sous l\'impulsion de Miuccia Prada, la marque a redéfini l\'élégance par une approche intellectuelle et l\'usage iconique du nylon. Mêlant artisanat traditionnel et design innovant, Prada est synonyme de sophistication moderne.','/assets/images/Hero/prada_hero.png','/assets/images/MiniHero/prada_minihero.png'),(9,'Louis Vuitton','Louis Vuitton, maison française fondée à Paris en 1854, symbolise l\'art du voyage et du luxe raffiné. Reconnue pour ses malles légendaires et son monogramme LV emblématique, la marque allie tradition artisanale et innovation créative, s\'imposant comme référence mondiale de l\'élégance intemporelle et du prestige.','/assets/images/Hero/louisvuitton_hero.jpg','/assets/images/MiniHero/louisvuitton_minihero.jpg'),(10,'Gucci','Gucci, maison italienne fondée à Florence en 1921, incarne l\'excellence du luxe avec son savoir-faire artisanal inégalé. Célèbre pour ses motifs iconiques GG et ses créations audacieuses, la marque fusionne héritage classique et modernité avant-gardiste pour séduire une clientèle exigeante à travers le monde.','/assets/images/Hero/gucci_hero.jpg','/assets/images/MiniHero/gucci_minihero.jpg');
 /*!40000 ALTER TABLE `brand` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -411,4 +404,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-07 21:56:55
+-- Dump completed on 2026-01-08 15:45:37

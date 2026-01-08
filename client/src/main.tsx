@@ -7,6 +7,7 @@ import CarouselLp from "./components/carouselLp/carouselLp";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import BrandCategory from "./pages/BrandCategory/BrandCategory";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/brand/:id",
         element: <PageTestLink />,
+      },
+      {
+        path: "/brand/category/:brandId",
+        element: <BrandCategory />,
       },
       {
         path: "/carousel",
