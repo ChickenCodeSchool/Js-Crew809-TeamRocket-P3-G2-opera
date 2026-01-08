@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./BrandPage.css";
 
 // import BrandDescription from "../components/brandDescription/BrandDescription";
