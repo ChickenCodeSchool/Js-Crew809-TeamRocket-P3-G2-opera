@@ -5,6 +5,16 @@
   margin-bottom: 10px;
   text-align: center;
 }
+
+.header-categorie-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  object-fit: cover;
+  width: 100%;
+}
+
 hr {
   border: none;
   border-top: 2px solid #cacaca;

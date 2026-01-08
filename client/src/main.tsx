@@ -43,7 +43,7 @@ const router = createBrowserRouter([
         element: <PageTestLink />,
       },*/
       {
-        path: "/brand/category/:brandId",
+        path: "/brand/category/:id",
         element: <BrandCategory />,
       },
       {

@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import HeaderCategorie from "../../components/HeaderCategorie/headerCategorie";
+import CategorieProduct from "../../components/categorieProduct/CategorieProduct";
 
 function BrandCategory() {
   const { id } = useParams();
@@ -7,6 +8,7 @@ function BrandCategory() {
   return (
     <div>
       <HeaderCategorie brandId={brandId} />
+      <CategorieProduct brandId={brandId} categoryId={brandId} name="" />
     </div>
   );
 }
