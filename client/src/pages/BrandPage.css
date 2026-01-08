@@ -2,7 +2,6 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 120px 20px 60px 20px;
   background-color: white;
 }
 
@@ -12,6 +11,10 @@
   gap: 20px;
   justify-content: center;
   background-color:white;
+}
+
+.brand-page__navbar-static {
+  position: static;
 }
 
 .brand-page__navbar-static {

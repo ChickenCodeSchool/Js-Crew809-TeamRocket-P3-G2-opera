@@ -3,7 +3,7 @@ import databaseClient from "../../../database/client";
 export type miniHero = {
   Brand_id: number;
   name: string;
-  url_hero: string;
+  url_minihero: string;
 };
 
 class miniHeroCategorieRepository {
@@ -12,7 +12,7 @@ class miniHeroCategorieRepository {
         SELECT 
           Brand_id,
           name,
-          url_hero
+          url_minihero
         FROM brand
         WHERE Brand_id = ?
         `;

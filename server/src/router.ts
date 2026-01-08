@@ -16,8 +16,7 @@ import landingActions from "./modules/landing/landingActions";
 router.get("/api/landing", landingActions.browseBackgrounds);
 
 import bookmarkcardActions from "./modules/bookmarkcard/bookmarkcardActions";
-router.get(
-  "/brands/:brandId/bookmark-cards",bookmarkcardActions.readBookmark);
+router.get("/brands/:brandId/bookmark-cards", bookmarkcardActions.readBookmark);
 
 import carouselLpActions from "./modules/carouselLp/carouselLpActions";
 router.get("/api/carouselLp", carouselLpActions.browse);

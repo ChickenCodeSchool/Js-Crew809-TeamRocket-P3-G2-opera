@@ -14,11 +14,11 @@ type Props = {
 export default function BookmarkCard({ brandId }: Props) {
   const [cards, setCards] = useState<MarkCard[]>([]);
 
-useEffect(() => {
-  fetch(`${import.meta.env.VITE_API_URL}/brands/${brandId}/bookmark-cards`)
-    .then(res => res.json())
-    .then(data => setCards(data))
-}, [brandId]);
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/brands/${brandId}/bookmark-cards`)
+      .then((res) => res.json())
+      .then((data) => setCards(data));
+  }, [brandId]);
 
 
   return (
@@ -36,4 +36,3 @@ useEffect(() => {
     </section>
   );
 }
-

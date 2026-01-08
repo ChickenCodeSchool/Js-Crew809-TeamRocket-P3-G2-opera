@@ -1,10 +1,9 @@
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "./BrandPage.css";
-
-/*import HeaderCategorie from "../components/HeaderCategorie/headerCategorie";*/
 import BrandDescription from "../components/brandDescription/BrandDescription";
 import BookmarkCard from "../components/BookmarkCard/BookmarkCard";
+import HeaderCategorie from "../components/HeaderCategorie/headerCategorie";
 
 export default function BrandPage() {
   const { id } = useParams();
@@ -19,7 +18,7 @@ useEffect(() => {
 
   return (
     <div className="brand-page">
-      {/*<HeaderCategorie brandId={brandId} />*/}
+      <HeaderCategorie brandId={brandId} />
       <BrandDescription brandId={brandId} />
       <BookmarkCard brandId={brandId} />
     </div>
