@@ -20,6 +20,7 @@ export default function BookmarkCard({ brandId }: Props) {
       .then((data) => setCards(data));
   }, [brandId]);
 
+
   return (
     <section className="brand-cards-wrapper">
       {cards.map((card) => (
