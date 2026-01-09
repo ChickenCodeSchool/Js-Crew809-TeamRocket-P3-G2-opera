@@ -3,10 +3,12 @@
   flex-wrap: wrap;
   justify-content: space-between; 
   gap: 20px; 
+  padding-bottom: 50px;
 }
 
 .bookmark-card {
   border-radius: 14px;
+  border: 1px solid rgba(2, 2, 2, 0.15);
   overflow: hidden;
   transition: transform 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
