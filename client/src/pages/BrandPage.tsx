@@ -1,41 +1,26 @@
-import { useState, useEffect } from "react";
-import "./BrandPage.css"
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import "./BrandPage.css";
+import BrandDescription from "../components/brandDescription/BrandDescription";
 import BookmarkCard from "../components/BookmarkCard/BookmarkCard";
-import chanelbag from "../assets/images/testcards/chanel19_3.jpg";
-import chanelhabit from "../assets/images/testcards/chanel29_3.jpg";
-import chanelshoes from '../assets/images/testcards/chanel47_1.jpg';
-import chanelbijoux from '../assets/images/testcards/chanel74_2.jpg';
-
-
-type BookmarkCardType = {
-  image: string;
-  categoryName: string;
-};
+import HeaderCategorie from "../components/HeaderCategorie/headerCategorie";
 
 export default function BrandPage() {
-  const [cards, setCards] = useState<BookmarkCardType[]>([]);
+  const { id } = useParams();
+  const brandId = Number(id);
 
-  useEffect(() => {
-    const testData: BookmarkCardType[] = [
-      { image: chanelbag, categoryName: "Sacs" },
-      { image: chanelhabit, categoryName: "Prêt à porter" },
-      { image: chanelshoes, categoryName: "Chaussures" },
-      { image: chanelbijoux, categoryName: "Accessoires" },
-    ];
-    setCards(testData);
-  }, []);
+useEffect(() => {
+  const navbar = document.querySelector(".navbar");
+  navbar?.classList.add("brand-page__navbar-static");
+  return () => {navbar?.classList.remove("brand-page__navbar-static");
+  };
+}, []);
 
   return (
     <div className="brand-page">
-      <div className="brand-cards-wrapper">
-        {cards.map((card, index) => (
-          <BookmarkCard
-            key={index}
-            image={card.image}
-            categoryName={card.categoryName}
-          />
-        ))}
-      </div>
+      <HeaderCategorie brandId={brandId} />
+      <BrandDescription brandId={brandId} />
+      <BookmarkCard brandId={brandId} />
     </div>
   );
 }
