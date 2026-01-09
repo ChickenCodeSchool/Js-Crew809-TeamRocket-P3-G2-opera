@@ -8,13 +8,8 @@ function App() {
   return (
     <>
       <Navbar />
+      <BrandHero brandName={"Louis Vuitton"} backgroundImage={"Lv"} />
       <main>
-        <BrandHero
-          brandName="LOUIS VUITTON"
-          // Ici, utilise le chemin vers ta photo dans le dossier public
-          backgroundImage="/assets/images/ProductImage/louis vuitton/votre_image_fond.webp"
-          // Ici, ton logo démo (optionnel selon ton Figma)
-        />
         <Outlet />
       </main>
       <Footer />
