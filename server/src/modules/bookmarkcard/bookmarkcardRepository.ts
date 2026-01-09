@@ -4,12 +4,14 @@ import type { Result, Rows } from "../../../database/client";
 type BookmarkCard = {
   image: string;
   categoryName: string;
+  categorie_id: number;
 };
 
 class BookmarkRepository {
   async getBookbrand(brandId: number): Promise<BookmarkCard[]> {
     const query = `
       SELECT 
+      cat.categorie_id,
       cat.name AS categoryName,
       (SELECT pi.url
        FROM product_image pi

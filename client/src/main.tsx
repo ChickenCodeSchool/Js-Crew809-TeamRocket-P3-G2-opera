@@ -38,12 +38,8 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <PageTestLink />,
       },
-      /*{
-        path: "/brand/:id",
-        element: <PageTestLink />,
-      },*/
       {
-        path: "/brand/category/:id",
+        path: "/brand/:brandId/category/:categoryId",
         element: <BrandCategory />,
       },
       {

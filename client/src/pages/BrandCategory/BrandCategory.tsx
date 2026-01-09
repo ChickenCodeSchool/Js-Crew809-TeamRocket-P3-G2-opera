@@ -3,12 +3,18 @@ import HeaderCategorie from "../../components/HeaderCategorie/headerCategorie";
 import CategorieProduct from "../../components/categorieProduct/CategorieProduct";
 
 function BrandCategory() {
-  const { id } = useParams();
-  const brandId = Number(id);
+  const { brandId, categoryId } = useParams<{ brandId: string; categoryId: string }>();
+
+  if (!brandId || !categoryId) return <div>Paramètres manquants</div>;
+
   return (
     <div>
-      <HeaderCategorie brandId={brandId} />
-      <CategorieProduct brandId={brandId} categoryId={brandId} name="" />
+      <HeaderCategorie brandId={Number(brandId)} />
+      <CategorieProduct
+        brandId={Number(brandId)}
+        categoryId={Number(categoryId)}
+        name=""
+      />
     </div>
   );
 }
