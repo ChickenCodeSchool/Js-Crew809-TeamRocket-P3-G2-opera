@@ -5,8 +5,6 @@ import CategorieProduct from "../../components/categorieProduct/CategorieProduct
 function BrandCategory() {
   const { brandId, categoryId } = useParams<{ brandId: string; categoryId: string }>();
 
-  if (!brandId || !categoryId) return <div>Paramètres manquants</div>;
-
   return (
     <div>
       <HeaderCategorie brandId={Number(brandId)} />

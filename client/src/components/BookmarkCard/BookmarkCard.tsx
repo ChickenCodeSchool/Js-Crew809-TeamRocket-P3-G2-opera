@@ -20,11 +20,9 @@ export default function BookmarkCard({ brandId }: Props) {
     fetch(`${import.meta.env.VITE_API_URL}/brands/${brandId}/bookmark-cards`)
       .then((res) => res.json())
       .then((data: MarkCard[]) => setCards(data))
-      .catch((err) => console.error(err));
   }, [brandId]);
 
   const handleClick = (categoryId: number) => {
-    console.log("Navigation vers categoryId:", categoryId); // debug
     navigate(`/brand/${brandId}/category/${categoryId}`);
   };
 
