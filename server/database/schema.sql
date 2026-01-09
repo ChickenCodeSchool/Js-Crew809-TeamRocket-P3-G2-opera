@@ -146,7 +146,7 @@ CREATE TABLE `categories` (
   `created_ad` datetime DEFAULT NULL,
   `UPDATED8AT` datetime DEFAULT NULL,
   PRIMARY KEY (`categorie_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -155,7 +155,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'montre',NULL,NULL),(2,'sportswear',NULL,NULL),(3,'parfum',NULL,NULL),(4,'cravate & noeud papillon',NULL,NULL),(5,'accessoires',NULL,NULL),(6,'sneakers',NULL,NULL);
+INSERT INTO `categories` VALUES (1,'Prêt-à-porter',NULL,NULL),(2,'Sacs',NULL,NULL),(3,'Souliers',NULL,NULL),(4,'Accessoires',NULL,NULL),(5,'Parfum',NULL,NULL),(6,'Montre',NULL,NULL),(7,'Maquillage',NULL,NULL),(8,'Soin',NULL,NULL),(9,'Bagues',NULL,NULL),(10,'Boucles d\'oreilles',NULL,NULL),(11,'Bracelet',NULL,NULL),(12,'Collier',NULL,NULL),(13,'Bijoux',NULL,NULL),(14,'Cravate & Nœud Papillon',NULL,NULL);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,7 +383,7 @@ CREATE TABLE `stock` (
   `stock_id` int NOT NULL AUTO_INCREMENT,
   `quantity` varchar(45) NOT NULL,
   PRIMARY KEY (`stock_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,6 +392,7 @@ CREATE TABLE `stock` (
 
 LOCK TABLES `stock` WRITE;
 /*!40000 ALTER TABLE `stock` DISABLE KEYS */;
+INSERT INTO `stock` VALUES (1,'23'),(2,'0'),(3,'45'),(4,'12'),(5,'8'),(6,'0'),(7,'67'),(8,'3'),(9,'31'),(10,'0'),(11,'19'),(12,'54'),(13,'7'),(14,'0'),(15,'28'),(16,'41'),(17,'2'),(18,'16'),(19,'0'),(20,'38');
 /*!40000 ALTER TABLE `stock` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -404,4 +405,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-08 15:45:37
+-- Dump completed on 2026-01-09 10:11:59
