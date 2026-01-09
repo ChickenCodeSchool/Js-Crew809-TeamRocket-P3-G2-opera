@@ -9,9 +9,11 @@ type MarkCard = {
 
 type Props = {
   brandId: number;
+  onCategoryClick: (categoryId: number) => void; 
 };
 
-export default function BookmarkCard({ brandId }: Props) {
+
+export default function BookmarkCard({ brandId, onCategoryClick }: Props) {
   const [cards, setCards] = useState<MarkCard[]>([]);
 
   useEffect(() => {
