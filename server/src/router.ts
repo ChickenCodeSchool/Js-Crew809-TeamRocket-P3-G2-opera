@@ -40,4 +40,10 @@ router.get(
 import brandDescriptionActions from "./modules/brandDescription/brandDescriptionActions";
 router.get("/api/brands/:id", brandDescriptionActions.read);
 
+import articleDetailsActions from "./modules/articleDetails/articleDetailsAction";
+router.get(
+  "/api/products/:productId",
+  articleDetailsActions.readArticleDetails,
+);
+
 export default router;

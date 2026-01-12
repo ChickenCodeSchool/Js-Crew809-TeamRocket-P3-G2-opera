@@ -1,0 +1,74 @@
+import databaseClient from "../../../database/client";
+
+export type ArticleDetails = {
+  product_id: number;
+  name: string;
+  description: string;
+  brand_id: number;
+  price: number;
+  color: string;
+  images: ArticleDetailsImages[];
+};
+export type ArticleDetailsImages = {
+  product_image_id: number;
+  url: string;
+  is_main: boolean;
+};
+
+//Ce type n'est pas utilisé mais peut aider pour le mapping des résultats de la requête SQL
+type ProductRow = {
+  product_id: number;
+  name: string;
+  description: string;
+  brand_id: number;
+  price: number;
+  color: string;
+  product_image_id: number;
+  url: string;
+  is_main: boolean;
+};
+
+class ArticleDetailsRepository {
+  async get(productId: number): Promise<ArticleDetails | null> {
+    const query = `
+        SELECT 
+          p.product_id,
+          p.name,
+          p.description,
+          p.brand_id,
+            p.price,
+            p.color,
+            pi.product_image_id,
+            pi.url,
+            pi.is_main
+        FROM product p
+        LEFT JOIN product_image pi ON p.product_id = pi.product_id
+        WHERE p.product_id = ?
+        `;
+    const [rows] = await databaseClient.query(query, [productId]);
+    const result = rows as ProductRow[];
+    if (result.length === 0) {
+      return null;
+    }
+
+    const firstRow = result[0];
+    const productData: ArticleDetails = {
+      product_id: firstRow.product_id,
+      name: firstRow.name,
+      description: firstRow.description,
+      brand_id: firstRow.brand_id,
+      price: firstRow.price,
+      color: firstRow.color,
+      images: result
+        .filter((row) => row.product_image_id !== null)
+        .map((row) => ({
+          product_image_id: row.product_image_id,
+          url: row.url as string,
+          is_main: Boolean(row.is_main),
+        })),
+    };
+
+    return productData;
+  }
+}
+export default new ArticleDetailsRepository();

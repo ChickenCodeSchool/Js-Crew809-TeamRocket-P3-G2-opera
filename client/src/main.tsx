@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import ArticlePage from "./pages/ArticlePage/article";
 import Footer from "./components/Footer/Footer";
 import CarouselLp from "./components/carouselLp/carouselLp";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
       {
         path: "/footer",
         element: <Footer />,
+      },
+      {
+        path: "/products/:productId",
+        element: <ArticlePage />,
       },
     ],
   },
