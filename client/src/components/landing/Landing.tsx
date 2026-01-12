@@ -159,7 +159,6 @@ export default function Landing() {
   });
 
   return (
-    /* <div className="landing-zindex">*/
     <div className="landing-wrapper">
       {sections.map((section) => {
         const zIndex = sections.length - sections.indexOf(section);
@@ -222,6 +221,5 @@ export default function Landing() {
         );
       })}
     </div>
-    /* </div>*/
   );
 }
