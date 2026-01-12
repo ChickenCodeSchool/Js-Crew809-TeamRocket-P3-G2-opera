@@ -1,123 +1,44 @@
+/* Le conteneur principal */
 .brand-hero-container {
-  position: relative; /* Indispensable pour que les couches enfants se superposent */
+  position: relative;
   width: 100%;
-  height: 500px; /* Ajuste cette hauteur pour correspondre à ton Figma */
+  height: 100vh;
   overflow: hidden;
-}
-
-.hero-image-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover; /* L'image couvre tout sans se déformer */
-  background-position: center;
-  z-index: 1; /* Couche du dessous */
-}
-
-.hero-text-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2; /* Couche du dessus */
-
-  /* Centrage parfait du texte au milieu de l'image */
-  display: flex;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
-}
-
-.hero-brand-title {
-  color: white; /* Comme sur ton Figma */
-  font-size: 5rem; /* Taille imposante pour l'effet Luxe */
-  font-weight: 300; /* Police fine pour l'élégance Chanel */
-  letter-spacing: 15px; /* Espacement des lettres pour le style Figma */
-  text-transform: uppercase;
-  margin: 0;
-}
-.brand-hero-container {
-  position: relative; /* Indispensable pour que les couches enfants se superposent */
-  width: 100%;
-  height: 500px; /* Ajuste cette hauteur pour correspondre à ton Figma */
-  overflow: hidden;
-}
-
-.hero-image-bg {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover; /* L'image couvre tout sans se déformer */
-  background-position: center;
-  z-index: 1; /* Couche du dessous */
-}
-
-.hero-text-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2; /* Couche du dessus */
-
-  /* Centrage parfait du texte au milieu de l'image */
-  display: flex;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
-}
-
-.hero-brand-title {
-  color: white; /* Comme sur ton Figma */
-  font-size: 5rem; /* Taille imposante pour l'effet Luxe */
-  font-weight: 300; /* Police fine pour l'élégance Chanel */
-  letter-spacing: 15px; /* Espacement des lettres pour le style Figma */
-  text-transform: uppercase;
-  margin: 0;
-}
-.brand-hero-container {
-  position: relative; /* Indispensable pour que les couches enfants se superposent */
-  width: 100%;
-  height: 500px; /* Ajuste cette hauteur pour correspondre à ton Figma */
-  overflow: hidden;
-  background-image: url(../../../../server/public/assets/images/LandingImage/cartier/landing_caroussel_cartier.jpeg);
   background-repeat: no-repeat;
   background-position: center;
 }
 
+/* L'image en arrière-plan */
 .hero-image-bg {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-size: cover; /* L'image couvre tout sans se déformer */
+  background-size: cover;
   background-position: center;
-  z-index: 1; /* Couche du dessous */
+  z-index: 1;
 }
 
+/* La couche pour le texte */
 .hero-text-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 2; /* Couche du dessus */
-
-  /* Centrage parfait du texte au milieu de l'image */
+  z-index: 2;
   display: flex;
-  justify-content: center; /* Centre horizontalement */
-  align-items: center; /* Centre verticalement */
+  justify-content: center;
+  align-items: center;
 }
 
+/* Le titre style luxe */
 .hero-brand-title {
-  color: white; /* Comme sur ton Figma */
-  font-size: 5rem; /* Taille imposante pour l'effet Luxe */
-  font-weight: 300; /* Police fine pour l'élégance Chanel */
-  letter-spacing: 15px; /* Espacement des lettres pour le style Figma */
+  color: white;
+  font-size: 5rem;
+  font-weight: 300;
+  letter-spacing: 15px;
   text-transform: uppercase;
   margin: 0;
 }
