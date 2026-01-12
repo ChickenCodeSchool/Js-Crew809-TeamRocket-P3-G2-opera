@@ -7,8 +7,8 @@ import CarouselLp from "./components/carouselLp/carouselLp";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
-import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 import Contact from "./pages/contactPage/contact";
+import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
 const router = createBrowserRouter([
   {
@@ -67,5 +67,5 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>
+  </StrictMode>,
 );

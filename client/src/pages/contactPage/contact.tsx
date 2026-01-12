@@ -1,7 +1,7 @@
 import "./contact.css";
 import { BsFillTelephoneFill } from "react-icons/bs";
-import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 import { IoIosMail } from "react-icons/io";
+import { IoChatbubbleEllipsesSharp } from "react-icons/io5";
 
 function Contact() {
   return (
