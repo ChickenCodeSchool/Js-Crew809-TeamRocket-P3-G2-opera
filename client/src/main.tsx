@@ -8,6 +8,7 @@ import CarouselLp from "./components/carouselLp/carouselLp";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
+import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
 const router = createBrowserRouter([
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
       {
         path: "/footer",
         element: <Footer />,
+      },
+      {
+        path: "/nouscontacter",
+        element: <Contact />,
       },
     ],
   },
