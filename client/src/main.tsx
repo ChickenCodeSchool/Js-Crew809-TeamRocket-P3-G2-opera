@@ -8,6 +8,7 @@ import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import Contact from "./pages/contactPage/contact";
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
         path: "/footer",
         element: <Footer />,
       },
+      {
+        path: "/nouscontacter",
+        element: <Contact />,
+      },
     ],
   },
 ]);
@@ -62,5 +67,5 @@ if (rootElement == null) {
 createRoot(rootElement).render(
   <StrictMode>
     <RouterProvider router={router} />
-  </StrictMode>,
+  </StrictMode>
 );
