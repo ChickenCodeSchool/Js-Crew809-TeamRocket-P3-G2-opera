@@ -155,7 +155,7 @@ CREATE TABLE `categories` (
 
 LOCK TABLES `categories` WRITE;
 /*!40000 ALTER TABLE `categories` DISABLE KEYS */;
-INSERT INTO `categories` VALUES (1,'Montre',NULL,NULL),(2,'Prêt-à-porter',NULL,NULL),(3,'Parfum',NULL,NULL),(4,'Cravate & Nœud Papillon',NULL,NULL),(5,'Accessoires',NULL,NULL),(6,'Souliers',NULL,NULL),(7,'Sacs',NULL,NULL),(8,'Maquillage',NULL,NULL),(9,'Soin',NULL,NULL),(10,'Bagues',NULL,NULL),(11,'Boucles d\'oreilles',NULL,NULL),(12,'Bracelet',NULL,NULL),(13,'Collier',NULL,NULL),(14,'Bijoux',NULL,NULL);
+INSERT INTO `categories` VALUES (1,'Montre',NULL,NULL),(2,'Prêt-à-porter',NULL,NULL),(3,'Parfum',NULL,NULL),(4,'Cravate & Nœud Papillon',NULL,NULL),(5,'Accessoires',NULL,NULL),(6,'Souliers',NULL,NULL),(7,'Sacs',NULL,NULL),(8,'Maquillage',NULL,NULL),(9,'Bagues',NULL,NULL),(10,'Soin',NULL,NULL),(11,'Boucles d\'oreilles',NULL,NULL),(12,'Bracelet',NULL,NULL),(13,'Collier',NULL,NULL),(14,'Bijoux',NULL,NULL);
 /*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,4 +405,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-12  9:51:38
+-- Dump completed on 2026-01-12 14:45:45
