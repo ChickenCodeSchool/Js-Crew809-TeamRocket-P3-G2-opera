@@ -1,0 +1,36 @@
+.title_contact {
+  display: flex;
+  justify-content: center;
+  margin-top: 10rem;
+}
+
+.choose_conctact {
+  display: flex;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.method_contact {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10rem;
+}
+.method_contact div {
+  text-align: center;
+}
+.mail_contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 4rem;
+  margin-bottom: 30rem;
+}
+
+.method_contact h3,
+p {
+  margin-bottom: 1rem;
+}
+.method_contact svg,
+.mail_contact svg {
+  margin-right: 0.5rem;
+}
