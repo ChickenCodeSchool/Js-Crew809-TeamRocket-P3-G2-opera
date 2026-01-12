@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router";
 import "./Footer.css";
 
 function Footer() {
@@ -37,9 +38,11 @@ function Footer() {
                   openSection === "help" ? "open" : ""
                 }`}
               >
-                <p>Nous contacter</p>
-                <p>Ma commande</p>
-                <p>Foire aux questions</p>
+                <div className="links_footer">
+                  <Link to="/nouscontacter">Nous contacter</Link>
+                  <Link to="#">Ma commande</Link>
+                  <Link to="#">Foire aux questions</Link>
+                </div>
               </div>
             </div>
 

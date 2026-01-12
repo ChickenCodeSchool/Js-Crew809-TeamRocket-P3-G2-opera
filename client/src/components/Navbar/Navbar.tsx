@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
 import BurgerMenu from "../burgerNav/BurgerNav";
@@ -12,8 +12,23 @@ function Navbar() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const isLanding = location.pathname === "/";
+  const darkNavbarPages = ["/nouscontacter"];
+  const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
   useEffect(() => {
+    if (shouldBeDark) {
+      setTheme("dark");
+      return;
+    }
+
+    if (!isLanding) {
+      setTheme("light");
+      return;
+    }
+
     const setupObserver = () => {
       const sections = document.querySelectorAll("[data-nav-theme]");
       const observer = new IntersectionObserver(
@@ -40,7 +55,7 @@ function Navbar() {
     }, 500);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, [location.pathname, isLanding, shouldBeDark]);
 
   return (
     <>
