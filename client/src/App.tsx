@@ -1,17 +1,13 @@
-import { Outlet } from "react-router";
-import "./App.css";
+import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
-import BrandHero from "./components/brandHero/BrandHero";
+import "./App.css";
 
 function App() {
   return (
     <>
       <Navbar />
-      <BrandHero brandName={"Louis Vuitton"} backgroundImage={"Lv"} />
-      <main>
-        <Outlet />
-      </main>
+      <Outlet />
       <Footer />
     </>
   );

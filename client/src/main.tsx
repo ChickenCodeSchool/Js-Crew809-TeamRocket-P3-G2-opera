@@ -1,14 +1,13 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-
 import App from "./App";
-import HomePage from "./pages/HomePage";
-
-// Import additional components for new routes
 import Footer from "./components/Footer/Footer";
 /*import BrandHero from "./components/brandHero/BrandHero";*/
 import CarouselLp from "./components/carouselLp/carouselLp";
+import BrandCategory from "./pages/BrandCategory/BrandCategory";
+import BrandPage from "./pages/BrandPage";
+import HomePage from "./pages/HomePage";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
 const router = createBrowserRouter([
@@ -20,11 +19,10 @@ const router = createBrowserRouter([
         path: "/",
         element: <HomePage />,
       },
-      // --- ROUTES DE TEST (Menu Burger / Navbar) ---
-      /*{
-        path: "/brandhero",
-        element: <BrandHero />,
-      },*/
+      {
+        path: "/brand/:id",
+        element: <BrandPage />,
+      },
       {
         path: "/login",
         element: <PageTestLink />,
@@ -42,8 +40,8 @@ const router = createBrowserRouter([
         element: <PageTestLink />,
       },
       {
-        path: "/brand/:id",
-        element: <PageTestLink />,
+        path: "/brand/:brandId/category/:categoryId",
+        element: <BrandCategory />,
       },
       {
         path: "/carousel",
@@ -53,7 +51,6 @@ const router = createBrowserRouter([
         path: "/footer",
         element: <Footer />,
       },
-      // Try adding a new route! For example, "/about" with an About component
     ],
   },
 ]);
