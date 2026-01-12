@@ -113,6 +113,16 @@
   background-color: black;
 }
 
+.links_footer a {
+  color: #ccc;
+  text-decoration: none;
+  display: block;
+}
+
+.links_footer a:hover {
+  text-decoration: underline;
+}
+
 /* ========== MOBILE ========== */
 @media screen and (max-width: 996px) {
   .bg_footer {
