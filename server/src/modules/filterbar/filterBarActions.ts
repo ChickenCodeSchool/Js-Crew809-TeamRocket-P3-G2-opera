@@ -30,7 +30,9 @@ const browse = async (req: Request, res: Response) => {
 
 const getCategories = async (req: Request, res: Response) => {
   try {
-    const categories = await filterBarRepository.readAllCategories();
+    const brandId = req.query.brandId ? Number(req.query.brandId) : undefined;
+
+    const categories = await filterBarRepository.readAllCategories(brandId);
     res.json(categories);
   } catch (err) {
     console.error(err);
@@ -38,7 +40,6 @@ const getCategories = async (req: Request, res: Response) => {
   }
 };
 
-// --- NOUVEAU ---
 const getBrands = async (req: Request, res: Response) => {
   try {
     const brands = await filterBarRepository.readAllBrands();

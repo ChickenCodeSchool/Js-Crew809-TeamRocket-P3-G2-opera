@@ -38,17 +38,43 @@ class FilterBarRepository {
     return rows;
   }
 
-  async readAllCategories() {
+  async readAllCategories(brandId?: number) {
+    if (brandId) {
+      const sql = `
+        SELECT DISTINCT c.categorie_id AS id, c.name
+        FROM categories c
+        JOIN product_categories pc ON c.categorie_id = pc.categorie_id
+        JOIN product p ON pc.product_id = p.product_id
+        WHERE p.brand_id = ?
+        ORDER BY c.name ASC
+      `;
+      const [rows] = await database.query<Rows>(sql, [brandId]);
+      return rows;
+    }
+
     const [rows] = await database.query<Rows>(
-      "SELECT categorie_id AS id, name FROM categories",
+      "SELECT categorie_id AS id, name FROM categories ORDER BY name ASC",
     );
     return rows;
   }
 
   async readAllBrands() {
-    const [rows] = await database.query<Rows>(
-      "SELECT brand_id AS id, name FROM brand ORDER BY name ASC",
-    );
+    const sql = `
+      SELECT 
+        b.brand_id AS id, 
+        b.name,
+        (
+          SELECT pc.categorie_id 
+          FROM product p
+          JOIN product_categories pc ON p.product_id = pc.product_id
+          WHERE p.brand_id = b.brand_id
+          LIMIT 1
+        ) AS default_category_id
+      FROM brand b 
+      ORDER BY b.name ASC
+    `;
+
+    const [rows] = await database.query<Rows>(sql);
     return rows;
   }
 

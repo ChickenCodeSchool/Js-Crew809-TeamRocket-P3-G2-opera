@@ -13,6 +13,12 @@ type FilterBarProps = {
   }) => void;
 };
 
+type BrandItem = {
+  id: number;
+  name: string;
+  default_category_id: number | null;
+};
+
 type Item = {
   id: number;
   name: string;
@@ -45,7 +51,7 @@ export default function FilterBar({
   const { brandId } = useParams();
   const navigate = useNavigate();
 
-  const [brands, setBrands] = useState<Item[]>([]);
+  const [brands, setBrands] = useState<BrandItem[]>([]);
   const [categories, setCategories] = useState<Item[]>([]);
   const [sizes, setSizes] = useState<SizeOption[]>([]);
 
@@ -68,13 +74,20 @@ export default function FilterBar({
 
   // Chargement des catégories
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/filter/categories`)
+    if (!brandId) return;
+    fetch(
+      `${import.meta.env.VITE_API_URL}/api/filter/categories?brandId=${brandId}`,
+    )
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setCategories(data);
+        else setCategories([]);
       })
-      .catch((err) => console.error(err));
-  }, []);
+      .catch((err) => {
+        console.error(err);
+        setCategories([]);
+      });
+  }, [brandId]);
 
   // Chargement des tailles
   useEffect(() => {
@@ -106,17 +119,19 @@ export default function FilterBar({
     }));
   };
 
-  // --- NAVIGATION MARQUE ---
-  const handleBrandClick = (newBrandId: number) => {
-    if (brandId === newBrandId.toString()) return;
+  // --- Redirection intelligente ---
+  const handleBrandClick = (brand: BrandItem) => {
+    if (brandId === brand.id.toString()) return;
 
-    if (filters.categoryId) {
-      navigate(`/brand/${newBrandId}/category/${filters.categoryId}`);
-    } else {
-      console.warn(
-        "Redirection marque sans catégorie (à adapter selon vos routes React)",
-      );
+    let targetCategoryId = brand.default_category_id;
+
+    if (!targetCategoryId) {
+      console.warn("Cette marque n'a aucun produit/catégorie associé.");
+      targetCategoryId = 1;
     }
+
+    navigate(`/brand/${brand.id}/category/${targetCategoryId}`);
+
     onClose();
   };
 
@@ -181,7 +196,7 @@ export default function FilterBar({
                     fontWeight:
                       brandId === brand.id.toString() ? "bold" : "normal",
                   }}
-                  onClick={() => handleBrandClick(brand.id)}
+                  onClick={() => handleBrandClick(brand)}
                 >
                   {brand.name}
                 </button>
@@ -205,22 +220,28 @@ export default function FilterBar({
 
           {openSections.category && (
             <div className="filter-options">
-              {categories.map((cat) => (
-                <button
-                  type="button"
-                  key={cat.id}
-                  className="category-item"
-                  style={{
-                    fontWeight:
-                      filters.categoryId === cat.id?.toString()
-                        ? "bold"
-                        : "normal",
-                  }}
-                  onClick={() => cat.id && handleCategoryClick(cat.id)}
-                >
-                  {cat.name}
-                </button>
-              ))}
+              {categories.length === 0 ? (
+                <span className="info-text">
+                  Aucune catégorie trouvée pour cette marque.
+                </span>
+              ) : (
+                categories.map((cat) => (
+                  <button
+                    type="button"
+                    key={cat.id}
+                    className="category-item"
+                    style={{
+                      fontWeight:
+                        filters.categoryId === cat.id?.toString()
+                          ? "bold"
+                          : "normal",
+                    }}
+                    onClick={() => cat.id && handleCategoryClick(cat.id)}
+                  >
+                    {cat.name}
+                  </button>
+                ))
+              )}
             </div>
           )}
         </div>
