@@ -257,7 +257,7 @@ export default function FilterBar({
             className="filter-header"
             onClick={() => toggleSection("color")}
           >
-            <span>COULEUR</span>
+            <span>COULEURS</span>
             <span className="toggle-icon">
               {openSections.color ? "-" : "+"}
             </span>
@@ -335,7 +335,7 @@ export default function FilterBar({
           )}
         </div>
 
-        {/* 4. PRIX (Déplacé ici) */}
+        {/* 4. PRIX */}
         <div className="filter-section">
           <button
             type="button"
@@ -379,7 +379,7 @@ export default function FilterBar({
           )}
         </div>
 
-        {/* 5. CATÉGORIES (Déplacé ici) */}
+        {/* 5. CATÉGORIES */}
         <div className="filter-section">
           <button
             type="button"
