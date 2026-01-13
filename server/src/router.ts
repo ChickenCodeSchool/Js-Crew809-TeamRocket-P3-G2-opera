@@ -46,4 +46,6 @@ router.get("/api/filter/categories", filterBarActions.getCategories);
 router.get("/api/filter/brands", filterBarActions.getBrands);
 router.get("/api/sizes", filterBarActions.getSizes);
 
+import brandActions from "./modules/brand/brandActions";
+router.get("/brands/:brandId/hero", brandActions.readHero);
 export default router;
