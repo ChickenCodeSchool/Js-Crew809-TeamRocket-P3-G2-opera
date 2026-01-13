@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import "./BrandPage.css";
 import BookmarkCard from "../components/BookmarkCard/BookmarkCard";
-import HeaderCategorie from "../components/HeaderCategorie/headerCategorie";
 import BrandDescription from "../components/brandDescription/BrandDescription";
 import BrandHero from "../components/brandHero/BrandHero";
 
@@ -23,7 +22,6 @@ export default function BrandPage() {
       <BrandHero brandId={brandId} />
       <BrandDescription brandId={brandId} />
       <BookmarkCard brandId={brandId} />
-      <HeaderCategorie brandId={brandId} />
     </div>
   );
 }
