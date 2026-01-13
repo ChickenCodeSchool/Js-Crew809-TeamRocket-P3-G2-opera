@@ -17,14 +17,7 @@ type CategorieProductProps = {
 function CategorieProduct({ products }: CategorieProductProps) {
   if (!products || products.length === 0) {
     return (
-      <div
-        style={{
-          textAlign: "center",
-          padding: "80px 20px",
-          color: "#666",
-          fontSize: "14px",
-        }}
-      >
+      <div className="no-products-message">
         Aucun produit ne correspond à votre recherche.
       </div>
     );

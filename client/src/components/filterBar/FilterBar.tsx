@@ -119,19 +119,16 @@ export default function FilterBar({
     }));
   };
 
-  // --- Redirection intelligente ---
   const handleBrandClick = (brand: BrandItem) => {
     if (brandId === brand.id.toString()) return;
 
     let targetCategoryId = brand.default_category_id;
-
     if (!targetCategoryId) {
       console.warn("Cette marque n'a aucun produit/catégorie associé.");
       targetCategoryId = 1;
     }
 
     navigate(`/brand/${brand.id}/category/${targetCategoryId}`);
-
     onClose();
   };
 
@@ -191,11 +188,9 @@ export default function FilterBar({
                 <button
                   type="button"
                   key={brand.id}
-                  className="category-item"
-                  style={{
-                    fontWeight:
-                      brandId === brand.id.toString() ? "bold" : "normal",
-                  }}
+                  className={`category-item ${
+                    brandId === brand.id.toString() ? "selected" : ""
+                  }`}
                   onClick={() => handleBrandClick(brand)}
                 >
                   {brand.name}
@@ -229,13 +224,11 @@ export default function FilterBar({
                   <button
                     type="button"
                     key={cat.id}
-                    className="category-item"
-                    style={{
-                      fontWeight:
-                        filters.categoryId === cat.id?.toString()
-                          ? "bold"
-                          : "normal",
-                    }}
+                    className={`category-item ${
+                      filters.categoryId === cat.id?.toString()
+                        ? "selected"
+                        : ""
+                    }`}
                     onClick={() => cat.id && handleCategoryClick(cat.id)}
                   >
                     {cat.name}
@@ -270,11 +263,9 @@ export default function FilterBar({
                   <button
                     type="button"
                     key={s.size_label}
-                    className="category-item"
-                    style={{
-                      fontWeight:
-                        filters.size === s.size_label ? "bold" : "normal",
-                    }}
+                    className={`category-item ${
+                      filters.size === s.size_label ? "selected" : ""
+                    }`}
                     onClick={() => handleSizeClick(s.size_label)}
                   >
                     {s.size_label}
@@ -309,18 +300,16 @@ export default function FilterBar({
                 >
                   <div
                     className="color-swatch"
-                    style={{
-                      backgroundColor: c.hex,
-                      border:
-                        c.name === "Blanc" || c.name === "Beige"
-                          ? "1px solid #ccc"
-                          : "none",
-                    }}
+                    // Style inline pour la couleur dynamique (inévitable)
+                    style={{ backgroundColor: c.hex }}
+                    data-border={
+                      c.name === "Blanc" || c.name === "Beige"
+                        ? "true"
+                        : "false"
+                    }
                   />
                   <span
-                    style={{
-                      fontWeight: filters.color === c.name ? "bold" : "normal",
-                    }}
+                    className={filters.color === c.name ? "text-selected" : ""}
                   >
                     {c.name}
                   </span>
