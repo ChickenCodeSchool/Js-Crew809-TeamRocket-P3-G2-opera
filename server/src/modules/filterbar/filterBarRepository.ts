@@ -7,6 +7,7 @@ class FilterBarRepository {
     categoryId?: number,
     color?: string,
     size?: string,
+    priceRange?: string,
   ) {
     let sql = `
       SELECT DISTINCT p.product_id, p.name, p.price, p.color, pi.url as image_url
@@ -34,6 +35,18 @@ class FilterBarRepository {
       params.push(size);
     }
 
+    if (priceRange) {
+      const [minStr, maxStr] = priceRange.split("-");
+      if (minStr && minStr !== "") {
+        sql += " AND p.price >= ?";
+        params.push(Number(minStr));
+      }
+      if (maxStr && maxStr !== "") {
+        sql += " AND p.price <= ?";
+        params.push(Number(maxStr));
+      }
+    }
+
     const [rows] = await database.query<Rows>(sql, params);
     return rows;
   }
@@ -51,14 +64,35 @@ class FilterBarRepository {
       const [rows] = await database.query<Rows>(sql, [brandId]);
       return rows;
     }
-
     const [rows] = await database.query<Rows>(
       "SELECT categorie_id AS id, name FROM categories ORDER BY name ASC",
     );
     return rows;
   }
 
-  async readAllBrands() {
+  async readAllBrands(categoryId?: number) {
+    if (categoryId) {
+      const sql = `
+        SELECT DISTINCT 
+          b.brand_id AS id, 
+          b.name,
+          (
+            SELECT pc_sub.categorie_id 
+            FROM product p_sub
+            JOIN product_categories pc_sub ON p_sub.product_id = pc_sub.product_id
+            WHERE p_sub.brand_id = b.brand_id
+            LIMIT 1
+          ) AS default_category_id
+        FROM brand b
+        JOIN product p ON b.brand_id = p.brand_id
+        JOIN product_categories pc ON p.product_id = pc.product_id
+        WHERE pc.categorie_id = ?
+        ORDER BY b.name ASC
+      `;
+      const [rows] = await database.query<Rows>(sql, [categoryId]);
+      return rows;
+    }
+
     const sql = `
       SELECT 
         b.brand_id AS id, 
@@ -73,7 +107,6 @@ class FilterBarRepository {
       FROM brand b 
       ORDER BY b.name ASC
     `;
-
     const [rows] = await database.query<Rows>(sql);
     return rows;
   }
@@ -86,7 +119,23 @@ class FilterBarRepository {
       JOIN product_categories pc ON p.product_id = pc.product_id
       WHERE p.brand_id = ?
     `;
+    const params: (string | number)[] = [brandId];
+    if (categoryId) {
+      sql += " AND pc.categorie_id = ?";
+      params.push(categoryId);
+    }
+    sql += " ORDER BY s.size_label ASC";
+    const [rows] = await database.query<Rows>(sql, params);
+    return rows;
+  }
 
+  async readColors(brandId: number, categoryId?: number) {
+    let sql = `
+      SELECT DISTINCT p.color
+      FROM product p
+      JOIN product_categories pc ON p.product_id = pc.product_id
+      WHERE p.brand_id = ?
+    `;
     const params: (string | number)[] = [brandId];
 
     if (categoryId) {
@@ -94,8 +143,7 @@ class FilterBarRepository {
       params.push(categoryId);
     }
 
-    sql += " ORDER BY s.size_label ASC";
-
+    sql += " ORDER BY p.color ASC";
     const [rows] = await database.query<Rows>(sql, params);
     return rows;
   }

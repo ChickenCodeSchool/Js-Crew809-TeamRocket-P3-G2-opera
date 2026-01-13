@@ -1,23 +1,29 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import "./FilterBar.css";
 
 type FilterBarProps = {
   isOpen: boolean;
   onClose: () => void;
-  filters: { categoryId: string | undefined; color: string; size: string };
+  filters: {
+    categoryId: string | undefined;
+    color: string;
+    size: string;
+    priceRange: string;
+  };
   setFilters: (filters: {
     categoryId: string | undefined;
     color: string;
     size: string;
+    priceRange: string;
   }) => void;
 };
 
-type BrandItem = {
-  id: number;
-  name: string;
-  default_category_id: number | null;
-};
+// type BrandItem = {
+//   id: number;
+//   name: string;
+//   default_category_id: number | null;
+// };
 
 type Item = {
   id: number;
@@ -28,19 +34,28 @@ type SizeOption = {
   size_label: string;
 };
 
-const COLORS = [
-  { name: "Rouge", hex: "#D32F2F" },
-  { name: "Noir", hex: "#000000" },
-  { name: "Blanc", hex: "#FFFFFF" },
-  { name: "Beige", hex: "#F5F5DC" },
-  { name: "Marron", hex: "#795548" },
-  { name: "Or", hex: "#D4AF37" },
-  { name: "Argenté", hex: "#C0C0C0" },
-  { name: "Rose", hex: "#E91E63" },
-  { name: "Vert", hex: "#388E3C" },
-  { name: "Bleu", hex: "#1976D2" },
-  { name: "Gris", hex: "#808080" },
-];
+type ColorOption = {
+  color: string;
+};
+
+const COLOR_PALETTE: Record<string, string> = {
+  Rouge: "#D32F2F",
+  Noir: "#000000",
+  Blanc: "#FFFFFF",
+  Beige: "#F5F5DC",
+  Marron: "#795548",
+  Or: "#D4AF37",
+  Doré: "#D4AF37",
+  Argenté: "#C0C0C0",
+  Argent: "#C0C0C0",
+  Rose: "#E91E63",
+  Vert: "#388E3C",
+  Bleu: "#1976D2",
+  Gris: "#808080",
+  Jaune: "#FFEB3B",
+  Orange: "#FF9800",
+  Violet: "#9C27B0",
+};
 
 export default function FilterBar({
   isOpen,
@@ -49,30 +64,40 @@ export default function FilterBar({
   setFilters,
 }: FilterBarProps) {
   const { brandId } = useParams();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const [brands, setBrands] = useState<BrandItem[]>([]);
+  // const [brands, setBrands] = useState<BrandItem[]>([]);
   const [categories, setCategories] = useState<Item[]>([]);
   const [sizes, setSizes] = useState<SizeOption[]>([]);
+  const [availableColors, setAvailableColors] = useState<ColorOption[]>([]);
+
+  const [minPrice, setMinPrice] = useState("");
+  const [maxPrice, setMaxPrice] = useState("");
 
   const [openSections, setOpenSections] = useState({
     brand: false,
-    category: false,
     color: false,
     size: false,
+    price: false,
+    category: false,
   });
 
-  // Chargement des marques
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/filter/brands`)
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) setBrands(data);
-      })
-      .catch((err) => console.error(err));
-  }, []);
+  // 1. Chargement des Marques
+  // useEffect(() => {
+  //   let url = `${import.meta.env.VITE_API_URL}/api/filter/brands`;
+  //   if (filters.categoryId) {
+  //     url += `?categoryId=${filters.categoryId}`;
+  //   }
 
-  // Chargement des catégories
+  //   fetch(url)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (Array.isArray(data)) setBrands(data);
+  //     })
+  //     .catch((err) => console.error(err));
+  // }, [filters.categoryId]);
+
+  // 2. Chargement des Catégories
   useEffect(() => {
     if (!brandId) return;
     fetch(
@@ -89,17 +114,14 @@ export default function FilterBar({
       });
   }, [brandId]);
 
-  // Chargement des tailles
+  // 3. Chargement des Tailles
   useEffect(() => {
     if (!brandId) return;
-
     if (!filters.categoryId) {
       setSizes([]);
       return;
     }
-
     const url = `${import.meta.env.VITE_API_URL}/api/sizes?brandId=${brandId}&categoryId=${filters.categoryId}`;
-
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -112,24 +134,57 @@ export default function FilterBar({
       });
   }, [brandId, filters.categoryId]);
 
-  const toggleSection = (section: "brand" | "category" | "color" | "size") => {
+  // 4. Chargement des Couleurs
+  useEffect(() => {
+    if (!brandId) return;
+
+    let url = `${import.meta.env.VITE_API_URL}/api/filter/colors?brandId=${brandId}`;
+    if (filters.categoryId) {
+      url += `&categoryId=${filters.categoryId}`;
+    }
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setAvailableColors(data);
+        else setAvailableColors([]);
+      })
+      .catch((err) => {
+        console.error(err);
+        setAvailableColors([]);
+      });
+  }, [brandId, filters.categoryId]);
+
+  const toggleSection = (
+    section: "brand" | "color" | "size" | "category" | "price",
+  ) => {
     setOpenSections((prev) => ({
       ...prev,
       [section]: !prev[section],
     }));
   };
 
-  const handleBrandClick = (brand: BrandItem) => {
-    if (brandId === brand.id.toString()) return;
+  // const handleBrandClick = (brand: BrandItem) => {
+  //   if (brandId === brand.id.toString()) return;
 
-    let targetCategoryId = brand.default_category_id;
-    if (!targetCategoryId) {
-      console.warn("Cette marque n'a aucun produit/catégorie associé.");
-      targetCategoryId = 1;
-    }
+  //   let targetCategoryId = filters.categoryId
+  //     ? Number(filters.categoryId)
+  //     : brand.default_category_id;
+  //   if (!targetCategoryId) targetCategoryId = 1;
 
-    navigate(`/brand/${brand.id}/category/${targetCategoryId}`);
-    onClose();
+  //   navigate(`/brand/${brand.id}/category/${targetCategoryId}`);
+  //   onClose();
+  // };
+
+  const handleColorClick = (colorName: string) => {
+    setFilters({
+      ...filters,
+      color: filters.color === colorName ? "" : colorName,
+    });
+  };
+
+  const handleSizeClick = (label: string) => {
+    setFilters({ ...filters, size: filters.size === label ? "" : label });
   };
 
   const handleCategoryClick = (id: number) => {
@@ -138,21 +193,17 @@ export default function FilterBar({
       ...filters,
       categoryId: filters.categoryId === idString ? undefined : idString,
       size: "",
+      color: "",
     });
   };
 
-  const handleSizeClick = (label: string) => {
-    setFilters({
-      ...filters,
-      size: filters.size === label ? "" : label,
-    });
-  };
-
-  const handleColorClick = (colorName: string) => {
-    setFilters({
-      ...filters,
-      color: filters.color === colorName ? "" : colorName,
-    });
+  const applyPriceFilter = () => {
+    const range = `${minPrice}-${maxPrice}`;
+    if (minPrice === "" && maxPrice === "") {
+      setFilters({ ...filters, priceRange: "" });
+    } else {
+      setFilters({ ...filters, priceRange: range });
+    }
   };
 
   return (
@@ -169,8 +220,8 @@ export default function FilterBar({
           FERMER
         </button>
 
-        {/* --- MARQUES --- */}
-        <div className="filter-section">
+        {/* 1. MARQUE */}
+        {/* <div className="filter-section">
           <button
             type="button"
             className="filter-header"
@@ -181,7 +232,6 @@ export default function FilterBar({
               {openSections.brand ? "-" : "+"}
             </span>
           </button>
-
           {openSections.brand && (
             <div className="filter-options">
               {brands.map((brand) => (
@@ -198,48 +248,58 @@ export default function FilterBar({
               ))}
             </div>
           )}
-        </div>
+        </div> */}
 
-        {/* --- CATÉGORIES --- */}
+        {/* 2. COULEUR */}
         <div className="filter-section">
           <button
             type="button"
             className="filter-header"
-            onClick={() => toggleSection("category")}
+            onClick={() => toggleSection("color")}
           >
-            <span>CATÉGORIES</span>
+            <span>COULEUR</span>
             <span className="toggle-icon">
-              {openSections.category ? "-" : "+"}
+              {openSections.color ? "-" : "+"}
             </span>
           </button>
-
-          {openSections.category && (
+          {openSections.color && (
             <div className="filter-options">
-              {categories.length === 0 ? (
-                <span className="info-text">
-                  Aucune catégorie trouvée pour cette marque.
-                </span>
+              {availableColors.length === 0 ? (
+                <span className="info-text">Aucune couleur trouvée.</span>
               ) : (
-                categories.map((cat) => (
-                  <button
-                    type="button"
-                    key={cat.id}
-                    className={`category-item ${
-                      filters.categoryId === cat.id?.toString()
-                        ? "selected"
-                        : ""
-                    }`}
-                    onClick={() => cat.id && handleCategoryClick(cat.id)}
-                  >
-                    {cat.name}
-                  </button>
-                ))
+                availableColors.map((c) => {
+                  const hexCode = COLOR_PALETTE[c.color] || "#CCCCCC";
+                  const isWhiteOrBeige =
+                    c.color === "Blanc" || c.color === "Beige";
+
+                  return (
+                    <button
+                      type="button"
+                      key={c.color}
+                      className="color-option"
+                      onClick={() => handleColorClick(c.color)}
+                    >
+                      <div
+                        className="color-swatch"
+                        style={{ backgroundColor: hexCode }}
+                        data-border={isWhiteOrBeige ? "true" : "false"}
+                      />
+                      <span
+                        className={
+                          filters.color === c.color ? "text-selected" : ""
+                        }
+                      >
+                        {c.color}
+                      </span>
+                    </button>
+                  );
+                })
               )}
             </div>
           )}
         </div>
 
-        {/* --- TAILLES --- */}
+        {/* 3. TAILLE */}
         <div className="filter-section">
           <button
             type="button"
@@ -249,7 +309,6 @@ export default function FilterBar({
             <span>TAILLE</span>
             <span className="toggle-icon">{openSections.size ? "-" : "+"}</span>
           </button>
-
           {openSections.size && (
             <div className="filter-options">
               {!filters.categoryId ? (
@@ -276,45 +335,84 @@ export default function FilterBar({
           )}
         </div>
 
-        {/* --- COULEURS --- */}
+        {/* 4. PRIX (Déplacé ici) */}
         <div className="filter-section">
           <button
             type="button"
             className="filter-header"
-            onClick={() => toggleSection("color")}
+            onClick={() => toggleSection("price")}
           >
-            <span>COULEUR</span>
+            <span>PRIX</span>
             <span className="toggle-icon">
-              {openSections.color ? "-" : "+"}
+              {openSections.price ? "-" : "+"}
             </span>
           </button>
+          {openSections.price && (
+            <div className="filter-options price-inputs-container">
+              <div className="price-inputs-row">
+                <input
+                  type="number"
+                  placeholder="Min €"
+                  value={minPrice}
+                  onChange={(e) => setMinPrice(e.target.value)}
+                  className="price-input"
+                  min="0"
+                />
+                <span className="price-separator">-</span>
+                <input
+                  type="number"
+                  placeholder="Max €"
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="price-input"
+                  min="0"
+                />
+              </div>
+              <button
+                type="button"
+                className="price-apply-btn"
+                onClick={applyPriceFilter}
+              >
+                OK
+              </button>
+            </div>
+          )}
+        </div>
 
-          {openSections.color && (
+        {/* 5. CATÉGORIES (Déplacé ici) */}
+        <div className="filter-section">
+          <button
+            type="button"
+            className="filter-header"
+            onClick={() => toggleSection("category")}
+          >
+            <span>CATÉGORIES</span>
+            <span className="toggle-icon">
+              {openSections.category ? "-" : "+"}
+            </span>
+          </button>
+          {openSections.category && (
             <div className="filter-options">
-              {COLORS.map((c) => (
-                <button
-                  type="button"
-                  key={c.name}
-                  className="color-option"
-                  onClick={() => handleColorClick(c.name)}
-                >
-                  <div
-                    className="color-swatch"
-                    // Style inline pour la couleur dynamique (inévitable)
-                    style={{ backgroundColor: c.hex }}
-                    data-border={
-                      c.name === "Blanc" || c.name === "Beige"
-                        ? "true"
-                        : "false"
-                    }
-                  />
-                  <span
-                    className={filters.color === c.name ? "text-selected" : ""}
+              {categories.length === 0 ? (
+                <span className="info-text">
+                  Aucune catégorie trouvée pour cette marque.
+                </span>
+              ) : (
+                categories.map((cat) => (
+                  <button
+                    type="button"
+                    key={cat.id}
+                    className={`category-item ${
+                      filters.categoryId === cat.id?.toString()
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() => cat.id && handleCategoryClick(cat.id)}
                   >
-                    {c.name}
-                  </span>
-                </button>
-              ))}
+                    {cat.name}
+                  </button>
+                ))
+              )}
             </div>
           )}
         </div>

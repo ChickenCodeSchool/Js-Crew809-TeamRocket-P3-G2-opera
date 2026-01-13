@@ -9,6 +9,9 @@ const browse = async (req: Request, res: Response) => {
       : undefined;
     const color = req.query.color ? String(req.query.color) : undefined;
     const size = req.query.size ? String(req.query.size) : undefined;
+    const priceRange = req.query.priceRange
+      ? String(req.query.priceRange)
+      : undefined;
 
     if (!brandId) {
       res.status(400).json({ error: "Brand ID is required" });
@@ -20,6 +23,7 @@ const browse = async (req: Request, res: Response) => {
       categoryId,
       color,
       size,
+      priceRange,
     );
     res.json(products);
   } catch (err) {
@@ -31,7 +35,6 @@ const browse = async (req: Request, res: Response) => {
 const getCategories = async (req: Request, res: Response) => {
   try {
     const brandId = req.query.brandId ? Number(req.query.brandId) : undefined;
-
     const categories = await filterBarRepository.readAllCategories(brandId);
     res.json(categories);
   } catch (err) {
@@ -42,7 +45,11 @@ const getCategories = async (req: Request, res: Response) => {
 
 const getBrands = async (req: Request, res: Response) => {
   try {
-    const brands = await filterBarRepository.readAllBrands();
+    const categoryId = req.query.categoryId
+      ? Number(req.query.categoryId)
+      : undefined;
+
+    const brands = await filterBarRepository.readAllBrands(categoryId);
     res.json(brands);
   } catch (err) {
     console.error(err);
@@ -70,4 +77,24 @@ const getSizes = async (req: Request, res: Response) => {
   }
 };
 
-export default { browse, getCategories, getBrands, getSizes };
+const getColors = async (req: Request, res: Response) => {
+  try {
+    const brandId = Number(req.query.brandId);
+    const categoryId = req.query.categoryId
+      ? Number(req.query.categoryId)
+      : undefined;
+
+    if (!brandId) {
+      res.status(400).json({ error: "Brand ID requise" });
+      return;
+    }
+
+    const colors = await filterBarRepository.readColors(brandId, categoryId);
+    res.json(colors);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erreur récupération couleurs" });
+  }
+};
+
+export default { browse, getCategories, getBrands, getSizes, getColors };

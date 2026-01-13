@@ -18,10 +18,12 @@ function BrandCategory() {
     categoryId: string | undefined;
     color: string;
     size: string;
+    priceRange: string;
   }>({
     categoryId: urlCategoryId,
     color: "",
     size: "",
+    priceRange: "",
   });
 
   const [products, setProducts] = useState<Product[]>([]);
@@ -36,6 +38,7 @@ function BrandCategory() {
     if (filters.categoryId) params.append("categoryId", filters.categoryId);
     if (filters.color) params.append("color", filters.color);
     if (filters.size) params.append("size", filters.size);
+    if (filters.priceRange) params.append("priceRange", filters.priceRange);
 
     fetch(
       `${import.meta.env.VITE_API_URL}/api/products/filter?${params.toString()}`,

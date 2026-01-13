@@ -6,7 +6,10 @@
 .filter-btn-wrapper {
   display: flex;
   justify-content: flex-end;
-  padding: 20px 50px;
+  max-width: 1500px;
+  margin: 0 auto;
+  padding: 20px 80px;
+  box-sizing: border-box;
 }
 
 .filter-trigger-btn {
