@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./heroProduct.css";
 type MiniHero = {
   Brand_id: number;
-    name: string;
+  name: string;
   url_minihero: string;
 };
 
@@ -35,7 +35,7 @@ const HeroProduct = ({ brandId }: Props) => {
             alt={`${miniHero[0]?.name} illustration de la marque`}
             className="header-categorie-image"
           />
-                  </>
+        </>
       )}
     </div>
   );

@@ -1,4 +1,4 @@
-import { useEffect, useState, type KeyboardEvent } from "react";
+import { type KeyboardEvent, useEffect, useState } from "react";
 import "./descriptionArticle.css";
 import { MdFavorite } from "react-icons/md";
 
@@ -94,7 +94,7 @@ function DescriptionArticle({ productId }: Props) {
       )}
 
       <div className="detail-content">
-        <div className="description-header">Description</div>
+        <div className="description-header">Description du produit</div>
         <p className="description-content">{articleData.description}</p>
       </div>
       {/* ONGLET COMPOSITION */}
@@ -122,7 +122,7 @@ function DescriptionArticle({ productId }: Props) {
         onKeyDown={handleKeyDown}
         aria-expanded={isOpenDelivery}
       >
-        Livraison
+        Livraison et retour
         <span className="toggle-icon">{isOpenDelivery ? "−" : "+"}</span>
       </div>
 
@@ -137,7 +137,7 @@ function DescriptionArticle({ productId }: Props) {
         <button type="button" className="add-to-cart-button">
           Ajouter au panier
         </button>
-        <span className="favorite-button">
+        <span className="add-to-favorite-button">
           <MdFavorite />
         </span>
       </div>
