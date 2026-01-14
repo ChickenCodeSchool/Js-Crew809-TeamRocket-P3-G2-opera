@@ -1,6 +1,6 @@
+import HeroProduct from "../../components/HeroProduct/heroProduct";
 import CarouselImgArticle from "../../components/carouselImgArticle/carouselImgArticle";
 import DescriptionArticle from "../../components/descriptionArticle/descriptionArticle";
-import HeroProduct from "../../components/HeroProduct/heroProduct";
 import "./articlePage.css";
 
 function articlePage() {
