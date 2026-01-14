@@ -3,11 +3,13 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Footer from "./components/Footer/Footer";
+/*import BrandHero from "./components/brandHero/BrandHero";*/
 import CarouselLp from "./components/carouselLp/carouselLp";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
+import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 
 const router = createBrowserRouter([
@@ -54,6 +56,10 @@ const router = createBrowserRouter([
       {
         path: "/products/:productId",
         element: <ArticlePage />,
+      },
+      {
+        path: "/nouscontacter",
+        element: <Contact />,
       },
     ],
   },
