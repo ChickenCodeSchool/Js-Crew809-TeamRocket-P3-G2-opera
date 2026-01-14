@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Footer from "./components/Footer/Footer";
 import CarouselLp from "./components/carouselLp/carouselLp";
-import ArticlePage from "./pages/ArticlePage/article";
+import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
