@@ -40,4 +40,22 @@ router.get(
 import brandDescriptionActions from "./modules/brandDescription/brandDescriptionActions";
 router.get("/api/brands/:id", brandDescriptionActions.read);
 
+import brandActions from "./modules/brand/brandActions";
+router.get("/brands/:brandId/hero", brandActions.readHero);
+
+
+/*
+// ici toutes les routes sur le système d'authentification (à vérifier, si possibilité d'enlever mes authActions dans l'api)
+import authActions from "./modules/auth/authActions";
+import customerActions from "./modules/user/customerActions";
+
+router.post("/auth/login", authActions.login);
+router.get("/customers", authActions.verifyToken, customerActions.browse);
+router.get("/customers/:id", authActions.verifyToken, customerActions.read);
+router.post("/customers", authActions.hashPassword, authActions.verifyToken, customerActions.add);
+router.put("/customers/:id", authActions.hashPassword, authActions.verifyToken, customerActions.update);
+router.delete("/customers/:id", authActions.verifyToken, customerActions.remove);
+router.use(authActions.verifyToken);
+*/
+
 export default router;

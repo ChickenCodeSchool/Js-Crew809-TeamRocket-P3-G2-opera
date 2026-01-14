@@ -3,7 +3,10 @@ import HeaderCategorie from "../../components/HeaderCategorie/headerCategorie";
 import CategorieProduct from "../../components/categorieProduct/CategorieProduct";
 
 function BrandCategory() {
-  const { brandId, categoryId } = useParams<{ brandId: string; categoryId: string }>();
+  const { brandId, categoryId } = useParams<{
+    brandId: string;
+    categoryId: string;
+  }>();
 
   return (
     <div>
