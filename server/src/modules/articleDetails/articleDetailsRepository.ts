@@ -15,7 +15,7 @@ export type ArticleDetailsImages = {
   is_main: boolean;
 };
 
-//Ce type n'est pas utilisé mais peut aider pour le mapping des résultats de la requête SQL
+//pour le mapping des résultats de la requête SQL sinon une seule image par produit serait retournée
 type ProductRow = {
   product_id: number;
   name: string;
