@@ -11,36 +11,30 @@ const SALT_ROUNDS = 10;
 
 const login: RequestHandler = async (req, res, next) => {
     try {
-        const customer = await customerRepository.readByEmailWithPassword(req.body.mail);
-        if (customer === null){
-            res.sendStatus(422)
+        const { mail, password } = req.body || {};
+
+        if (!mail || !password) {
+            res.status(400).json({ error: "Mail and password are required" });
             return;
         }
-        const verified = await bcrypt.compare(
-            req.body.password,
-            customer.password,
-        );
+
+        const customer = await customerRepository.readByEmailWithPassword(mail);
+        if (!customer) {
+            res.status(422).json({ error: "Invalid credentials" });
+            return;
+        }
+
+        const verified = await bcrypt.compare(password, customer.password);
 
         if (verified) {
-            const {password, ...customerWhitoutHashedPassword} = customer;
+            const { password: pwd, ...customerWithoutHashedPassword } = customer;
 
-            const payload:  MyPayload = {
-                sub : customer.customer_id.toString()
-            };
-            const token = jwt.sign(
-                payload,
-                process.env.APP_SECRET as string,
-                {
-                    expiresIn: "1h",
-                },
-            );
-            res.json({
-                token,  
-                customer:  customerWhitoutHashedPassword,
-            });
-        } else {
-            res.sendStatus(422);
-        }
+            const payload: MyPayload = { sub: customer.customer_id.toString() };
+            const token = jwt.sign(payload, process.env.APP_SECRET as string, { expiresIn: "1h" });
+
+            res.json({ token, customer: customerWithoutHashedPassword });
+            return; 
+        } 
     } catch (err) {
         next(err);
     }
