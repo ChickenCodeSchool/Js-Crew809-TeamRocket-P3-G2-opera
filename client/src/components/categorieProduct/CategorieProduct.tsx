@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./CategorieProduct.css";
 
-type Product = {
+export type Product = {
   product_id: number;
   name: string;
   price: number;
@@ -10,9 +10,10 @@ type Product = {
 };
 
 type CategorieProductProps = {
-  brandId: number;
-  categoryId: number;
-  name: string;
+  products: Product[];
+  brandId?: number;
+  categoryId?: number;
+  name?: string;
 };
 
 function CategorieProduct({ brandId, categoryId }: CategorieProductProps) {
