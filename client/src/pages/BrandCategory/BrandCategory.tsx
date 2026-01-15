@@ -52,10 +52,12 @@ function BrandCategory() {
   return (
     <div className="brand-category-page">
       <HeaderCategorie brandId={Number(brandId)} />
-
       <ButtonFilterBar onOpen={() => setIsSidebarOpen(true)} />
 
-      <CategorieProduct products={products} />
+      <CategorieProduct
+        products={products}
+        brandId={brandId ? Number(brandId) : undefined}
+      />
 
       <FilterBar
         isOpen={isSidebarOpen}

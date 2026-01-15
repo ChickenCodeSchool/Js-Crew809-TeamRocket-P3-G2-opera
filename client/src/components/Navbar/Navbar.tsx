@@ -4,11 +4,11 @@ import { CiMenuBurger } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import type { Auth } from "../../App";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
 import BurgerMenu from "../burgerNav/BurgerNav";
 import ProfileMenu from "../profilemenu/ProfileMenu";
-import type { Auth } from "../../App";
 
 interface NavbarProps {
   auth: Auth | null;
@@ -25,10 +25,10 @@ function Navbar({ auth, setAuth }: NavbarProps) {
   const isLanding = location.pathname === "/";
   console.log("pathname:", location.pathname, "isLanding:", isLanding);
 
-  const darkNavbarPages = ["/nouscontacter", "/login",  "/register",  "/profile"];
+  const darkNavbarPages = ["/nouscontacter", "/login", "/register", "/profile"];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
+  // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
   useEffect(() => {
     if (shouldBeDark) {
       setTheme("dark");
@@ -52,7 +52,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
             }
           }
         },
-        { threshold: 0.5 }
+        { threshold: 0.5 },
       );
       for (const section of sections) {
         observer.observe(section);

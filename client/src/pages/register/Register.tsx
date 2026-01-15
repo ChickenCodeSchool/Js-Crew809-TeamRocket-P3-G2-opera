@@ -1,6 +1,6 @@
-import "../register/Register.css"
+import "../register/Register.css";
 import { useRef, useState } from "react";
-import type { FormEventHandler, ChangeEventHandler } from "react";
+import type { ChangeEventHandler, FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import type { Auth } from "../../App";
 
@@ -13,13 +13,16 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const navigate = useNavigate();
-  const { setAuth } = useOutletContext<{ setAuth: (auth: Auth | null) => void }>();
+  const { setAuth } = useOutletContext<{
+    setAuth: (auth: Auth | null) => void;
+  }>();
 
   const handlePasswordChange: ChangeEventHandler<HTMLInputElement> = (e) =>
     setPassword(e.target.value);
 
-  const handleConfirmPasswordChange: ChangeEventHandler<HTMLInputElement> = (e) =>
-    setConfirmPassword(e.target.value);
+  const handleConfirmPasswordChange: ChangeEventHandler<HTMLInputElement> = (
+    e,
+  ) => setConfirmPassword(e.target.value);
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -45,20 +48,20 @@ function Register() {
         }),
       });
 
-    if (response.ok) {
-      const data = await response.json();
+      if (response.ok) {
+        const data = await response.json();
 
-      setAuth(data); 
+        setAuth(data);
 
-      navigate("/profile");
-    } else {
-      alert("Erreur lors de l'inscription");
+        navigate("/profile");
+      } else {
+        alert("Erreur lors de l'inscription");
+      }
+    } catch (err) {
+      console.error("Erreur fetch :", err);
+      alert("Erreur serveur");
     }
-  } catch (err) {
-    console.error("Erreur fetch :", err);
-    alert("Erreur serveur");
-  }
-};
+  };
 
   return (
     <div className="register_page">

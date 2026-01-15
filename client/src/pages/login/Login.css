@@ -1,10 +1,10 @@
 .login_page {
   min-height: 100vh;
   display: flex;
-  justify-content: center; 
-  align-items: center;     
-  background: transparent; 
-  padding: 20px;          
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  padding: 20px;
 }
 
 .login_form {
