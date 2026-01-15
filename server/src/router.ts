@@ -40,6 +40,13 @@ router.get(
 import brandDescriptionActions from "./modules/brandDescription/brandDescriptionActions";
 router.get("/api/brands/:id", brandDescriptionActions.read);
 
+import filterBarActions from "./modules/filterbar/filterBarActions";
+router.get("/api/products/filter", filterBarActions.browse);
+router.get("/api/filter/categories", filterBarActions.getCategories);
+router.get("/api/filter/brands", filterBarActions.getBrands);
+router.get("/api/sizes", filterBarActions.getSizes);
+router.get("/api/filter/colors", filterBarActions.getColors);
+
 import brandActions from "./modules/brand/brandActions";
 router.get("/brands/:brandId/hero", brandActions.readHero);
 export default router;
