@@ -24,6 +24,8 @@ export type Auth = {
 
 function App() {
   const location = useLocation();
+  const isLanding = location.pathname === "/";
+
   const [auth, setAuth] = useState<Auth | null>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
@@ -33,8 +35,10 @@ function App() {
 
   return (
     <>
-      <Navbar auth={auth} setAuth={setAuth} />
-      <Outlet context={{ auth, setAuth }} />
+      <Navbar key={location.pathname} auth={auth} setAuth={setAuth} />
+      <div className={!isLanding ? "with-fixed-navbar" : ""}>
+        <Outlet context={{ auth, setAuth }} />
+      </div>
       <Footer />
     </>
   );

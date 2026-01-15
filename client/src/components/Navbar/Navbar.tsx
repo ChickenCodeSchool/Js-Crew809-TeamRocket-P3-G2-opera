@@ -22,7 +22,10 @@ function Navbar({ auth, setAuth }: NavbarProps) {
 
   const navigate = useNavigate();
   const location = useLocation();
+
   const isLanding = location.pathname === "/";
+  console.log("pathname:", location.pathname, "isLanding:", isLanding);
+
   const darkNavbarPages = ["/nouscontacter"];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
@@ -50,7 +53,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
             }
           }
         },
-        { threshold: 0.5 },
+        { threshold: 0.5 }
       );
       for (const section of sections) {
         observer.observe(section);
