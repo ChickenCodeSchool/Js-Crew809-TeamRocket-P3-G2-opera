@@ -13,7 +13,10 @@ function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+
   const isLanding = location.pathname === "/";
+  console.log("pathname:", location.pathname, "isLanding:", isLanding);
+
   const darkNavbarPages = ["/nouscontacter"];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
