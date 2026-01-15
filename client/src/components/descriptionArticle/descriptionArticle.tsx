@@ -43,12 +43,11 @@ function DescriptionArticle({ productId }: Props) {
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault(); // Empêche le scroll avec la barre espace
+      event.preventDefault();
       toggleAnswer();
     }
   };
 
-  // Sécurité : Si les données ne sont pas encore chargées, on affiche un message
   if (!articleData) {
     return <div className="loading">Chargement...</div>;
   }

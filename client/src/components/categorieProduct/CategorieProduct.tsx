@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./CategorieProduct.css";
 
 type Product = {
@@ -16,22 +17,35 @@ type CategorieProductProps = {
 
 function CategorieProduct({ brandId, categoryId }: CategorieProductProps) {
   const [products, setProducts] = useState<Product[]>([]);
-  console.log("brandId:", brandId, "categoryId:", categoryId);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(
-      `${
-        import.meta.env.VITE_API_URL
-      }/api/brands/${brandId}/categories/${categoryId}/products`,
+      `${import.meta.env.VITE_API_URL}/api/brands/${brandId}/categories/${categoryId}/products`,
     )
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => setProducts(data))
+      .catch((err) => console.error("Erreur chargement produits:", err));
   }, [brandId, categoryId]);
+
+  const handleNavigation = (productId: number) => {
+    navigate(`/brand/${brandId}/products/${productId}`);
+  };
 
   return (
     <div className="products-grid">
       {products.map((product) => (
-        <div key={product.product_id} className="product-card">
+        <div
+          key={product.product_id}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleNavigation(product.product_id);
+            }
+          }}
+          className="product-card"
+          style={{ cursor: "pointer" }}
+          onClick={() => handleNavigation(product.product_id)}
+        >
           <img
             src={`${import.meta.env.VITE_API_URL}${product.image_url}`}
             alt={product.name}
