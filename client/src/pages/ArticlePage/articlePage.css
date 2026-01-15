@@ -4,3 +4,11 @@
   gap: 20px;
   margin: 100px 300px 200px 300px;
 }
+
+@media screen and (max-width: 768px) {
+  .article-page {
+    flex-direction: column;
+    margin: 20px;
+    padding: 10px;
+  }
+}

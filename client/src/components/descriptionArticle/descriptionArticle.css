@@ -128,3 +128,24 @@
   align-items: center;
   justify-content: center;
 }
+
+@media screen and (max-width: 768px) {
+  .article-container {
+    max-width: 100%;
+    padding: 10px;
+    flex-direction: column;
+  }
+
+  .button-favorite {
+    order: -2;
+    margin-bottom: 20px;
+  }
+
+  .articleheader {
+    order: -2;
+  }
+
+  .articleprice {
+    margin-bottom: 0;
+  }
+}
