@@ -19,7 +19,7 @@ class ProductRepository {
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
       "SELECT * FROM product WHERE product_id = ?",
-      [id]
+      [id],
     );
     return rows[0] as Product;
   }
