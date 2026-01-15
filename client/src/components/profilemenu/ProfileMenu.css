@@ -1,0 +1,77 @@
+.profile_container {
+  position: relative;
+}
+
+.profile_container::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  height: 12px;
+}
+
+.profile_menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+
+  min-width: 180px;
+  padding: 12px 14px;
+
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+
+  z-index: 1000;
+}
+
+.profile_container:hover .profile_menu {
+  display: flex;
+}
+
+.profile_menu p {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  font-family: "Bodoni Moda SC", serif;
+}
+
+.profile_menu button {
+  all: unset;
+  cursor: pointer;
+
+  padding: 8px 6px;
+  font-size: 14px;
+  font-weight: 500;
+
+  color: white;
+  border-radius: 6px;
+
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.profile_menu button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(2px);
+}
+
+.profile_menu button:active {
+  transform: translateX(0);
+}
+
+@media (max-width: 768px) {
+  .profile_menu {
+    backdrop-filter: blur(8px);
+  }
+}
