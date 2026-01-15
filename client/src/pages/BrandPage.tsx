@@ -8,7 +8,6 @@ export default function BrandPage() {
   const { id } = useParams();
   const brandId = Number(id);
 
-
   return (
     <div className="brand-page">
       <BrandHero brandId={brandId} />

@@ -1,7 +1,7 @@
 import databaseClient from "../../../database/client";
 
 type BookmarkCard = {
-  image: string | null;     
+  image: string | null;
   categoryName: string;
   categorie_id: number;
 };
@@ -30,12 +30,14 @@ class BookmarkRepository {
       ORDER BY cat.categorie_id ASC
       LIMIT 4
     `;
-    const [categoriesRowsRaw] = await databaseClient.query(queryCategories, [brandId]);
+    const [categoriesRowsRaw] = await databaseClient.query(queryCategories, [
+      brandId,
+    ]);
     const categories: CategoryRow[] = categoriesRowsRaw as CategoryRow[];
 
     if (categories.length === 0) return [];
 
-    const categoryIds = categories.map(c => c.categorie_id);
+    const categoryIds = categories.map((c) => c.categorie_id);
     const placeholders = categoryIds.map(() => "?").join(",");
     const queryImages = `
       SELECT pc2.categorie_id, pi.url
@@ -47,11 +49,14 @@ class BookmarkRepository {
         AND pc2.categorie_id IN (${placeholders})
       ORDER BY pi.product_image_id ASC
     `;
-    const [imagesRowsRaw] = await databaseClient.query(queryImages, [brandId, ...categoryIds]);
+    const [imagesRowsRaw] = await databaseClient.query(queryImages, [
+      brandId,
+      ...categoryIds,
+    ]);
     const images: ImageRow[] = imagesRowsRaw as ImageRow[];
 
-    const cards: BookmarkCard[] = categories.map(cat => {
-      const img = images.find(i => i.categorie_id === cat.categorie_id);
+    const cards: BookmarkCard[] = categories.map((cat) => {
+      const img = images.find((i) => i.categorie_id === cat.categorie_id);
       return {
         categorie_id: cat.categorie_id,
         categoryName: cat.categoryName,

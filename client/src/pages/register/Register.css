@@ -1,10 +1,10 @@
 .register_page {
   min-height: 140vh;
   display: flex;
-  justify-content: center; 
-  align-items: center;     
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  background: transparent; 
+  background: transparent;
 }
 
 .register_form {
