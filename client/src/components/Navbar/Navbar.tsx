@@ -86,11 +86,10 @@ function Navbar({ auth, setAuth }: NavbarProps) {
             onClick={() => navigate("/cart")}
           />
 
-          <FiUser
-            size={24}
-            className="user_navbar"
-            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
-          />
+          <div className="profile_container">
+            <FiUser size={24} className="user_navbar" />
+            <ProfileMenu auth={auth} setAuth={setAuth} />
+          </div>
 
           <button
             type="button"
@@ -102,9 +101,6 @@ function Navbar({ auth, setAuth }: NavbarProps) {
           </button>
         </div>
       </header>
-
-      {isProfileMenuOpen && <ProfileMenu auth={auth} setAuth={setAuth} />}
-
       <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );
