@@ -25,12 +25,12 @@
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
+  align-items: flex-start;
 }
 
 .column {
   display: flex;
   flex-direction: column;
-  gap: 15px;
   flex: 1;
 }
 
@@ -113,13 +113,14 @@
   background-color: black;
 }
 
-.links_footer a {
+.column_content a {
   color: #ccc;
   text-decoration: none;
-  display: block;
+  font-size: 14px;
+  line-height: 1.5;
 }
 
-.links_footer a:hover {
+.column_content a:hover {
   text-decoration: underline;
 }
 

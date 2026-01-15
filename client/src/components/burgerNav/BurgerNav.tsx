@@ -138,7 +138,7 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
             <li>
               <button
                 type="button"
-                onClick={() => handleNavigation("/contact")}
+                onClick={() => handleNavigation("/nouscontacter")}
                 className="burger-link-btn"
               >
                 Nous contacter
