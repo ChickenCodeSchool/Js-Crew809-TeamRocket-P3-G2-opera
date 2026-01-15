@@ -34,7 +34,6 @@ export default function BookmarkCard({ brandId }: Props) {
           type="button"
           className="bookmark-card"
           onClick={() => handleClick(card.categorie_id)}
-          style={{ cursor: "pointer" }}
         >
           <img
             src={`${import.meta.env.VITE_API_URL}${card.image}`}

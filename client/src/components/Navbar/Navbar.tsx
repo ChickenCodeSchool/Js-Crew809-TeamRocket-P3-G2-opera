@@ -7,23 +7,31 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
 import BurgerMenu from "../burgerNav/BurgerNav";
+import ProfileMenu from "../profilemenu/ProfileMenu";
+import type { Auth } from "../../App";
 
-function Navbar() {
+interface NavbarProps {
+  auth: Auth | null;
+  setAuth: (auth: Auth | null) => void;
+}
+
+function Navbar({ auth, setAuth }: NavbarProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const isLanding = location.pathname === "/";
   const darkNavbarPages = ["/nouscontacter"];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
+    // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
   useEffect(() => {
     if (shouldBeDark) {
       setTheme("dark");
       return;
     }
-
     if (!isLanding) {
       setTheme("light");
       return;
@@ -78,7 +86,7 @@ function Navbar() {
           <FiUser
             size={24}
             className="user_navbar"
-            onClick={() => navigate("/login")}
+            onClick={() => setIsProfileMenuOpen(!isProfileMenuOpen)}
           />
 
           <button
@@ -91,6 +99,8 @@ function Navbar() {
           </button>
         </div>
       </header>
+
+      {isProfileMenuOpen && <ProfileMenu auth={auth} setAuth={setAuth} />}
 
       <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>

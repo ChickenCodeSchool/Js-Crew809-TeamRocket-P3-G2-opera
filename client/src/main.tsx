@@ -10,6 +10,9 @@ import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import Login from "./pages/login/Login";
+import Register from "./pages/register/Register";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -25,9 +28,29 @@ const router = createBrowserRouter([
         element: <BrandPage />,
       },
       {
+        path:"login",
+        element:<Login/>
+      },
+      {
+        path:"register",
+        element:<Register/>
+      },
+      {
+        path:"profile",
+        element:<Profile/>
+      },
+      
+   /*   {
         path: "/login",
         element: <PageTestLink />,
       },
+      {
+        path:"/register",
+        element: 
+      },
+      {
+
+      },*/
       {
         path: "/orders",
         element: <PageTestLink />,
