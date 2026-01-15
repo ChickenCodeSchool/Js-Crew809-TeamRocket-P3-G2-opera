@@ -7,26 +7,33 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
 import BurgerMenu from "../burgerNav/BurgerNav";
+import ProfileMenu from "../profilemenu/ProfileMenu";
+import type { Auth } from "../../App";
 
-function Navbar() {
+interface NavbarProps {
+  auth: Auth | null;
+  setAuth: (auth: Auth | null) => void;
+}
+
+function Navbar({ auth, setAuth }: NavbarProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
   const isLanding = location.pathname === "/";
   console.log("pathname:", location.pathname, "isLanding:", isLanding);
 
-  const darkNavbarPages = ["/nouscontacter"];
+  const darkNavbarPages = ["/nouscontacter", "/login",  "/register",  "/profile"];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
+    // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
   useEffect(() => {
     if (shouldBeDark) {
       setTheme("dark");
       return;
     }
-
     if (!isLanding) {
       setTheme("light");
       return;
@@ -78,11 +85,10 @@ function Navbar() {
             onClick={() => navigate("/cart")}
           />
 
-          <FiUser
-            size={24}
-            className="user_navbar"
-            onClick={() => navigate("/login")}
-          />
+          <div className="profile_container">
+            <FiUser size={24} className="user_navbar" />
+            <ProfileMenu auth={auth} setAuth={setAuth} />
+          </div>
 
           <button
             type="button"
@@ -94,7 +100,6 @@ function Navbar() {
           </button>
         </div>
       </header>
-
       <BurgerMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
     </>
   );

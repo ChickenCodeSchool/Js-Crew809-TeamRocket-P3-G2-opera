@@ -49,4 +49,19 @@ router.get("/api/filter/colors", filterBarActions.getColors);
 
 import brandActions from "./modules/brand/brandActions";
 router.get("/brands/:brandId/hero", brandActions.readHero);
+
+
+import authActions from "./modules/auth/authActions";
+
+router.post("/auth/login", authActions.login);
+
+import customerActions from "./modules/user/customerActions";
+
+router.post("/customers",authActions.hashPassword,customerActions.add);
+router.get("/customers", customerActions.browse);
+router.get("/customers/:id", customerActions.read);
+router.put("/customers/:id",authActions.hashPassword,customerActions.update);
+router.delete("/customers/:id",authActions.verifyToken, customerActions.remove);
+
+
 export default router;

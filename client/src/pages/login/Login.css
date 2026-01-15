@@ -1,0 +1,97 @@
+.login_page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  background: transparent; 
+  padding: 20px;          
+}
+
+.login_form {
+  width: 100%;
+  max-width: 420px;
+  padding: 36px 32px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
+}
+
+.login_form h2 {
+  text-align: center;
+  font-size: 26px;
+  font-weight: 600;
+  color: white;
+}
+
+.login_form div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login_form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+}
+
+.login_form input {
+  padding: 12px 14px;
+  font-size: 15px;
+  color: white;
+
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 10px;
+
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.login_form input:focus {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: white;
+}
+
+.login_form button {
+  margin-top: 16px;
+  padding: 14px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  color: black;
+  background: white;
+
+  border: none;
+  border-radius: 12px;
+
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.login_form button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+}
+
+.login_form button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+  .login_form {
+    margin-top: 80px;
+    padding: 28px 22px;
+  }
+}

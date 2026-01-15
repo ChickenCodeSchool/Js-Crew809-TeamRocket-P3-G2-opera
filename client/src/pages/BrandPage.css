@@ -10,7 +10,7 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  padding-bottom: 50px;
+  height: 80vh;
 }
 
 .brand-page .header-categorie-brandname {
