@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link } from "react-router-dom";
 import "./Footer.css";
 
 function Footer() {
@@ -38,11 +38,9 @@ function Footer() {
                   openSection === "help" ? "open" : ""
                 }`}
               >
-                <div className="links_footer">
-                  <Link to="/nouscontacter">Nous contacter</Link>
-                  <Link to="#">Ma commande</Link>
-                  <Link to="#">Foire aux questions</Link>
-                </div>
+                <Link to="/nouscontacter">Nous contacter</Link>
+                <Link to="#">Ma commande</Link>
+                <Link to="#">Foire aux questions</Link>
               </div>
             </div>
 
@@ -64,13 +62,12 @@ function Footer() {
                   openSection === "service" ? "open" : ""
                 }`}
               >
-                <p>Découvrez nos services</p>
-                <p>Prendre Rendez-vous</p>
+                <Link to="#">Découvrez nos services</Link>
+                <Link to="#">Prendre Rendez-vous</Link>
               </div>
             </div>
           </div>
 
-          {/* Colonne 2 - Informations société */}
           <div className="column">
             <button
               type="button"
@@ -87,13 +84,12 @@ function Footer() {
                 openSection === "info" ? "open" : ""
               }`}
             >
-              <p>À propos de Opéra</p>
-              <p>Code éthique</p>
-              <p>Politiques de Confidentialité</p>
+              <Link to="#">À propos de Opéra</Link>
+              <Link to="#">Code éthique</Link>
+              <Link to="#">Politiques de Confidentialité</Link>
             </div>
           </div>
 
-          {/* Colonne 3 - Newsletter */}
           <div className="column column_newsletter">
             <h2>INSCRIVEZ-VOUS POUR SUIVRE L'ACTUALITÉ D'OPÉRA</h2>
             <input type="email" placeholder="Insérer votre adresse e-mail" />
