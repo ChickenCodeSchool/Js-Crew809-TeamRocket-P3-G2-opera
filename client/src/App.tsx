@@ -6,6 +6,7 @@ import "./App.css";
 
 function App() {
   const location = useLocation();
+  const isLanding = location.pathname === "/";
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
   useEffect(() => {
@@ -14,8 +15,10 @@ function App() {
 
   return (
     <>
-      <Navbar />
-      <Outlet />
+      <Navbar key={location.pathname} />
+      <div className={!isLanding ? "with-fixed-navbar" : ""}>
+        <Outlet />
+      </div>
       <Footer />
     </>
   );
