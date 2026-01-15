@@ -5,6 +5,7 @@ import CategorieProduct, {
   type Product,
 } from "../../components/categorieProduct/CategorieProduct";
 import FilterBar from "../../components/filterBar/FilterBar";
+import ButtonFilterBar from "../../components/buttonFilterBar/ButtonFilterBar";
 
 import "./BrandCategory.css";
 
@@ -52,15 +53,7 @@ function BrandCategory() {
     <div className="brand-category-page">
       <HeaderCategorie brandId={Number(brandId)} />
 
-      <div className="filter-btn-wrapper">
-        <button
-          type="button"
-          onClick={() => setIsSidebarOpen(true)}
-          className="filter-trigger-btn"
-        >
-          Filtrer <span>⚡</span>
-        </button>
-      </div>
+      <ButtonFilterBar onOpen={() => setIsSidebarOpen(true)} />
 
       <CategorieProduct products={products} />
 
