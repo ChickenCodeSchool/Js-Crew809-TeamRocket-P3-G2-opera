@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HeaderCategorie from "../../components/HeaderCategorie/headerCategorie";
+import ButtonFilterBar from "../../components/buttonFilterBar/ButtonFilterBar";
 import CategorieProduct, {
   type Product,
 } from "../../components/categorieProduct/CategorieProduct";
 import FilterBar from "../../components/filterBar/FilterBar";
-import ButtonFilterBar from "../../components/buttonFilterBar/ButtonFilterBar";
 
 import "./BrandCategory.css";
 
