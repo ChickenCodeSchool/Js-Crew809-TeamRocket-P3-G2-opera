@@ -1,11 +1,11 @@
 .brand-desc-section {
-  padding: 120px 2rem 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
   /*min-height: 60vh;*/
   height: 80vh;
   position: relative;
+  padding: 2rem;
 }
 
 .brand-desc-container {
@@ -18,9 +18,9 @@
 
 .brand-logo {
   position: absolute;
-  top: 0%;
-  right: -0vh;
-  width: 225px;
+  top: 2rem;
+  right: 5rem;
+  width: 13rem;
   height: auto;
   object-fit: contain;
 }
@@ -29,7 +29,7 @@
   font-size: 1.5rem;
   line-height: 1.8;
   text-align: center;
-  font-weight: 300;
+  font-weight: 500;
 }
 
 .brand-loading,
@@ -40,8 +40,9 @@
 
 @media (max-width: 1050px) {
   .brand-logo {
-    top: 10vh;
-    right: 2vh;
+    top: 2rem;
+    right: 2rem;
+    width: 12rem;
   }
 }
 
@@ -51,14 +52,10 @@
   }
 
   .brand-text {
-    font-size: 1.25rem;
+    font-size: 1.2rem;
   }
 
   .brand-logo {
     display: none;
-  }
-
-  .brand-desc-section {
-    flex-direction: column;
   }
 }
