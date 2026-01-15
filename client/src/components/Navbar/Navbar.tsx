@@ -18,7 +18,6 @@ interface NavbarProps {
 function Navbar({ auth, setAuth }: NavbarProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
 
   const navigate = useNavigate();
   const location = useLocation();
