@@ -25,7 +25,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
   const isLanding = location.pathname === "/";
   console.log("pathname:", location.pathname, "isLanding:", isLanding);
 
-  const darkNavbarPages = ["/nouscontacter"];
+  const darkNavbarPages = ["/nouscontacter", "/login",  "/register",  "/profile"];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
     // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change

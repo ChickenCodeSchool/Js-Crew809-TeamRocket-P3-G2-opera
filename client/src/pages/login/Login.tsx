@@ -2,6 +2,7 @@ import { useRef } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import type { Auth } from "../../App";
+import "../login/Login.css"
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -38,20 +39,25 @@ function Login() {
     }
   };
 
-  return (
+return (
+  <div className="login_page">
     <form onSubmit={handleSubmit} className="login_form">
       <h2>Connexion</h2>
+
       <div>
         <label htmlFor="email">Email</label>
         <input ref={emailRef} type="email" id="email" required />
       </div>
+
       <div>
         <label htmlFor="password">Mot de passe</label>
         <input ref={passwordRef} type="password" id="password" required />
       </div>
+
       <button type="submit">Se connecter</button>
     </form>
-  );
+  </div>
+);
 }
 
 export default Login;

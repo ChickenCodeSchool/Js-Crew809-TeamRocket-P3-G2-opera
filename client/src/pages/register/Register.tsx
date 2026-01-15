@@ -1,3 +1,4 @@
+import "../register/Register.css"
 import { useRef, useState } from "react";
 import type { FormEventHandler, ChangeEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -14,71 +15,100 @@ function Register() {
   const navigate = useNavigate();
   const { setAuth } = useOutletContext<{ setAuth: (auth: Auth | null) => void }>();
 
-  const handlePasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => setPassword(e.target.value);
-  const handleConfirmPasswordChange: ChangeEventHandler<HTMLInputElement> = (e) => setConfirmPassword(e.target.value);
+  const handlePasswordChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setPassword(e.target.value);
+
+  const handleConfirmPasswordChange: ChangeEventHandler<HTMLInputElement> = (e) =>
+    setConfirmPassword(e.target.value);
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
 
+    if (!firstnameRef.current || !lastnameRef.current || !emailRef.current) {
+      alert("Les champs ne sont pas remplis correctement");
+      return;
+    }
     if (password !== confirmPassword) {
       alert("Les mots de passe ne correspondent pas !");
       return;
     }
 
     try {
-      const response = await fetch("/customers", {
+      const response = await fetch("http://localhost:3310/customers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firstname: (firstnameRef.current as HTMLInputElement).value,
-          lastname: (lastnameRef.current as HTMLInputElement).value,
-          mail: (emailRef.current as HTMLInputElement).value,
+          firstname: firstnameRef.current.value,
+          lastname: lastnameRef.current.value,
+          mail: emailRef.current.value,
           password,
         }),
       });
 
-      if (response.ok) {
-        const data: Auth = await response.json();
+    if (response.ok) {
+      const data = await response.json();
 
-        setAuth(data);
+      setAuth(data); 
 
-        navigate("/profile");
-      } else {
-        alert("Erreur lors de l'inscription");
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Erreur serveur");
+      navigate("/profile");
+    } else {
+      alert("Erreur lors de l'inscription");
     }
-  };
+  } catch (err) {
+    console.error("Erreur fetch :", err);
+    alert("Erreur serveur");
+  }
+};
 
   return (
-    <form onSubmit={handleSubmit} className="register_form">
-      <h2>Inscription</h2>
-      <div>
-        <label htmlFor="firstname">Prénom</label>
-        <input ref={firstnameRef} type="text" id="firstname" required />
-      </div>
-      <div>
-        <label htmlFor="lastname">Nom</label>
-        <input ref={lastnameRef} type="text" id="lastname" required />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input ref={emailRef} type="email" id="email" required />
-      </div>
-      <div>
-        <label htmlFor="password">Mot de passe</label>
-        <input type="password" value={password} onChange={handlePasswordChange} required />
-        {password.length >= 8 ? "✅" : "❌"} (min 8 caractères)
-      </div>
-      <div>
-        <label htmlFor="confirm-password">Confirmer le mot de passe</label>
-        <input type="password" value={confirmPassword} onChange={handleConfirmPasswordChange} required />
-        {password === confirmPassword ? "✅" : "❌"}
-      </div>
-      <button type="submit">S'inscrire</button>
-    </form>
+    <div className="register_page">
+      <form onSubmit={handleSubmit} className="register_form">
+        <h2>Inscription</h2>
+
+        <div>
+          <label htmlFor="firstname">Prénom</label>
+          <input ref={firstnameRef} type="text" id="firstname" required />
+        </div>
+
+        <div>
+          <label htmlFor="lastname">Nom</label>
+          <input ref={lastnameRef} type="text" id="lastname" required />
+        </div>
+
+        <div>
+          <label htmlFor="email">Email</label>
+          <input ref={emailRef} type="email" id="email" required />
+        </div>
+
+        <div>
+          <label htmlFor="password">Mot de passe</label>
+          <input
+            type="password"
+            value={password}
+            onChange={handlePasswordChange}
+            required
+          />
+          <span className="password-info">
+            {password.length >= 8 ? "✅" : "❌"} (min 8 caractères)
+          </span>
+        </div>
+
+        <div>
+          <label htmlFor="confirm-password">Confirmer le mot de passe</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+            required
+          />
+          <span className="password-info">
+            {password === confirmPassword ? "✅" : "❌"}
+          </span>
+        </div>
+
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
   );
 }
 

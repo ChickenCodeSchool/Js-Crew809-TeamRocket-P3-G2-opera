@@ -24,23 +24,32 @@ const read: RequestHandler = async (req , res , next) => {
     }
 };
 
-const add : RequestHandler = async (req , res , next) => {
-    try {
-        const newCustomer = {
-            firstname : req.body.firstname,
-            lastname: req.body.lastname,
-            mail: req.body.mail, 
-            password: req.body.hashed_password,
-            birthday: req.body.birthday || null,
-            adress : req.body.adress || null,
-            country: req.body.country || null, 
-            phone : req.body.phone || null,
-        };
-        const insertId = await customerRepository.create(newCustomer);
-        res.status(201).json({insertId});
-    } catch (err){
-        next (err);
-    }
+const add: RequestHandler = async (req, res, next) => {
+  try {
+    const newCustomer = {
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      mail: req.body.mail,
+      password: req.body.hashed_password, // hashé côté authActions
+      birthday: req.body.birthday || null,
+      adress: req.body.adress || null,
+      country: req.body.country || null,
+      phone: req.body.phone || null,
+      created_at: new Date(),
+      updated_at: new Date(),
+    };
+
+    // Crée l'utilisateur
+    const insertId = await customerRepository.create(newCustomer);
+
+    // Récupère l'utilisateur complet
+    const customer = await customerRepository.read(insertId);
+
+    // Renvoie au frontend sous "user"
+    res.status(201).json({ user: customer });
+  } catch (err) {
+    next(err);
+  }
 };
 
 const update: RequestHandler = async (req, res, next) => {
@@ -49,6 +58,7 @@ const update: RequestHandler = async (req, res, next) => {
     const updatedData = {
       ...req.body,
       customer_id: customerId,
+      updated_at: new Date(),
     };
     const affectedRows = await customerRepository.update(updatedData);
     if (affectedRows === 0) {
