@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import type { Auth, User } from "../../App";
 import "./Profile.css";
 
 function Profile() {
-  const { auth, setAuth } = useOutletContext<{ auth: Auth | null; setAuth: (auth: Auth | null) => void }>();
+  const { auth } = useOutletContext<{ auth: Auth | null; setAuth: (auth: Auth | null) => void }>();
   const navigate = useNavigate();
 
   if (!auth) {
