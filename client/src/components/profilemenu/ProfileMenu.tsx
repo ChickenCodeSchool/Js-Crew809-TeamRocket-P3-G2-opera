@@ -15,7 +15,7 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
     navigate("/");
   };
 
-  if (auth) {
+   if (auth?.user) {
     return (
       <div className="profile_menu">
         <p>

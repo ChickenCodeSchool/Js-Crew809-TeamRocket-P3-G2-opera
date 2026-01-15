@@ -15,14 +15,14 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await fetch("/auth/login", {
+      const response = await fetch("http://localhost:3310/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          mail: (emailRef.current as HTMLInputElement).value,
-          password: (passwordRef.current as HTMLInputElement).value,
-        }),
-      });
+        mail: emailRef.current?.value,
+        password: passwordRef.current?.value,
+  }),
+});
 
       if (response.ok) {
         const data: Auth = await response.json();
