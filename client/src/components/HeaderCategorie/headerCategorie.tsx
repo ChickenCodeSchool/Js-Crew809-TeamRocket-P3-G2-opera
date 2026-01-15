@@ -36,8 +36,8 @@ const HeaderCategorie = ({ brandId }: Props) => {
             alt={`${miniHero[0]?.name} illustration de la marque`}
             className="header-categorie-image"
           />
-          <div className="header-categorie-brandname">{miniHero[0]?.name}</div>
-          <hr />
+          {/* <div className="header-categorie-brandname">{miniHero[0]?.name}</div>
+          <hr /> */}
         </>
       )}
     </div>
