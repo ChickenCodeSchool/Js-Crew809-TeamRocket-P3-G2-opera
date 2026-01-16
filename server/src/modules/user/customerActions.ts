@@ -33,6 +33,7 @@ const add: RequestHandler = async (req, res, next) => {
       password: req.body.hashed_password, 
       birthday: req.body.birthday || null,
       adress: req.body.adress || null,
+      postal_code: req.body.postal_code || null,
       country: req.body.country || null,
       phone: req.body.phone || null,
       created_at: new Date(),
