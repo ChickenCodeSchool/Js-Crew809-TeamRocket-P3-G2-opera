@@ -34,7 +34,7 @@ function Profile() {
             <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
             <p><strong>Email :</strong> {user.mail ?? "Non renseigné"}</p>
             <p><strong>Téléphone :</strong> {user.phone ?? "Non renseigné"}</p>
-            <p><strong>N° client :</strong> {user.customer_id ?? "Non renseigné"}</p>
+            <p><strong>N° client :</strong> {user.customer_id}</p>
           </div>
         </div>
 
@@ -44,6 +44,8 @@ function Profile() {
             <p><strong>Nom :</strong> {user.lastname ?? "Non renseigné"}</p>
             <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
             <p><strong>Adresse :</strong> {user.adress ?? "Non renseignée"}</p>
+            <p><strong>Code postal :</strong> {user.postal_code ?? "Non renseigné"}</p>
+            <p><strong>Pays :</strong> {user.country ?? "Non renseigné"}</p>
           </div>
         </div>
       </div>

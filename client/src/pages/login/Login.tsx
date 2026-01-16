@@ -28,9 +28,7 @@ function Login() {
 
       if (response.ok) {
         const data: Auth = await response.json();
-
         setAuth(data);
-
         navigate("/profile");
       } else {
         alert("Erreur de connexion : vérifier vos identifiants");

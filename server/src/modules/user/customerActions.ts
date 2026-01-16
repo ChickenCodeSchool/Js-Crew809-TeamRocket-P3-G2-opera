@@ -30,7 +30,7 @@ const add: RequestHandler = async (req, res, next) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       mail: req.body.mail,
-      password: req.body.hashed_password, // hashé côté authActions
+      password: req.body.hashed_password, 
       birthday: req.body.birthday || null,
       adress: req.body.adress || null,
       country: req.body.country || null,
@@ -39,13 +39,10 @@ const add: RequestHandler = async (req, res, next) => {
       updated_at: new Date(),
     };
 
-    // Crée l'utilisateur
     const insertId = await customerRepository.create(newCustomer);
 
-    // Récupère l'utilisateur complet
     const customer = await customerRepository.read(insertId);
 
-    // Renvoie au frontend sous "user"
     res.status(201).json({ user: customer });
   } catch (err) {
     next(err);
