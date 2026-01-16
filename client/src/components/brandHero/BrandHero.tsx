@@ -32,11 +32,6 @@ const BrandHero = ({ brandId }: Props) => {
           backgroundImage: `url(${import.meta.env.VITE_API_URL}${hero?.url_hero})`,
         }}
       />
-
-      {/* Couche 2 : Le texte centré par-dessus */}
-      <div className="hero-text-overlay">
-        <h1 className="hero-brand-title">{hero?.name}</h1>
-      </div>
     </div>
   );
 };

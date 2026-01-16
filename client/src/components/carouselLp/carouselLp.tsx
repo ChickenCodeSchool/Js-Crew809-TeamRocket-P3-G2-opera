@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./CarouselLp.css";
+import { useNavigate } from "react-router";
 
 type CarouselBrandPicture = {
   brand_picture_id: number;
@@ -15,6 +16,7 @@ const CarouselLp: React.FC = () => {
     CarouselBrandPicture[]
   >([]);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/carouselLp`)
@@ -34,6 +36,10 @@ const CarouselLp: React.FC = () => {
     setActiveIndex(i);
   };
 
+  const handleNavigation = (brandId: number) => {
+    navigate(`/brand/${brandId}`);
+  };
+
   return (
     <section>
       <div className="sliderLp">
@@ -42,6 +48,7 @@ const CarouselLp: React.FC = () => {
             <article
               key={card.brand_picture_id}
               className="project-card"
+              onClickCapture={() => handleNavigation(card.brand_id)}
               data-active={activeIndex === index}
               onMouseEnter={() => handleMouseEnter(index)}
               onClick={() => handleClick(index)}

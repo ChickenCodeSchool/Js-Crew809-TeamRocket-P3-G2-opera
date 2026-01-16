@@ -5,11 +5,15 @@ import App from "./App";
 import Footer from "./components/Footer/Footer";
 /*import BrandHero from "./components/brandHero/BrandHero";*/
 import CarouselLp from "./components/carouselLp/carouselLp";
+import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
+import Profile from "./pages/Profile/Profile";
 import Contact from "./pages/contactPage/contact";
+import Login from "./pages/login/Login";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import Register from "./pages/register/Register";
 
 const router = createBrowserRouter([
   {
@@ -25,9 +29,29 @@ const router = createBrowserRouter([
         element: <BrandPage />,
       },
       {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "profile",
+        element: <Profile />,
+      },
+
+      /*   {
         path: "/login",
         element: <PageTestLink />,
       },
+      {
+        path:"/register",
+        element: 
+      },
+      {
+
+      },*/
       {
         path: "/orders",
         element: <PageTestLink />,
@@ -51,6 +75,10 @@ const router = createBrowserRouter([
       {
         path: "/footer",
         element: <Footer />,
+      },
+      {
+        path: "/brand/:brandId/products/:productId",
+        element: <ArticlePage />,
       },
       {
         path: "/nouscontacter",
