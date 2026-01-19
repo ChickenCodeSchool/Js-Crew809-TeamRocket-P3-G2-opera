@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { Pencil, Check, X } from "lucide-react";
 import type { Auth, User } from "../../App";
 import "./Profile.css";
+import imageopera from "../../assets/images/imageopera.jpg"
 
 function Profile() {
   const { auth, setAuth } = useOutletContext<{
@@ -58,100 +59,106 @@ function Profile() {
 
   return (
     <div className="profile_page">
+      <img src={imageopera} alt="mini-hero-profil" className="mini-hero-profil" />
       <h2 className="profile_title">Mon profil</h2>
 
-      <div className="profile_cards">
-        <div className="profile_card">
-          <h3>Mes données personnelles</h3>
-          <div className="card_icons">
-            {editingSection !== "personal" ? (
-              <Pencil  className="edit_icon" onClick={() => handleEdit("personal")} />
-            ) : (
-              <>
-                <Check  className="edit_icon" onClick={() => handleSave("personal")} />
-                <X  className="edit_icon" onClick={() => setEditingSection(null)} />
-              </>
-            )}
+      <div className="profile_content">
+        <div className="profile_cards">
+          <div className="profile_card">
+            <h3>Mes données personnelles</h3>
+            <div className="card_icons">
+              {editingSection !== "personal" ? (
+                <Pencil className="edit_icon" onClick={() => handleEdit("personal")} />
+              ) : (
+                <>
+                  <Check className="edit_icon" onClick={() => handleSave("personal")} />
+                  <X className="edit_icon" onClick={() => setEditingSection(null)} />
+                </>
+              )}
+            </div>
+
+            <div className="profile_info">
+              {editingSection === "personal" ? (
+                <>
+                  <input
+                    className="edit_input"
+                    value={editedUser.firstname}
+                    onChange={(e) => handleChange("firstname", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.lastname}
+                    onChange={(e) => handleChange("lastname", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.mail}
+                    onChange={(e) => handleChange("mail", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.phone ?? ""}
+                    onChange={(e) => handleChange("phone", e.target.value)}
+                  />
+                </>
+              ) : (
+                <>
+                  <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
+                  <p><strong>Nom :</strong> {user.lastname ?? "Non renseigné"}</p>
+                  <p><strong>Email :</strong> {user.mail ?? "Non renseigné"}</p>
+                  <p><strong>Téléphone :</strong> {user.phone ?? "Non renseigné"}</p>
+                  <p><strong>N° client :</strong> {user.customer_id}</p>
+                </>
+              )}
+            </div>
           </div>
 
-          <div className="profile_info">
-            {editingSection === "personal" ? (
-              <>
-                <input
-                  className="edit_input"
-                  value={editedUser.firstname}
-                  onChange={(e) => handleChange("firstname", e.target.value)}
-                />
-                <input
-                  className="edit_input"
-                  value={editedUser.lastname}
-                  onChange={(e) => handleChange("lastname", e.target.value)}
-                />
-                <input
-                  className="edit_input"
-                  value={editedUser.mail}
-                  onChange={(e) => handleChange("mail", e.target.value)}
-                />
-                <input
-                  className="edit_input"
-                  value={editedUser.phone ?? ""}
-                  onChange={(e) => handleChange("phone", e.target.value)}
-                />
-              </>
-            ) : (
-              <>
-                <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
-                <p><strong>Nom :</strong> {user.lastname ?? "Non renseigné"}</p>
-                <p><strong>Email :</strong> {user.mail ?? "Non renseigné"}</p>
-                <p><strong>Téléphone :</strong> {user.phone ?? "Non renseigné"}</p>
-                <p><strong>N° client :</strong> {user.customer_id}</p>
-              </>
-            )}
+          <div className="profile_card">
+            <h3>Mes adresses</h3>
+            <div className="card_icons">
+              {editingSection !== "address" ? (
+                <Pencil className="edit_icon" onClick={() => handleEdit("address")} />
+              ) : (
+                <>
+                  <Check className="edit_icon" onClick={() => handleSave("address")} />
+                  <X className="edit_icon" onClick={() => setEditingSection(null)} />
+                </>
+              )}
+            </div>
+
+            <div className="profile_info">
+              {editingSection === "address" ? (
+                <>
+                  <input
+                    className="edit_input"
+                    value={editedUser.adress ?? ""}
+                    onChange={(e) => handleChange("adress", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.postal_code ?? ""}
+                    onChange={(e) => handleChange("postal_code", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.country ?? ""}
+                    onChange={(e) => handleChange("country", e.target.value)}
+                  />
+                </>
+              ) : (
+                <>
+                  <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
+                  <p><strong>Nom :</strong> {user.lastname ?? "Non renseigné"}</p>
+                  <p><strong>Adresse :</strong> {user.adress ?? "Non renseignée"}</p>
+                  <p><strong>Code postal :</strong> {user.postal_code ?? "Non renseigné"}</p>
+                  <p><strong>Pays :</strong> {user.country ?? "Non renseigné"}</p>
+                </>
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="profile_card">
-          <h3>Mes adresses</h3>
-          <div className="card_icons">
-            {editingSection !== "address" ? (
-              <Pencil className="edit_icon" onClick={() => handleEdit("address")} />
-            ) : (
-              <>
-                <Check className="edit_icon" onClick={() => handleSave("address")} />
-                <X  className="edit_icon" onClick={() => setEditingSection(null)} />
-              </>
-            )}
-          </div>
-
-          <div className="profile_info">
-            {editingSection === "address" ? (
-              <>
-                <input
-                  className="edit_input"
-                  value={editedUser.adress ?? ""}
-                  onChange={(e) => handleChange("adress", e.target.value)}
-                />
-                <input
-                  className="edit_input"
-                  value={editedUser.postal_code ?? ""}
-                  onChange={(e) => handleChange("postal_code", e.target.value)}
-                />
-                <input
-                  className="edit_input"
-                  value={editedUser.country ?? ""}
-                  onChange={(e) => handleChange("country", e.target.value)}
-                />
-              </>
-            ) : (
-              <>
-                <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
-                <p><strong>Nom :</strong> {user.lastname ?? "Non renseigné"}</p>
-                <p><strong>Adresse :</strong> {user.adress ?? "Non renseignée"}</p>
-                <p><strong>Code postal :</strong> {user.postal_code ?? "Non renseigné"}</p>
-                <p><strong>Pays :</strong> {user.country ?? "Non renseigné"}</p>
-              </>
-            )}
-          </div>
+        <div className="profile_column_right">
         </div>
       </div>
     </div>

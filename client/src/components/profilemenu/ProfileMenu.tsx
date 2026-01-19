@@ -19,7 +19,7 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
     return (
       <div className="profile_menu">
         <p>
-           {auth.user.firstname} {auth.user.lastname}
+           {auth.user.firstname} 
         </p>
         <button type="button" onClick={() => navigate("/profile")}>
           Mon profil
