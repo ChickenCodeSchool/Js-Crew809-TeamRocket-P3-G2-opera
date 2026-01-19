@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import OldOrder from "../../components/OldOrder/OldOrder";
 import OrderInProgress, {
   type OrderData,
 } from "../../components/OrderInProgress/OrderInProgress";
-import OldOrder from "../../components/OldOrder/OldOrder";
 import "./MyOrderPage.css";
 
 function MyOrderPage() {
