@@ -174,6 +174,7 @@ CREATE TABLE `customers` (
   `mail` varchar(100) NOT NULL,
   `birthday` date DEFAULT NULL,
   `adress` text,
+  `postal_code` varchar(20) DEFAULT NULL,
   `country` varchar(100) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,

@@ -3,6 +3,7 @@ import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import type { Auth } from "../../App";
 import "../login/Login.css";
+import imageopera from "../../assets/images/imageopera.jpg"
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -17,20 +18,18 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await fetch("/auth/login", {
+      const response = await fetch("http://localhost:3310/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          mail: (emailRef.current as HTMLInputElement).value,
-          password: (passwordRef.current as HTMLInputElement).value,
-        }),
-      });
+        mail: emailRef.current?.value,
+        password: passwordRef.current?.value,
+  }),
+});
 
       if (response.ok) {
         const data: Auth = await response.json();
-
         setAuth(data);
-
         navigate("/profile");
       } else {
         alert("Erreur de connexion : vérifier vos identifiants");
@@ -42,23 +41,31 @@ function Login() {
   };
 
   return (
-    <div className="login_page">
-      <form onSubmit={handleSubmit} className="login_form">
-        <h2>Connexion</h2>
+  <div className="login_page">
+    <img
+      src={imageopera}
+      alt="mini-hero-connexion"
+     className="mini-hero-connexion"
+  />
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <input ref={emailRef} type="email" id="email" required />
-        </div>
+  <div className="login_form_container">
+    <form onSubmit={handleSubmit} className="login_form">
+      <h2>Connexion</h2>
 
-        <div>
-          <label htmlFor="password">Mot de passe</label>
-          <input ref={passwordRef} type="password" id="password" required />
-        </div>
+      <div>
+        <label htmlFor="email">E-mail</label>
+        <input ref={emailRef} type="email" id="email" required />
+      </div>
 
-        <button type="submit">Se connecter</button>
-      </form>
-    </div>
+      <div>
+        <label htmlFor="password">Mot de passe</label>
+        <input ref={passwordRef} type="password" id="password" required />
+      </div>
+
+      <button type="submit">Se connecter</button>
+    </form>
+  </div>
+</div>
   );
 }
 

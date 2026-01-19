@@ -15,11 +15,11 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
     navigate("/");
   };
 
-  if (auth) {
+   if (auth?.user) {
     return (
       <div className="profile_menu">
         <p>
-          Bonjour {auth.user.firstname} {auth.user.lastname}
+           {auth.user.firstname} 
         </p>
         <button type="button" onClick={() => navigate("/profile")}>
           Mon profil
