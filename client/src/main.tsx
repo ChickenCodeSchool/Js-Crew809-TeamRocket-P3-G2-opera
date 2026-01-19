@@ -14,6 +14,7 @@ import Contact from "./pages/contactPage/contact";
 import Login from "./pages/login/Login";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 import Register from "./pages/register/Register";
+import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +55,7 @@ const router = createBrowserRouter([
       },*/
       {
         path: "/orders",
-        element: <PageTestLink />,
+        element: <MyOrderPage />,
       },
       {
         path: "/contact",

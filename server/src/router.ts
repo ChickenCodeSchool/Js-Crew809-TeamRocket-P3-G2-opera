@@ -68,4 +68,8 @@ router.delete(
   customerActions.remove,
 );
 
+import orderActions from "./modules/order/orderActions";
+
+router.get("/api/orders", orderActions.browse);
+
 export default router;

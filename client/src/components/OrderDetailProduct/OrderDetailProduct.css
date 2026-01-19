@@ -1,0 +1,74 @@
+.product-card-orderDetail {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0; /* Bordure grise légère */
+  border-radius: 8px; /* Coins arrondis comme sur la maquette */
+  padding: 20px;
+  background-color: #fff;
+  margin-bottom: 20px;
+  height: 250px; /* Hauteur fixe pour ressembler aux cartes de la maquette */
+  box-sizing: border-box;
+}
+
+.product-image-container-orderDetail {
+  width: 250px; /* Largeur de la zone image */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9; /* Fond gris très clair pour l'image */
+  margin-right: 60px; /* Espacement avec le texte */
+}
+
+.product-img-orderDetail {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  mix-blend-mode: multiply; /* Pour fondre le fond blanc de l'image jpg/png */
+}
+
+.product-info-orderDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  justify-content: center;
+}
+
+.product-name-orderDetail {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.product-price-orderDetail {
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #000;
+  margin: 0;
+}
+
+.product-quantity-orderDetail {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .product-card-orderDetail {
+    flex-direction: column;
+    height: auto;
+    align-items: flex-start;
+  }
+
+  .product-image-container-orderDetail {
+    width: 100%;
+    height: 200px;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}

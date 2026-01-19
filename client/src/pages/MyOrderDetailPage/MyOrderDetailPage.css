@@ -1,0 +1,54 @@
+.page-container-orderDetail {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 120px 40px 60px; /* Padding haut pour le header fixe */
+  min-height: 80vh;
+  background-color: white;
+  color: black;
+}
+
+.header-section-orderDetail {
+  margin-bottom: 60px;
+}
+
+.main-title-orderDetail {
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  font-weight: 700; /* Gras pour le titre */
+  color: #000;
+  margin-bottom: 30px;
+  text-transform: none; /* Pas de majuscules forcées ici selon la maquette */
+}
+
+.meta-info-orderDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.meta-info-orderDetail p {
+  font-family: "Montserrat", sans-serif;
+  font-size: 13px;
+  color: #333;
+  margin: 0;
+}
+
+.products-list-orderDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Espace entre les cartes produits */
+}
+
+.loading-orderDetail,
+.error-orderDetail {
+  padding-top: 150px;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .page-container-orderDetail {
+    padding: 100px 20px 40px;
+  }
+}
