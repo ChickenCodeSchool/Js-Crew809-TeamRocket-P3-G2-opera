@@ -15,6 +15,7 @@ import Contact from "./pages/contactPage/contact";
 import Login from "./pages/login/Login";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 import Register from "./pages/register/Register";
+import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: "/orders",
         element: <MyOrderPage />,
+      },
+      {
+        path: "/orders/:id",
+        element: <MyOrderDetailPage />,
       },
       {
         path: "/contact",

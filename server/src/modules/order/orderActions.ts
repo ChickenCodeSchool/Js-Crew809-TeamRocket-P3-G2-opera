@@ -3,21 +3,16 @@ import orderRepository from "./orderRepository";
 
 const browse = async (req: Request, res: Response) => {
   try {
-    // Plus tard, cela viendra du token d'authentification (req.user.id)
     const customerId = Number(req.query.customerId);
-
     if (!customerId) {
-      res.status(400).json({ error: "Customer ID is required" });
+      res.status(400).json({ error: "Customer ID manquant" });
       return;
     }
-
     const orders = await orderRepository.readByCustomerId(customerId);
     res.json(orders);
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ error: "Erreur lors de la récupération des commandes" });
+    res.status(500).json({ error: "Erreur serveur" });
   }
 };
 
@@ -25,7 +20,6 @@ const read = async (req: Request, res: Response) => {
   try {
     const orderId = Number(req.params.id);
     const order = await orderRepository.read(orderId);
-
     if (order) {
       res.json(order);
     } else {
@@ -33,9 +27,7 @@ const read = async (req: Request, res: Response) => {
     }
   } catch (err) {
     console.error(err);
-    res
-      .status(500)
-      .json({ error: "Erreur lors de la récupération de la commande" });
+    res.status(500).json({ error: "Erreur serveur" });
   }
 };
 

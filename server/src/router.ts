@@ -61,7 +61,10 @@ import customerActions from "./modules/user/customerActions";
 router.post("/customers", authActions.hashPassword, customerActions.add);
 router.get("/customers", customerActions.browse);
 router.get("/customers/:id", customerActions.read);
-router.put("/customers/:id", /*authActions.hashPassword,*/ customerActions.update);
+router.put(
+  "/customers/:id",
+  /*authActions.hashPassword,*/ customerActions.update,
+);
 router.delete(
   "/customers/:id",
   authActions.verifyToken,
@@ -71,5 +74,6 @@ router.delete(
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
+router.get("/api/orders/:id", orderActions.read);
 
 export default router;

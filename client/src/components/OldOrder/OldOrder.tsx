@@ -1,27 +1,25 @@
+import { useNavigate } from "react-router-dom";
 import { VscAdd } from "react-icons/vsc";
 import type { OrderData } from "../OrderInProgress/OrderInProgress";
 import "./OldOrder.css";
 
-type Props = {
-  order: OrderData;
-};
+type Props = { order: OrderData };
 
 export default function OldOrder({ order }: Props) {
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("fr-FR");
-  };
-
+  const navigate = useNavigate();
   return (
     <div className="old-order-card-order">
       <div className="order-header-order">
         <span className="order-date-label-order">
-          Livrée le <strong>{formatDate(order.delivery_date)}</strong>
+          Livrée le{" "}
+          <strong>
+            {new Date(order.delivery_date).toLocaleDateString("fr-FR")}
+          </strong>
         </span>
         <span className="order-amount-order">
           Montant : € {new Intl.NumberFormat("fr-FR").format(order.total)}
         </span>
       </div>
-
       <div className="order-content-row-order">
         <div className="order-images-grid-order">
           {order.items.map((item) => (
@@ -33,8 +31,11 @@ export default function OldOrder({ order }: Props) {
             </div>
           ))}
         </div>
-
-        <button className="order-action-btn-order" type="button">
+        <button
+          className="order-action-btn-order"
+          type="button"
+          onClick={() => navigate(`/orders/${order.order_id}`)}
+        >
           <VscAdd size={24} />
         </button>
       </div>

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { LuTruck } from "react-icons/lu";
 import { VscAdd } from "react-icons/vsc";
 import "./OrderInProgress.css";
@@ -23,6 +24,8 @@ type Props = {
 };
 
 export default function OrderInProgress({ order }: Props) {
+  const navigate = useNavigate();
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("fr-FR");
   };
@@ -33,7 +36,6 @@ export default function OrderInProgress({ order }: Props) {
 
   return (
     <div className="order-progress-card-order">
-      {/* Header */}
       <div className="order-header-order">
         <span className="order-date-label-order">
           Commandée le <strong>{formatDate(order.date)}</strong>
@@ -43,7 +45,6 @@ export default function OrderInProgress({ order }: Props) {
         </span>
       </div>
 
-      {/* Contenu */}
       <div className="order-content-row-order">
         <div className="order-images-grid-order">
           {order.items.map((item) => (
@@ -55,13 +56,15 @@ export default function OrderInProgress({ order }: Props) {
             </div>
           ))}
         </div>
-
-        <button className="order-action-btn-order" type="button">
+        <button
+          className="order-action-btn-order"
+          type="button"
+          onClick={() => navigate(`/orders/${order.order_id}`)}
+        >
           <VscAdd size={24} />
         </button>
       </div>
 
-      {/* Timeline */}
       <div className="timeline-container-order">
         <div className="timeline-line-order">
           <div
@@ -69,16 +72,12 @@ export default function OrderInProgress({ order }: Props) {
             style={{ width: isShipped ? "50%" : "0%" }}
           />
         </div>
-
-        {/* Étape 1 */}
         <div
           className={`timeline-step-order ${isPreparing || isShipped ? "active-order" : ""}`}
         >
           <div className="step-dot-order" />
           <span className="step-label-order">En Préparation</span>
         </div>
-
-        {/* Étape 2 (Camion) */}
         <div
           className={`timeline-step-order center-step-order ${isShipped ? "active-order" : ""}`}
         >
@@ -86,8 +85,6 @@ export default function OrderInProgress({ order }: Props) {
             <LuTruck className="step-icon-order" />
           </div>
         </div>
-
-        {/* Étape 3 */}
         <div className="timeline-step-order end-step-order">
           <div className="step-dot-order" />
           <span className="step-label-order">

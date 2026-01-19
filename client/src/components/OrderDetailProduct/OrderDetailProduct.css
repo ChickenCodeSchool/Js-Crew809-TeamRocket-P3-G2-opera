@@ -1,42 +1,41 @@
 .product-card-orderDetail {
   display: flex;
   align-items: center;
-  border: 1px solid #e0e0e0; /* Bordure grise légère */
-  border-radius: 8px; /* Coins arrondis comme sur la maquette */
-  padding: 20px;
+  border: 0.0625rem solid #e0e0e0;
+  border-radius: 0.5rem;
+  padding: 1.25rem;
   background-color: #fff;
-  margin-bottom: 20px;
-  height: 250px; /* Hauteur fixe pour ressembler aux cartes de la maquette */
+  margin-bottom: 1.25rem;
+  height: 15.625rem;
   box-sizing: border-box;
 }
 
 .product-image-container-orderDetail {
-  width: 250px; /* Largeur de la zone image */
+  width: 15.625rem;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9f9f9; /* Fond gris très clair pour l'image */
-  margin-right: 60px; /* Espacement avec le texte */
+  background-color: #f9f9f9;
+  margin-right: 3.75rem;
 }
 
 .product-img-orderDetail {
   max-width: 90%;
   max-height: 90%;
   object-fit: contain;
-  mix-blend-mode: multiply; /* Pour fondre le fond blanc de l'image jpg/png */
+  mix-blend-mode: multiply;
 }
 
 .product-info-orderDetail {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 0.9375rem;
   justify-content: center;
 }
 
 .product-name-orderDetail {
-  font-family: "Montserrat", sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   color: #333;
   margin: 0;
@@ -44,21 +43,19 @@
 }
 
 .product-price-orderDetail {
-  font-family: "Montserrat", sans-serif;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 400;
   color: #000;
   margin: 0;
 }
 
 .product-quantity-orderDetail {
-  font-size: 12px;
+  font-size: 0.75rem;
   color: #666;
   margin: 0;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .product-card-orderDetail {
     flex-direction: column;
     height: auto;
@@ -67,8 +64,8 @@
 
   .product-image-container-orderDetail {
     width: 100%;
-    height: 200px;
+    height: 12.5rem;
     margin-right: 0;
-    margin-bottom: 20px;
+    margin-bottom: 1.25rem;
   }
 }

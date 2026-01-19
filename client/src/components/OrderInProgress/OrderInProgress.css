@@ -1,14 +1,13 @@
 .order-progress-card-order {
-  margin-bottom: 60px;
+  margin-bottom: 3.75rem;
   width: 100%;
 }
 
 .order-header-order {
   display: flex;
-  gap: 40px;
-  margin-bottom: 20px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 13px;
+  gap: 2.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.8125rem;
   color: #000;
 }
 
@@ -20,18 +19,18 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 2.5rem;
 }
 
 .order-images-grid-order {
   display: flex;
-  gap: 20px;
+  gap: 1.25rem;
   flex-wrap: wrap;
 }
 
 .order-item-thumb-order {
-  width: 120px;
-  height: 120px;
+  width: 7.5rem;
+  height: 7.5rem;
   background-color: #f5f5f5;
   display: flex;
   align-items: center;
@@ -46,16 +45,16 @@
 }
 
 .order-action-btn-order {
-  width: 60px;
-  height: 60px;
-  border: 1.5px solid #000;
+  width: 3.75rem;
+  height: 3.75rem;
+  border: 0.09375rem solid #000;
   background: white;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-left: 20px;
+  margin-left: 1.25rem;
 }
 
 .order-action-btn-order:hover {
@@ -63,22 +62,21 @@
   color: white;
 }
 
-/* --- TIMELINE --- */
 .timeline-container-order {
   position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 20px;
-  margin-top: 20px;
+  padding-top: 1.25rem;
+  margin-top: 1.25rem;
 }
 
 .timeline-line-order {
   position: absolute;
-  top: 26px;
-  left: 5px;
-  right: 5px;
-  height: 1px;
+  top: 1.625rem;
+  left: 0.3125rem;
+  right: 0.3125rem;
+  height: 0.0625rem;
   background-color: #e0e0e0;
   z-index: 0;
 }
@@ -95,29 +93,27 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 0.625rem;
 }
 
 .step-dot-order {
-  width: 12px;
-  height: 12px;
+  width: 0.75rem;
+  height: 0.75rem;
   background-color: #000;
   border-radius: 50%;
 }
 
 .step-label-order {
-  font-family: "Montserrat", sans-serif;
-  font-size: 11px;
-  color: #333;
+  font-size: 0.6875rem;
 }
 
 .step-icon-wrapper-order {
   background-color: white;
-  padding: 0 10px;
+  padding: 0 0.625rem;
 }
 
 .step-icon-order {
-  font-size: 24px;
+  font-size: 1.5rem;
   color: #000;
 }
 
@@ -125,12 +121,11 @@
   align-items: flex-end;
 }
 
-/* Media Query Responsive */
-@media (max-width: 768px) {
+@media (max-width: 48rem) {
   .order-content-row-order {
     flex-direction: column;
     align-items: flex-start;
-    gap: 20px;
+    gap: 1.25rem;
   }
 
   .order-action-btn-order {

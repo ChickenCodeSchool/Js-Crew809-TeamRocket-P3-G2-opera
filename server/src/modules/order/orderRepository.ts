@@ -2,24 +2,25 @@ import database from "../../../database/client";
 import type { Result, Rows } from "../../../database/client";
 
 class OrderRepository {
-  // Récupérer toutes les commandes d'un client avec leurs articles
+  // 1. Liste des commandes pour un client
   async readByCustomerId(customerId: number) {
     const [rows] = await database.query<Rows>(
       `
       SELECT 
         o.order_id,
-        o.created_at as date,
-        o.price_total as total,
+        o.created_at AS date,
+        o.price_total AS total,
         o.status,
         o.delivery_date,
+        -- Agrégation des articles en JSON
         JSON_ARRAYAGG(
           JSON_OBJECT(
             'product_id', p.product_id,
             'name', p.name,
-            'image_url', pi.url,
+            'image_url', IFNULL(pi.url, '/images/placeholder.png'), -- Image par défaut si null
             'quantity', oi.quantity
           )
-        ) as items
+        ) AS items
       FROM \`order\` o
       JOIN order_item oi ON o.order_id = oi.order_id
       JOIN product p ON oi.product_id = p.product_id
@@ -30,29 +31,28 @@ class OrderRepository {
       `,
       [customerId],
     );
-
     return rows;
   }
 
-  // Lire une commande spécifique pour la page détail
+  // 2. Détail d'une commande spécifique
   async read(orderId: number) {
     const [rows] = await database.query<Rows>(
       `
       SELECT 
         o.order_id,
-        o.created_at as date,
-        o.price_total as total,
+        o.created_at AS date,
+        o.price_total AS total,
         o.status,
         o.delivery_date,
         JSON_ARRAYAGG(
           JSON_OBJECT(
             'product_id', p.product_id,
             'name', p.name,
-            'image_url', pi.url,
+            'image_url', IFNULL(pi.url, '/images/placeholder.png'),
             'quantity', oi.quantity,
             'unit_price', oi.unit_price
           )
-        ) as items
+        ) AS items
       FROM \`order\` o
       JOIN order_item oi ON o.order_id = oi.order_id
       JOIN product p ON oi.product_id = p.product_id
@@ -62,7 +62,6 @@ class OrderRepository {
       `,
       [orderId],
     );
-
     return rows[0];
   }
 }
