@@ -9,13 +9,13 @@ import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
+import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
 import Contact from "./pages/contactPage/contact";
 import Login from "./pages/login/Login";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 import Register from "./pages/register/Register";
-import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 
 const router = createBrowserRouter([
   {

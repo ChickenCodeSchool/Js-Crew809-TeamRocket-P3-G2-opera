@@ -31,8 +31,7 @@ export default function OrderInProgress({ order }: Props) {
   };
 
   const isShipped = order.status === "shipped";
-  const isPreparing =
-    order.status === "preparing" || order.status === "pending";
+  const progressWidth = isShipped ? "50%" : "15%";
 
   return (
     <div className="order-progress-card-order">
@@ -47,7 +46,7 @@ export default function OrderInProgress({ order }: Props) {
 
       <div className="order-content-row-order">
         <div className="order-images-grid-order">
-          {order.items.map((item) => (
+          {order.items.slice(0, 3).map((item) => (
             <div key={item.product_id} className="order-item-thumb-order">
               <img
                 src={`${import.meta.env.VITE_API_URL}${item.image_url}`}
@@ -55,37 +54,34 @@ export default function OrderInProgress({ order }: Props) {
               />
             </div>
           ))}
+
+          <button
+            className="order-action-btn-order"
+            type="button"
+            onClick={() => navigate(`/orders/${order.order_id}`)}
+          >
+            <VscAdd size={40} />
+          </button>
         </div>
-        <button
-          className="order-action-btn-order"
-          type="button"
-          onClick={() => navigate(`/orders/${order.order_id}`)}
-        >
-          <VscAdd size={24} />
-        </button>
       </div>
 
       <div className="timeline-container-order">
-        <div className="timeline-line-order">
-          <div
-            className="timeline-progress-order"
-            style={{ width: isShipped ? "50%" : "0%" }}
-          />
-        </div>
+        <div className="timeline-line-background" />
         <div
-          className={`timeline-step-order ${isPreparing || isShipped ? "active-order" : ""}`}
-        >
+          className="timeline-line-progress"
+          style={{ width: progressWidth }}
+        />
+        <div className="timeline-step-order step-start">
           <div className="step-dot-order" />
           <span className="step-label-order">En Préparation</span>
         </div>
-        <div
-          className={`timeline-step-order center-step-order ${isShipped ? "active-order" : ""}`}
-        >
+        <div className="timeline-step-order step-center">
+          <div className="step-dot-order" />
           <div className="step-icon-wrapper-order">
             <LuTruck className="step-icon-order" />
           </div>
         </div>
-        <div className="timeline-step-order end-step-order">
+        <div className="timeline-step-order step-end">
           <div className="step-dot-order" />
           <span className="step-label-order">
             Prévu pour le {formatDate(order.delivery_date)}

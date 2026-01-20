@@ -3,6 +3,7 @@
   min-height: 80vh;
   background-color: white;
   color: black;
+  font-family: "Montserrat", sans-serif;
 }
 
 .hero-container-orderDetail {
@@ -36,7 +37,7 @@
   font-weight: 700;
   color: #000;
   margin-bottom: 1.875rem;
-  text-transform: none;
+  text-transform: uppercase;
 }
 
 .meta-info-orderDetail {

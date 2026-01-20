@@ -4,6 +4,15 @@
   background-color: white;
   color: black;
   position: relative;
+  font-family: "Montserrat", sans-serif;
+}
+
+.order-date-label-order {
+  font-size: 1rem;
+}
+
+.order-amount-order {
+  font-size: 0.9rem;
 }
 
 .hero-container-order {
@@ -44,11 +53,12 @@
 }
 
 .section-title-order {
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 2.5rem;
   color: #000;
+  font-family: "Montserrat", sans-serif;
 }
 
 .no-orders-text-order {
@@ -60,13 +70,19 @@
 .orders-loading-order {
   padding-top: 3.75rem;
   text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
 }
 
-@media (max-width: 48rem) {
+@media (max-width: 768px) {
   .page-title-overlay-order {
     font-size: 2.5rem;
   }
   .hero-container-order {
     height: 12.5rem;
+  }
+  .orders-content-centered {
+    padding: 2rem 1rem;
   }
 }

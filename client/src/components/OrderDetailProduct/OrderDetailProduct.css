@@ -3,26 +3,26 @@
   align-items: center;
   border: 0.0625rem solid #e0e0e0;
   border-radius: 0.5rem;
-  padding: 1.25rem;
+  padding: 0.5rem;
   background-color: #fff;
   margin-bottom: 1.25rem;
-  height: 15.625rem;
+  height: 20rem;
   box-sizing: border-box;
+  width: 50rem;
 }
 
 .product-image-container-orderDetail {
-  width: 15.625rem;
+  width: 17.5rem;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f9f9f9;
   margin-right: 3.75rem;
 }
 
 .product-img-orderDetail {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   mix-blend-mode: multiply;
 }
@@ -35,7 +35,7 @@
 }
 
 .product-name-orderDetail {
-  font-size: 0.875rem;
+  font-size: 1.2rem;
   font-weight: 400;
   color: #333;
   margin: 0;
@@ -43,7 +43,7 @@
 }
 
 .product-price-orderDetail {
-  font-size: 0.875rem;
+  font-size: 1rem;
   font-weight: 400;
   color: #000;
   margin: 0;

@@ -1,5 +1,5 @@
-import { useNavigate } from "react-router-dom";
 import { VscAdd } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 import type { OrderData } from "../OrderInProgress/OrderInProgress";
 import "./OldOrder.css";
 
@@ -20,9 +20,10 @@ export default function OldOrder({ order }: Props) {
           Montant : € {new Intl.NumberFormat("fr-FR").format(order.total)}
         </span>
       </div>
+
       <div className="order-content-row-order">
         <div className="order-images-grid-order">
-          {order.items.map((item) => (
+          {order.items.slice(0, 3).map((item) => (
             <div key={item.product_id} className="order-item-thumb-order">
               <img
                 src={`${import.meta.env.VITE_API_URL}${item.image_url}`}
@@ -30,14 +31,15 @@ export default function OldOrder({ order }: Props) {
               />
             </div>
           ))}
+
+          <button
+            className="order-action-btn-order"
+            type="button"
+            onClick={() => navigate(`/orders/${order.order_id}`)}
+          >
+            <VscAdd size={40} />
+          </button>
         </div>
-        <button
-          className="order-action-btn-order"
-          type="button"
-          onClick={() => navigate(`/orders/${order.order_id}`)}
-        >
-          <VscAdd size={24} />
-        </button>
       </div>
     </div>
   );
