@@ -91,7 +91,7 @@ CREATE TABLE `cart` (
   PRIMARY KEY (`cart_id`),
   KEY `fk_Cart_Customers1_idx` (`customer_id`),
   CONSTRAINT `fk_Cart_Customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +100,6 @@ CREATE TABLE `cart` (
 
 LOCK TABLES `cart` WRITE;
 /*!40000 ALTER TABLE `cart` DISABLE KEYS */;
-INSERT INTO `cart` VALUES (20,1,NULL,NULL,NULL,NULL,NULL,'2026-01-19 15:04:56',NULL),(21,1,NULL,NULL,NULL,NULL,NULL,'2026-01-19 15:04:56',NULL),(22,1,NULL,NULL,NULL,NULL,NULL,'2026-01-19 15:04:56',NULL),(23,1,NULL,NULL,NULL,NULL,NULL,'2026-01-19 15:04:56',NULL);
 /*!40000 ALTER TABLE `cart` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +121,7 @@ CREATE TABLE `cart_item` (
   KEY `fk_Cart_item_Cart1_idx` (`cart_id`),
   CONSTRAINT `fk_Cart_item_Cart1` FOREIGN KEY (`cart_id`) REFERENCES `cart` (`cart_id`),
   CONSTRAINT `fk_Cart_item_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +130,6 @@ CREATE TABLE `cart_item` (
 
 LOCK TABLES `cart_item` WRITE;
 /*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
-INSERT INTO `cart_item` VALUES (200,20,103,1,3900.00),(201,21,114,1,1700.00),(202,22,104,1,3200.00),(203,23,105,1,4500.00),(204,23,114,1,1700.00);
 /*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,7 +189,7 @@ CREATE TABLE `customers` (
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
-INSERT INTO `customers` VALUES (1,'thib','mic','$2b$10$Ug/dlDO5aPNDmC1sxWwLt.eZE45mjQH5zIIdOMdTRU3HgP7rR.x/W','test1@gmail.com',NULL,'ICI LA BAS','38000','France','0631481222','2026-01-19 12:37:52','2026-01-19 15:06:32');
+INSERT INTO `customers` VALUES (1,'thib','mic','$2b$10$Ug/dlDO5aPNDmC1sxWwLt.eZE45mjQH5zIIdOMdTRU3HgP7rR.x/W','test1@gmail.com',NULL,'26 CHEMIN DU TRIEVE ','38690','France','0631481222','2026-01-19 12:37:52','2026-01-19 12:37:52');
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,12 +207,10 @@ CREATE TABLE `order` (
   `customer_id` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `uptaded_at` datetime DEFAULT NULL,
-  `status` enum('pending','preparing','shipped','delivered') DEFAULT 'pending',
-  `delivery_date` date DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   KEY `fk_Order_Customers1_idx` (`customer_id`),
   CONSTRAINT `fk_Order_Customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +219,6 @@ CREATE TABLE `order` (
 
 LOCK TABLES `order` WRITE;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (20,20,3900.00,1,'2025-11-10 10:00:00',NULL,'delivered','2025-11-15'),(21,21,1700.00,1,'2025-12-15 14:00:00',NULL,'delivered','2025-12-20'),(22,22,3200.00,1,'2026-01-19 15:04:56',NULL,'shipped','2026-02-01'),(23,23,6200.00,1,'2026-01-19 15:04:56',NULL,'preparing','2026-02-10');
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -248,7 +243,7 @@ CREATE TABLE `order_item` (
   CONSTRAINT `fk_Order_item_Cart_item1` FOREIGN KEY (`cart_item_id`) REFERENCES `cart_item` (`cart_item_id`),
   CONSTRAINT `fk_Order_item_Order1` FOREIGN KEY (`order_id`) REFERENCES `order` (`order_id`),
   CONSTRAINT `product_id` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=205 DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -257,7 +252,6 @@ CREATE TABLE `order_item` (
 
 LOCK TABLES `order_item` WRITE;
 /*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
-INSERT INTO `order_item` VALUES (200,200,20,103,1,3900.00),(201,201,21,114,1,1700.00),(202,202,22,104,1,3200.00),(203,203,23,105,1,4500.00),(204,204,23,114,1,1700.00);
 /*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -413,4 +407,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-19 15:37:56
+-- Dump completed on 2026-01-19 12:47:00
