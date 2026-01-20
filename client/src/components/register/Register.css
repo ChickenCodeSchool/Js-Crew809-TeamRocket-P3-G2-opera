@@ -1,0 +1,161 @@
+.register_form {
+  width: 100%;
+  max-width: 420px;
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.register_form h2 {
+  text-align: center;
+  font-family: "Bodoni Moda SC", serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000;
+}
+
+.stepper-box {
+  width: 100%;
+  margin: 16px 0 32px;
+}
+
+.step-label .MuiStepLabel-label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 10px;
+  color: #777;
+  text-transform: uppercase;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.MuiStepLabel-label.Mui-active {
+  transform: scale(1.05);
+  color: #000 !important;
+}
+
+.MuiStepLabel-iconContainer {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+@keyframes stepFadeIn {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.MuiStepIcon-root {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #ddd;
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: stepFadeIn 0.5s ease forwards;
+  transition: background-color 0.3s ease;
+}
+
+.MuiStepIcon-root.Mui-active,
+.MuiStepIcon-root.Mui-completed {
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.form_group {
+  position: relative;
+  width: 100%;
+}
+
+.form_group input {
+  width: 100%;
+  padding: 18px 14px 14px;
+  font-size: 15px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #000;
+  outline: none;
+  transition: border-color 0.25s ease;
+}
+
+.form_group label {
+  position: absolute;
+  left: 0;
+  top: 16px;
+  font-size: 14px;
+  color: #777;
+  pointer-events: none;
+  transition: all 0.25s ease;
+}
+
+.form_group input:focus + label,
+.form_group input:not(:placeholder-shown) + label {
+  top: -6px;
+  font-size: 11px;
+  color: #000;
+}
+
+.password_info {
+  margin-top: 6px;
+  font-size: 11px;
+  color: #777;
+}
+
+.register_button {
+  padding: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.register_button:hover {
+  opacity: 0.85;
+  transform: scale(1.02);
+}
+
+.register_buttons_group {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 32px;
+}
+.register-toast {
+  min-width: 300px;
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);    
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+}
+
+@media (max-width: 480px) {
+  .register_form {
+    padding: 36px 24px;
+  }
+}
