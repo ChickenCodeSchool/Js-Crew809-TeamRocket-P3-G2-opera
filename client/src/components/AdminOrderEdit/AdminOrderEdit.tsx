@@ -14,7 +14,6 @@ interface Order {
 
 function AdminOrderEdit() {
   const [orders, setOrders] = useState<Order[]>([]);
-  // État pour le champ de suppression
   const [deleteInput, setDeleteInput] = useState("");
 
   const fetchOrders = useCallback(async () => {
