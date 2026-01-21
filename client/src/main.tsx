@@ -17,6 +17,7 @@ import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 /*import Register from "./components/register/Register";*/
 import Authentification from "./pages/authentification/Authentification";
+import AdminOrderEdit from "./components/AdminOrderEdit/AdminOrderEdit";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth",
-        element: <Authentification/>
+        element: <Authentification />,
       },
       /*
       {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: "/nouscontacter",
         element: <Contact />,
+      },
+      {
+        path: "/admin/orders",
+        element: <AdminOrderEdit />,
       },
     ],
   },

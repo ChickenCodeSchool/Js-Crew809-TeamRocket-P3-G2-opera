@@ -76,4 +76,9 @@ import orderActions from "./modules/order/orderActions";
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
 
+import adminOrderActions from "./modules/orderDeliveryAdmin/adminOrderActions";
+
+router.get("/api/admin/orders", adminOrderActions.browse);
+router.delete("/api/admin/orders/:id", adminOrderActions.destroy);
+
 export default router;

@@ -1,0 +1,116 @@
+.admin-order-edit-container-orderAdmin {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.admin-order-edit-container-orderAdmin h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+}
+
+.list-header-orderAdmin,
+.list-row-orderAdmin {
+  display: grid;
+  grid-template-columns: 60px 2fr 1fr 1fr 1fr 1fr;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.list-header-orderAdmin {
+  background-color: #f9f9f9;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #000;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.list-row-orderAdmin:hover {
+  background-color: #fafafa;
+}
+
+.list-row-orderAdmin:last-child {
+  border-bottom: none;
+}
+
+.list-cell-orderAdmin {
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cell-id-orderAdmin {
+  font-weight: bold;
+}
+
+.cell-price-orderAdmin {
+  font-weight: 600;
+}
+
+.cell-status-orderAdmin {
+  font-style: italic;
+  color: #555;
+}
+
+.client-id-orderAdmin {
+  font-weight: bold;
+  color: #555;
+  margin-right: 5px;
+}
+
+.delete-section-orderAdmin {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border: 1px solid #000000;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.delete-section-orderAdmin label {
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.delete-wrapper-orderAdmin {
+  display: flex;
+  gap: 10px;
+}
+
+.delete-input-orderAdmin {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 150px;
+}
+
+.delete-btn-orderAdmin {
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: background-color 0.2s;
+}
+
+.delete-btn-orderAdmin:hover {
+  background-color: #b71c1c;
+}
