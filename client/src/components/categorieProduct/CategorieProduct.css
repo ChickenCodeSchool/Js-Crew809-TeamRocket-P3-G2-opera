@@ -13,14 +13,29 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+}
+
+.image-container {
+  overflow: hidden;
+  border: 1px solid #bababa;
+  background-color: #fff;
 }
 
 .product-card img {
   width: 100%;
   aspect-ratio: 1;
   object-fit: contain;
-  background-color: #fff;
-  border: 1px solid #bababa;
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.05);
 }
 
 .product-name {
@@ -30,6 +45,11 @@
   text-align: center;
   font-family: "Montserrat", sans-serif;
   font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.product-card:hover .product-name {
+  color: #555;
 }
 
 .product-price {
