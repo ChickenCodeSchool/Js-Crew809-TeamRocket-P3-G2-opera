@@ -1,0 +1,88 @@
+.my-orders-page-order {
+  width: 100%;
+  min-height: 80vh;
+  background-color: white;
+  color: black;
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+}
+
+.order-date-label-order {
+  font-size: 1rem;
+}
+
+.order-amount-order {
+  font-size: 0.9rem;
+}
+
+.hero-container-order {
+  position: relative;
+  width: 100%;
+  height: 18.75rem;
+  overflow: hidden;
+}
+
+.mini-hero-order {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.page-title-overlay-order {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  text-align: center;
+  font-size: 4rem;
+  color: white;
+  z-index: 2;
+  margin: 0;
+}
+
+.orders-content-centered {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 3.75rem 2.5rem;
+}
+
+.orders-section-order {
+  margin-bottom: 5rem;
+}
+
+.section-title-order {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  color: #000;
+  font-family: "Montserrat", sans-serif;
+}
+
+.no-orders-text-order {
+  font-style: italic;
+  color: #888;
+  font-size: 0.875rem;
+}
+
+.orders-loading-order {
+  padding-top: 3.75rem;
+  text-align: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .page-title-overlay-order {
+    font-size: 2.5rem;
+  }
+  .hero-container-order {
+    height: 12.5rem;
+  }
+  .orders-content-centered {
+    padding: 2rem 1rem;
+  }
+}

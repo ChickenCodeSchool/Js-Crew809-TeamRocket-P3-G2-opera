@@ -9,6 +9,8 @@ import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import HomePage from "./pages/HomePage";
+import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
+import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
 import Contact from "./pages/contactPage/contact";
 /*import Login from "./components/login/Login";*/
@@ -60,7 +62,11 @@ const router = createBrowserRouter([
       },*/
       {
         path: "/orders",
-        element: <PageTestLink />,
+        element: <MyOrderPage />,
+      },
+      {
+        path: "/orders/:id",
+        element: <MyOrderDetailPage />,
       },
       {
         path: "/contact",
