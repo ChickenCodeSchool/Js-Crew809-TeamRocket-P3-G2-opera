@@ -50,8 +50,7 @@ class OrderRepository {
             'name', p.name,
             'image_url', IFNULL(pi.url, '/images/placeholder.png'),
             'quantity', oi.quantity,
-            'unit_price', oi.unit_price,
-            'size', oi.size
+            'unit_price', oi.unit_price
           )
         ) AS items
       FROM \`order\` o
