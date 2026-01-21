@@ -2,16 +2,15 @@ import { useRef } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import type { Auth } from "../../App";
-import "../login/Login.css";
-import imageopera from "../../assets/images/imageopera.jpg"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./Login.css";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { setAuth } = useOutletContext<{
-    setAuth: (auth: Auth | null) => void;
-  }>();
+  const { setAuth } = useOutletContext<{ setAuth: (auth: Auth | null) => void }>();
   const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = async (event) => {
@@ -22,17 +21,17 @@ function Login() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-        mail: emailRef.current?.value,
-        password: passwordRef.current?.value,
-  }),
-});
+          mail: emailRef.current?.value,
+          password: passwordRef.current?.value,
+        }),
+      });
 
       if (response.ok) {
         const data: Auth = await response.json();
         setAuth(data);
         navigate("/profile");
       } else {
-        alert("Erreur de connexion : vérifier vos identifiants");
+        toast.error("Erreur de connexion : vérifier votre adresse ou mot de passe");
       }
     } catch (err) {
       console.error(err);
@@ -41,31 +40,38 @@ function Login() {
   };
 
   return (
-  <div className="login_page">
-    <img
-      src={imageopera}
-      alt="mini-hero-connexion"
-     className="mini-hero-connexion"
-  />
-
-  <div className="login_form_container">
+    <>
     <form onSubmit={handleSubmit} className="login_form">
       <h2>Connexion</h2>
 
-      <div>
+      <div className="form_group">
+        <input
+          ref={emailRef}
+          type="email"
+          id="email"
+          placeholder=" "
+          required
+        />
         <label htmlFor="email">E-mail</label>
-        <input ref={emailRef} type="email" id="email" required />
       </div>
 
-      <div>
+      <div className="form_group">
+        <input
+          ref={passwordRef}
+          type="password"
+          id="password"
+          placeholder=" "
+          required
+        />
         <label htmlFor="password">Mot de passe</label>
-        <input ref={passwordRef} type="password" id="password" required />
       </div>
 
-      <button type="submit">Se connecter</button>
+      <button type="submit" className="login_button">
+        Se connecter
+      </button>
     </form>
-  </div>
-</div>
+    <ToastContainer position="top-left" autoClose={3000} toastClassName="login-toast" limit={1}/>
+    </>
   );
 }
 

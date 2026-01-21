@@ -1,0 +1,46 @@
+.auth_page {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+.auth_form_container {
+  width: 50%;
+  flex: 1;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #f6f6f6;
+}
+
+.auth_toggle {
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.auth_link {
+  background: none;
+  border: none;
+  font: inherit;
+  color: #000;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.auth_image {
+  flex: 1;
+  background-size: cover;
+  background-position: center;
+  width: 50%;
+}
+
+@media (max-width: 768px) {
+  .auth_image {
+    display: none;
+  }
+}
