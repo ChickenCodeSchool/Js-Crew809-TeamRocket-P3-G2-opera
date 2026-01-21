@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import "./CollectionLp.css";
 
 interface BrandPicture {
@@ -87,7 +88,10 @@ function CollectionLp() {
         (brand) =>
           brand.collectionImages.length > 0 && (
             <div key={brand.id} className="brand-row-collectionLp">
-              <div className="card-interactive-collectionLp">
+              <Link
+                to={`/brand/${brand.id}`}
+                className="card-interactive-collectionLp"
+              >
                 <img
                   src={`${import.meta.env.VITE_API_URL}${
                     brand.collectionImages[0]
@@ -117,16 +121,20 @@ function CollectionLp() {
                     />
                   )}
                 </div>
-              </div>
+              </Link>
 
               {brand.collectionImages.slice(1).map((imgUrl, index) => (
-                <div key={imgUrl} className="runway-card-collectionLp">
+                <Link
+                  to={`/brand/${brand.id}`}
+                  key={imgUrl}
+                  className="runway-card-collectionLp"
+                >
                   <img
                     src={`${import.meta.env.VITE_API_URL}${imgUrl}`}
                     alt={`${brand.brandName} look ${index}`}
                     className="runway-img-collectionLp"
                   />
-                </div>
+                </Link>
               ))}
             </div>
           ),

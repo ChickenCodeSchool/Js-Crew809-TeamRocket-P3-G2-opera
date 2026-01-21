@@ -1,5 +1,6 @@
 .profile_container {
   position: relative;
+  font-family: "Montserrat", sans-serif;
 }
 
 .profile_container::after {
@@ -44,7 +45,6 @@
   font-size: 14px;
   font-weight: 500;
   color: white;
-  font-family: "Bodoni Moda SC", serif;
 }
 
 .profile_menu button {
