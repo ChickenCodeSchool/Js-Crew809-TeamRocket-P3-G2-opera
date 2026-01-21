@@ -6,6 +6,7 @@ export interface OrderDetailItem {
   image_url: string;
   quantity: number;
   unit_price: number;
+  size?: string;
 }
 
 type Props = { item: OrderDetailItem };
@@ -22,8 +23,13 @@ export default function OrderDetailProduct({ item }: Props) {
       </div>
       <div className="product-info-orderDetail">
         <h3 className="product-name-orderDetail">{item.name}</h3>
+
+        {item.size && (
+          <p className="product-size-orderDetail">Taille {item.size}</p>
+        )}
+
         <p className="product-price-orderDetail">
-          € {new Intl.NumberFormat("fr-FR").format(item.unit_price)}
+          {new Intl.NumberFormat("fr-FR").format(item.unit_price)} €
         </p>
       </div>
     </div>

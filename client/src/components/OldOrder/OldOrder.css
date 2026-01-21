@@ -15,6 +15,12 @@
   font-weight: 700;
 }
 
+.order-amount-order {
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+}
+
 .order-content-row-order {
   display: flex;
   align-items: flex-start;
@@ -61,7 +67,7 @@
   color: white;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .order-content-row-order {
     flex-direction: column;
     align-items: flex-start;
@@ -84,5 +90,14 @@
     border-width: 1px;
     border-radius: 0.5rem;
     margin-left: 0;
+  }
+
+  .order-amount-order {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .order-header-order {
+    gap: 1.6rem;
   }
 }

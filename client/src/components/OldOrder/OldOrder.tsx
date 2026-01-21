@@ -17,7 +17,8 @@ export default function OldOrder({ order }: Props) {
           </strong>
         </span>
         <span className="order-amount-order">
-          Montant : € {new Intl.NumberFormat("fr-FR").format(order.total)}
+          <span>Montant :</span>
+          <span>{new Intl.NumberFormat("fr-FR").format(order.total)} €</span>
         </span>
       </div>
 

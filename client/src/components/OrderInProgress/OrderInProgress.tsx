@@ -1,6 +1,6 @@
+import { useNavigate } from "react-router-dom";
 import { LuTruck } from "react-icons/lu";
 import { VscAdd } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
 import "./OrderInProgress.css";
 
 export interface OrderItem {
@@ -40,7 +40,8 @@ export default function OrderInProgress({ order }: Props) {
           Commandée le <strong>{formatDate(order.date)}</strong>
         </span>
         <span className="order-amount-order">
-          Montant : € {new Intl.NumberFormat("fr-FR").format(order.total)}
+          <span>Montant :</span>
+          <span>{new Intl.NumberFormat("fr-FR").format(order.total)} €</span>
         </span>
       </div>
 
