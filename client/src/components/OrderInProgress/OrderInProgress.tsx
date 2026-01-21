@@ -1,6 +1,6 @@
-import { useNavigate } from "react-router-dom";
 import { LuTruck } from "react-icons/lu";
 import { VscAdd } from "react-icons/vsc";
+import { useNavigate } from "react-router-dom";
 import "./OrderInProgress.css";
 
 export interface OrderItem {
