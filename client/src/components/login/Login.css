@@ -84,11 +84,11 @@
 
 .login-toast {
   min-width: 300px;
-  background-color: #333;
-  color: #fff;
+  background-color: #ffffff;
+  color: #9d2424;
   border-radius: 10px;
   padding: 16px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 4px 10px rgba(22, 15, 15, 0.694);
   font-family: "Montserrat", sans-serif;    
   font-size: 15px;
 }
