@@ -68,4 +68,10 @@ router.delete(
   customerActions.remove,
 );
 
+import adminProductsActions from "./modules/admin/adminProductsActions";
+
+router.get("/api/admin/products", adminProductsActions.browse);
+router.get("/api/admin/brands", adminProductsActions.getBrands);
+router.get("/api/admin/categories", adminProductsActions.getCategories);
+
 export default router;

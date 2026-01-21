@@ -14,6 +14,7 @@ import Contact from "./pages/contactPage/contact";
 import Login from "./pages/login/Login";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
 import Register from "./pages/register/Register";
+import AdminProducts from "./components/admin/admin_categorie/admin_product";
 
 const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ const router = createBrowserRouter([
       {
         path: "/nouscontacter",
         element: <Contact />,
+      },
+      {
+        path: "/adminproducts",
+        element: <AdminProducts />,
       },
     ],
   },
