@@ -120,7 +120,7 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
             <li>
               <button
                 type="button"
-                onClick={() => handleNavigation("/login")}
+                onClick={() => handleNavigation("/auth")}
                 className="burger-link-btn"
               >
                 Connexion

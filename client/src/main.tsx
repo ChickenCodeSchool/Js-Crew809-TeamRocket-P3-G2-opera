@@ -13,9 +13,10 @@ import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
 import Contact from "./pages/contactPage/contact";
-import Login from "./pages/login/Login";
+/*import Login from "./components/login/Login";*/
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
-import Register from "./pages/register/Register";
+/*import Register from "./components/register/Register";*/
+import Authentification from "./pages/authentification/Authentification";
 
 const router = createBrowserRouter([
   {
@@ -31,13 +32,18 @@ const router = createBrowserRouter([
         element: <BrandPage />,
       },
       {
+        path: "/auth",
+        element: <Authentification/>
+      },
+      /*
+      {
         path: "login",
         element: <Login />,
       },
       {
         path: "register",
         element: <Register />,
-      },
+      },*/
       {
         path: "profile",
         element: <Profile />,
