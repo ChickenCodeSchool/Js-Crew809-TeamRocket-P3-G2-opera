@@ -110,6 +110,16 @@ const verifyToken: RequestHandler = (req, res, next) => {
       return;
     }
 
+<<<<<<< HEAD
+=======
+    const [type, token] = authorizationHeader.split(" ");
+
+    if (type !== "Bearer" || !token) {
+      res.sendStatus(401);
+      return;
+    }
+
+>>>>>>> dev
     req.auth = jwt.verify(token, process.env.APP_SECRET as string) as MyPayload;
 
     next();

@@ -5,7 +5,6 @@ const app = express();
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-
 if (process.env.CLIENT_URL != null) {
   app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true })); 
 }

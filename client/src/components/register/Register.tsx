@@ -1,15 +1,17 @@
 import { useRef, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import type {Auth} from "../../App";
+import type { Auth } from "../../App";
 import "./Register.css";
 
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
 import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import StepConnector, { stepConnectorClasses } from "@mui/material/StepConnector";
+import StepConnector, {
+  stepConnectorClasses,
+} from "@mui/material/StepConnector";
 import type { StepIconProps } from "@mui/material/StepIcon";
+import StepLabel from "@mui/material/StepLabel";
+import Stepper from "@mui/material/Stepper";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,7 +55,9 @@ function Register() {
   const countryRef = useRef<HTMLInputElement>(null);
 
   const navigate = useNavigate();
-  const { setAuth } = useOutletContext<{ setAuth: (auth: Auth | null) => void }>();
+  const { setAuth } = useOutletContext<{
+    setAuth: (auth: Auth | null) => void;
+  }>();
 
   const handleNextStep = () => {
     if (step === 1) {
@@ -82,14 +86,14 @@ function Register() {
         return;
       }
       setAccountData({ ...accountData, firstname, lastname, phone });
-
     }
-    console.log(firstnameRef)
+    console.log(firstnameRef);
 
     setStep((prev) => prev + 1);
   };
 
-  const handlePreviousStep = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
+  const handlePreviousStep = () =>
+    setStep((prev) => (prev > 1 ? prev - 1 : prev));
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -105,13 +109,22 @@ function Register() {
       return;
     }
 
-   const adress = adressRef.current?.value?.trim() || "";
+    const adress = adressRef.current?.value?.trim() || "";
     const postal_code = postalCodeRef.current?.value?.trim() || "";
     const country = countryRef.current?.value?.trim() || "";
 
-    const payload = { mail, password, firstname, lastname, phone, adress, postal_code, country };
-  console.log(payload)
-  
+    const payload = {
+      mail,
+      password,
+      firstname,
+      lastname,
+      phone,
+      adress,
+      postal_code,
+      country,
+    };
+    console.log(payload);
+
     try {
       const response = await fetch("http://localhost:3310/customers", {
         method: "POST",
@@ -123,16 +136,16 @@ function Register() {
         toast.error("Erreur lors de l'inscription");
         return;
       }
-          const result = await response.json();
+      const result = await response.json();
 
-    if (setAuth) {
-      setAuth({
-        user: result.user,
-       token: "", 
-      });
-    }
-  
-     navigate("/");
+      if (setAuth) {
+        setAuth({
+          user: result.user,
+          token: "",
+        });
+      }
+
+      navigate("/");
     } catch (err) {
       console.error(err);
       toast.error("Erreur serveur");
@@ -173,7 +186,9 @@ function Register() {
           <Stepper activeStep={step - 1} alternativeLabel connector={connector}>
             {steps.map((label) => (
               <Step key={label}>
-                <StepLabel slots={{ stepIcon: NumberStepIcon }}>{label}</StepLabel>
+                <StepLabel slots={{ stepIcon: NumberStepIcon }}>
+                  {label}
+                </StepLabel>
               </Step>
             ))}
           </Stepper>
@@ -182,19 +197,45 @@ function Register() {
         {step === 1 && (
           <>
             <div className="form_group">
-              <input ref={emailRef} id="email" type="email" placeholder=" " required />
+              <input
+                ref={emailRef}
+                id="email"
+                type="email"
+                placeholder=" "
+                required
+              />
               <label htmlFor="email">E-mail</label>
             </div>
             <div className="form_group">
-              <input ref={passwordRef} id="password" type="password" placeholder=" " required />
+              <input
+                ref={passwordRef}
+                id="password"
+                type="password"
+                placeholder=" "
+                required
+              />
               <label htmlFor="password">Mot de passe</label>
             </div>
             <div className="form_group">
-              <input ref={confirmPasswordRef} id="confirm-password" type="password" placeholder=" " required />
-              <label htmlFor="confirm-password">Confirmer le mot de passe</label>
+              <input
+                ref={confirmPasswordRef}
+                id="confirm-password"
+                type="password"
+                placeholder=" "
+                required
+              />
+              <label htmlFor="confirm-password">
+                Confirmer le mot de passe
+              </label>
             </div>
             <div className="register_buttons_group">
-              <button type="button" className="register_button" onClick={handleNextStep}>Continuer</button>
+              <button
+                type="button"
+                className="register_button"
+                onClick={handleNextStep}
+              >
+                Continuer
+              </button>
             </div>
           </>
         )}
@@ -202,7 +243,12 @@ function Register() {
         {step === 2 && (
           <>
             <div className="form_group">
-              <input ref={firstnameRef} id="firstname" placeholder=" " required />
+              <input
+                ref={firstnameRef}
+                id="firstname"
+                placeholder=" "
+                required
+              />
               <label htmlFor="firstname">Prénom</label>
             </div>
             <div className="form_group">
@@ -214,12 +260,24 @@ function Register() {
               <label htmlFor="phone">Téléphone</label>
             </div>
             <div className="register_buttons_group">
-              <button type="button" className="register_button" onClick={handlePreviousStep}>Retour</button>
-              <button type="button" className="register_button" onClick={handleNextStep}>Continuer</button>
+              <button
+                type="button"
+                className="register_button"
+                onClick={handlePreviousStep}
+              >
+                Retour
+              </button>
+              <button
+                type="button"
+                className="register_button"
+                onClick={handleNextStep}
+              >
+                Continuer
+              </button>
             </div>
           </>
         )}
-  
+
         {step === 3 && (
           <>
             <div className="form_group">
@@ -235,8 +293,16 @@ function Register() {
               <label htmlFor="country">Pays</label>
             </div>
             <div className="register_buttons_group">
-              <button type="button" className="register_button" onClick={handlePreviousStep}>Retour</button>
-              <button type="submit" className="register_button">S'inscrire</button>
+              <button
+                type="button"
+                className="register_button"
+                onClick={handlePreviousStep}
+              >
+                Retour
+              </button>
+              <button type="submit" className="register_button">
+                S'inscrire
+              </button>
             </div>
           </>
         )}
@@ -248,4 +314,3 @@ function Register() {
 }
 
 export default Register;
-
