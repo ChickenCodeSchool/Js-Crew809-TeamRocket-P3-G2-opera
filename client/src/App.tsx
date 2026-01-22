@@ -9,6 +9,7 @@ export type User = {
   firstname: string;
   lastname: string;
   mail: string;
+  role: number;
   birthday?: string;
   postal_code?:string;
   adress?: string;

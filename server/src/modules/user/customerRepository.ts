@@ -7,6 +7,7 @@ export type Customer = {
   lastname: string;
   mail: string;
   password: string;
+  role: 0 | 1;
   birthday: string | null;
   adress: string | null;
   postal_code: string | null; 
@@ -22,13 +23,14 @@ class CustomerRepository {
   ) {
     const [result] = await databaseClient.query<Result>(
       `INSERT INTO customers 
-       (firstname, lastname, mail, password, birthday, adress, postal_code, country, phone, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`,
+       (firstname, lastname, mail, password, role, birthday, adress, postal_code, country, phone, created_at, updated_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? , NOW(), NOW())`,
       [
         customer.firstname,
         customer.lastname,
         customer.mail,
         customer.password,
+        customer.role,
         customer.birthday,
         customer.adress,
         customer.postal_code, 
@@ -83,6 +85,10 @@ class CustomerRepository {
     if (customer.password !== undefined) {
       updates.push("password = ?");
       values.push(customer.password);
+    }
+    if (customer.role !== undefined){
+      updates.push("role = ?")
+      values.push(customer.role)
     }
     if (customer.birthday !== undefined) {
       updates.push("birthday = ?");

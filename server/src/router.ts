@@ -53,8 +53,8 @@ import brandActions from "./modules/brand/brandActions";
 router.get("/brands/:brandId/hero", brandActions.readHero);
 
 import authActions from "./modules/auth/authActions";
-
 router.post("/auth/login", authActions.login);
+router.get("/auth/session", authActions.verifyToken, authActions.getSession); 
 
 import customerActions from "./modules/user/customerActions";
 
