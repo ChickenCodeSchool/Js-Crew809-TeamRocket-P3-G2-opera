@@ -9,21 +9,25 @@ class AdminProductsRepository {
     categoryId?: number;
   }) {
     let query = `
-      SELECT 
-        p.product_id,
-        p.name,
-        p.description,
-        p.price,
-        p.color,
-        p.is_featured,
-        p.created_at,
-        b.brand_id,
-        b.name AS brand_name,
-        pi.url AS image_url
-      FROM product p
-      LEFT JOIN brand b ON p.brand_id = b.brand_id
-      LEFT JOIN product_image pi ON p.product_id = pi.product_id AND pi.is_main = 1
-    `;
+  SELECT DISTINCT
+    p.product_id,
+    p.name,
+    p.description,
+    p.price,
+    p.color,
+    p.is_featured,
+    p.created_at,
+    b.brand_id,
+    b.name AS brand_name,
+    pi.url AS image_url,
+    (SELECT SUM(st.quantity) 
+     FROM size sz 
+     JOIN stock st ON sz.stock_id = st.stock_id 
+     WHERE sz.product_id = p.product_id) AS total_stock
+  FROM product p
+  LEFT JOIN brand b ON p.brand_id = b.brand_id
+  LEFT JOIN product_image pi ON p.product_id = pi.product_id AND pi.is_main = 1
+`;
 
     const conditions: string[] = [];
     const params: (string | number)[] = [];

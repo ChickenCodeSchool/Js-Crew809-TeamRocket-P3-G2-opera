@@ -10,6 +10,7 @@ type Product = {
   brand_id: string;
   brand_name: string;
   image_url: string | null;
+  total_stock: number | null;
 };
 
 type Brand = {
@@ -30,8 +31,8 @@ export default function AdminProducts() {
   const [selectedBrand, setSelectedBrand] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
+  const [searchInput, setSearchInput] = useState("");
 
-  // Charger les marques et catégories au montage
   useEffect(() => {
     const fetchFiltersData = async () => {
       try {
@@ -54,10 +55,10 @@ export default function AdminProducts() {
     fetchFiltersData();
   }, []);
 
-  // Charger les produits
+  // biome-ignore lint/correctness/useExhaustiveDependencies: loading uniquement au premier fetch
   useEffect(() => {
     const fetchProducts = async () => {
-      setLoading(true);
+      if (products.length === 0) setLoading(true);
       try {
         const params = new URLSearchParams();
 
@@ -80,19 +81,25 @@ export default function AdminProducts() {
     fetchProducts();
   }, [search, selectedBrand, selectedCategory]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearch(searchInput);
+    }, 100);
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
+
   return (
     <div className="admin-products">
       <h1>Gestion des Produits</h1>
 
-      {/* Barre de recherche et filtres */}
       <div className="admin-filters">
         <input
           type="text"
           placeholder="Rechercher un produit..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
           className="admin-search"
-          title="Filtrer par marque"
         />
 
         <select
@@ -124,7 +131,6 @@ export default function AdminProducts() {
         </select>
       </div>
 
-      {/* Compteur */}
       <p>{products.length} produit(s) trouvé(s)</p>
       {loading ? (
         <p>Chargement...</p>
@@ -137,6 +143,8 @@ export default function AdminProducts() {
               <th>Marque</th>
               <th>Prix</th>
               <th>Couleur</th>
+              <th>Stock</th>
+              <th>Modifier</th>
             </tr>
           </thead>
           <tbody>
@@ -145,7 +153,7 @@ export default function AdminProducts() {
                 <td>
                   {product.image_url ? (
                     <img
-                      //  src={`${import.meta.env.VITE_API_URL}${product.image_url}`}
+                      src={`${import.meta.env.VITE_API_URL}${product.image_url}`}
                       alt={product.name}
                       className="admin-product-img"
                     />
@@ -157,6 +165,12 @@ export default function AdminProducts() {
                 <td>{product.brand_name}</td>
                 <td>{product.price} €</td>
                 <td>{product.color}</td>
+                <td>{product.total_stock ?? "N/A"}</td>
+                <td>
+                  <button type="button" className="admin-btn-edit">
+                    Modifier
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
