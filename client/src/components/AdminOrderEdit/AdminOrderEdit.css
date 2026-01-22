@@ -18,10 +18,73 @@
   padding-bottom: 10px;
 }
 
+.admin-controls-orderAdmin {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.control-section-orderAdmin {
+  padding: 15px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  border: 1px solid #ccc;
+}
+
+.control-section-orderAdmin label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.control-wrapper-orderAdmin {
+  display: flex;
+  gap: 10px;
+}
+
+.control-input-orderAdmin {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 150px;
+  background-color: #fff;
+  color: #000;
+}
+
+.control-btn-orderAdmin {
+  border: 1px solid #000;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  color: #000;
+  background-color: #fff;
+}
+
+.search-btn-orderAdmin:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.delete-btn-orderAdmin:hover {
+  background-color: #d32f2f;
+  color: #fff;
+  border-color: #d32f2f;
+}
+
 .list-header-orderAdmin,
 .list-row-orderAdmin {
   display: grid;
-  grid-template-columns: 60px 2fr 1.2fr 1fr 1fr 1fr 1fr;
+  /* Ajout de la dernière colonne de 40px pour la croix */
+  grid-template-columns: 60px 2fr 1.2fr 1fr 1fr 1fr 1fr 40px;
   align-items: center;
   padding: 15px;
   border-bottom: 1px solid #eee;
@@ -31,6 +94,11 @@
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #eee;
+  transition: background-color 1s ease;
+}
+
+.highlight-row-orderAdmin {
+  background-color: #e0e0e0 !important;
 }
 
 .list-row-container-orderAdmin .list-row-orderAdmin {
@@ -38,7 +106,7 @@
 }
 
 .list-header-orderAdmin {
-  background-color: #f9f9f9;
+  background-color: #f0f0f0;
   font-weight: 700;
   text-transform: uppercase;
   font-size: 0.85rem;
@@ -48,7 +116,7 @@
 }
 
 .list-row-orderAdmin:hover {
-  background-color: #fafafa;
+  background-color: #f5f5f5;
 }
 
 .list-cell-orderAdmin {
@@ -57,6 +125,7 @@
   overflow: visible;
   text-overflow: ellipsis;
   min-height: 24px;
+  color: #000;
 }
 
 .cell-id-orderAdmin {
@@ -69,59 +138,13 @@
 
 .cell-status-orderAdmin {
   font-style: italic;
-  color: #555;
+  color: #333;
 }
 
 .client-id-orderAdmin {
   font-weight: bold;
-  color: #555;
+  color: #333;
   margin-right: 5px;
-}
-
-.delete-section-orderAdmin {
-  margin-bottom: 20px;
-  padding: 15px;
-  background-color: #ffffff;
-  border: 1px solid #000000;
-  border-radius: 6px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.delete-section-orderAdmin label {
-  font-weight: bold;
-  font-size: 0.9rem;
-}
-
-.delete-wrapper-orderAdmin {
-  display: flex;
-  gap: 10px;
-}
-
-.delete-input-orderAdmin {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 0.9rem;
-  width: 150px;
-}
-
-.delete-btn-orderAdmin {
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  transition: background-color 0.2s;
-  background-color: #e0e0e0;
-}
-
-.delete-btn-orderAdmin:hover {
-  background-color: #b71c1c;
-  color: white;
 }
 
 .clickable-cell-orderAdmin {
@@ -134,11 +157,11 @@
   padding: 2px 5px;
   border-radius: 4px;
   transition: border-color 0.2s, background-color 0.2s;
-  width: 100%;
+  width: 70%;
 }
 
 .clickable-cell-orderAdmin:hover {
-  border-color: #ccc;
+  border-color: #000;
   background-color: #fff;
 }
 
@@ -175,32 +198,35 @@
 .save-mini-btn-orderAdmin,
 .cancel-mini-btn-orderAdmin {
   background: none;
-  border: 1px solid #ccc;
+  border: 1px solid #000;
   border-radius: 3px;
   cursor: pointer;
   font-size: 0.8rem;
   padding: 2px 6px;
   background-color: white;
+  color: #000;
 }
 
 .save-mini-btn-orderAdmin:hover {
-  background-color: #d4edda;
-  border-color: #28a745;
+  background-color: #000;
+  color: #fff;
 }
 
 .cancel-mini-btn-orderAdmin:hover {
-  background-color: #f8d7da;
-  border-color: #dc3545;
+  background-color: #d32f2f;
+  border-color: #d32f2f;
+  color: #fff;
 }
 
 .items-toggle-orderAdmin {
   font-weight: 600;
+  color: #000;
 }
 
 .items-dropdown-orderAdmin {
-  background-color: #f8f9fa;
+  background-color: #f9f9f9;
   padding: 10px 20px;
-  border-top: 1px dashed #ddd;
+  border-top: 1px dashed #ccc;
 }
 
 .items-list-orderAdmin {
@@ -214,8 +240,9 @@
   align-items: center;
   justify-content: space-between;
   padding: 8px 0;
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid #eee;
   font-size: 0.9rem;
+  color: #000;
 }
 
 .item-row-orderAdmin:last-child {
@@ -229,13 +256,13 @@
 
 .item-qty-orderAdmin {
   margin-right: 20px;
-  color: #666;
+  color: #333;
 }
 
 .item-delete-btn-orderAdmin {
   background: none;
   border: none;
-  color: #dc3545;
+  color: #000;
   cursor: pointer;
   font-size: 1.1rem;
   padding: 0 5px;
@@ -243,5 +270,25 @@
 }
 
 .item-delete-btn-orderAdmin:hover {
-  color: #a71d2a;
+  color: #d32f2f;
+}
+
+.cell-delete-orderAdmin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-cross-btn-orderAdmin {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #000;
+  transition: color 0.2s;
+  padding: 0 5px;
+}
+
+.delete-cross-btn-orderAdmin:hover {
+  color: #d32f2f;
 }

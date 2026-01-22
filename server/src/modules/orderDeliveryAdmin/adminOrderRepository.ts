@@ -26,7 +26,7 @@ class AdminOrderRepository {
       LEFT JOIN order_item oi ON o.order_id = oi.order_id
       LEFT JOIN product p ON oi.product_id = p.product_id
       GROUP BY o.order_id
-      ORDER BY o.created_at DESC
+      ORDER BY o.order_id DESC
       `,
     );
     return rows;
