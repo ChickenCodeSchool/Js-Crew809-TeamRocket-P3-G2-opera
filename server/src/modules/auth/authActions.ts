@@ -64,7 +64,7 @@ const hashPassword: RequestHandler = async (req, res, next) => {
 
     req.body.hashed_password = hashedPassword;
     // biome-ignore lint/performance/noDelete: <explanation>
-    delete req.body.password; 
+    delete req.body.password;
 
     next();
   } catch (err) {
@@ -88,10 +88,7 @@ const verifyToken: RequestHandler = (req, res, next) => {
       return;
     }
 
-    req.auth = jwt.verify(
-      token,
-      process.env.APP_SECRET as string,
-    ) as MyPayload;
+    req.auth = jwt.verify(token, process.env.APP_SECRET as string) as MyPayload;
 
     next();
   } catch (err) {

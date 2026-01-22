@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Footer from "./components/Footer/Footer";
+import AdminProducts from "./components/admin/admin_categorie/admin_product";
 /*import BrandHero from "./components/brandHero/BrandHero";*/
 import CarouselLp from "./components/carouselLp/carouselLp";
 import ArticlePage from "./pages/ArticlePage/articlePage";
@@ -12,11 +13,11 @@ import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
+/*import Register from "./components/register/Register";*/
+import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 /*import Login from "./components/login/Login";*/
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
-/*import Register from "./components/register/Register";*/
-import Authentification from "./pages/authentification/Authentification";
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/auth",
-        element: <Authentification/>
+        element: <Authentification />,
       },
       /*
       {
@@ -95,6 +96,10 @@ const router = createBrowserRouter([
       {
         path: "/nouscontacter",
         element: <Contact />,
+      },
+      {
+        path: "/adminproducts",
+        element: <AdminProducts />,
       },
     ],
   },

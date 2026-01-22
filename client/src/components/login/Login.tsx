@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import type { Auth } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
+import type { Auth } from "../../App";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 
@@ -10,7 +10,9 @@ function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { setAuth } = useOutletContext<{ setAuth: (auth: Auth | null) => void }>();
+  const { setAuth } = useOutletContext<{
+    setAuth: (auth: Auth | null) => void;
+  }>();
   const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = async (event) => {
@@ -39,8 +41,8 @@ function Login() {
           return;
         }
 
-        setAuth(data); 
-        navigate("/"); 
+        setAuth(data);
+        navigate("/");
       } else if (response.status === 422) {
         toast.error("Adresse e-mail ou mot de passe incorrect");
       } else {
@@ -84,7 +86,12 @@ function Login() {
         </button>
       </form>
 
-      <ToastContainer position="top-left" autoClose={3000} toastClassName="login-toast"limit={1}/>
+      <ToastContainer
+        position="top-left"
+        autoClose={3000}
+        toastClassName="login-toast"
+        limit={1}
+      />
     </>
   );
 }

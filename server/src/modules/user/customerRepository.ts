@@ -9,7 +9,7 @@ export type Customer = {
   password: string;
   birthday: string | null;
   adress: string | null;
-  postal_code: string | null; 
+  postal_code: string | null;
   country: string | null;
   phone: string | null;
   created_at: Date | null;
@@ -31,7 +31,7 @@ class CustomerRepository {
         customer.password,
         customer.birthday,
         customer.adress,
-        customer.postal_code, 
+        customer.postal_code,
         customer.country,
         customer.phone,
       ],
@@ -93,7 +93,7 @@ class CustomerRepository {
       values.push(customer.adress);
     }
     if (customer.postal_code !== undefined) {
-      updates.push("postal_code = ?"); 
+      updates.push("postal_code = ?");
       values.push(customer.postal_code);
     }
     if (customer.country !== undefined) {

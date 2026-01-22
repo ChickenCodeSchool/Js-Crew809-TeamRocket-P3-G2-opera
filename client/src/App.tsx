@@ -10,7 +10,7 @@ export type User = {
   lastname: string;
   mail: string;
   birthday?: string;
-  postal_code?:string;
+  postal_code?: string;
   adress?: string;
   country?: string;
   phone?: string;

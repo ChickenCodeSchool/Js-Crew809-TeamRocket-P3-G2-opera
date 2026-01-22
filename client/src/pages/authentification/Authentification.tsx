@@ -39,10 +39,7 @@ function Authentification() {
         </p>
       </div>
 
-      <img src={authentificationopera}
-        alt="authimage"
-        className="auth_image"
-      />
+      <img src={authentificationopera} alt="authimage" className="auth_image" />
     </div>
   );
 }

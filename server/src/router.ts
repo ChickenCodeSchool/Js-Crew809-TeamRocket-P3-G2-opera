@@ -62,8 +62,17 @@ router.post("/customers", authActions.hashPassword, customerActions.add);
 router.get("/customers", customerActions.browse);
 router.get("/customers/:id", customerActions.read);
 router.put("/customers/:id", customerActions.update);
-router.delete( "/customers/:id",authActions.verifyToken,customerActions.remove,);
+router.delete(
+  "/customers/:id",
+  authActions.verifyToken,
+  customerActions.remove,
+);
 
+import adminProductsActions from "./modules/admin/adminProductsActions";
+
+router.get("/api/admin/products", adminProductsActions.browse);
+router.get("/api/admin/brands", adminProductsActions.getBrands);
+router.get("/api/admin/categories", adminProductsActions.getCategories);
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
