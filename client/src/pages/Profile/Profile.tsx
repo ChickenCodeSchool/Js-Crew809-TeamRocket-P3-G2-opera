@@ -3,7 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import { Pencil, Check, X } from "lucide-react";
 import type { Auth, User } from "../../App";
 import "./Profile.css";
-import imageopera from "../../assets/images/imageopera.jpg"
+import imageopera from "../../assets/images/imageopera.jpg";
 
 function Profile() {
   const { auth, setAuth } = useOutletContext<{
@@ -12,7 +12,7 @@ function Profile() {
   }>();
 
   if (!auth || !auth.user) {
-    return <div className="profile_page" />; 
+    return <div className="profile_page" />;
   }
 
   const user: User = auth.user;
@@ -113,6 +113,7 @@ function Profile() {
             </div>
           </div>
 
+          
           <div className="profile_card">
             <h3>Mes adresses</h3>
             <div className="card_icons">
@@ -129,6 +130,16 @@ function Profile() {
             <div className="profile_info">
               {editingSection === "address" ? (
                 <>
+                  <input
+                    className="edit_input"
+                    value={editedUser.firstname}
+                    onChange={(e) => handleChange("firstname", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.lastname}
+                    onChange={(e) => handleChange("lastname", e.target.value)}
+                  />
                   <input
                     className="edit_input"
                     value={editedUser.adress ?? ""}
