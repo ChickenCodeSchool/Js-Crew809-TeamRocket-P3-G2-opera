@@ -5,6 +5,10 @@ export type brandHero = {
   url_minihero: string;
   url_hero: string;
 };
+export type Brand = {
+  brand_id: number;
+  name: string;
+};
 
 class brandRepository {
   async getOne(brandId: number): Promise<brandHero[]> {
@@ -21,5 +25,18 @@ class brandRepository {
     const result = rows as brandHero[];
     return result;
   }
+
+  async getAll(): Promise<Brand[]> {
+    const query = `
+        SELECT 
+          Brand_id as brand_id,
+          name
+        FROM brand
+        ORDER BY name
+        `;
+    const [rows] = await databaseClient.query(query);
+    return rows as Brand[];
+  }
 }
+
 export default new brandRepository();

@@ -5,9 +5,11 @@ import App from "./App";
 import Footer from "./components/Footer/Footer";
 /*import BrandHero from "./components/brandHero/BrandHero";*/
 import CarouselLp from "./components/carouselLp/carouselLp";
+import AddProduct from "./pages/AddProduct/AddProduct";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
+import Cart from "./pages/Cart";
 import HomePage from "./pages/HomePage";
 import Profile from "./pages/Profile/Profile";
 import Contact from "./pages/contactPage/contact";
@@ -52,6 +54,7 @@ const router = createBrowserRouter([
       {
 
       },*/
+      { path: "/newproduct", element: <AddProduct /> },
       {
         path: "/orders",
         element: <PageTestLink />,
@@ -61,8 +64,8 @@ const router = createBrowserRouter([
         element: <PageTestLink />,
       },
       {
-        path: "/cart",
-        element: <PageTestLink />,
+        path: "/panier",
+        element: <Cart />,
       },
       {
         path: "/brand/:brandId/category/:categoryId",
