@@ -64,4 +64,9 @@ router.get("/customers/:id", customerActions.read);
 router.put("/customers/:id", customerActions.update);
 router.delete( "/customers/:id",authActions.verifyToken,customerActions.remove,);
 
+import orderActions from "./modules/order/orderActions";
+
+router.get("/api/orders", orderActions.browse);
+router.get("/api/orders/:id", orderActions.read);
+
 export default router;

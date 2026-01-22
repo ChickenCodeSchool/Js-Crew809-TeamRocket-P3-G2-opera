@@ -206,6 +206,8 @@ CREATE TABLE `order` (
   `customer_id` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `uptaded_at` datetime DEFAULT NULL,
+  `status` enum('pending','preparing','shipped','delivered') DEFAULT 'pending',
+  `delivery_date` date DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   KEY `fk_Order_Customers1_idx` (`customer_id`),
   CONSTRAINT `fk_Order_Customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
@@ -406,4 +408,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-21 10:52:06
+-- Dump completed on 2026-01-21 12:50:44
