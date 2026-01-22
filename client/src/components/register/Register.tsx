@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import type { Auth, User } from "../../App";
+import type { Auth } from "../../App";
 import "./Register.css";
+
 import Box from "@mui/material/Box";
 import Step from "@mui/material/Step";
 import StepConnector, {
@@ -16,7 +17,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 function NumberStepIcon(props: StepIconProps) {
   const { active, completed, icon } = props;
-
   return (
     <div
       className={`MuiStepIcon-root ${active ? "Mui-active" : ""} ${
@@ -30,6 +30,16 @@ function NumberStepIcon(props: StepIconProps) {
 
 function Register() {
   const [step, setStep] = useState(1);
+  const [accountData, setAccountData] = useState<{
+    mail: string;
+    password: string;
+    firstname?: string;
+    lastname?: string;
+    phone?: string;
+  }>({
+    mail: "",
+    password: "",
+  });
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -50,11 +60,11 @@ function Register() {
 
   const handleNextStep = () => {
     if (step === 1) {
-      const email = emailRef.current?.value;
+      const mail = emailRef.current?.value?.trim();
       const password = passwordRef.current?.value;
       const confirm = confirmPasswordRef.current?.value;
 
-      if (!email || !password || !confirm) {
+      if (!mail || !password || !confirm) {
         toast.error("Remplissez tous les champs");
         return;
       }
@@ -62,37 +72,57 @@ function Register() {
         toast.error("Les mots de passe ne correspondent pas");
         return;
       }
+      setAccountData({ mail, password });
     }
 
     if (step === 2) {
-      const firstname = firstnameRef.current?.value;
-      const lastname = lastnameRef.current?.value;
-      if (!firstname || !lastname) {
+      const firstname = firstnameRef.current?.value?.trim();
+      const lastname = lastnameRef.current?.value?.trim();
+      const phone = phoneRef.current?.value?.trim() || "";
+
+      if (!firstname || !lastname || !phone) {
         toast.error("Remplissez tous les champs");
         return;
       }
+      setAccountData({ ...accountData, firstname, lastname, phone });
     }
+    console.log(firstnameRef);
 
     setStep((prev) => prev + 1);
   };
 
-  const handlePreviousStep = () => {
+  const handlePreviousStep = () =>
     setStep((prev) => (prev > 1 ? prev - 1 : prev));
-  };
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
 
+    const mail = accountData.mail;
+    const password = accountData.password;
+    const phone = accountData.phone;
+    const firstname = accountData.firstname;
+    const lastname = accountData.lastname;
+
+    if (!mail || !password) {
+      toast.error("Email ou mot de passe manquant");
+      return;
+    }
+
+    const adress = adressRef.current?.value?.trim() || "";
+    const postal_code = postalCodeRef.current?.value?.trim() || "";
+    const country = countryRef.current?.value?.trim() || "";
+
     const payload = {
-      mail: emailRef.current?.value,
-      password: passwordRef.current?.value,
-      firstname: firstnameRef.current?.value,
-      lastname: lastnameRef.current?.value,
-      phone: phoneRef.current?.value || null,
-      adress: adressRef.current?.value || null,
-      postal_code: postalCodeRef.current?.value || null,
-      country: countryRef.current?.value || null,
+      mail,
+      password,
+      firstname,
+      lastname,
+      phone,
+      adress,
+      postal_code,
+      country,
     };
+    console.log(payload);
 
     try {
       const response = await fetch("http://localhost:3310/customers", {
@@ -105,13 +135,19 @@ function Register() {
         toast.error("Erreur lors de l'inscription");
         return;
       }
+      const result = await response.json();
 
-      const data: { user: User } = await response.json();
-      setAuth({ user: data.user, token: "" });
-      navigate("/profile");
+      if (setAuth) {
+        setAuth({
+          user: result.user,
+          token: "",
+        });
+      }
+
+      navigate("/");
     } catch (err) {
       console.error(err);
-      alert("Erreur serveur");
+      toast.error("Erreur serveur");
     }
   };
 
@@ -162,30 +198,28 @@ function Register() {
             <div className="form_group">
               <input
                 ref={emailRef}
-                type="email"
                 id="email"
+                type="email"
                 placeholder=" "
                 required
               />
               <label htmlFor="email">E-mail</label>
             </div>
-
             <div className="form_group">
               <input
                 ref={passwordRef}
-                type="password"
                 id="password"
+                type="password"
                 placeholder=" "
                 required
               />
               <label htmlFor="password">Mot de passe</label>
             </div>
-
             <div className="form_group">
               <input
                 ref={confirmPasswordRef}
-                type="password"
                 id="confirm-password"
+                type="password"
                 placeholder=" "
                 required
               />
@@ -193,7 +227,6 @@ function Register() {
                 Confirmer le mot de passe
               </label>
             </div>
-
             <div className="register_buttons_group">
               <button
                 type="button"
@@ -217,17 +250,14 @@ function Register() {
               />
               <label htmlFor="firstname">Prénom</label>
             </div>
-
             <div className="form_group">
               <input ref={lastnameRef} id="lastname" placeholder=" " required />
               <label htmlFor="lastname">Nom</label>
             </div>
-
             <div className="form_group">
-              <input ref={phoneRef} type="tel" id="phone" placeholder=" " />
+              <input ref={phoneRef} id="phone" type="tel" placeholder=" " />
               <label htmlFor="phone">Téléphone</label>
             </div>
-
             <div className="register_buttons_group">
               <button
                 type="button"
@@ -236,7 +266,6 @@ function Register() {
               >
                 Retour
               </button>
-
               <button
                 type="button"
                 className="register_button"
@@ -254,17 +283,14 @@ function Register() {
               <input ref={adressRef} id="adress" placeholder=" " />
               <label htmlFor="adress">Adresse</label>
             </div>
-
             <div className="form_group">
               <input ref={postalCodeRef} id="postal-code" placeholder=" " />
               <label htmlFor="postal-code">Code postal</label>
             </div>
-
             <div className="form_group">
               <input ref={countryRef} id="country" placeholder=" " />
               <label htmlFor="country">Pays</label>
             </div>
-
             <div className="register_buttons_group">
               <button
                 type="button"
@@ -273,7 +299,6 @@ function Register() {
               >
                 Retour
               </button>
-
               <button type="submit" className="register_button">
                 S'inscrire
               </button>
@@ -281,12 +306,8 @@ function Register() {
           </>
         )}
       </form>
-      <ToastContainer
-        position="top-left"
-        autoClose={3000}
-        toastClassName="register-toast"
-        limit={1}
-      />
+
+      <ToastContainer position="top-left" autoClose={3000} limit={1} />
     </>
   );
 }

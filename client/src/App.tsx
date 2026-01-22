@@ -15,7 +15,7 @@ export type User = {
   country?: string;
   phone?: string;
   created_at?: string;
-  uptaded_at?: string;
+  updated_at?: string;
 };
 
 export type Auth = {

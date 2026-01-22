@@ -170,6 +170,16 @@ function Profile() {
                 <>
                   <input
                     className="edit_input"
+                    value={editedUser.firstname}
+                    onChange={(e) => handleChange("firstname", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
+                    value={editedUser.lastname}
+                    onChange={(e) => handleChange("lastname", e.target.value)}
+                  />
+                  <input
+                    className="edit_input"
                     value={editedUser.adress ?? ""}
                     onChange={(e) => handleChange("adress", e.target.value)}
                   />
