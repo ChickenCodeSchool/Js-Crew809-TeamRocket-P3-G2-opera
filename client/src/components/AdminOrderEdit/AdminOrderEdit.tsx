@@ -221,7 +221,7 @@ function AdminOrderEdit() {
 
   return (
     <div className="admin-order-edit-container-orderAdmin">
-      <h2>Commandes</h2>
+      <h2>Gestion des commandes</h2>
 
       <div className="admin-controls-orderAdmin">
         <div className="control-section-orderAdmin search-section-orderAdmin">
