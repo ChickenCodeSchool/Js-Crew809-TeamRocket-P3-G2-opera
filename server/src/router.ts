@@ -80,5 +80,10 @@ import adminOrderActions from "./modules/orderDeliveryAdmin/adminOrderActions";
 
 router.get("/api/admin/orders", adminOrderActions.browse);
 router.delete("/api/admin/orders/:id", adminOrderActions.destroy);
+router.put("/api/admin/orders/:id", adminOrderActions.edit);
+router.delete(
+  "/api/admin/orders/:id/items/:productId",
+  adminOrderActions.removeItem,
+);
 
 export default router;
