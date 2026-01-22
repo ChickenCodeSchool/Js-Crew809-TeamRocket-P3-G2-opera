@@ -43,7 +43,7 @@ const add: RequestHandler = async (req, res, next) => {
     const insertId = await customerRepository.create(newCustomer);
 
     const customer = await customerRepository.read(insertId);
-
+    console.log('customer', customer)
     res.status(201).json({ user: customer });
   } catch (err) {
     next(err);
