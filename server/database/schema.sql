@@ -172,6 +172,7 @@ CREATE TABLE `customers` (
   `lastname` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `mail` varchar(100) NOT NULL,
+  `role` TINYINT NOT NULL DEFAULT 0,
   `birthday` date DEFAULT NULL,
   `adress` text,
   `country` varchar(100) DEFAULT NULL,
@@ -181,6 +182,17 @@ CREATE TABLE `customers` (
   PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+INSERT INTO customers
+(firstname, lastname, mail, password, role)
+VALUES
+(
+  'Opera',
+  'Admin',
+  'opera@admin.com',
+  '$2b$10$nB2axPASz0JIfd1FqxEGY.DG4m403WHbKH0fvAW2VZ/F1z07gXpvO',
+  1
+);
 
 --
 -- Dumping data for table `customers`

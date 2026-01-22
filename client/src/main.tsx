@@ -14,10 +14,14 @@ import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
 /*import Register from "./components/register/Register";*/
-import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 /*import Login from "./components/login/Login";*/
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+/*import Register from "./components/register/Register";*/
+import Authentification from "./pages/authentification/Authentification";
+import AdminPage from "./pages/Admin/AdminPage";
+import ProtectedRoute from "./components/ProtectedRoute";
+import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
 
 const router = createBrowserRouter([
   {
@@ -47,7 +51,22 @@ const router = createBrowserRouter([
       },*/
       {
         path: "profile",
-        element: <Profile />,
+        element: 
+        <ProtectedRoute>
+          <Profile />
+          </ProtectedRoute>
+      },
+      {
+        path: "/protected",
+        element: (
+          <ProtectedRoute>
+            <ProtectedExample />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path:"admin",
+        element:<AdminPage/>
       },
 
       /*   {

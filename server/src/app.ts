@@ -3,12 +3,13 @@ import express from "express";
 const app = express();
 
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 if (process.env.CLIENT_URL != null) {
-  app.use(cors({ origin: [process.env.CLIENT_URL] }));
+  app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true })); 
 }
-
 app.use(express.json());
+app.use(cookieParser())
 
 import router from "./router";
 

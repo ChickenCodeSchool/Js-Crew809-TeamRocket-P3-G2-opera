@@ -30,6 +30,7 @@ function Login() {
       const response = await fetch("http://localhost:3310/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ mail: email, password }),
       });
 
@@ -41,8 +42,13 @@ function Login() {
           return;
         }
 
-        setAuth(data);
-        navigate("/");
+        setAuth(data); 
+
+         if (data.user.role === 1) {
+          navigate("/admin");
+        } else {
+          navigate("/"); 
+        }
       } else if (response.status === 422) {
         toast.error("Adresse e-mail ou mot de passe incorrect");
       } else {
