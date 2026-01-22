@@ -83,7 +83,6 @@
 .list-header-orderAdmin,
 .list-row-orderAdmin {
   display: grid;
-  /* Ajout de la dernière colonne de 40px pour la croix */
   grid-template-columns: 60px 2fr 1.2fr 1fr 1fr 1fr 1fr 40px;
   align-items: center;
   padding: 15px;
@@ -138,12 +137,10 @@
 
 .cell-status-orderAdmin {
   font-style: italic;
-  color: #333;
 }
 
 .client-id-orderAdmin {
   font-weight: bold;
-  color: #333;
   margin-right: 5px;
 }
 
@@ -256,7 +253,6 @@
 
 .item-qty-orderAdmin {
   margin-right: 20px;
-  color: #333;
 }
 
 .item-delete-btn-orderAdmin {
@@ -291,4 +287,153 @@
 
 .delete-cross-btn-orderAdmin:hover {
   color: #d32f2f;
+}
+
+@media (max-width: 1024px) {
+  .admin-order-edit-container-orderAdmin {
+    margin: 1rem;
+    padding: 10px;
+  }
+
+  .list-header-orderAdmin,
+  .list-row-orderAdmin {
+    font-size: 0.85rem;
+    padding: 10px;
+    gap: 5px;
+  }
+
+  .admin-controls-orderAdmin {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .control-wrapper-orderAdmin {
+    width: 100%;
+  }
+
+  .control-input-orderAdmin {
+    flex: 1;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-header-orderAdmin {
+    display: none;
+  }
+
+  .list-row-orderAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-bottom: none;
+    position: relative;
+  }
+
+  .list-row-container-orderAdmin {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .list-cell-orderAdmin {
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+  }
+
+  .clickable-cell-orderAdmin {
+    width: 100%;
+    text-align: right;
+  }
+
+  .edit-wrapper-orderAdmin {
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .cell-id-orderAdmin {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  .list-cell-orderAdmin:nth-child(2)::before {
+    content: "Client :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .items-toggle-orderAdmin {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .list-cell-orderAdmin:nth-child(4)::before {
+    content: "Création :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .list-cell-orderAdmin:nth-child(5)::before {
+    content: "Livraison :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .list-cell-orderAdmin:nth-child(6)::before {
+    content: "Total :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .list-cell-orderAdmin:nth-child(7)::before {
+    content: "Statut :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .cell-delete-orderAdmin {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: auto;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  .delete-cross-btn-orderAdmin {
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+
+  .items-dropdown-orderAdmin {
+    padding: 10px;
+  }
+
+  .item-row-orderAdmin {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .item-delete-btn-orderAdmin {
+    align-self: flex-end;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
 }
