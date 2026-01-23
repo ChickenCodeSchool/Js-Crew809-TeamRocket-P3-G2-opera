@@ -88,6 +88,7 @@ import adminProductsActions from "./modules/admin/adminProductsActions";
 router.get("/api/admin/products", adminProductsActions.browse);
 router.get("/api/admin/brands", adminProductsActions.getBrands);
 router.get("/api/admin/categories", adminProductsActions.getCategories);
+router.put("/api/admin/products/:id", adminProductsActions.update);
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
