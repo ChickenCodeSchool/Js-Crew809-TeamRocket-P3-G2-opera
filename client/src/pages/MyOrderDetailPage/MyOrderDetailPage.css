@@ -1,0 +1,74 @@
+.page-container-orderDetail {
+  width: 100%;
+  min-height: 80vh;
+  background-color: white;
+  color: black;
+  font-family: "Montserrat", sans-serif;
+}
+
+.hero-container-orderDetail {
+  position: relative;
+  width: 100%;
+  height: 18.75rem;
+  overflow: hidden;
+}
+
+.mini-hero-orderDetail {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.content-centered-orderDetail {
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: 3.75rem 2.5rem;
+}
+
+.header-section-orderDetail {
+  margin-bottom: 3.75rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
+}
+
+.main-title-orderDetail {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 1.875rem;
+  text-transform: uppercase;
+}
+
+.meta-info-orderDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.meta-info-orderDetail p {
+  font-size: 1rem;
+  color: #333;
+  margin: 0;
+}
+
+.products-list-orderDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.875rem;
+}
+
+.loading-orderDetail,
+.error-orderDetail {
+  padding-top: 3.75rem;
+  text-align: center;
+}
+
+@media (max-width: 48rem) {
+  .page-container-orderDetail {
+    padding-bottom: 2.5rem;
+  }
+  .content-centered-orderDetail {
+    padding: 2rem 1.25rem;
+  }
+}

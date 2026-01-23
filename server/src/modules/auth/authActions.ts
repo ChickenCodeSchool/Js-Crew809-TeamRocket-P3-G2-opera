@@ -42,10 +42,34 @@ const login: RequestHandler = async (req, res, next) => {
       expiresIn: "1h",
     });
 
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1000,
+    });
+
     res.json({
       token,
       user: customerWithoutPassword,
     });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const getSession: RequestHandler = async (req, res, next) => {
+  try {
+    const customerId = Number(req.auth.sub);
+    const customer = await customerRepository.read(customerId);
+
+    if (!customer) {
+      res.sendStatus(404);
+      return;
+    }
+
+    const { password: _password, ...customerWithoutPassword } = customer;
+    res.json({ user: customerWithoutPassword });
   } catch (err) {
     next(err);
   }
@@ -64,7 +88,7 @@ const hashPassword: RequestHandler = async (req, res, next) => {
 
     req.body.hashed_password = hashedPassword;
     // biome-ignore lint/performance/noDelete: <explanation>
-    delete req.body.password; 
+    delete req.body.password;
 
     next();
   } catch (err) {
@@ -74,24 +98,19 @@ const hashPassword: RequestHandler = async (req, res, next) => {
 
 const verifyToken: RequestHandler = (req, res, next) => {
   try {
+    const cookieToken = req.cookies?.auth_token;
     const authorizationHeader = req.get("Authorization");
+    const headerToken = authorizationHeader?.startsWith("Bearer ")
+      ? authorizationHeader.slice("Bearer ".length)
+      : undefined;
+    const token = cookieToken ?? headerToken;
 
-    if (!authorizationHeader) {
+    if (!token) {
       res.sendStatus(401);
       return;
     }
 
-    const [type, token] = authorizationHeader.split(" ");
-
-    if (type !== "Bearer" || !token) {
-      res.sendStatus(401);
-      return;
-    }
-
-    req.auth = jwt.verify(
-      token,
-      process.env.APP_SECRET as string,
-    ) as MyPayload;
+    req.auth = jwt.verify(token, process.env.APP_SECRET as string) as MyPayload;
 
     next();
   } catch (err) {
@@ -100,4 +119,4 @@ const verifyToken: RequestHandler = (req, res, next) => {
   }
 };
 
-export default { login, hashPassword, verifyToken };
+export default { login, getSession, hashPassword, verifyToken };

@@ -64,8 +64,8 @@ router.get("/brands/:brandId/hero", brandActions.readHero);
 router.get("/brands", brandActions.readAllBrands);
 
 import authActions from "./modules/auth/authActions";
-
 router.post("/auth/login", authActions.login);
+router.get("/auth/session", authActions.verifyToken, authActions.getSession);
 
 import customerActions from "./modules/user/customerActions";
 
@@ -76,10 +76,21 @@ router.put(
   "/customers/:id",
   /*authActions.hashPassword,*/ customerActions.update,
 );
+router.put("/customers/:id", customerActions.update);
 router.delete(
   "/customers/:id",
   authActions.verifyToken,
   customerActions.remove,
 );
+
+import adminProductsActions from "./modules/admin/adminProductsActions";
+
+router.get("/api/admin/products", adminProductsActions.browse);
+router.get("/api/admin/brands", adminProductsActions.getBrands);
+router.get("/api/admin/categories", adminProductsActions.getCategories);
+import orderActions from "./modules/order/orderActions";
+
+router.get("/api/orders", orderActions.browse);
+router.get("/api/orders/:id", orderActions.read);
 
 export default router;

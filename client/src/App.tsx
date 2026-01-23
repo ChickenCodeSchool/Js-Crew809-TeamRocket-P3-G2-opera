@@ -9,13 +9,14 @@ export type User = {
   firstname: string;
   lastname: string;
   mail: string;
+  role: number;
   birthday?: string;
-  postal_code?:string;
+  postal_code?: string;
   adress?: string;
   country?: string;
   phone?: string;
   created_at?: string;
-  uptaded_at?: string;
+  updated_at?: string;
 };
 
 export type Auth = {

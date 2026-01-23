@@ -30,7 +30,8 @@ const add: RequestHandler = async (req, res, next) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       mail: req.body.mail,
-      password: req.body.hashed_password, 
+      password: req.body.hashed_password,
+      role: req.body.role ?? 0,
       birthday: req.body.birthday || null,
       adress: req.body.adress || null,
       postal_code: req.body.postal_code || null,
@@ -43,7 +44,7 @@ const add: RequestHandler = async (req, res, next) => {
     const insertId = await customerRepository.create(newCustomer);
 
     const customer = await customerRepository.read(insertId);
-
+    console.log("customer", customer);
     res.status(201).json({ user: customer });
   } catch (err) {
     next(err);
