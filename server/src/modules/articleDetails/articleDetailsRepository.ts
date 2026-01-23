@@ -1,3 +1,4 @@
+import type { ResultSetHeader } from "mysql2";
 import databaseClient from "../../../database/client";
 
 export type ArticleDetails = {
@@ -26,6 +27,16 @@ type ProductRow = {
   product_image_id: number;
   url: string;
   is_main: boolean;
+};
+
+type CreateArticle = {
+  name: string;
+  description: string;
+  brand_id: number;
+  price: number;
+  color: string;
+  gender: string;
+  category_id: number;
 };
 
 class ArticleDetailsRepository {
@@ -70,5 +81,34 @@ class ArticleDetailsRepository {
 
     return productData;
   }
+  async createproduct(data: CreateArticle): Promise<number> {
+    const [result] = await databaseClient.query<ResultSetHeader>(
+      `
+    INSERT INTO product (name, description, brand_id, price, color, gender)
+    VALUES (?, ?, ?, ?, ?, ?)
+    `,
+      [
+        data.name,
+        data.description,
+        data.brand_id,
+        data.price,
+        data.color,
+        data.gender,
+      ],
+    );
+
+    const productId = result.insertId;
+
+    await databaseClient.query(
+      `
+    INSERT INTO product_categories (product_id, categorie_id)
+    VALUES (?, ?)
+    `,
+      [productId, data.category_id],
+    );
+
+    return productId;
+  }
 }
+
 export default new ArticleDetailsRepository();

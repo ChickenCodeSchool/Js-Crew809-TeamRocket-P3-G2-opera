@@ -15,12 +15,10 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
     navigate("/");
   };
 
-   if (auth?.user) {
+  if (auth?.user) {
     return (
       <div className="profile_menu">
-        <p>
-           {auth.user.firstname} 
-        </p>
+        <p>{auth.user.firstname}</p>
         <button type="button" onClick={() => navigate("/profile")}>
           Mon profil
         </button>
@@ -36,9 +34,6 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
       <button type="button" onClick={() => navigate("/auth")}>
         Se connecter
       </button>
-    {/* <button type="button" onClick={() => navigate("/register")}>
-        S'inscrire
-      </button>*/}
     </div>
   );
 }

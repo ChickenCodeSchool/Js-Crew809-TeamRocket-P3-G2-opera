@@ -1,4 +1,5 @@
 import express from "express";
+import { upload } from "../middlewares/upload";
 
 const router = express.Router();
 
@@ -42,6 +43,15 @@ router.get("/api/brands/:id", brandDescriptionActions.read);
 
 import articleDetailsActions from "./modules/articleDetails/articleDetailsAction";
 router.get("/products/:productId", articleDetailsActions.readArticleDetails);
+router.post("/api/products", articleDetailsActions.createArticle);
+
+import productImageActions from "./modules/productImage/productImageActions";
+router.post(
+  "/products/:productId/images",
+  upload.array("images", 5),
+  productImageActions.addImages,
+);
+
 import filterBarActions from "./modules/filterbar/filterBarActions";
 router.get("/api/products/filter", filterBarActions.browse);
 router.get("/api/filter/categories", filterBarActions.getCategories);
@@ -51,16 +61,21 @@ router.get("/api/filter/colors", filterBarActions.getColors);
 
 import brandActions from "./modules/brand/brandActions";
 router.get("/brands/:brandId/hero", brandActions.readHero);
+router.get("/brands", brandActions.readAllBrands);
 
 import authActions from "./modules/auth/authActions";
-
 router.post("/auth/login", authActions.login);
+router.get("/auth/session", authActions.verifyToken, authActions.getSession);
 
 import customerActions from "./modules/user/customerActions";
 
 router.post("/customers", authActions.hashPassword, customerActions.add);
 router.get("/customers", customerActions.browse);
 router.get("/customers/:id", customerActions.read);
+router.put(
+  "/customers/:id",
+  /*authActions.hashPassword,*/ customerActions.update,
+);
 router.put("/customers/:id", customerActions.update);
 router.delete(
   "/customers/:id",
@@ -68,6 +83,11 @@ router.delete(
   customerActions.remove,
 );
 
+import adminProductsActions from "./modules/admin/adminProductsActions";
+
+router.get("/api/admin/products", adminProductsActions.browse);
+router.get("/api/admin/brands", adminProductsActions.getBrands);
+router.get("/api/admin/categories", adminProductsActions.getCategories);
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);

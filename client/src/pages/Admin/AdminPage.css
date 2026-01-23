@@ -1,0 +1,109 @@
+.admin-container {
+  display: flex;
+  height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+.admin-navbar {
+  width: 90px;
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
+  transition: width 0.3s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-navbar:hover {
+  width: 250px;
+  align-items: flex-start;
+}
+
+.admin-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.admin-logo img {
+  width: 70px;
+}
+
+.admin-navbar:hover .admin-logo {
+  justify-content: flex-start;
+  padding-left: 16px;
+}
+
+.admin-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.admin-navbar li {
+  width: 100%;
+}
+
+.admin-navbar a,
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-content: center;
+}
+
+.admin-navbar:hover a,
+.admin-navbar:hover .logout-btn {
+  justify-content: flex-start;
+}
+
+.admin-navbar a:hover,
+.logout-btn:hover {
+  background-color: #606262;
+}
+
+.admin-navbar .icon {
+  font-size: 1.6rem;
+  min-width: 32px;
+  display: flex;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.admin-navbar .label {
+  opacity: 0;
+  width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.admin-navbar:hover .label {
+  opacity: 1;
+  width: auto;
+}
+
+.admin-dashboard {
+  flex: 1;
+  padding: 40px;
+  background-color: #ecf0f1;
+}
+
+.logout-btn {
+  text-align: left;
+  color: #ffffff;
+}

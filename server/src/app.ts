@@ -2,14 +2,14 @@ import express from "express";
 
 const app = express();
 
+import cookieParser from "cookie-parser";
 import cors from "cors";
 
-
 if (process.env.CLIENT_URL != null) {
-  app.use(cors({ origin: [process.env.CLIENT_URL] }));
+  app.use(cors({ origin: [process.env.CLIENT_URL], credentials: true }));
 }
-
 app.use(express.json());
+app.use(cookieParser());
 
 import router from "./router";
 
@@ -23,6 +23,7 @@ const publicFolderPath = path.join(__dirname, "../../server/public");
 if (fs.existsSync(publicFolderPath)) {
   app.use(express.static(publicFolderPath));
 }
+
 const clientBuildPath = path.join(__dirname, "../../client/dist");
 
 if (fs.existsSync(clientBuildPath)) {
