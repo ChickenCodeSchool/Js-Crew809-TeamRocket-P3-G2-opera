@@ -30,7 +30,7 @@ const add: RequestHandler = async (req, res, next) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       mail: req.body.mail,
-      password: req.body.hashed_password,
+      password: req.body.hashed_password, 
       role: req.body.role ?? 0,
       birthday: req.body.birthday || null,
       adress: req.body.adress || null,

@@ -34,9 +34,6 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
       <button type="button" onClick={() => navigate("/auth")}>
         Se connecter
       </button>
-      {/* <button type="button" onClick={() => navigate("/register")}>
-        S'inscrire
-      </button>*/}
     </div>
   );
 }
