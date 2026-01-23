@@ -27,7 +27,7 @@ export type Auth = {
 function App() {
   const location = useLocation();
   const isLanding = location.pathname === "/";
-  const isAdmin = location.pathname.startsWith("/admin"); 
+  const isAdmin = location.pathname.startsWith("/admin");
   const [auth, setAuth] = useState<Auth | null>(null);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: need to trigger on route change
@@ -37,7 +37,9 @@ function App() {
 
   return (
     <>
-      {!isAdmin && <Navbar key={location.pathname} auth={auth} setAuth={setAuth} />}
+      {!isAdmin && (
+        <Navbar key={location.pathname} auth={auth} setAuth={setAuth} />
+      )}
       <div className={!isLanding && !isAdmin ? "with-fixed-navbar" : ""}>
         <Outlet context={{ auth, setAuth }} />
       </div>

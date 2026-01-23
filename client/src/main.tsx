@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import AdminOrderEdit from "./components/AdminOrderEdit/AdminOrderEdit";
 import Footer from "./components/Footer/Footer";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProducts from "./components/admin/admin_categorie/admin_product";
@@ -17,6 +18,7 @@ import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
+/*import Register from "./components/register/Register";*/
 import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
 /*import Register from "./components/register/Register";*/
 import Authentification from "./pages/authentification/Authentification";
@@ -119,6 +121,10 @@ const router = createBrowserRouter([
       {
         path: "/nouscontacter",
         element: <Contact />,
+      },
+      {
+        path: "/admin/orders",
+        element: <AdminOrderEdit />,
       },
       {
         path: "/adminproducts",
