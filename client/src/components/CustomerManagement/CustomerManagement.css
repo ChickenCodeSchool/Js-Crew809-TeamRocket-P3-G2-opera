@@ -1,0 +1,80 @@
+/* Conteneur principal */
+.admin-customer-container {
+  padding: 40px;
+  background-color: #ffffff; /* Ou noir selon ton choix de page admin */
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif; /* Typographie élégante */
+}
+
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  border-bottom: 1px solid #d4af37; /* Ligne dorée sous le titre */
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+}
+
+/* Le Tableau */
+.admin-table {
+  width: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border-collapse: separate;
+  border-spacing: 0;
+  /* Ta bordure principale */
+  border: 1px solid #000000;
+  border-radius: 8px; /* L'arrondi que tu as demandé */
+  overflow: hidden; /* Pour que le fond noir du header suive l'arrondi */
+
+  margin-top: 20px;
+}
+
+.admin-table th {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  padding: 15px;
+  font-family: "Montserrat", sans-serif;
+  border-radius: 30;
+}
+
+.admin-table td {
+  text-align: center; /* Aligne le contenu au milieu comme tes titres */
+  vertical-align: middle;
+  padding: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #333;
+}
+
+/* Style des boutons d'actions */
+.action-btn {
+  background: none;
+  border: 1px solid #ddd;
+  padding: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border-radius: 30; /* Garder un look carré/minimaliste */
+}
+
+.action-btn:hover {
+  border-color: black;
+  color: black;
+}
+
+/* Badge de rôle */
+.role-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.role-admin {
+  background-color: white;
+}
+.role-client {
+  background-color: white;
+}
