@@ -1,5 +1,6 @@
 import {
   FaBoxOpen,
+  FaShoppingCart,
   FaSignOutAlt,
   FaTachometerAlt,
   FaUsers,
@@ -8,16 +9,27 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import "./AdminPage.css";
 import logoOpera from "../../assets/images/logo_operawhite_fixed.png";
 
+interface LinkItem {
+  to: string;
+  icon: React.ReactNode;
+  label: string;
+}
+
 export default function AdminPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const links = [
+  const links: LinkItem[] = [
     { to: "/admin", icon: <FaTachometerAlt />, label: "Dashboard" },
     {
       to: "/adminproducts",
       icon: <FaBoxOpen />,
       label: "Gestion des produits",
+    },
+    {
+      to: "/admin/orders",
+      icon: <FaShoppingCart />,
+      label: "Gestion des commandes",
     },
     { to: "/admin/clients", icon: <FaUsers />, label: "Gestion des clients" },
   ];
@@ -40,12 +52,13 @@ export default function AdminPage() {
               key={link.to}
               className={location.pathname === link.to ? "active" : ""}
             >
-              <a href={link.to}>
+              <a href={link.to} className="nav-link">
                 <span className="icon">{link.icon}</span>
                 <span className="label">{link.label}</span>
               </a>
             </li>
           ))}
+
           <li className="logout-item">
             <button type="button" className="logout-btn" onClick={handleLogout}>
               <span className="icon">
