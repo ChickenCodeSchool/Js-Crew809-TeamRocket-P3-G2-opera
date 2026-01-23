@@ -1,16 +1,25 @@
-import { Outlet, useLocation } from "react-router-dom";
-import { FaTachometerAlt, FaBoxOpen, FaUsers } from "react-icons/fa";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { FaTachometerAlt, FaBoxOpen, FaUsers, FaSignOutAlt } from "react-icons/fa";
 import './AdminPage.css';
 import logoOpera from "../../assets/images/logo_operawhite_fixed.png";
 
 export default function AdminPage() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const links = [
     { to: "/admin", icon: <FaTachometerAlt />, label: "Dashboard" },
     { to: "/adminproducts", icon: <FaBoxOpen />, label: "Gestion des produits" },
     { to: "/admin/clients", icon: <FaUsers />, label: "Gestion des clients" },
   ];
+
+  const handleLogout = () => {
+    // 🔐 Suppression de l'authentification
+    localStorage.removeItem("token"); // adapte si besoin
+
+    // 🔁 Redirection vers la home
+    navigate("/");
+  };
 
   return (
     <div className="admin-container">
@@ -21,13 +30,24 @@ export default function AdminPage() {
 
         <ul>
           {links.map((link) => (
-            <li key={link.to} className={location.pathname === link.to ? "active" : ""}>
+            <li
+              key={link.to}
+              className={location.pathname === link.to ? "active" : ""}
+            >
               <a href={link.to}>
                 <span className="icon">{link.icon}</span>
                 <span className="label">{link.label}</span>
               </a>
             </li>
           ))}
+
+          {/* 🔴 Déconnexion */}
+          <li className="logout-item">
+            <button type="button"className="logout-btn" onClick={handleLogout}>
+              <span className="icon"><FaSignOutAlt /></span>
+              <span className="label">Déconnexion</span>
+            </button>
+          </li>
         </ul>
       </nav>
 

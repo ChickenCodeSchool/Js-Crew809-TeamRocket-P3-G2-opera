@@ -1,15 +1,16 @@
 .admin-container {
   display: flex;
   height: 100vh;
-  font-family: Arial, sans-serif;
+  font-family: "Montserrat", sans-serif;
+
 }
 
 .admin-navbar {
-  width: 100px; 
+  width: 90px;
   background-color: #000;
   color: #fff;
   padding: 20px 0;
-  transition: width 0.3s;
+  transition: width 0.3s ease;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -17,10 +18,8 @@
 }
 
 .admin-navbar:hover {
-  width: 220px;
-  align-items: flex-start; 
-  display: flex;
-  flex-direction: column;
+  width: 250px;
+  align-items: flex-start;
 }
 
 .admin-logo {
@@ -32,8 +31,12 @@
 }
 
 .admin-logo img {
-  width: 80px;
-  transition: all 0.3s;
+  width: 70px;
+}
+
+.admin-navbar:hover .admin-logo {
+  justify-content: flex-start;
+  padding-left: 16px;
 }
 
 .admin-navbar ul {
@@ -41,66 +44,67 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center; 
 }
 
 .admin-navbar li {
-  margin-bottom: 25px;
   width: 100%;
 }
 
-.admin-navbar a {
+.admin-navbar a,
+.logout-btn {
   display: flex;
   align-items: center;
+  gap: 12px;
   width: 100%;
+  padding: 12px 16px;
   color: #ecf0f1;
   text-decoration: none;
-  font-size: 1.2rem;
-  padding: 10px;
-  transition: all 0.3s;
-  justify-content: center; 
-  position: relative;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  justify-content: center;
 }
 
-.admin-navbar a:hover {
+.admin-navbar:hover a,
+.admin-navbar:hover .logout-btn {
+  justify-content: flex-start;
+}
+
+.admin-navbar a:hover,
+.logout-btn:hover {
   background-color: #606262;
-  border-radius: 5px;
 }
 
 .admin-navbar .icon {
-  display: inline-flex;
+  font-size: 1.6rem;
+  min-width: 32px;
+  display: flex;
   justify-content: center;
-  width: 100%; 
-  font-size: 2rem; 
-  transition: all 0.3s;
+  flex-shrink: 0;
 }
-
 .admin-navbar .label {
-  position: absolute;
-  left: 100px; 
   opacity: 0;
+  width: 0;
+  overflow: hidden;
   white-space: nowrap;
-  transition: opacity 0.3s;
-}
-
-.admin-navbar:hover a {
-  justify-content: flex-start; 
+  pointer-events: none;
+  transition: opacity 0.2s ease;
 }
 
 .admin-navbar:hover .label {
   opacity: 1;
-}
-
-.admin-navbar:hover .icon {
-  opacity: 0; 
-  width: 40px;
-  font-size: 1.2rem;
+  width: auto;
 }
 
 .admin-dashboard {
   flex: 1;
   padding: 40px;
   background-color: #ecf0f1;
+}
+
+.logout-btn {
+  text-align: left;
+  color: #ffffff;
 }
