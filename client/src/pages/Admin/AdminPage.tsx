@@ -14,13 +14,10 @@ export default function AdminPage() {
   ];
 
   const handleLogout = () => {
-    // 🔐 Suppression de l'authentification
-    localStorage.removeItem("token"); // adapte si besoin
-
-    // 🔁 Redirection vers la home
+    localStorage.removeItem("token"); 
     navigate("/");
   };
-
+  
   return (
     <div className="admin-container">
       <nav className="admin-navbar">
@@ -40,8 +37,6 @@ export default function AdminPage() {
               </a>
             </li>
           ))}
-
-          {/* 🔴 Déconnexion */}
           <li className="logout-item">
             <button type="button"className="logout-btn" onClick={handleLogout}>
               <span className="icon"><FaSignOutAlt /></span>
