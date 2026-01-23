@@ -176,6 +176,7 @@ CREATE TABLE `customers` (
   `birthday` date DEFAULT NULL,
   `adress` text,
   `country` varchar(100) DEFAULT NULL,
+  postal_code varchar(25) NOT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
