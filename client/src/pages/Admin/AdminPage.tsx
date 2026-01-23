@@ -1,6 +1,11 @@
+import {
+  FaBoxOpen,
+  FaSignOutAlt,
+  FaTachometerAlt,
+  FaUsers,
+} from "react-icons/fa";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { FaTachometerAlt, FaBoxOpen, FaUsers, FaSignOutAlt } from "react-icons/fa";
-import './AdminPage.css';
+import "./AdminPage.css";
 import logoOpera from "../../assets/images/logo_operawhite_fixed.png";
 
 export default function AdminPage() {
@@ -9,15 +14,19 @@ export default function AdminPage() {
 
   const links = [
     { to: "/admin", icon: <FaTachometerAlt />, label: "Dashboard" },
-    { to: "/adminproducts", icon: <FaBoxOpen />, label: "Gestion des produits" },
+    {
+      to: "/adminproducts",
+      icon: <FaBoxOpen />,
+      label: "Gestion des produits",
+    },
     { to: "/admin/clients", icon: <FaUsers />, label: "Gestion des clients" },
   ];
 
   const handleLogout = () => {
-    localStorage.removeItem("token"); 
+    localStorage.removeItem("token");
     navigate("/");
   };
-  
+
   return (
     <div className="admin-container">
       <nav className="admin-navbar">
@@ -38,8 +47,10 @@ export default function AdminPage() {
             </li>
           ))}
           <li className="logout-item">
-            <button type="button"className="logout-btn" onClick={handleLogout}>
-              <span className="icon"><FaSignOutAlt /></span>
+            <button type="button" className="logout-btn" onClick={handleLogout}>
+              <span className="icon">
+                <FaSignOutAlt />
+              </span>
               <span className="label">Déconnexion</span>
             </button>
           </li>
