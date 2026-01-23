@@ -105,19 +105,6 @@
   margin-top: 20px;
 }
 
-.add-to-cart-button {
-  font-family: "Montserrat Alternates", sans-serif;
-  flex: 1;
-  font-size: 13px;
-  padding: 10px;
-  background-color: #000000;
-  color: #ffffff;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-family: "Montserrat Alternates", sans-serif;
-}
-
 .add-to-favorite-button {
   font-family: "Montserrat Alternates", sans-serif;
   flex: 0.2;

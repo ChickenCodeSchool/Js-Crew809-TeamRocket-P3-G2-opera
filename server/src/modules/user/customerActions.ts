@@ -30,12 +30,8 @@ const add: RequestHandler = async (req, res, next) => {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       mail: req.body.mail,
-<<<<<<< HEAD
-      password: req.body.hashed_password, 
-      role: req.body.role ?? 0,
-=======
       password: req.body.hashed_password,
->>>>>>> dev
+      role: req.body.role ?? 0,
       birthday: req.body.birthday || null,
       adress: req.body.adress || null,
       postal_code: req.body.postal_code || null,

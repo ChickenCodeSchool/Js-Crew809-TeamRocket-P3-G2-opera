@@ -1,3 +1,3 @@
-export default function AdminPage( ) {
-    return <h1>Hello admin </h1>
+export default function AdminPage() {
+  return <h1>Hello admin </h1>;
 }

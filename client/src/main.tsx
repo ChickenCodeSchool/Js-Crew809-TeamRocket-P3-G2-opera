@@ -3,25 +3,27 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import Footer from "./components/Footer/Footer";
+import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProducts from "./components/admin/admin_categorie/admin_product";
 /*import BrandHero from "./components/brandHero/BrandHero";*/
 import CarouselLp from "./components/carouselLp/carouselLp";
+import AddProduct from "./pages/AddProduct/AddProduct";
+import AdminPage from "./pages/Admin/AdminPage";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
+import Cart from "./pages/Cart";
 import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
+import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
+/*import Register from "./components/register/Register";*/
+import Authentification from "./pages/authentification/Authentification";
 /*import Register from "./components/register/Register";*/
 import Contact from "./pages/contactPage/contact";
 /*import Login from "./components/login/Login";*/
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
-/*import Register from "./components/register/Register";*/
-import Authentification from "./pages/authentification/Authentification";
-import AdminPage from "./pages/Admin/AdminPage";
-import ProtectedRoute from "./components/ProtectedRoute";
-import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
 
 const router = createBrowserRouter([
   {
@@ -51,10 +53,11 @@ const router = createBrowserRouter([
       },*/
       {
         path: "profile",
-        element: 
-        <ProtectedRoute>
-          <Profile />
+        element: (
+          <ProtectedRoute>
+            <Profile />
           </ProtectedRoute>
+        ),
       },
       {
         path: "/protected",
@@ -65,8 +68,8 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path:"admin",
-        element:<AdminPage/>
+        path: "admin",
+        element: <AdminPage />,
       },
 
       /*   {
@@ -80,6 +83,7 @@ const router = createBrowserRouter([
       {
 
       },*/
+      { path: "/newproduct", element: <AddProduct /> },
       {
         path: "/orders",
         element: <MyOrderPage />,
@@ -93,8 +97,8 @@ const router = createBrowserRouter([
         element: <PageTestLink />,
       },
       {
-        path: "/cart",
-        element: <PageTestLink />,
+        path: "/panier",
+        element: <Cart />,
       },
       {
         path: "/brand/:brandId/category/:categoryId",

@@ -1,0 +1,20 @@
+.add-to-cart-button {
+  font-family: "Montserrat Alternates", sans-serif;
+  flex: 1;
+  font-size: 13px;
+  padding: 10px;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart-button:hover {
+  background-color: #333333;
+}
+
+.add-to-cart-button.added {
+  background-color: #28630d;
+}

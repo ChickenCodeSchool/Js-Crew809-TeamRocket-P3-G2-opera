@@ -43,10 +43,10 @@ const login: RequestHandler = async (req, res, next) => {
     });
 
     res.cookie("auth_token", token, {
-      httpOnly: true, 
-      secure: process.env.NODE_ENV === "production", 
-      sameSite: "lax", 
-      maxAge: 60 * 60 * 1000, 
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1000,
     });
 
     res.json({
@@ -60,8 +60,8 @@ const login: RequestHandler = async (req, res, next) => {
 
 const getSession: RequestHandler = async (req, res, next) => {
   try {
-    const customerId = Number(req.auth.sub); 
-    const customer = await customerRepository.read(customerId); 
+    const customerId = Number(req.auth.sub);
+    const customer = await customerRepository.read(customerId);
 
     if (!customer) {
       res.sendStatus(404);
@@ -98,28 +98,18 @@ const hashPassword: RequestHandler = async (req, res, next) => {
 
 const verifyToken: RequestHandler = (req, res, next) => {
   try {
-    const cookieToken = req.cookies?.auth_token; 
-    const authorizationHeader = req.get("Authorization"); 
-    const headerToken = authorizationHeader?.startsWith("Bearer ") 
-      ? authorizationHeader.slice("Bearer ".length) 
-      : undefined; 
-    const token = cookieToken ?? headerToken; 
+    const cookieToken = req.cookies?.auth_token;
+    const authorizationHeader = req.get("Authorization");
+    const headerToken = authorizationHeader?.startsWith("Bearer ")
+      ? authorizationHeader.slice("Bearer ".length)
+      : undefined;
+    const token = cookieToken ?? headerToken;
 
     if (!token) {
       res.sendStatus(401);
       return;
     }
 
-<<<<<<< HEAD
-=======
-    const [type, token] = authorizationHeader.split(" ");
-
-    if (type !== "Bearer" || !token) {
-      res.sendStatus(401);
-      return;
-    }
-
->>>>>>> dev
     req.auth = jwt.verify(token, process.env.APP_SECRET as string) as MyPayload;
 
     next();

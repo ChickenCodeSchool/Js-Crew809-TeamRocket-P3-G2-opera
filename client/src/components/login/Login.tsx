@@ -42,12 +42,12 @@ function Login() {
           return;
         }
 
-        setAuth(data); 
+        setAuth(data);
 
-         if (data.user.role === 1) {
+        if (data.user.role === 1) {
           navigate("/admin");
         } else {
-          navigate("/"); 
+          navigate("/");
         }
       } else if (response.status === 422) {
         toast.error("Adresse e-mail ou mot de passe incorrect");
