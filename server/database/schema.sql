@@ -172,27 +172,17 @@ CREATE TABLE `customers` (
   `lastname` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
   `mail` varchar(100) NOT NULL,
-  `role` TINYINT NOT NULL DEFAULT 0,
+  `role` tinyint NOT NULL DEFAULT '0',
   `birthday` date DEFAULT NULL,
   `adress` text,
   `country` varchar(100) DEFAULT NULL,
   `phone` varchar(45) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `postal_code` varchar(25) NOT NULL,
   PRIMARY KEY (`customer_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
-INSERT INTO customers
-(firstname, lastname, mail, password, role)
-VALUES
-(
-  'Opera',
-  'Admin',
-  'opera@admin.com',
-  '$2b$10$nB2axPASz0JIfd1FqxEGY.DG4m403WHbKH0fvAW2VZ/F1z07gXpvO',
-  1
-);
 
 --
 -- Dumping data for table `customers`
@@ -200,6 +190,7 @@ VALUES
 
 LOCK TABLES `customers` WRITE;
 /*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES (1,'Opera','Admin','$2b$10$nB2axPASz0JIfd1FqxEGY.DG4m403WHbKH0fvAW2VZ/F1z07gXpvO','opera@admin.com',1,NULL,NULL,NULL,NULL,'2026-01-23 09:00:26','2026-01-23 09:00:26',NULL);
 /*!40000 ALTER TABLE `customers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -418,4 +409,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-01-21 16:48:57
+-- Dump completed on 2026-01-23 10:12:02
