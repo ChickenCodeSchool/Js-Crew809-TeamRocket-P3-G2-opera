@@ -1,0 +1,298 @@
+/* /* FormulaireProduct.css */
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 50%;
+  justify-content: center;
+  border: 1px solid rgb(226, 226, 226);
+  margin: 20px;
+  padding: 40px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  background-color: black;
+}
+
+.product-form__field {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-form__label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.product-form__input,
+.product-form__textarea,
+.product-form__select {
+  width: 100%;
+  padding: 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  transition: all 0.2s;
+  font-size: 1rem;
+}
+
+.product-form__input:focus,
+.product-form__textarea:focus,
+.product-form__select:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.product-form__textarea {
+  resize: none;
+  font-family: inherit;
+}
+
+.product-form__select {
+  background-color: white;
+  cursor: pointer;
+}
+
+.product-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* File input */
+.product-form__file-input {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed #ffffff;
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 0.9rem;
+}
+
+.product-form__file-input:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: #a78bfa;
+}
+
+.product-form__file-input::file-selector-button {
+  margin-right: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.375rem;
+  background-color: #ffffff;
+  color: #000000;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.product-form__file-input::file-selector-button:hover {
+  background-color: #e5e7eb;
+}
+
+/* Images preview */
+.product-form__images-preview {
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border: 2px dashed rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.product-form__images-hint {
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: #d1d5db;
+  text-align: center;
+}
+
+.product-form__images-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+
+.product-form__image-item {
+  position: relative;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s;
+  aspect-ratio: 1;
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.product-form__image-item:hover {
+  border-color: #a78bfa;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(167, 139, 250, 0.3);
+}
+
+.product-form__image-item--main {
+  border-color: #10b981;
+  box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+}
+
+.product-form__image-item--main:hover {
+  border-color: #10b981;
+  box-shadow: 0 8px 25px rgba(16, 185, 129, 0.5);
+}
+
+.product-form__image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product-form__main-badge {
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  background-color: #10b981;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.product-form__remove-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 32px;
+  height: 32px;
+  background-color: #ef4444;
+  color: white;
+  border: 2px solid white;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.product-form__image-item:hover .product-form__remove-btn {
+  opacity: 1;
+}
+
+.product-form__remove-btn:hover {
+  background-color: #dc2626;
+  transform: scale(1.15);
+}
+
+.product-form__image-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  pointer-events: none;
+}
+
+.product-form__image-item:hover .product-form__image-overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.product-form__image-overlay span {
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 0.75rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.product-form__image-item:hover .product-form__image-overlay span {
+  opacity: 1;
+}
+
+.product-form__image-item--main:hover .product-form__image-overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Boutons d'action */
+.product-form__actions {
+  display: flex;
+  gap: 0.75rem;
+  padding-top: 1rem;
+}
+
+.product-form__button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: all 0.2s;
+}
+
+.product-form__button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.product-form__button--cancel {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.product-form__button--cancel:hover:not(:disabled) {
+  background-color: #d1d5db;
+}
+
+.product-form__button--submit {
+  background-color: #000000;
+  border: 1px solid rgb(255, 255, 255);
+  color: white;
+}
+
+.product-form__button--submit:hover:not(:disabled) {
+  background-color: #1f1f1f;
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .product-form {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .product-form__row {
+    grid-template-columns: 1fr;
+  }
+
+  .product-form__images-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .product-form__actions {
+    flex-direction: column;
+  }
+}

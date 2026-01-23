@@ -86,9 +86,9 @@ class CustomerRepository {
       updates.push("password = ?");
       values.push(customer.password);
     }
-    if (customer.role !== undefined){
-      updates.push("role = ?")
-      values.push(customer.role)
+    if (customer.role !== undefined) {
+      updates.push("role = ?");
+      values.push(customer.role);
     }
     if (customer.birthday !== undefined) {
       updates.push("birthday = ?");

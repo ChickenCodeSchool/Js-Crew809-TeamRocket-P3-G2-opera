@@ -7,6 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { Auth } from "../../App";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
+import { useCart } from "../../hooks/useCart";
 import BurgerMenu from "../burgerNav/BurgerNav";
 import ProfileMenu from "../profilemenu/ProfileMenu";
 
@@ -18,7 +19,9 @@ interface NavbarProps {
 function Navbar({ auth, setAuth }: NavbarProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { items } = useCart();
+  const itemCount = items.reduce((count, item) => count + item.quantity, 0);
+  console.log("Navbar render - items:", items, "count:", itemCount);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -30,6 +33,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     "/register",
     "/auth",
     "/adminproducts",
+    "/panier",
   ];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
@@ -84,11 +88,14 @@ function Navbar({ auth, setAuth }: NavbarProps) {
         </Link>
         <h1 className="title_navbar">OPERA</h1>
         <div className="navbar_icons">
-          <IoBagOutline
-            size={24}
-            className="cart_navbar"
-            onClick={() => navigate("/cart")}
-          />
+          <div className="cart_icon_container">
+            <IoBagOutline
+              size={24}
+              className="cart_navbar"
+              onClick={() => navigate("/cart")}
+            />
+            {itemCount > 0 && <span className="cart_badge">{itemCount}</span>}
+          </div>
 
           <div className="profile_container">
             <FiUser size={24} className="user_navbar" />

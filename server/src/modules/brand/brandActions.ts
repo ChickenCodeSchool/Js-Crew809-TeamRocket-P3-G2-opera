@@ -1,4 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
+import type { RequestHandler } from "express";
 import brandRepository from "./brandRepository";
 
 const readHero = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,4 +16,13 @@ const readHero = async (req: Request, res: Response, next: NextFunction) => {
     next(err);
   }
 };
-export default { readHero };
+const readAllBrands: RequestHandler = async (req, res, next) => {
+  try {
+    const brands = await brandRepository.getAll();
+    res.json(brands);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export default { readHero, readAllBrands };

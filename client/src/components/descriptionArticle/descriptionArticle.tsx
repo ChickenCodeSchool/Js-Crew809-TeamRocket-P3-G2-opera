@@ -1,6 +1,13 @@
 import { type KeyboardEvent, useEffect, useState } from "react";
 import "./descriptionArticle.css";
 import { MdFavorite } from "react-icons/md";
+import AddtocartButton from "../AddtocartButton/addtocartButton";
+
+type ArticleImage = {
+  product_image_id: string;
+  url: string;
+  is_main: boolean;
+};
 
 type ArticleDetails = {
   product_id: number;
@@ -9,6 +16,7 @@ type ArticleDetails = {
   brand_id: number;
   price: number;
   color: string;
+  images?: ArticleImage[];
 };
 
 type Props = {
@@ -17,6 +25,7 @@ type Props = {
 
 function DescriptionArticle({ productId }: Props) {
   const [articleData, setArticleData] = useState<ArticleDetails | null>(null);
+  const [mainImageUrl, setMainImageUrl] = useState<string>("");
   const [isOpenSize, setIsOpenSize] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenColor, setIsOpenColor] = useState(false);
@@ -27,6 +36,10 @@ function DescriptionArticle({ productId }: Props) {
       .then((response) => response.json())
       .then((data: ArticleDetails) => {
         setArticleData(data);
+        // Récupère l'image principale
+        const mainImg =
+          data.images?.find((img) => img.is_main) || data.images?.[0];
+        setMainImageUrl(mainImg?.url || "");
       })
       .catch((error) => {
         console.error("Erreur lors de la récupération des détails:", error);
@@ -133,9 +146,12 @@ function DescriptionArticle({ productId }: Props) {
       )}
 
       <div className="button-favorite">
-        <button type="button" className="add-to-cart-button">
-          Ajouter au panier
-        </button>
+        <AddtocartButton
+          productId={articleData.product_id}
+          productName={articleData.name}
+          price={articleData.price}
+          imageUrl={mainImageUrl}
+        />
         <span className="add-to-favorite-button">
           <MdFavorite />
         </span>
