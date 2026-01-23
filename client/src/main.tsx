@@ -116,6 +116,7 @@ const router = createBrowserRouter([
         path: "/nouscontacter",
         element: <Contact />,
       },
+      
       {
         path: "/adminproducts",
         element: <AdminProducts />,

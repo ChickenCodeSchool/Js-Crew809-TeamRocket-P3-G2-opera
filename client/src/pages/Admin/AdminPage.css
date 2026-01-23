@@ -1,0 +1,106 @@
+.admin-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.admin-navbar {
+  width: 100px; 
+  background-color: #000;
+  color: #fff;
+  padding: 20px 0;
+  transition: width 0.3s;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-navbar:hover {
+  width: 220px;
+  align-items: flex-start; 
+  display: flex;
+  flex-direction: column;
+}
+
+.admin-logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.admin-logo img {
+  width: 80px;
+  transition: all 0.3s;
+}
+
+.admin-navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.admin-navbar li {
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.admin-navbar a {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: #ecf0f1;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px;
+  transition: all 0.3s;
+  justify-content: center; 
+  position: relative;
+}
+
+.admin-navbar a:hover {
+  background-color: #606262;
+  border-radius: 5px;
+}
+
+.admin-navbar .icon {
+  display: inline-flex;
+  justify-content: center;
+  width: 100%; 
+  font-size: 2rem; 
+  transition: all 0.3s;
+}
+
+.admin-navbar .label {
+  position: absolute;
+  left: 100px; 
+  opacity: 0;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+}
+
+.admin-navbar:hover a {
+  justify-content: flex-start; 
+}
+
+.admin-navbar:hover .label {
+  opacity: 1;
+}
+
+.admin-navbar:hover .icon {
+  opacity: 0; 
+  width: 40px;
+  font-size: 1.2rem;
+}
+
+.admin-dashboard {
+  flex: 1;
+  padding: 40px;
+  background-color: #ecf0f1;
+}
