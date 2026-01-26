@@ -1,9 +1,8 @@
 import bcrypt from "bcrypt";
 import type { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
-import customerRepository from "../user/customerRepository";
 import { sendResetEmail } from "../../../utils/email";
-
+import customerRepository from "../user/customerRepository";
 
 interface MyPayload {
   sub: string;
@@ -158,8 +157,7 @@ const forgotPassword: RequestHandler = async (req, res, next) => {
 
     const resetLink = `${process.env.FRONT_URL}/reset-password?token=${resetToken}`;
 
-
-await sendResetEmail(mail, resetLink);
+    await sendResetEmail(mail, resetLink);
 
     res.json({
       message: "Si un compte existe, un email a été envoyé",

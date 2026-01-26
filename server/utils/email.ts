@@ -1,5 +1,5 @@
-import nodemailer from "nodemailer";
 import { Link } from "lucide-react";
+import nodemailer from "nodemailer";
 
 const transporter = nodemailer.createTransport({
   host: process.env.MAIL_HOST,

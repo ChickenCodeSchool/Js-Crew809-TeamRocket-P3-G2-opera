@@ -11,7 +11,6 @@ import { useCart } from "../../hooks/useCart";
 import BurgerMenu from "../burgerNav/BurgerNav";
 import ProfileMenu from "../profilemenu/ProfileMenu";
 
-
 interface NavbarProps {
   auth: Auth | null;
   setAuth: (auth: Auth | null) => void;
@@ -36,7 +35,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     "/adminproducts",
     "/panier",
     "/forgot-password",
-    "/reset-password"
+    "/reset-password",
   ];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 

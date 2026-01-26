@@ -1,10 +1,10 @@
 import { useState } from "react";
 import type { FormEventHandler } from "react";
-import { useSearchParams, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import authentificationopera from "../../assets/images/authentificationopera.jpg"
-import "./ResetPassword.css"
+import authentificationopera from "../../assets/images/authentificationopera.jpg";
+import "./ResetPassword.css";
 
 function ResetPassword() {
   const [searchParams] = useSearchParams();
@@ -33,11 +33,14 @@ function ResetPassword() {
     }
 
     try {
-      const response = await fetch("http://localhost:3310/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, password }),
-      });
+      const response = await fetch(
+        "http://localhost:3310/auth/reset-password",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token, password }),
+        },
+      );
 
       if (response.ok) {
         toast.success("Mot de passe modifié avec succès");
@@ -86,11 +89,7 @@ function ResetPassword() {
         </button>
       </form>
 
-      <ToastContainer
-        position="top-left"
-        autoClose={3000}
-        limit={1}
-      />
+      <ToastContainer position="top-left" autoClose={3000} limit={1} />
       <img src={authentificationopera} alt="authimage" className="auth_image" />
     </div>
   );

@@ -2,8 +2,8 @@ import { useState } from "react";
 import type { FormEventHandler } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import authentificationopera from "../../assets/images/authentificationopera.jpg"
-import "./forgotpassword.css"
+import authentificationopera from "../../assets/images/authentificationopera.jpg";
+import "./forgotpassword.css";
 
 function ForgotPassword() {
   const [mail, setMail] = useState("");
@@ -58,7 +58,7 @@ function ForgotPassword() {
           Envoyer le lien
         </button>
       </form>
-<img src={authentificationopera} alt="authimage" className="auth_image" />
+      <img src={authentificationopera} alt="authimage" className="auth_image" />
       <ToastContainer position="top-left" autoClose={3000} limit={1} />
     </div>
   );
