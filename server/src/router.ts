@@ -67,6 +67,9 @@ import authActions from "./modules/auth/authActions";
 router.post("/auth/login", authActions.login);
 router.get("/auth/session", authActions.verifyToken, authActions.getSession);
 
+router.post("/auth/forgot-password", authActions.forgotPassword);
+router.post("/auth/reset-password", authActions.resetPassword);
+
 import customerActions from "./modules/user/customerActions";
 
 router.post("/customers", authActions.hashPassword, customerActions.add);

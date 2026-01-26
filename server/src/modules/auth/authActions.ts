@@ -2,9 +2,16 @@ import bcrypt from "bcrypt";
 import type { RequestHandler } from "express";
 import jwt from "jsonwebtoken";
 import customerRepository from "../user/customerRepository";
+import { sendResetEmail } from "../../../utils/email";
+
 
 interface MyPayload {
   sub: string;
+}
+
+interface ResetPasswordPayload {
+  sub: string;
+  purpose: "reset-password";
 }
 
 const SALT_ROUNDS = 10;
@@ -119,4 +126,87 @@ const verifyToken: RequestHandler = (req, res, next) => {
   }
 };
 
-export default { login, getSession, hashPassword, verifyToken };
+const forgotPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const { mail } = req.body ?? {};
+
+    if (!mail) {
+      res.status(400).json({ error: "Mail is required" });
+      return;
+    }
+
+    const customer = await customerRepository.readByEmailWithPassword(mail);
+
+    // Réponse générique pour la sécurité
+    if (!customer) {
+      res.json({
+        message: "Si un compte existe, un email a été envoyé",
+      });
+      return;
+    }
+
+    const resetPayload: ResetPasswordPayload = {
+      sub: customer.customer_id.toString(),
+      purpose: "reset-password",
+    };
+
+    const resetToken = jwt.sign(
+      resetPayload,
+      process.env.APP_SECRET as string,
+      { expiresIn: "15m" },
+    );
+
+    const resetLink = `${process.env.FRONT_URL}/reset-password?token=${resetToken}`;
+
+
+await sendResetEmail(mail, resetLink);
+
+    res.json({
+      message: "Si un compte existe, un email a été envoyé",
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+const resetPassword: RequestHandler = async (req, res, next) => {
+  try {
+    const { token, password } = req.body ?? {};
+
+    if (!token || !password) {
+      res.status(400).json({ error: "Token et mot de passe requis" });
+      return;
+    }
+
+    const decoded = jwt.verify(
+      token,
+      process.env.APP_SECRET as string,
+    ) as ResetPasswordPayload;
+
+    if (decoded.purpose !== "reset-password") {
+      res.status(401).json({ error: "Token invalide" });
+      return;
+    }
+
+    const customerId = Number(decoded.sub);
+    const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+    await customerRepository.update({
+      customer_id: customerId,
+      password: hashedPassword,
+    });
+
+    res.json({ message: "Mot de passe réinitialisé avec succès" });
+  } catch (err) {
+    res.status(401).json({ error: "Token invalide ou expiré" });
+  }
+};
+
+export default {
+  login,
+  getSession,
+  hashPassword,
+  verifyToken,
+  forgotPassword,
+  resetPassword,
+};

@@ -26,6 +26,8 @@ import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 /*import Login from "./components/login/Login";*/
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import ForgotPassword from "./components/MdpOublie/forgotpassword";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -130,7 +132,13 @@ const router = createBrowserRouter([
         path: "/adminproducts",
         element: <AdminProducts />,
       },
-    ],
+      { path: "/forgot-password", 
+        element: <ForgotPassword /> },
+    {
+      path: "/reset-password",
+      element: <ResetPassword/>
+    },
+      ],
   },
 ]);
 
