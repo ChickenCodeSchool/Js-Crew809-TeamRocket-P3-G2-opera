@@ -16,15 +16,6 @@
   align-items: center;
 }
 
-.brand-logo {
-  position: absolute;
-  top: 2rem;
-  right: 5rem;
-  width: 13rem;
-  height: auto;
-  object-fit: contain;
-}
-
 .brand-text {
   font-size: 1.5rem;
   line-height: 1.8;
@@ -38,14 +29,6 @@
   text-align: center;
 }
 
-@media (max-width: 1050px) {
-  .brand-logo {
-    top: 2rem;
-    right: 2rem;
-    width: 12rem;
-  }
-}
-
 @media (max-width: 768px) {
   .brand-desc-container {
     max-width: 350px;
@@ -54,8 +37,5 @@
   .brand-text {
     font-size: 1.2rem;
   }
-
-  .brand-logo {
-    display: none;
-  }
+  
 }
