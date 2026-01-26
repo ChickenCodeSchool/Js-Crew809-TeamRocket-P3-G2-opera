@@ -9,6 +9,61 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
+.order-toast {
+  min-width: 300px;
+  background-color: #ffffff;
+  color: #9d2424;
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(22, 15, 15, 0.694);
+  font-family: "Montserrat", sans-serif;
+  font-size: 15px;
+}
+
+.confirm-toast-content-orderAdmin {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.confirm-toast-text-orderAdmin {
+  margin: 0;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.confirm-toast-actions-orderAdmin {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.confirm-btn-yes-orderAdmin,
+.confirm-btn-no-orderAdmin {
+  padding: 6px 12px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.85rem;
+  transition: opacity 0.2s;
+}
+
+.confirm-btn-yes-orderAdmin {
+  background-color: #d32f2f;
+  color: white;
+}
+
+.confirm-btn-no-orderAdmin {
+  background-color: #ccc;
+  color: #333;
+}
+
+.confirm-btn-yes-orderAdmin:hover,
+.confirm-btn-no-orderAdmin:hover {
+  opacity: 0.8;
+}
+
 .admin-order-edit-container-orderAdmin h2 {
   margin-top: 0;
   margin-bottom: 20px;
