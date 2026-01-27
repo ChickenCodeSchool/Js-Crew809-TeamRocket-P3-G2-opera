@@ -1,0 +1,439 @@
+.admin-order-edit-container-orderAdmin {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 20px;
+  font-family: "Montserrat", sans-serif;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.admin-order-edit-container-orderAdmin h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  border-bottom: 2px solid #c5a059;
+  padding-bottom: 10px;
+}
+
+.admin-controls-orderAdmin {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.control-section-orderAdmin {
+  padding: 15px;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  border: 1px solid #ccc;
+}
+
+.control-section-orderAdmin label {
+  font-weight: bold;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.control-wrapper-orderAdmin {
+  display: flex;
+  gap: 10px;
+}
+
+.control-input-orderAdmin {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 150px;
+  background-color: #fff;
+  color: #000;
+}
+
+.control-btn-orderAdmin {
+  border: 1px solid #000;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+  color: #000;
+  background-color: #fff;
+}
+
+.search-btn-orderAdmin:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.delete-btn-orderAdmin:hover {
+  background-color: #d32f2f;
+  color: #fff;
+  border-color: #d32f2f;
+}
+
+.list-header-orderAdmin,
+.list-row-orderAdmin {
+  display: grid;
+  grid-template-columns: 60px 2fr 1.2fr 1fr 1fr 1fr 1fr 40px;
+  align-items: center;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.list-row-container-orderAdmin {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid #eee;
+  transition: background-color 1s ease;
+}
+
+.highlight-row-orderAdmin {
+  background-color: #e0e0e0 !important;
+}
+
+.list-row-container-orderAdmin .list-row-orderAdmin {
+  border-bottom: none;
+}
+
+.list-header-orderAdmin {
+  background-color: #f0f0f0;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #000;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.list-row-orderAdmin:hover {
+  background-color: #f5f5f5;
+}
+
+.list-cell-orderAdmin {
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: ellipsis;
+  min-height: 24px;
+  color: #000;
+}
+
+.cell-id-orderAdmin {
+  font-weight: bold;
+}
+
+.cell-price-orderAdmin {
+  font-weight: 600;
+}
+
+.cell-status-orderAdmin {
+  font-style: italic;
+}
+
+.client-id-orderAdmin {
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+.clickable-cell-orderAdmin {
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  text-align: left;
+  font-family: inherit;
+  color: inherit;
+  padding: 2px 5px;
+  border-radius: 4px;
+  transition: border-color 0.2s, background-color 0.2s;
+  width: 70%;
+}
+
+.clickable-cell-orderAdmin:hover {
+  border-color: #000;
+  background-color: #fff;
+}
+
+.edit-wrapper-orderAdmin {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+  z-index: 10;
+  position: relative;
+}
+
+.edit-input-orderAdmin {
+  padding: 4px;
+  font-size: 0.85rem;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+
+.edit-select-orderAdmin {
+  padding: 4px;
+  font-size: 0.85rem;
+  border: 1px solid #000;
+  border-radius: 3px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.edit-actions-orderAdmin {
+  display: flex;
+  gap: 5px;
+}
+
+.save-mini-btn-orderAdmin,
+.cancel-mini-btn-orderAdmin {
+  background: none;
+  border: 1px solid #000;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  background-color: white;
+  color: #000;
+}
+
+.save-mini-btn-orderAdmin:hover {
+  background-color: #000;
+  color: #fff;
+}
+
+.cancel-mini-btn-orderAdmin:hover {
+  background-color: #d32f2f;
+  border-color: #d32f2f;
+  color: #fff;
+}
+
+.items-toggle-orderAdmin {
+  font-weight: 600;
+  color: #000;
+}
+
+.items-dropdown-orderAdmin {
+  background-color: #f9f9f9;
+  padding: 10px 20px;
+  border-top: 1px dashed #ccc;
+}
+
+.items-list-orderAdmin {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.item-row-orderAdmin {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  font-size: 0.9rem;
+  color: #000;
+}
+
+.item-row-orderAdmin:last-child {
+  border-bottom: none;
+}
+
+.item-name-orderAdmin {
+  font-weight: 500;
+  flex: 1;
+}
+
+.item-qty-orderAdmin {
+  margin-right: 20px;
+}
+
+.item-delete-btn-orderAdmin {
+  background: none;
+  border: none;
+  color: #000;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0 5px;
+  transition: color 0.2s;
+}
+
+.item-delete-btn-orderAdmin:hover {
+  color: #d32f2f;
+}
+
+.cell-delete-orderAdmin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.delete-cross-btn-orderAdmin {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  color: #000;
+  transition: color 0.2s;
+  padding: 0 5px;
+}
+
+.delete-cross-btn-orderAdmin:hover {
+  color: #d32f2f;
+}
+
+@media (max-width: 1024px) {
+  .admin-order-edit-container-orderAdmin {
+    margin: 1rem;
+    padding: 10px;
+  }
+
+  .list-header-orderAdmin,
+  .list-row-orderAdmin {
+    font-size: 0.85rem;
+    padding: 10px;
+    gap: 5px;
+  }
+
+  .admin-controls-orderAdmin {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .control-wrapper-orderAdmin {
+    width: 100%;
+  }
+
+  .control-input-orderAdmin {
+    flex: 1;
+    width: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-header-orderAdmin {
+    display: none;
+  }
+
+  .list-row-orderAdmin {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+    border-bottom: none;
+    position: relative;
+  }
+
+  .list-row-container-orderAdmin {
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .list-cell-orderAdmin {
+    width: 100%;
+    padding: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+  }
+
+  .clickable-cell-orderAdmin {
+    width: 100%;
+    text-align: right;
+  }
+
+  .edit-wrapper-orderAdmin {
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  .cell-id-orderAdmin {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    width: fit-content;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  .list-cell-orderAdmin:nth-child(2)::before {
+    content: "Client :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .items-toggle-orderAdmin {
+    background-color: #f9f9f9;
+    border: 1px solid #eee;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 4px;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .list-cell-orderAdmin:nth-child(4)::before {
+    content: "Création :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .list-cell-orderAdmin:nth-child(5)::before {
+    content: "Livraison :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .list-cell-orderAdmin:nth-child(6)::before {
+    content: "Total :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .list-cell-orderAdmin:nth-child(7)::before {
+    content: "Statut :";
+    font-weight: bold;
+    margin-right: 10px;
+  }
+
+  .cell-delete-orderAdmin {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: auto;
+    justify-content: flex-end;
+    padding: 0;
+  }
+
+  .delete-cross-btn-orderAdmin {
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+
+  .items-dropdown-orderAdmin {
+    padding: 10px;
+  }
+
+  .item-row-orderAdmin {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .item-delete-btn-orderAdmin {
+    align-self: flex-end;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+}

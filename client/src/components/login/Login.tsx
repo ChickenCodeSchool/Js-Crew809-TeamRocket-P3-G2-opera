@@ -1,16 +1,19 @@
 import { useRef } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
-import type { Auth } from "../../App";
 import { ToastContainer, toast } from "react-toastify";
+import type { Auth } from "../../App";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { setAuth } = useOutletContext<{ setAuth: (auth: Auth | null) => void }>();
+  const { setAuth } = useOutletContext<{
+    setAuth: (auth: Auth | null) => void;
+  }>();
   const navigate = useNavigate();
 
   const handleSubmit: FormEventHandler = async (event) => {
@@ -28,6 +31,7 @@ function Login() {
       const response = await fetch("http://localhost:3310/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ mail: email, password }),
       });
 
@@ -39,8 +43,13 @@ function Login() {
           return;
         }
 
-        setAuth(data); 
-        navigate("/"); 
+        setAuth(data);
+
+        if (data.user.role === 1) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
       } else if (response.status === 422) {
         toast.error("Adresse e-mail ou mot de passe incorrect");
       } else {
@@ -82,9 +91,17 @@ function Login() {
         <button type="submit" className="login_button">
           Se connecter
         </button>
+        <Link to="/forgot-password" className="forgot-passwordlink">
+          Mot de passe oublié ?
+        </Link>
       </form>
 
-      <ToastContainer position="top-left" autoClose={3000} toastClassName="login-toast"limit={1}/>
+      <ToastContainer
+        position="top-left"
+        autoClose={3000}
+        toastClassName="login-toast"
+        limit={1}
+      />
     </>
   );
 }

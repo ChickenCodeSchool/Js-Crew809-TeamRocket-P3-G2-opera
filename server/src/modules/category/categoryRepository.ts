@@ -47,6 +47,14 @@ class CategoryRepository {
     );
     return rows;
   }
+
+  async addProductToCategory(productId: number, categoryId: number) {
+    await databaseClient.query(
+      `INSERT INTO product_categories (product_id, categorie_id)
+     VALUES (?, ?)`,
+      [productId, categoryId],
+    );
+  }
 }
 
 export default new CategoryRepository();

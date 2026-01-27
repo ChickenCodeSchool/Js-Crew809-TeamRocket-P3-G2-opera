@@ -1,4 +1,5 @@
 import express from "express";
+import { upload } from "../middlewares/upload";
 
 const router = express.Router();
 
@@ -42,6 +43,15 @@ router.get("/api/brands/:id", brandDescriptionActions.read);
 
 import articleDetailsActions from "./modules/articleDetails/articleDetailsAction";
 router.get("/products/:productId", articleDetailsActions.readArticleDetails);
+router.post("/api/products", articleDetailsActions.createArticle);
+
+import productImageActions from "./modules/productImage/productImageActions";
+router.post(
+  "/products/:productId/images",
+  upload.array("images", 5),
+  productImageActions.addImages,
+);
+
 import filterBarActions from "./modules/filterbar/filterBarActions";
 router.get("/api/products/filter", filterBarActions.browse);
 router.get("/api/filter/categories", filterBarActions.getCategories);
@@ -51,16 +61,24 @@ router.get("/api/filter/colors", filterBarActions.getColors);
 
 import brandActions from "./modules/brand/brandActions";
 router.get("/brands/:brandId/hero", brandActions.readHero);
+router.get("/brands", brandActions.readAllBrands);
 
 import authActions from "./modules/auth/authActions";
-
 router.post("/auth/login", authActions.login);
+router.get("/auth/session", authActions.verifyToken, authActions.getSession);
+
+router.post("/auth/forgot-password", authActions.forgotPassword);
+router.post("/auth/reset-password", authActions.resetPassword);
 
 import customerActions from "./modules/user/customerActions";
 
 router.post("/customers", authActions.hashPassword, customerActions.add);
 router.get("/customers", customerActions.browse);
 router.get("/customers/:id", customerActions.read);
+router.put(
+  "/customers/:id",
+  /*authActions.hashPassword,*/ customerActions.update,
+);
 router.put("/customers/:id", customerActions.update);
 router.delete(
   "/customers/:id",
@@ -68,9 +86,43 @@ router.delete(
   customerActions.remove,
 );
 
+import adminProductsActions from "./modules/admin/adminProductsActions";
+
+router.get("/api/admin/products", adminProductsActions.browse);
+router.get("/api/admin/brands", adminProductsActions.getBrands);
+router.get("/api/admin/categories", adminProductsActions.getCategories);
+router.put("/api/admin/products/:id", adminProductsActions.update);
+router.delete("/api/admin/products/:id", adminProductsActions.remove);
+router.delete("/api/admin/products/:id", adminProductsActions.remove);
+
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
+
+import adminOrderActions from "./modules/orderDeliveryAdmin/adminOrderActions";
+
+router.get("/api/admin/orders", adminOrderActions.browse);
+router.delete("/api/admin/orders/:id", adminOrderActions.destroy);
+router.put("/api/admin/orders/:id", adminOrderActions.edit);
+router.delete(
+  "/api/admin/orders/:id/items/:productId",
+  adminOrderActions.removeItem,
+);
+
+import stripeActions from "./modules/Stripe/stripeAction";
+router.post(
+  "/api/stripe/create-checkout-session",
+  stripeActions.createCheckoutSession,
+);
+
+import * as dashboardActions from "./modules/dashboard/dashboardActions";
+router.get("/api/dashboard/revenue", dashboardActions.revenuePerMonth);
+router.get("/api/dashboard/top-products", dashboardActions.topProducts);
+router.get("/api/dashboard/items-per-day", dashboardActions.itemsPerDay);
+router.get(
+  "/api/dashboard/customers-per-day",
+  dashboardActions.customersPerDay,
+);
 
 export default router;
