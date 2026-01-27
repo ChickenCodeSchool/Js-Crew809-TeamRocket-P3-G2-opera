@@ -34,6 +34,8 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     "/auth",
     "/adminproducts",
     "/panier",
+    "/forgot-password",
+    "/reset-password",
   ];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 

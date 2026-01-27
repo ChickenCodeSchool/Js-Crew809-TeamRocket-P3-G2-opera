@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import Login from "../../components/login/Login";
 import Register from "../../components/register/Register";
 import "./Authentification.css";
@@ -6,6 +7,7 @@ import authentificationopera from "../../assets/images/authentificationopera.jpg
 
 function Authentification() {
   const [isLogin, setIsLogin] = useState(true);
+  const navigate = useNavigate();
 
   return (
     <div className="auth_page">
@@ -33,6 +35,13 @@ function Authentification() {
                 onClick={() => setIsLogin(true)}
               >
                 Se connecter
+              </button>
+              <button
+                type="button"
+                className="forgotpassword"
+                onClick={() => navigate("/forgot-password")}
+              >
+                Mot de passe oublié ?
               </button>
             </>
           )}

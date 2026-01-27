@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import AdminOrderEdit from "./components/AdminOrderEdit/AdminOrderEdit";
 import Footer from "./components/Footer/Footer";
+import ForgotPassword from "./components/MdpOublie/forgotpassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProducts from "./components/admin/admin_categorie/admin_product";
 /*import BrandHero from "./components/brandHero/BrandHero";*/
@@ -20,6 +21,7 @@ import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
 /*import Register from "./components/register/Register";*/
 import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 /*import Register from "./components/register/Register";*/
 import Authentification from "./pages/authentification/Authentification";
 /*import Register from "./components/register/Register";*/
@@ -129,6 +131,11 @@ const router = createBrowserRouter([
       {
         path: "/adminproducts",
         element: <AdminProducts />,
+      },
+      { path: "/forgot-password", element: <ForgotPassword /> },
+      {
+        path: "/reset-password",
+        element: <ResetPassword />,
       },
     ],
   },
