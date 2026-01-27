@@ -1,6 +1,7 @@
 /* Conteneur principal */
 .admin-customer-container {
   padding: 40px;
+  padding-top: 200px;
   background-color: #ffffff; /* Ou noir selon ton choix de page admin */
   min-height: 100vh;
   font-family: "Montserrat", sans-serif; /* Typographie élégante */
@@ -9,9 +10,45 @@
 h2 {
   text-transform: uppercase;
   letter-spacing: 3px;
-  border-bottom: 1px solid #d4af37; /* Ligne dorée sous le titre */
+  /*border-bottom: 1px solid #d4af37; /* Ligne dorée sous le titre */
   padding-bottom: 15px;
   margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Barre contenant le bouton Ajouter */
+.admin-actions-bar {
+  display: flex;
+  justify-content: flex-end; /* Aligne le bouton à droite */
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+/* Style du bouton Ajouter */
+.add-btn {
+  background-color: #ffffff;
+  color: #666666; /* Gris discret pour le texte au repos */
+  border: 1px solid #e0e0e0; /* Bordure grise très fine */
+  padding: 8px 16px; /* Plus compact que la version précédente */
+  font-family: "Montserrat", sans-serif;
+  text-transform: none; /* Retrait du tout majuscule pour plus de douceur */
+  font-size: 0.85rem;
+  font-weight: 400;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  margin-left: auto;
+  border-radius: 4px;
+  display: flex;
+  justify-content: end;
+}
+
+.add-btn:hover {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  border-color: black; /* Rappel du doré au survol */
+  box-shadow: 0 4px 15px rgba(24, 22, 22, 0.1);
 }
 
 /* Le Tableau */
@@ -22,6 +59,7 @@ h2 {
   border-spacing: 0;
   /* Ta bordure principale */
   border: 1px solid #000000;
+
   border-radius: 8px; /* L'arrondi que tu as demandé */
   overflow: hidden; /* Pour que le fond noir du header suive l'arrondi */
 
@@ -31,7 +69,6 @@ h2 {
 .admin-table th {
   background-color: #1a1a1a;
   color: #ffffff;
-  text-transform: uppercase;
   font-size: 0.8rem;
   letter-spacing: 1px;
   padding: 15px;
@@ -44,23 +81,42 @@ h2 {
   vertical-align: middle;
   padding: 20px;
   border-bottom: 1px solid #f0f0f0;
-  color: #333;
+  color: black;
 }
 
 /* Style des boutons d'actions */
 .action-btn {
-  background: none;
-  border: 1px solid #ddd;
-  padding: 5px;
-  margin-right: 5px;
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: all 0.3s;
-  border-radius: 30; /* Garder un look carré/minimaliste */
+  transition: all 0.2s ease;
+  border-radius: 4px;
+
+  /* Carré parfait et identique pour tous */
+  width: 34px;
+  height: 34px;
+
+  /* Centrage absolu de l'icône SVG */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+  margin: 0 4px;
+  color: #888; /* Gris moyen au repos */
+}
+
+.action-btn span {
+  font-size: 1.2rem;
+  line-height: 0;
+  display: inline-block;
+  margin-bottom: 8px; /* Ajuste ce chiffre pour centrer verticalement les points */
 }
 
 .action-btn:hover {
   border-color: black;
   color: black;
+  background-color: #f9f9f9;
 }
 
 /* Badge de rôle */
@@ -69,7 +125,6 @@ h2 {
   border-radius: 4px;
   font-size: 0.8rem;
   font-weight: bold;
-  text-transform: uppercase;
 }
 
 .role-admin {
