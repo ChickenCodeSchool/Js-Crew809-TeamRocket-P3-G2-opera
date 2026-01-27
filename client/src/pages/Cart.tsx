@@ -21,15 +21,38 @@ function Cart() {
     );
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (items.length === 0) {
       alert("Votre panier est vide");
       return;
     }
-    // TODO: Implémenter la logique de paiement
-    alert(
-      `Paiement de ${getTotal().toFixed(2)}€ - Fonctionnalité à implémenter`,
-    );
+
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            items: items.map((item) => ({
+              name: item.name,
+              price: item.price,
+              quantity: 1,
+              // image_url: `${import.meta.env.VITE_API_URL}${item.image_url}`,
+            })),
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (data.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error("Erreur checkout:", error);
+      alert("Erreur lors du paiement");
+    }
   };
 
   const handleContinueShopping = () => {

@@ -115,6 +115,35 @@ class AdminProductsRepository {
     const [result] = await databaseClient.query(query, values);
     return result;
   }
+
+  async delete(productId: number) {
+    // Désactiver les contraintes temporairement
+    await databaseClient.query("SET FOREIGN_KEY_CHECKS = 0");
+
+    // Supprimer les données liées
+    await databaseClient.query(
+      "DELETE FROM product_categories WHERE product_id = ?",
+      [productId],
+    );
+    await databaseClient.query(
+      "DELETE FROM product_image WHERE product_id = ?",
+      [productId],
+    );
+    await databaseClient.query("DELETE FROM size WHERE product_id = ?", [
+      productId,
+    ]);
+
+    // Supprimer le produit
+    const [result] = await databaseClient.query(
+      "DELETE FROM product WHERE product_id = ?",
+      [productId],
+    );
+
+    // Réactiver les contraintes
+    await databaseClient.query("SET FOREIGN_KEY_CHECKS = 1");
+
+    return result;
+  }
 }
 
 export default new AdminProductsRepository();
