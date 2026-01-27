@@ -106,13 +106,6 @@ h2 {
   color: #888; /* Gris moyen au repos */
 }
 
-.action-btn span {
-  font-size: 1.2rem;
-  line-height: 0;
-  display: inline-block;
-  margin-bottom: 8px; /* Ajuste ce chiffre pour centrer verticalement les points */
-}
-
 .action-btn:hover {
   border-color: black;
   color: black;
@@ -132,4 +125,94 @@ h2 {
 }
 .role-client {
   background-color: white;
+}
+/* À ajouter avant le @media screen */
+.table-responsive-container {
+  max-height: 60vh; /* Utilise 60% de la hauteur de l'écran */
+  overflow-y: auto;
+  border: 1px solid #000;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.admin-table {
+  margin-top: 0; /* On enlève la marge pour coller au container */
+  border: none; /* On enlève la bordure car c'est le container qui la porte */
+}
+
+.admin-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10; /* Garde les titres au-dessus des lignes qui défilent */
+}
+
+/* --- RESPONSIVE : Mobile (< 768px) --- */
+@media screen and (max-width: 768px) {
+  .admin-customer-container {
+    padding: 20px;
+    padding-top: 120px; /* On réduit le padding haut sur mobile */
+  }
+
+  /* On transforme le tableau en bloc empilé */
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table th,
+  .admin-table td,
+  .admin-table tr {
+    display: block;
+    width: 100%;
+  }
+
+  /* On cache le header (Nom, Email, etc.) car il ne sert plus à rien en mode carte */
+  .admin-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .admin-table tr {
+    border: 1px solid #e0e0e0;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #fff;
+  }
+
+  .admin-table td {
+    border: none;
+    position: relative;
+    padding: 12px 15px;
+    padding-left: 40%; /* On fait de la place pour le label à gauche */
+    text-align: right; /* Données à droite */
+    border-bottom: 1px solid #f9f9f9;
+  }
+
+  /* On génère les titres dynamiquement à gauche de chaque cellule */
+  .admin-table td::before {
+    content: attr(data-label); /* Utilise l'attribut data-label qu'on va ajouter */
+    position: absolute;
+    left: 15px;
+    width: 35%;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #888;
+  }
+
+  /* Spécifique pour la cellule d'actions */
+  .actions-cell {
+    justify-content: flex-end !important;
+    padding-top: 15px !important;
+    padding-bottom: 15px !important;
+  }
+  .admin-actions-bar {
+    justify-content: center; /* Centre le bouton sur mobile */
+    margin-bottom: 30px;
+  }
+
+  .add-btn {
+    width: 100%; /* Le bouton prend toute la largeur sur mobile pour être plus facile à cliquer */
+    justify-content: center;
+  }
 }
