@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./admin_product.css";
+import { Link } from "react-router";
 
 type Product = {
   product_id: number;
@@ -32,6 +33,15 @@ export default function AdminProducts() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [loading, setLoading] = useState<boolean>(true);
   const [searchInput, setSearchInput] = useState("");
+
+  // States pour le modal
+  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editForm, setEditForm] = useState({
+    name: "",
+    description: "",
+    price: 0,
+    color: "",
+  });
 
   useEffect(() => {
     const fetchFiltersData = async () => {
@@ -89,6 +99,64 @@ export default function AdminProducts() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
+  // Fonction pour ouvrir le modal
+  const handleEditClick = (product: Product) => {
+    setEditingProduct(product);
+    setEditForm({
+      name: product.name,
+      description: product.description,
+      price: product.price,
+      color: product.color,
+    });
+  };
+
+  // Fonction pour enregistrer les modifications
+  const handleSaveEdit = async () => {
+    if (!editingProduct) return;
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/products/${editingProduct.product_id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(editForm),
+        },
+      );
+
+      if (res.ok) {
+        setProducts(
+          products.map((p) =>
+            p.product_id === editingProduct.product_id
+              ? { ...p, ...editForm }
+              : p,
+          ),
+        );
+        setEditingProduct(null);
+      }
+    } catch (error) {
+      console.error("Erreur modification:", error);
+    }
+  };
+
+  // Fonction pour supprimer un produit
+  const handleDelete = async (productId: number) => {
+    if (!window.confirm("Supprimer ce produit ?")) return;
+
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/admin/products/${productId}`,
+        { method: "DELETE" },
+      );
+
+      if (res.ok) {
+        setProducts(products.filter((p) => p.product_id !== productId));
+      }
+    } catch (error) {
+      console.error("Erreur suppression:", error);
+    }
+  };
+
   return (
     <div className="admin-products">
       <h1>Gestion des Produits</h1>
@@ -129,6 +197,10 @@ export default function AdminProducts() {
             </option>
           ))}
         </select>
+        <Link to="/newproduct" className="add-product-link">
+          {" "}
+          Ajouter un produit
+        </Link>
       </div>
 
       <p>{products.length} produit(s) trouvé(s)</p>
@@ -144,7 +216,7 @@ export default function AdminProducts() {
               <th>Prix</th>
               <th>Couleur</th>
               <th>Stock</th>
-              <th>Modifier</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -163,18 +235,102 @@ export default function AdminProducts() {
                 </td>
                 <td>{product.name}</td>
                 <td>{product.brand_name}</td>
-                <td>{product.price} €</td>
+                <td>€ {Math.floor(product.price)}</td>
                 <td>{product.color}</td>
                 <td>{product.total_stock ?? "N/A"}</td>
-                <td>
-                  <button type="button" className="admin-btn-edit">
+                <td className="admin-actions">
+                  <button
+                    type="button"
+                    className="admin-btn-edit"
+                    onClick={() => handleEditClick(product)}
+                  >
                     Modifier
+                  </button>
+                  <button
+                    type="button"
+                    className="admin-btn-delete"
+                    onClick={() => handleDelete(product.product_id)}
+                  >
+                    Supprimer
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      )}
+
+      {editingProduct && (
+        <>
+          {/* biome-ignore lint/a11y/useKeyWithClickEvents: overlay click to close */}
+          <div
+            className="admin-modal-overlay"
+            onClick={() => setEditingProduct(null)}
+          />
+          <dialog className="admin-modal" open>
+            <h2>Modifier le produit</h2>
+
+            <label>
+              Nom
+              <input
+                type="text"
+                value={editForm.name}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, name: e.target.value })
+                }
+              />
+            </label>
+
+            <label>
+              Description
+              <textarea
+                value={editForm.description}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, description: e.target.value })
+                }
+              />
+            </label>
+
+            <label>
+              Prix (€)
+              <input
+                type="number"
+                value={editForm.price}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, price: Number(e.target.value) })
+                }
+              />
+            </label>
+
+            <label>
+              Couleur
+              <input
+                type="text"
+                value={editForm.color}
+                onChange={(e) =>
+                  setEditForm({ ...editForm, color: e.target.value })
+                }
+              />
+            </label>
+
+            <div className="admin-modal-buttons">
+              <button
+                type="button"
+                className="admin-btn-cancel"
+                onClick={() => setEditingProduct(null)}
+              >
+                Annuler
+              </button>
+              <button
+                type="button"
+                className="admin-btn-save"
+                onClick={handleSaveEdit}
+              >
+                Enregistrer
+              </button>
+            </div>
+          </dialog>
+        </>
       )}
     </div>
   );

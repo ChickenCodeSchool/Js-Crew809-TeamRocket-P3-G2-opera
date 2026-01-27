@@ -22,8 +22,22 @@ export const getCategories: RequestHandler = async (req, res) => {
   res.json(categories);
 };
 
+export const update: RequestHandler = async (req, res) => {
+  const productId = Number(req.params.id);
+  const data = req.body;
+
+  const result = await adminProductsRepository.update(productId, data);
+
+  if (result) {
+    res.json({ success: true, message: "Produit mis à jour" });
+  } else {
+    res.status(400).json({ success: false, message: "Aucune modification" });
+  }
+};
+
 export default {
   browse,
   getBrands,
   getCategories,
+  update,
 };
