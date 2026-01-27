@@ -1,5 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
+import {
+  FaSave,
+  FaTimes,
+  FaTrash,
+  FaSearch,
+  FaChevronDown,
+  FaChevronUp,
+} from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 import "./AdminOrderEdit.css";
 
@@ -314,7 +322,7 @@ function AdminOrderEdit() {
               onClick={handleSearch}
               className="control-btn-orderAdmin search-btn-orderAdmin"
             >
-              Trouver
+              <FaSearch style={{ marginRight: "5px" }} /> Trouver
             </button>
           </div>
         </div>
@@ -335,7 +343,7 @@ function AdminOrderEdit() {
               onClick={handleDelete}
               className="control-btn-orderAdmin delete-btn-orderAdmin"
             >
-              Supprimer
+              <FaTrash style={{ marginRight: "5px" }} /> Supprimer
             </button>
           </div>
         </div>
@@ -387,7 +395,10 @@ function AdminOrderEdit() {
                   className="list-cell-orderAdmin clickable-cell-orderAdmin items-toggle-orderAdmin"
                   onClick={() => toggleItems(order.order_id)}
                 >
-                  {order.items.length} article(s) {isExpanded ? "▲" : "▼"}
+                  <span style={{ marginRight: "5px" }}>
+                    {order.items.length} article(s)
+                  </span>
+                  {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
 
                 <button
@@ -415,7 +426,7 @@ function AdminOrderEdit() {
                           }}
                           className="save-mini-btn-orderAdmin"
                         >
-                          💾
+                          <FaSave />
                         </button>
                         <button
                           type="button"
@@ -425,7 +436,7 @@ function AdminOrderEdit() {
                           }}
                           className="cancel-mini-btn-orderAdmin"
                         >
-                          ✖
+                          <FaTimes />
                         </button>
                       </div>
                     </div>
@@ -459,7 +470,7 @@ function AdminOrderEdit() {
                           }}
                           className="save-mini-btn-orderAdmin"
                         >
-                          💾
+                          <FaSave />
                         </button>
                         <button
                           type="button"
@@ -469,7 +480,7 @@ function AdminOrderEdit() {
                           }}
                           className="cancel-mini-btn-orderAdmin"
                         >
-                          ✖
+                          <FaTimes />
                         </button>
                       </div>
                     </div>
@@ -513,7 +524,7 @@ function AdminOrderEdit() {
                           }}
                           className="save-mini-btn-orderAdmin"
                         >
-                          💾
+                          <FaSave />
                         </button>
                         <button
                           type="button"
@@ -523,7 +534,7 @@ function AdminOrderEdit() {
                           }}
                           className="cancel-mini-btn-orderAdmin"
                         >
-                          ✖
+                          <FaTimes />
                         </button>
                       </div>
                     </div>
@@ -539,7 +550,7 @@ function AdminOrderEdit() {
                     onClick={() => handleRowDelete(order.order_id)}
                     title="Supprimer la commande"
                   >
-                    ✖
+                    <FaTrash />
                   </button>
                 </div>
               </div>
@@ -567,7 +578,7 @@ function AdminOrderEdit() {
                             }
                             title="Supprimer cet article"
                           >
-                            ✖
+                            <FaTrash />
                           </button>
                         </li>
                       ))}
@@ -582,9 +593,9 @@ function AdminOrderEdit() {
         })}
       </div>
       <ToastContainer
-        position="top-left"
+        position="bottom-right"
         autoClose={3000}
-        toastClassName="order-toast"
+        toastClassName="order-toast-orderAdmin"
       />
     </div>
   );
