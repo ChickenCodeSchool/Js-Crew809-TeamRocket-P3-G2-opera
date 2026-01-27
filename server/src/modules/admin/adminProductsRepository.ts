@@ -76,6 +76,45 @@ class AdminProductsRepository {
     );
     return rows;
   }
+  async update(
+    productId: number,
+    data: {
+      name?: string;
+      description?: string;
+      price?: number;
+      color?: string;
+    },
+  ) {
+    const fields: string[] = [];
+    const values: (string | number)[] = [];
+
+    if (data.name !== undefined) {
+      fields.push("name = ?");
+      values.push(data.name);
+    }
+    if (data.description !== undefined) {
+      fields.push("description = ?");
+      values.push(data.description);
+    }
+    if (data.price !== undefined) {
+      fields.push("price = ?");
+      values.push(data.price);
+    }
+    if (data.color !== undefined) {
+      fields.push("color = ?");
+      values.push(data.color);
+    }
+
+    if (fields.length === 0) {
+      return null;
+    }
+
+    values.push(productId);
+
+    const query = `UPDATE product SET ${fields.join(", ")} WHERE product_id = ?`;
+    const [result] = await databaseClient.query(query, values);
+    return result;
+  }
 }
 
 export default new AdminProductsRepository();

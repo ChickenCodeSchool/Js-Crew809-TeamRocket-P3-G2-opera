@@ -34,6 +34,8 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     "/auth",
     "/adminproducts",
     "/panier",
+    "/forgot-password",
+    "/reset-password",
   ];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
@@ -92,7 +94,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
             <IoBagOutline
               size={24}
               className="cart_navbar"
-              onClick={() => navigate("/cart")}
+              onClick={() => navigate("/panier")}
             />
             {itemCount > 0 && <span className="cart_badge">{itemCount}</span>}
           </div>

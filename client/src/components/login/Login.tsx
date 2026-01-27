@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import type { Auth } from "../../App";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
+import { Link } from "react-router-dom";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -90,6 +91,9 @@ function Login() {
         <button type="submit" className="login_button">
           Se connecter
         </button>
+        <Link to="/forgot-password" className="forgot-passwordlink">
+          Mot de passe oublié ?
+        </Link>
       </form>
 
       <ToastContainer

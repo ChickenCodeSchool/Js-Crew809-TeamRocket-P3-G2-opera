@@ -67,6 +67,9 @@ import authActions from "./modules/auth/authActions";
 router.post("/auth/login", authActions.login);
 router.get("/auth/session", authActions.verifyToken, authActions.getSession);
 
+router.post("/auth/forgot-password", authActions.forgotPassword);
+router.post("/auth/reset-password", authActions.resetPassword);
+
 import customerActions from "./modules/user/customerActions";
 
 router.post("/customers", authActions.hashPassword, customerActions.add);
@@ -88,6 +91,7 @@ import adminProductsActions from "./modules/admin/adminProductsActions";
 router.get("/api/admin/products", adminProductsActions.browse);
 router.get("/api/admin/brands", adminProductsActions.getBrands);
 router.get("/api/admin/categories", adminProductsActions.getCategories);
+router.put("/api/admin/products/:id", adminProductsActions.update);
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
