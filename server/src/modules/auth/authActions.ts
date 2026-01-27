@@ -135,7 +135,6 @@ const forgotPassword: RequestHandler = async (req, res, next) => {
     }
 
     const customer = await customerRepository.readByEmailWithPassword(mail);
-
     // Réponse générique pour la sécurité
     if (!customer) {
       res.json({
