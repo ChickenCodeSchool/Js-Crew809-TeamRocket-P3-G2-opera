@@ -114,6 +114,8 @@ import stripeActions from "./modules/Stripe/stripeAction";
 router.post(
   "/api/stripe/create-checkout-session",
   stripeActions.createCheckoutSession,
+);
+
 import * as dashboardActions from "./modules/dashboard/dashboardActions";
 router.get("/api/dashboard/revenue", dashboardActions.revenuePerMonth);
 router.get("/api/dashboard/top-products", dashboardActions.topProducts);
