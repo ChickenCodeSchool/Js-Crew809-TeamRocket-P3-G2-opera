@@ -122,7 +122,7 @@ export default function Dashboard() {
         </label>
 
         <label>
-         {/* Produits les plus vendus :*/}
+          {/* Produits les plus vendus :*/}
           <select
             value={topN}
             onChange={(e) => setTopN(Number(e.target.value))}
@@ -162,7 +162,10 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </DashboardCard>
 
-        <DashboardCard title="Produits les plus vendus" kpi={`${totalProductsSold} vendus`}>
+        <DashboardCard
+          title="Produits les plus vendus"
+          kpi={`${totalProductsSold} vendus`}
+        >
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={topProducts}>
               <CartesianGrid strokeDasharray="3 3" />
