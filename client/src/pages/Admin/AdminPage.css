@@ -2,13 +2,15 @@
   display: flex;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
+  margin: 0;
 }
 
 .admin-navbar {
   width: 90px;
   background-color: #000;
   color: #fff;
-  padding: 20px 0;
+  /*padding: 20px 0;*/
   transition: width 0.3s ease;
   display: flex;
   flex-direction: column;
@@ -21,7 +23,7 @@
 
 .admin-dashboard {
   flex: 1;
-  padding: 40px;
-  background-color: #ecf0f1;
+  /*padding: 40px;*/
+  /*background-color: #ecf0f1;*/
   min-height: 100vh;
 }
