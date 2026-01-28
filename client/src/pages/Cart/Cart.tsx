@@ -31,8 +31,8 @@ function Cart() {
             items: items.map((item) => ({
               name: item.name,
               price: item.price,
-              quantity: 1,
-              // image_url: `${import.meta.env.VITE_API_URL}${item.image_url}`,
+              quantity: item.quantity,
+              size_label: item.size_label,
             })),
           }),
         },
@@ -80,7 +80,10 @@ function Cart() {
       <div className="cart-content">
         <div className="cart-items">
           {items.map((item) => (
-            <div key={item.product_id} className="cart-item">
+            <div
+              key={`${item.product_id}-${item.size_id}`}
+              className="cart-item"
+            >
               <img
                 src={`${baseUrl}${item.image_url}`}
                 alt={item.name}
@@ -89,6 +92,9 @@ function Cart() {
               <div className="item-product">
                 <div className="item-details">
                   <h3>{item.name}</h3>
+                  {item.size_label && (
+                    <p className="item-size">Taille : {item.size_label}</p>
+                  )}
                 </div>
                 <div className="item-price">
                   € {Math.floor(+item.price.toFixed(2))}
@@ -98,7 +104,9 @@ function Cart() {
                   <button
                     type="button"
                     className="remove-btn"
-                    onClick={() => removeFromCart(item.product_id)}
+                    onClick={() =>
+                      removeFromCart(item.product_id, item.size_id)
+                    }
                   >
                     Retirer
                   </button>
@@ -110,7 +118,11 @@ function Cart() {
                   type="button"
                   className="qty-btn"
                   onClick={() =>
-                    updateQuantity(item.product_id, item.quantity - 1)
+                    updateQuantity(
+                      item.product_id,
+                      item.quantity - 1,
+                      item.size_id,
+                    )
                   }
                 >
                   −
@@ -120,7 +132,11 @@ function Cart() {
                   type="button"
                   className="qty-btn"
                   onClick={() =>
-                    updateQuantity(item.product_id, item.quantity + 1)
+                    updateQuantity(
+                      item.product_id,
+                      item.quantity + 1,
+                      item.size_id,
+                    )
                   }
                 >
                   +
@@ -135,7 +151,10 @@ function Cart() {
             <h2>Résumé de la commande</h2>
 
             <div className="summary-row">
-              <span>Nombre d'articles : ( {items.length} )</span>
+              <span>
+                Nombre d'articles : ({" "}
+                {items.reduce((total, item) => total + item.quantity, 0)} )
+              </span>
             </div>
 
             <div className="summary-row">

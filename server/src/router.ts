@@ -125,4 +125,7 @@ router.get(
   dashboardActions.customersPerDay,
 );
 
+//ROUTE CONNEXION GOOGLE
+// router.post("/auth/google", authActions.googleLogin);
+
 export default router;

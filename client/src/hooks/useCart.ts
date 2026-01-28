@@ -6,6 +6,8 @@ export type CartItem = {
   price: number;
   image_url: string;
   quantity: number;
+  size_label: string;
+  size_id: number;
 };
 
 export const useCart = () => {
@@ -53,7 +55,7 @@ export const useCart = () => {
     }
   }, [items, isLoaded]);
 
-  const addToCart = (item: Omit<CartItem, "quantity">) => {
+  const addToCart = (item: CartItem) => {
     const normalizedItem = {
       ...item,
       price:
@@ -78,27 +80,34 @@ export const useCart = () => {
     });
   };
 
-  const removeFromCart = (productId: number) => {
-    console.log("🗑️ removeFromCart appelé avec productId:", productId);
-    setItems((prevItems) => {
-      console.log("📦 Items AVANT suppression:", prevItems);
-      const newItems = prevItems.filter(
-        (item) => item.product_id !== productId,
-      );
-      console.log("📦 Items APRÈS suppression:", newItems);
-      return newItems;
-    });
+  const removeFromCart = (productId: number, sizeId: number) => {
+    setItems((prevItems) =>
+      prevItems.filter(
+        (item) => !(item.product_id === productId && item.size_id === sizeId),
+      ),
+    );
   };
 
-  const updateQuantity = (productId: number, quantity: number) => {
+  // Dans useCart.ts
+
+  const updateQuantity = (
+    productId: number,
+    quantity: number,
+    sizeId: number,
+  ) => {
     if (quantity <= 0) {
-      removeFromCart(productId);
+      // TypeScript ne fera plus d'erreur ici si removeFromCart
+      // accepte bien deux arguments désormais
+      removeFromCart(productId, sizeId);
       return;
     }
 
     setItems((prevItems) =>
       prevItems.map((item) =>
-        item.product_id === productId ? { ...item, quantity } : item,
+        // On compare le couple Produit + Taille pour mettre à jour la bonne ligne
+        item.product_id === productId && item.size_id === sizeId
+          ? { ...item, quantity }
+          : item,
       ),
     );
   };
