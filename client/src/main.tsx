@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         children: [
           { path: "", element: <Dashboard /> },
           { path: "orders", element: <AdminOrderEdit /> },
-          /* { path: "clients", element: <Clients /> },   */
+          { path: "clients", element: <CustomerManagement /> },
         ],
       },
       {
