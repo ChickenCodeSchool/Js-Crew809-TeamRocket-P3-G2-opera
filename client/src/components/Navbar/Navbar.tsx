@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { FiUser } from "react-icons/fi";
 import { IoBagOutline } from "react-icons/io5";
-import { useCartContext } from "../../contexts/CartContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { Auth } from "../../App";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
+import { useCartContext } from "../../contexts/CartContext";
 import BurgerMenu from "../burgerNav/BurgerNav";
 import ProfileMenu from "../profilemenu/ProfileMenu";
 
@@ -19,19 +19,11 @@ interface NavbarProps {
 function Navbar({ auth, setAuth }: NavbarProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const { items } = useCartContext();
 
-  const { getItemCount } = useCartContext(); // Changement ici
-  // const [itemCount, setItemCount] = useState(0);
+  const { getItemCount } = useCartContext();
   const navigate = useNavigate();
   const location = useLocation();
   const itemCount = getItemCount();
-
-  // useEffect(() => {
-  //   const count = items.reduce((total, item) => total + item.quantity, 0);
-  //   console.log("helo", count);
-  //   setItemCount(count);
-  // }, [items]);
 
   const isLanding = location.pathname === "/";
   console.log("pathname:", location.pathname, "isLanding:", isLanding);

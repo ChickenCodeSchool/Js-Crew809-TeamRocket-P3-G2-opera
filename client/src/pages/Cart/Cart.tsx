@@ -1,17 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../contexts/CartContext";
-
 import "./Cart.css";
 
 function Cart() {
-  const {
-    items,
-    removeFromCart,
-    // updateQuantity,
-    getTotal,
-    // clearCart,
-    isLoaded,
-  } = useCartContext();
+  const { items, removeFromCart, updateQuantity, getTotal, isLoaded } =
+    useCartContext();
   const navigate = useNavigate();
 
   if (!isLoaded) {
@@ -78,28 +71,18 @@ function Cart() {
                   € {Math.floor(+item.price.toFixed(2))}
                 </div>
 
-                {/* <div className="item-subtotal">
-                {(item.price * item.quantity).toFixed(2)}€
-              </div> */}
-
                 <div className="item-action">
                   <button
                     type="button"
                     className="remove-btn"
-                    onClick={() => {
-                      console.log(
-                        "👆 Click détecté! product_id:",
-                        item.product_id,
-                      );
-                      removeFromCart(item.product_id);
-                    }}
+                    onClick={() => removeFromCart(item.product_id)}
                   >
                     Retirer
                   </button>
                 </div>
               </div>
 
-              {/* <div className="item-quantity">
+              <div className="item-quantity">
                 <button
                   type="button"
                   className="qty-btn"
@@ -119,7 +102,7 @@ function Cart() {
                 >
                   +
                 </button>
-              </div> */}
+              </div>
             </div>
           ))}
         </div>
@@ -129,13 +112,11 @@ function Cart() {
             <h2>Résumé de la commande</h2>
 
             <div className="summary-row">
-              <span>Sous-total ({items.length} articles)</span>
-              <span>{Math.floor(+getTotal().toFixed(2))}€</span>
+              <span>Nombre d'articles : ( {items.length} )</span>
             </div>
 
             <div className="summary-row">
-              <span>Livraison</span>
-              <span>Gratuite</span>
+              <span>Livraison gratuite</span>
             </div>
 
             <hr />

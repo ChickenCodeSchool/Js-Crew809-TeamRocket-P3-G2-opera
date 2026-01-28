@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type CartItem = {
   product_id: number;
@@ -54,20 +54,27 @@ export const useCart = () => {
   }, [items, isLoaded]);
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
+    const normalizedItem = {
+      ...item,
+      price:
+        typeof item.price === "string"
+          ? Number.parseFloat(item.price)
+          : item.price,
+    };
     setItems((prevItems) => {
       const existingItem = prevItems.find(
-        (cartItem) => cartItem.product_id === item.product_id,
+        (cartItem) => cartItem.product_id === normalizedItem.product_id,
       );
 
       if (existingItem) {
         return prevItems.map((cartItem) =>
-          cartItem.product_id === item.product_id
+          cartItem.product_id === normalizedItem.product_id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem,
         );
       }
 
-      return [...prevItems, { ...item, quantity: 1 }];
+      return [...prevItems, { ...normalizedItem, quantity: 1 }];
     });
   };
 
