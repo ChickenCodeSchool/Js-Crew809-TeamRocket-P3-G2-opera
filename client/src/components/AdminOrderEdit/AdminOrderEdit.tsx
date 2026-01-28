@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
 import {
-  FaChevronDown,
-  FaChevronUp,
   FaSave,
-  FaSearch,
   FaTimes,
   FaTrash,
+  FaSearch,
+  FaChevronDown,
+  FaChevronUp,
 } from "react-icons/fa";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./AdminOrderEdit.css";
 
@@ -377,7 +377,7 @@ function AdminOrderEdit() {
             <div
               key={order.order_id}
               id={`order-row-${order.order_id}`}
-              className="list-row-container-orderAdmin"
+              className={`list-row-container-orderAdmin ${isExpanded ? "is-expanded-orderAdmin" : ""}`}
             >
               <div className="list-row-orderAdmin">
                 <div className="list-cell-orderAdmin cell-id-orderAdmin">
@@ -395,8 +395,8 @@ function AdminOrderEdit() {
                   className="list-cell-orderAdmin clickable-cell-orderAdmin items-toggle-orderAdmin"
                   onClick={() => toggleItems(order.order_id)}
                 >
-                  <span style={{ marginRight: "5px" }}>
-                    {order.items.length} article(s)
+                  <span className="items-toggle-text-orderAdmin">
+                    {isExpanded ? "Masquer détails" : "Voir détails"}
                   </span>
                   {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
