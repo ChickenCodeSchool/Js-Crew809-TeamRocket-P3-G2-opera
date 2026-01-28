@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { CartProvider } from "./contexts/CartContext";
 import App from "./App";
 import AdminOrderEdit from "./components/AdminOrderEdit/AdminOrderEdit";
 import Footer from "./components/Footer/Footer";
@@ -102,6 +103,8 @@ if (!rootElement)
 
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </StrictMode>,
 );
