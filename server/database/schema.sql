@@ -87,7 +87,7 @@ CREATE TABLE `cart` (
   `country` varchar(45) DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `uptaded_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`cart_id`),
   KEY `fk_Cart_Customers1_idx` (`customer_id`),
   CONSTRAINT `fk_Cart_Customers1` FOREIGN KEY (`customer_id`) REFERENCES `customers` (`customer_id`)
@@ -116,7 +116,7 @@ CREATE TABLE `cart_item` (
   `cart_id` int NOT NULL,
   `product_id` int NOT NULL,
   `quantity` int NOT NULL,
-  `unit-price` decimal(10,2) NOT NULL,
+  `unit_price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`cart_item_id`),
   KEY `fk_Cart_item_product1_idx` (`product_id`),
   KEY `fk_Cart_item_Cart1_idx` (`cart_id`),
@@ -128,13 +128,6 @@ CREATE TABLE `cart_item` (
 --
 -- Dumping data for table `cart_item`
 --
-
-LOCK TABLES `cart_item` WRITE;
-/*!40000 ALTER TABLE `cart_item` DISABLE KEYS */;
-INSERT INTO `cart_item` VALUES (300,30,103,1,3900.00),(301,31,103,1,3900.00),(302,32,103,1,3900.00),(303,33,103,1,3900.00),(304,34,103,1,3900.00),(305,35,103,1,3900.00),(306,36,103,1,3900.00),(307,37,103,1,3900.00),(308,38,103,1,3900.00),(309,39,103,1,3900.00),(310,40,114,1,1700.00),(311,41,114,1,1700.00),(312,42,114,1,1700.00),(313,43,114,1,1700.00),(314,44,114,1,1700.00),(315,45,114,1,1700.00),(316,46,114,1,1700.00),(317,47,114,1,1700.00),(318,48,114,1,1700.00),(319,49,114,1,1700.00),(320,50,104,1,3200.00),(321,51,104,1,3200.00),(322,52,104,1,3200.00),(323,53,104,1,3200.00),(324,54,104,1,3200.00),(325,55,104,1,3200.00),(326,56,104,1,3200.00),(327,57,104,1,3200.00),(328,58,104,1,3200.00),(329,59,104,1,3200.00),(400,60,105,1,4500.00),(401,60,114,1,1700.00),(402,60,121,1,890.00),(403,60,120,1,550.00),(404,61,105,1,4500.00),(405,62,105,1,4500.00),(406,63,105,1,4500.00),(407,64,105,1,4500.00),(408,65,105,1,4500.00),(409,66,105,1,4500.00),(410,67,105,1,4500.00),(411,68,105,1,4500.00),(412,69,105,1,4500.00);
-/*!40000 ALTER TABLE `cart_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `categories`
 --
@@ -205,12 +198,11 @@ DROP TABLE IF EXISTS `order`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `order` (
   `order_id` int NOT NULL AUTO_INCREMENT,
-  `cart_id` int NOT NULL,
   `price_total` decimal(10,2) NOT NULL,
   `status` varchar(50) NOT NULL DEFAULT 'pending',
   `customer_id` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `uptaded_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `delivery_date` date DEFAULT NULL,
   PRIMARY KEY (`order_id`),
   KEY `fk_Order_Customers1_idx` (`customer_id`),
@@ -222,11 +214,6 @@ CREATE TABLE `order` (
 -- Dumping data for table `order`
 --
 
-LOCK TABLES `order` WRITE;
-/*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` VALUES (31,31,3900.00,'delivered',1,'2024-01-15 11:00:00',NULL,'2024-01-20'),(32,32,3900.00,'delivered',1,'2024-02-01 09:30:00',NULL,'2024-02-05'),(33,33,3900.00,'delivered',1,'2024-02-20 14:00:00',NULL,'2024-02-25'),(34,34,3900.00,'delivered',1,'2024-03-05 16:20:00',NULL,'2024-03-10'),(35,35,3900.00,'delivered',1,'2024-03-10 10:00:00',NULL,'2024-03-15'),(36,36,3900.00,'delivered',1,'2024-04-12 11:15:00',NULL,'2024-04-18'),(37,37,3900.00,'delivered',1,'2024-05-01 08:00:00',NULL,'2024-05-05'),(38,38,3900.00,'delivered',1,'2024-05-20 18:00:00',NULL,'2024-05-25'),(39,39,3900.00,'delivered',1,'2024-06-01 12:00:00',NULL,'2024-06-05'),(40,40,1700.00,'delivered',1,'2024-07-04 14:00:00',NULL,'2024-07-09'),(41,41,1700.00,'delivered',1,'2024-07-10 15:30:00',NULL,'2024-07-15'),(42,42,1700.00,'delivered',1,'2024-08-01 09:00:00',NULL,'2024-08-05'),(43,43,1700.00,'delivered',1,'2024-08-15 10:00:00',NULL,'2024-08-20'),(44,44,1700.00,'delivered',1,'2024-09-01 11:00:00',NULL,'2024-09-05'),(45,45,1700.00,'delivered',1,'2024-09-10 13:00:00',NULL,'2024-09-15'),(46,46,1700.00,'delivered',1,'2024-09-25 16:00:00',NULL,'2024-09-30'),(47,47,1700.00,'delivered',1,'2024-10-05 17:00:00',NULL,'2024-10-10'),(48,48,1700.00,'delivered',1,'2024-10-20 08:30:00',NULL,'2024-10-25'),(49,49,1700.00,'delivered',1,'2024-11-01 19:00:00',NULL,'2024-11-05'),(50,50,3200.00,'shipped',1,'2024-11-15 10:00:00',NULL,'2024-11-20'),(51,51,3200.00,'shipped',1,'2024-12-01 14:00:00',NULL,'2024-12-05'),(52,52,3200.00,'shipped',1,'2024-12-20 18:00:00',NULL,'2024-12-24'),(53,53,3200.00,'shipped',1,'2025-01-05 09:00:00',NULL,'2025-01-08'),(54,54,3200.00,'shipped',1,'2025-01-10 11:00:00',NULL,'2025-01-14'),(55,55,3200.00,'shipped',1,'2025-01-15 15:00:00',NULL,NULL),(56,56,3200.00,'preparing',1,'2025-01-20 16:30:00',NULL,NULL),(57,57,3200.00,'preparing',1,'2025-01-25 10:00:00',NULL,NULL),(58,58,3200.00,'preparing',1,'2025-02-01 12:00:00',NULL,NULL),(59,59,3200.00,'preparing',1,'2025-02-05 14:00:00',NULL,NULL),(60,60,7640.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(61,61,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(62,62,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(63,63,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(64,64,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(65,65,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(66,66,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(67,67,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL),(68,68,4500.00,'pending',1,'2026-01-23 11:30:36',NULL,NULL);
-/*!40000 ALTER TABLE `order` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `order_item`
@@ -256,12 +243,6 @@ CREATE TABLE `order_item` (
 -- Dumping data for table `order_item`
 --
 
-LOCK TABLES `order_item` WRITE;
-/*!40000 ALTER TABLE `order_item` DISABLE KEYS */;
-INSERT INTO `order_item` VALUES (301,301,31,103,1,3900.00),(302,302,32,103,1,3900.00),(303,303,33,103,1,3900.00),(304,304,34,103,1,3900.00),(305,305,35,103,1,3900.00),(306,306,36,103,1,3900.00),(307,307,37,103,1,3900.00),(308,308,38,103,1,3900.00),(309,309,39,103,1,3900.00),(310,310,40,114,1,1700.00),(311,311,41,114,1,1700.00),(312,312,42,114,1,1700.00),(313,313,43,114,1,1700.00),(314,314,44,114,1,1700.00),(315,315,45,114,1,1700.00),(316,316,46,114,1,1700.00),(317,317,47,114,1,1700.00),(318,318,48,114,1,1700.00),(319,319,49,114,1,1700.00),(320,320,50,104,1,3200.00),(321,321,51,104,1,3200.00),(322,322,52,104,1,3200.00),(323,323,53,104,1,3200.00),(324,324,54,104,1,3200.00),(325,325,55,104,1,3200.00),(326,326,56,104,1,3200.00),(327,327,57,104,1,3200.00),(328,328,58,104,1,3200.00),(329,329,59,104,1,3200.00),(400,400,60,105,1,4500.00),(401,401,60,114,1,1700.00),(402,402,60,121,1,890.00),(403,403,60,120,1,550.00),(404,404,61,105,1,4500.00),(405,405,62,105,1,4500.00),(406,406,63,105,1,4500.00),(407,407,64,105,1,4500.00),(408,408,65,105,1,4500.00),(409,409,66,105,1,4500.00),(410,410,67,105,1,4500.00),(411,411,68,105,1,4500.00);
-/*!40000 ALTER TABLE `order_item` ENABLE KEYS */;
-UNLOCK TABLES;
-
 --
 -- Table structure for table `product`
 --
@@ -279,7 +260,7 @@ CREATE TABLE `product` (
   `release_date` date DEFAULT NULL,
   `is_featured` tinyint DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `uptaded_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `gender` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `fk_product_Brand1_idx` (`brand_id`),

@@ -1,6 +1,14 @@
 // Get variables from .env file for database connection
-const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+import path from "node:path";
+import dotenv from "dotenv";
 
+dotenv.config({
+  path: path.resolve(process.cwd(), "server/.env"),
+});
+
+// Get variables from .env file for database connection
+const { DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME } = process.env;
+console.log("DB_USER =", DB_USER);
 // Create a connection pool to the database
 import mysql from "mysql2/promise";
 

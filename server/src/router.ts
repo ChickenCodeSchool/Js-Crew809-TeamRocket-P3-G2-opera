@@ -92,6 +92,9 @@ router.get("/api/admin/products", adminProductsActions.browse);
 router.get("/api/admin/brands", adminProductsActions.getBrands);
 router.get("/api/admin/categories", adminProductsActions.getCategories);
 router.put("/api/admin/products/:id", adminProductsActions.update);
+router.delete("/api/admin/products/:id", adminProductsActions.remove);
+router.delete("/api/admin/products/:id", adminProductsActions.remove);
+
 import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
@@ -105,6 +108,21 @@ router.put("/api/admin/orders/:id", adminOrderActions.edit);
 router.delete(
   "/api/admin/orders/:id/items/:productId",
   adminOrderActions.removeItem,
+);
+
+import stripeActions from "./modules/Stripe/stripeAction";
+router.post(
+  "/api/stripe/create-checkout-session",
+  stripeActions.createCheckoutSession,
+);
+
+import * as dashboardActions from "./modules/dashboard/dashboardActions";
+router.get("/api/dashboard/revenue", dashboardActions.revenuePerMonth);
+router.get("/api/dashboard/top-products", dashboardActions.topProducts);
+router.get("/api/dashboard/items-per-day", dashboardActions.itemsPerDay);
+router.get(
+  "/api/dashboard/customers-per-day",
+  dashboardActions.customersPerDay,
 );
 
 export default router;
