@@ -79,7 +79,6 @@ export default function Dashboard() {
     fetchData();
   }, [topN, monthFilter]);
 
-  // Calcul KPI
   const totalRevenue = revenue.reduce((acc, r) => acc + r.total, 0);
   const totalProductsSold = topProducts.reduce(
     (acc, p) => acc + p.totalSold,
@@ -94,7 +93,6 @@ export default function Dashboard() {
   if (loading)
     return <div className="dashboard-loading">Chargement du dashboard...</div>;
 
-  // Tooltip formatter function extracted
   const formatDateTooltip = (
     label: React.ReactNode,
     _payload: readonly Payload<number, string>[],
@@ -107,8 +105,6 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
-      <h1>Dashboard E-commerce</h1>
-
       <div className="dashboard-filters">
         <label>
           Filtrer par mois :
@@ -126,7 +122,7 @@ export default function Dashboard() {
         </label>
 
         <label>
-          Top produits :
+         {/* Produits les plus vendus :*/}
           <select
             value={topN}
             onChange={(e) => setTopN(Number(e.target.value))}
@@ -142,7 +138,7 @@ export default function Dashboard() {
 
       <div className="dashboard-grid">
         <DashboardCard
-          title="Chiffre d'affaires par mois"
+          title="Chiffre d'affaires"
           kpi={`€ ${totalRevenue.toLocaleString()}`}
         >
           <ResponsiveContainer width="100%" height={300}>
@@ -166,7 +162,7 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </DashboardCard>
 
-        <DashboardCard title="Top produits" kpi={`${totalProductsSold} vendus`}>
+        <DashboardCard title="Produits les plus vendus" kpi={`${totalProductsSold} vendus`}>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={topProducts}>
               <CartesianGrid strokeDasharray="3 3" />
