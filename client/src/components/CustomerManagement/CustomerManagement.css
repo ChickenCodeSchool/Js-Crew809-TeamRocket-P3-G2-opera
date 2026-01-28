@@ -1,118 +1,62 @@
-/* Conteneur principal */
+/* ============================================================
+   1. STYLES COMMUNS
+   ============================================================ */
 .admin-customer-container {
   padding: 40px;
   padding-top: 200px;
-  background-color: #ffffff; /* Ou noir selon ton choix de page admin */
+  background-color: #ffffff;
   min-height: 100vh;
-  font-family: "Montserrat", sans-serif; /* Typographie élégante */
+  font-family: "Montserrat", sans-serif;
 }
 
 h2 {
   text-transform: uppercase;
   letter-spacing: 3px;
-  /*border-bottom: 1px solid #d4af37; /* Ligne dorée sous le titre */
   padding-bottom: 15px;
   margin-bottom: 30px;
   display: flex;
   justify-content: center;
 }
 
-/* Barre contenant le bouton Ajouter */
-.admin-actions-bar {
+.admin-headeradmin {
   display: flex;
-  justify-content: flex-end; /* Aligne le bouton à droite */
+  justify-content: flex-end;
   margin-bottom: 20px;
   width: 100%;
 }
 
-/* Style du bouton Ajouter */
 .add-btn {
   background-color: #ffffff;
-  color: #666666; /* Gris discret pour le texte au repos */
-  border: 1px solid #e0e0e0; /* Bordure grise très fine */
-  padding: 8px 16px; /* Plus compact que la version précédente */
+  color: #666666;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
   font-family: "Montserrat", sans-serif;
-  text-transform: none; /* Retrait du tout majuscule pour plus de douceur */
   font-size: 0.85rem;
-  font-weight: 400;
   cursor: pointer;
   transition: all 0.2s ease;
-
-  margin-left: auto;
   border-radius: 4px;
-  display: flex;
-  justify-content: end;
 }
 
 .add-btn:hover {
-  background-color: #ffffff;
   color: #1a1a1a;
-  border-color: black; /* Rappel du doré au survol */
-  box-shadow: 0 4px 15px rgba(24, 22, 22, 0.1);
+  border-color: black;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Le Tableau */
-.admin-table {
-  width: 100%;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  border-collapse: separate;
-  border-spacing: 0;
-  /* Ta bordure principale */
-  border: 1px solid #000000;
-
-  border-radius: 8px; /* L'arrondi que tu as demandé */
-  overflow: hidden; /* Pour que le fond noir du header suive l'arrondi */
-
-  margin-top: 20px;
-}
-
-.admin-table th {
-  background-color: #1a1a1a;
-  color: #ffffff;
-  font-size: 0.8rem;
-  letter-spacing: 1px;
-  padding: 15px;
-  font-family: "Montserrat", sans-serif;
-  border-radius: 30;
-}
-
-.admin-table td {
-  text-align: center; /* Aligne le contenu au milieu comme tes titres */
-  vertical-align: middle;
-  padding: 20px;
-  border-bottom: 1px solid #f0f0f0;
-  color: black;
-}
-
-/* Style des boutons d'actions */
 .action-btn {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
   cursor: pointer;
-  transition: all 0.2s ease;
   border-radius: 4px;
-
-  /* Carré parfait et identique pour tous */
   width: 34px;
   height: 34px;
-
-  /* Centrage absolu de l'icône SVG */
   display: inline-flex;
   align-items: center;
   justify-content: center;
-
-  padding: 0;
   margin: 0 4px;
-  color: #888; /* Gris moyen au repos */
+  color: #888;
 }
 
-.action-btn:hover {
-  border-color: black;
-  color: black;
-  background-color: #f9f9f9;
-}
-
-/* Badge de rôle */
 .role-badge {
   padding: 5px 10px;
   border-radius: 4px;
@@ -120,51 +64,67 @@ h2 {
   font-weight: bold;
 }
 
-.role-admin {
-  background-color: white;
-}
-.role-client {
-  background-color: white;
-}
-/* À ajouter avant le @media screen */
-.table-responsive-container {
-  max-height: 60vh; /* Utilise 60% de la hauteur de l'écran */
-  overflow-y: auto;
-  border: 1px solid #000;
-  border-radius: 8px;
-  margin-top: 20px;
+/* ============================================================
+   2. VERSION DESKTOP (Ordinateur > 768px)
+   ============================================================ */
+@media screen and (min-width: 769px) {
+  .table-responsive-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    border: 1px solid #000;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .admin-table thead th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .admin-table td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+    display: table-cell !important;
+  }
 }
 
-.admin-table {
-  margin-top: 0; /* On enlève la marge pour coller au container */
-  border: none; /* On enlève la bordure car c'est le container qui la porte */
-}
-
-.admin-table thead th {
-  position: sticky;
-  top: 0;
-  z-index: 10; /* Garde les titres au-dessus des lignes qui défilent */
-}
-
-/* --- RESPONSIVE : Mobile (< 768px) --- */
+/* ============================================================
+   3. VERSION MOBILE (Smartphone <= 768px)
+   ============================================================ */
 @media screen and (max-width: 768px) {
   .admin-customer-container {
     padding: 20px;
-    padding-top: 120px; /* On réduit le padding haut sur mobile */
+    padding-top: 120px;
   }
 
-  /* On transforme le tableau en bloc empilé */
+  .table-responsive-container {
+    border: none;
+    max-height: none;
+    overflow: visible;
+  }
+
   .admin-table,
   .admin-table thead,
   .admin-table tbody,
-  .admin-table th,
-  .admin-table td,
-  .admin-table tr {
-    display: block;
+  .admin-table tr,
+  .admin-table td {
+    display: block !important;
     width: 100%;
   }
 
-  /* On cache le header (Nom, Email, etc.) car il ne sert plus à rien en mode carte */
   .admin-table thead tr {
     position: absolute;
     top: -9999px;
@@ -172,47 +132,42 @@ h2 {
   }
 
   .admin-table tr {
-    border: 1px solid #e0e0e0;
+    border: 1px solid #000;
     margin-bottom: 20px;
     border-radius: 8px;
     background: #fff;
+    padding: 10px 0;
   }
 
   .admin-table td {
-    border: none;
-    position: relative;
-    padding: 12px 15px;
-    padding-left: 40%; /* On fait de la place pour le label à gauche */
-    text-align: right; /* Données à droite */
-    border-bottom: 1px solid #f9f9f9;
+    border: none !important;
+    padding: 12px 15px !important;
+    min-height: 45px;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between; /* Pousse le titre à gauche et la valeur à droite */
+    border-bottom: 1px solid #f0f0f0 !important;
+    word-break: break-all; /* Coupe les emails trop longs pour éviter qu'ils sortent de l'écran */
   }
 
-  /* On génère les titres dynamiquement à gauche de chaque cellule */
+  .admin-table td:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Le label (Titre) */
   .admin-table td::before {
-    content: attr(data-label); /* Utilise l'attribut data-label qu'on va ajouter */
-    position: absolute;
-    left: 15px;
-    width: 35%;
-    text-align: left;
+    content: attr(data-label);
     font-weight: 700;
     font-size: 0.75rem;
     text-transform: uppercase;
     color: #888;
-  }
-
-  /* Spécifique pour la cellule d'actions */
-  .actions-cell {
-    justify-content: flex-end !important;
-    padding-top: 15px !important;
-    padding-bottom: 15px !important;
-  }
-  .admin-actions-bar {
-    justify-content: center; /* Centre le bouton sur mobile */
-    margin-bottom: 30px;
+    margin-right: 15px;
+    flex-shrink: 0; /* Empêche le titre de rétrécir */
+    text-align: left;
   }
 
   .add-btn {
-    width: 100%; /* Le bouton prend toute la largeur sur mobile pour être plus facile à cliquer */
+    width: 100%;
     justify-content: center;
   }
 }

@@ -4,6 +4,17 @@ import { FiEdit2, FiPlus, FiTrash2 } from "react-icons/fi";
 import { mockCustomers } from "../../data/mockCustomers";
 
 export default function CustomerManagement() {
+  const handleEdit = (customerId: number) => {
+    console.log("Modifier le client :", customerId);
+    alert(`Édition du client ${customerId}`);
+  };
+
+  const handleDelete = (customerId: number) => {
+    console.log("Supprimer le client :", customerId);
+    alert(`Voulez-vous vraiment supprimer le client ${customerId} ?`);
+    // Plus tard, on ajoutera ici la logique de suppression
+  };
+
   return (
     <div className="admin-customer-container">
       <h2>Gestion des clients</h2>
@@ -17,6 +28,7 @@ export default function CustomerManagement() {
         <table className="admin-table">
           <thead>
             <tr className="admin-tr-table">
+              <th>Réf.</th> {/* Nouvelle colonne */}
               <th>Nom</th>
               <th>Email</th>
               <th>Rôle</th>
@@ -26,6 +38,9 @@ export default function CustomerManagement() {
           <tbody>
             {mockCustomers.map((customer) => (
               <tr key={customer.customer_id}>
+                <td data-label="Réf.">
+                  <strong>#{1000 + customer.customer_id}</strong>
+                </td>
                 <td data-label="Nom">{`${customer.firstname} ${customer.lastname}`}</td>
                 <td data-label="Email">{customer.mail}</td>
                 <td
@@ -43,13 +58,19 @@ export default function CustomerManagement() {
                   <button type="button" className="action-btn" title="Détails">
                     <FiPlus size={17} />
                   </button>
-                  <button type="button" className="action-btn" title="Modifier">
+                  <button
+                    type="button"
+                    className="action-btn"
+                    title="Modifier"
+                    onClick={() => handleEdit(customer.customer_id)}
+                  >
                     <FiEdit2 size={17} />
                   </button>
                   <button
                     type="button"
                     className="action-btn delete-btn"
                     title="Supprimer"
+                    onClick={() => handleDelete(customer.customer_id)}
                   >
                     <FiTrash2 size={17} />
                   </button>
