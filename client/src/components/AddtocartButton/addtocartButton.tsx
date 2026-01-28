@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCart } from "../../hooks/useCart";
+import { useCartContext } from "../../contexts/CartContext";
 import "../AddtocartButton/addtocartButton.css";
 
 type AddtocartButtonProps = {
@@ -15,7 +15,7 @@ function AddtocartButton({
   price,
   imageUrl,
 }: AddtocartButtonProps) {
-  const { addToCart } = useCart();
+  const { addToCart } = useCartContext();
   const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
