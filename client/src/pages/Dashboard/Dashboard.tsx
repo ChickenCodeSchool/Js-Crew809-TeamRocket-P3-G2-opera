@@ -56,24 +56,7 @@ export default function Dashboard() {
   return (
     <div className="dashboard-container">
 
-<<<<<<< HEAD
       <div className="dashboard-top">
-=======
-        <label>
-          {/* Produits les plus vendus :*/}
-          <select
-            value={topN}
-            onChange={(e) => setTopN(Number(e.target.value))}
-          >
-            {[5, 10, 15, 20].map((n) => (
-              <option key={n} value={n}>
-                {n}
-              </option>
-            ))}
-          </select>
-        </label>
-      </div>
->>>>>>> dev
 
         <section className="dashboard-section revenue dashboard-left">
           <ResponsiveContainer width={400} height={400}>
@@ -110,7 +93,6 @@ export default function Dashboard() {
           </div>
         </section>
 
-<<<<<<< HEAD
         <section className="dashboard-section large-card dashboard-right">
           <ResponsiveContainer width="100%" height={400}>
             <BarChart data={topProducts} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
@@ -123,20 +105,6 @@ export default function Dashboard() {
                 contentStyle={{ backgroundColor: "#0b0b0b", border: "1px solid #d4af37", color: "#d4af37", fontWeight: "600" }}
               />
               <Bar dataKey="totalSold" fill="#d4af37" barSize={36} radius={[8, 8, 0, 0]} />
-=======
-        <DashboardCard
-          title="Produits les plus vendus"
-          kpi={`${totalProductsSold} vendus`}
-        >
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={topProducts}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="totalSold" fill="#82ca9d" barSize={30} />
->>>>>>> dev
             </BarChart>
           </ResponsiveContainer>
           <div className="section-footer">
