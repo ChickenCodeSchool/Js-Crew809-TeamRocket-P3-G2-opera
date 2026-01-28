@@ -34,10 +34,22 @@ export const update: RequestHandler = async (req, res) => {
     res.status(400).json({ success: false, message: "Aucune modification" });
   }
 };
+export const remove: RequestHandler = async (req, res) => {
+  const productId = Number(req.params.id);
+
+  const result = await adminProductsRepository.delete(productId);
+
+  if (result) {
+    res.json({ success: true, message: "Produit supprimé" });
+  } else {
+    res.status(400).json({ success: false, message: "Erreur suppression" });
+  }
+};
 
 export default {
   browse,
   getBrands,
   getCategories,
   update,
+  remove,
 };

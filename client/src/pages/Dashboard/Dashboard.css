@@ -1,0 +1,125 @@
+.dashboard-container {
+  padding: 30px;
+  font-family: "Inter", "Arial", sans-serif;
+  background-color: #f5f6fa;
+  min-height: 100vh;
+  color: #333;
+}
+
+.dashboard-container h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #1f2a3b;
+}
+
+.dashboard-filters {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.dashboard-filters label {
+  font-weight: 500;
+  color: #555;
+  display: flex;
+  flex-direction: column;
+  font-size: 0.95rem;
+}
+
+.dashboard-filters select {
+  margin-top: 5px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-filters select:hover {
+  border-color: #4e54c8;
+  box-shadow: 0 0 5px rgba(78, 84, 200, 0.3);
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 30px;
+  justify-items: stretch;
+}
+
+.dashboard-card {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-card-header {
+  padding: 20px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #4e54c8, #8f94fb);
+  color: #fff;
+}
+
+.dashboard-card-kpi {
+  padding: 15px 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: #1f2a3b;
+  background-color: #f0f2f8;
+  border-bottom: 1px solid #e1e4eb;
+}
+
+.dashboard-card-body {
+  padding: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-card-body .recharts-wrapper {
+  flex: 1;
+}
+
+.dashboard-loading {
+  text-align: center;
+  font-size: 1.3rem;
+  color: #888;
+  margin-top: 60px;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px;
+  }
+
+  .dashboard-card-body {
+    padding: 20px;
+  }
+
+  .dashboard-filters {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
