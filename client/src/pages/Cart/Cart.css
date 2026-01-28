@@ -1,7 +1,8 @@
 .cart-container {
   max-width: 1200px;
-  margin: 40px auto;
+  margin: 60px auto;
   padding: 20px;
+  padding-top: 60px;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -180,6 +181,13 @@
 
 .clear-cart-btn:hover {
   background-color: #efefef;
+}
+
+.qty-btn {
+  margin: 5px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 /* Responsive Design */

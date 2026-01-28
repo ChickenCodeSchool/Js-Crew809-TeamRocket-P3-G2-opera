@@ -7,7 +7,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import type { Auth } from "../../App";
 import logoBlack from "../../assets/images/logo_operablack_fixed.png";
 import logoWhite from "../../assets/images/logo_operawhite_fixed.png";
-import { useCart } from "../../hooks/useCart";
+import { useCartContext } from "../../contexts/CartContext";
 import BurgerMenu from "../burgerNav/BurgerNav";
 import ProfileMenu from "../profilemenu/ProfileMenu";
 
@@ -19,11 +19,11 @@ interface NavbarProps {
 function Navbar({ auth, setAuth }: NavbarProps) {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { items } = useCart();
-  const itemCount = items.reduce((count, item) => count + item.quantity, 0);
-  console.log("Navbar render - items:", items, "count:", itemCount);
+
+  const { getItemCount } = useCartContext();
   const navigate = useNavigate();
   const location = useLocation();
+  const itemCount = getItemCount();
 
   const isLanding = location.pathname === "/";
   console.log("pathname:", location.pathname, "isLanding:", isLanding);

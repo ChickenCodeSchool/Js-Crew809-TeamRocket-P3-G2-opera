@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type CartItem = {
   product_id: number;
@@ -11,6 +11,7 @@ export type CartItem = {
 export const useCart = () => {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const isInitialMount = useRef(true);
 
   // Charger depuis localStorage au montage
   useEffect(() => {
@@ -37,33 +38,56 @@ export const useCart = () => {
 
   // Sauvegarder dans localStorage chaque fois que les items changent
   useEffect(() => {
+    // Ne pas sauvegarder au premier render (on vient de charger depuis localStorage)
+    console.log("coucou");
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+
     if (isLoaded) {
-      localStorage.setItem("cart", JSON.stringify(items));
+      console.log("items for useEffect", items);
+      const jsonString = JSON.stringify(items);
+      localStorage.setItem("cart", jsonString);
+      console.log("💾 localStorage mis à jour:", jsonString);
     }
   }, [items, isLoaded]);
 
   const addToCart = (item: Omit<CartItem, "quantity">) => {
+    const normalizedItem = {
+      ...item,
+      price:
+        typeof item.price === "string"
+          ? Number.parseFloat(item.price)
+          : item.price,
+    };
     setItems((prevItems) => {
       const existingItem = prevItems.find(
-        (cartItem) => cartItem.product_id === item.product_id,
+        (cartItem) => cartItem.product_id === normalizedItem.product_id,
       );
 
       if (existingItem) {
         return prevItems.map((cartItem) =>
-          cartItem.product_id === item.product_id
+          cartItem.product_id === normalizedItem.product_id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem,
         );
       }
 
-      return [...prevItems, { ...item, quantity: 1 }];
+      return [...prevItems, { ...normalizedItem, quantity: 1 }];
     });
   };
 
   const removeFromCart = (productId: number) => {
-    setItems((prevItems) =>
-      prevItems.filter((item) => item.product_id !== productId),
-    );
+    console.log("🗑️ removeFromCart appelé avec productId:", productId);
+    setItems((prevItems) => {
+      console.log("📦 Items AVANT suppression:", prevItems);
+      const newItems = prevItems.filter(
+        (item) => item.product_id !== productId,
+      );
+      console.log("📦 Items APRÈS suppression:", newItems);
+      return newItems;
+    });
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
