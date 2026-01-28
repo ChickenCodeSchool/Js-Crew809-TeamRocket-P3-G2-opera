@@ -8,12 +8,13 @@ import ForgotPassword from "./components/MdpOublie/forgotpassword";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminProducts from "./components/admin/admin_categorie/admin_product";
 import CarouselLp from "./components/carouselLp/carouselLp";
+import { CartProvider } from "./contexts/CartContext";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AdminPage from "./pages/Admin/AdminPage";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
-import Cart from "./pages/Cart";
+import Cart from "./pages/Cart/Cart";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
@@ -102,6 +103,8 @@ if (!rootElement)
 
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
   </StrictMode>,
 );
