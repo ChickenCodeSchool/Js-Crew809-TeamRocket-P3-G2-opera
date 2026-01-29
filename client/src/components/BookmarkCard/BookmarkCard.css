@@ -14,13 +14,11 @@
   flex-direction: column;
   width: 22%;
   height: 500px;
-
-  /* Animation simple */
   opacity: 0;
 }
 
 .bookmark-card.visible {
-  animation: fadeIn 0.5s ease-out forwards;
+  animation: fadeIn 0.2s ease-out forwards;
 }
 
 .bookmark-card.visible:hover {
