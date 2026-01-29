@@ -27,8 +27,16 @@ export default function Sidebar() {
 
   const links: LinkItem[] = [
     { to: "/admin", icon: <FaTachometerAlt />, label: "Dashboard" },
-    { to: "/adminproducts", icon: <FaBoxOpen />, label: "Gestion des produits" },
-    { to: "/admin/orders", icon: <FaShoppingCart />, label: "Gestion des commandes" },
+    {
+      to: "/adminproducts",
+      icon: <FaBoxOpen />,
+      label: "Gestion des produits",
+    },
+    {
+      to: "/admin/orders",
+      icon: <FaShoppingCart />,
+      label: "Gestion des commandes",
+    },
     { to: "/admin/clients", icon: <FaUsers />, label: "Gestion des clients" },
   ];
 
@@ -36,7 +44,7 @@ export default function Sidebar() {
     try {
       await fetch("http://localhost:3310/auth/logout", {
         method: "POST",
-        credentials: "include", 
+        credentials: "include",
       });
 
       setAuth(null);

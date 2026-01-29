@@ -328,8 +328,5 @@ export default {
   forgotPassword,
   resetPassword,
   googleLogin,
-  logout, 
+  logout,
 };
-
-
-

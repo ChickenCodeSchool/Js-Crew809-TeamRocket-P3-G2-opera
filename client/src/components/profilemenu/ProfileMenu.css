@@ -37,11 +37,11 @@
 }
 
 .profile_menu.light {
-  color: white; 
+  color: white;
 }
 
 .profile_menu.dark {
-  color: black; 
+  color: black;
 }
 
 .profile_container:hover .profile_menu {

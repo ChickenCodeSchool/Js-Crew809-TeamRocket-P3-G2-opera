@@ -7,7 +7,11 @@ import imageopera from "../../assets/images/imageopera.jpg";
 function Contact() {
   return (
     <div>
-      <img src={imageopera} alt="mini-hero-profil" className="mini-hero-contact" />
+      <img
+        src={imageopera}
+        alt="mini-hero-profil"
+        className="mini-hero-contact"
+      />
       <h1 className="title_contact">Comment contacter le service clientèle</h1>
       <p className="opera_title_contact">NOUS CONTACTER</p>
 
