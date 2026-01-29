@@ -311,6 +311,15 @@ const googleLogin: RequestHandler = async (req, res, next) => {
   }
 };
 
+const logout: RequestHandler = (req, res) => {
+  res.clearCookie("auth_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+  res.json({ message: "Déconnecté avec succès" });
+};
+
 export default {
   login,
   getSession,
@@ -319,4 +328,8 @@ export default {
   forgotPassword,
   resetPassword,
   googleLogin,
+  logout, 
 };
+
+
+

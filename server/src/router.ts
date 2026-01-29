@@ -66,6 +66,7 @@ router.get("/brands", brandActions.readAllBrands);
 import authActions from "./modules/auth/authActions";
 router.post("/auth/login", authActions.login);
 router.get("/auth/session", authActions.verifyToken, authActions.getSession);
+router.post("/auth/logout", authActions.logout);
 
 router.post("/auth/forgot-password", authActions.forgotPassword);
 router.post("/auth/reset-password", authActions.resetPassword);

@@ -36,6 +36,14 @@
   z-index: 1000;
 }
 
+.profile_menu.light {
+  color: white; 
+}
+
+.profile_menu.dark {
+  color: black; 
+}
+
 .profile_container:hover .profile_menu {
   display: flex;
 }
@@ -44,7 +52,7 @@
   margin: 0 0 6px;
   font-size: 14px;
   font-weight: 500;
-  color: white;
+  color: inherit;
 }
 
 .profile_menu button {
@@ -55,14 +63,19 @@
   font-size: 14px;
   font-weight: 500;
 
-  color: white;
+  color: inherit;
   border-radius: 6px;
 
   transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.profile_menu button:hover {
+.profile_menu.light button:hover {
   background: rgba(255, 255, 255, 0.2);
+  transform: translateX(2px);
+}
+
+.profile_menu.dark button:hover {
+  background: rgba(0, 0, 0, 0.05);
   transform: translateX(2px);
 }
 

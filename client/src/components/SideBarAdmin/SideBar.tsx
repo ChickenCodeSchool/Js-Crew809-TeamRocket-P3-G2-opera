@@ -5,9 +5,10 @@ import {
   FaTachometerAlt,
   FaUsers,
 } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useOutletContext } from "react-router-dom";
 import logoOpera from "../../assets/images/logo_operawhite_fixed.png";
 import "./Sidebar.css";
+import type { Auth } from "../../App";
 
 interface LinkItem {
   to: string;
@@ -15,34 +16,45 @@ interface LinkItem {
   label: string;
 }
 
+interface OutletContextType {
+  auth: Auth | null;
+  setAuth: (auth: Auth | null) => void;
+}
+
 export default function Sidebar() {
   const navigate = useNavigate();
+  const { setAuth } = useOutletContext<OutletContextType>();
 
   const links: LinkItem[] = [
     { to: "/admin", icon: <FaTachometerAlt />, label: "Dashboard" },
-    {
-      to: "/adminproducts",
-      icon: <FaBoxOpen />,
-      label: "Gestion des produits",
-    },
-    {
-      to: "/admin/orders",
-      icon: <FaShoppingCart />,
-      label: "Gestion des commandes",
-    },
+    { to: "/adminproducts", icon: <FaBoxOpen />, label: "Gestion des produits" },
+    { to: "/admin/orders", icon: <FaShoppingCart />, label: "Gestion des commandes" },
     { to: "/admin/clients", icon: <FaUsers />, label: "Gestion des clients" },
   ];
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/auth", { replace: true });
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:3310/auth/logout", {
+        method: "POST",
+        credentials: "include", 
+      });
+
+      setAuth(null);
+
+      localStorage.clear();
+      sessionStorage.clear();
+
+      navigate("/", { replace: true });
+    } catch (err) {
+      console.error("Erreur lors de la déconnexion admin :", err);
+    }
   };
 
   return (
     <nav className="admin-navbar">
-      <div className="admin-logo">
+      <NavLink to="/" className="admin-logo">
         <img src={logoOpera} alt="Logo OPÉRA" />
-      </div>
+      </NavLink>
 
       <ul>
         {links.map((link) => (

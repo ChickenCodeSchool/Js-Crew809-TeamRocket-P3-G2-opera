@@ -16,40 +16,33 @@ function Profile() {
   }
 
   const user: User = auth.user;
-
-  const [editingSection, setEditingSection] = useState<
-    "personal" | "address" | null
-  >(null);
+  const [editingSection, setEditingSection] = useState<"personal" | "address" | null>(null);
   const [editedUser, setEditedUser] = useState<User>(user);
 
-  const handleEdit = (section: "personal" | "address") =>
-    setEditingSection(section);
+  const handleEdit = (section: "personal" | "address") => setEditingSection(section);
   const handleChange = (field: keyof User, value: string) =>
     setEditedUser({ ...editedUser, [field]: value });
 
   const handleSave = async (section: "personal" | "address") => {
     try {
-      const response = await fetch(
-        `http://localhost:3310/customers/${user.customer_id}`,
-        {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(
-            section === "personal"
-              ? {
-                  firstname: editedUser.firstname,
-                  lastname: editedUser.lastname,
-                  mail: editedUser.mail,
-                  phone: editedUser.phone,
-                }
-              : {
-                  adress: editedUser.adress,
-                  postal_code: editedUser.postal_code,
-                  country: editedUser.country,
-                },
-          ),
-        },
-      );
+      const response = await fetch(`http://localhost:3310/customers/${user.customer_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(
+          section === "personal"
+            ? {
+                firstname: editedUser.firstname,
+                lastname: editedUser.lastname,
+                mail: editedUser.mail,
+                phone: editedUser.phone,
+              }
+            : {
+                adress: editedUser.adress,
+                postal_code: editedUser.postal_code,
+                country: editedUser.country,
+              }
+        ),
+      });
 
       if (response.ok) {
         setAuth({ ...auth, user: editedUser });
@@ -65,11 +58,7 @@ function Profile() {
 
   return (
     <div className="profile_page">
-      <img
-        src={imageopera}
-        alt="mini-hero-profil"
-        className="mini-hero-profil"
-      />
+      <img src={imageopera} alt="mini-hero-profil" className="mini-hero-profil" />
       <h2 className="profile_title">Mon profil</h2>
 
       <div className="profile_content">
@@ -78,24 +67,14 @@ function Profile() {
             <h3>Mes données personnelles</h3>
             <div className="card_icons">
               {editingSection !== "personal" ? (
-                <Pencil
-                  className="edit_icon"
-                  onClick={() => handleEdit("personal")}
-                />
+                <Pencil className="edit_icon" onClick={() => handleEdit("personal")} />
               ) : (
                 <>
-                  <Check
-                    className="edit_icon"
-                    onClick={() => handleSave("personal")}
-                  />
-                  <X
-                    className="edit_icon"
-                    onClick={() => setEditingSection(null)}
-                  />
+                  <Check className="edit_icon" onClick={() => handleSave("personal")} />
+                  <X className="edit_icon" onClick={() => setEditingSection(null)} />
                 </>
               )}
             </div>
-
             <div className="profile_info">
               {editingSection === "personal" ? (
                 <>
@@ -122,22 +101,11 @@ function Profile() {
                 </>
               ) : (
                 <>
-                  <p>
-                    <strong>Prénom :</strong>{" "}
-                    {user.firstname ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Nom :</strong> {user.lastname ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Email :</strong> {user.mail ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Téléphone :</strong> {user.phone ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>N° client :</strong> {user.customer_id}
-                  </p>
+                  <p><strong>Prénom :</strong> {user.firstname ?? "Non renseigné"}</p>
+                  <p><strong>Nom :</strong> {user.lastname ?? "Non renseigné"}</p>
+                  <p><strong>Email :</strong> {user.mail ?? "Non renseigné"}</p>
+                  <p><strong>Téléphone :</strong> {user.phone ?? "Non renseigné"}</p>
+                  <p><strong>N° client :</strong> {user.customer_id}</p>
                 </>
               )}
             </div>
@@ -147,37 +115,17 @@ function Profile() {
             <h3>Mes adresses</h3>
             <div className="card_icons">
               {editingSection !== "address" ? (
-                <Pencil
-                  className="edit_icon"
-                  onClick={() => handleEdit("address")}
-                />
+                <Pencil className="edit_icon" onClick={() => handleEdit("address")} />
               ) : (
                 <>
-                  <Check
-                    className="edit_icon"
-                    onClick={() => handleSave("address")}
-                  />
-                  <X
-                    className="edit_icon"
-                    onClick={() => setEditingSection(null)}
-                  />
+                  <Check className="edit_icon" onClick={() => handleSave("address")} />
+                  <X className="edit_icon" onClick={() => setEditingSection(null)} />
                 </>
               )}
             </div>
-
             <div className="profile_info">
               {editingSection === "address" ? (
                 <>
-                  <input
-                    className="edit_input"
-                    value={editedUser.firstname}
-                    onChange={(e) => handleChange("firstname", e.target.value)}
-                  />
-                  <input
-                    className="edit_input"
-                    value={editedUser.lastname}
-                    onChange={(e) => handleChange("lastname", e.target.value)}
-                  />
                   <input
                     className="edit_input"
                     value={editedUser.adress ?? ""}
@@ -186,9 +134,7 @@ function Profile() {
                   <input
                     className="edit_input"
                     value={editedUser.postal_code ?? ""}
-                    onChange={(e) =>
-                      handleChange("postal_code", e.target.value)
-                    }
+                    onChange={(e) => handleChange("postal_code", e.target.value)}
                   />
                   <input
                     className="edit_input"
@@ -198,30 +144,14 @@ function Profile() {
                 </>
               ) : (
                 <>
-                  <p>
-                    <strong>Prénom :</strong>{" "}
-                    {user.firstname ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Nom :</strong> {user.lastname ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Adresse :</strong> {user.adress ?? "Non renseignée"}
-                  </p>
-                  <p>
-                    <strong>Code postal :</strong>{" "}
-                    {user.postal_code ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Pays :</strong> {user.country ?? "Non renseigné"}
-                  </p>
+                  <p><strong>Adresse :</strong> {user.adress ?? "Non renseignée"}</p>
+                  <p><strong>Code postal :</strong> {user.postal_code ?? "Non renseigné"}</p>
+                  <p><strong>Pays :</strong> {user.country ?? "Non renseigné"}</p>
                 </>
               )}
             </div>
           </div>
         </div>
-
-        <div className="profile_column_right" />
       </div>
     </div>
   );
