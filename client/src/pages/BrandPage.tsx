@@ -95,9 +95,8 @@ export default function BrandPage() {
       <section className="brand-snap-section">
         <BrandHero brandId={brandId} />
       </section>
-
       <section className="brand-snap-section content-section">
-        <BrandDescription brandId={brandId} />
+        <BrandDescription brandId={brandId} isVisible={contentVisible} />
         <BookmarkCard brandId={brandId} isVisible={contentVisible} />
       </section>
     </div>
