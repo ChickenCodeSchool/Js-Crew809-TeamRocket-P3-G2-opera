@@ -76,12 +76,12 @@ h2 {
     margin-top: 20px;
   }
 
-  .admin-table {
+  .admin-table-customers {
     width: 100%;
     border-collapse: collapse;
   }
 
-  .admin-table thead th {
+  .admin-table-customers thead th {
     background-color: #1a1a1a;
     color: #ffffff;
     padding: 15px;
@@ -92,7 +92,7 @@ h2 {
     font-size: 0.8rem;
   }
 
-  .admin-table td {
+  .admin-table-customers td {
     padding: 20px;
     text-align: center;
     vertical-align: middle;
@@ -116,22 +116,22 @@ h2 {
     overflow: visible;
   }
 
-  .admin-table,
-  .admin-table thead,
-  .admin-table tbody,
-  .admin-table tr,
-  .admin-table td {
+  .admin-table-customers,
+  .admin-table-customers thead,
+  .admin-table-customers tbody,
+  .admin-table-customers tr,
+  .admin-table-customers td {
     display: block !important;
     width: 100%;
   }
 
-  .admin-table thead tr {
+  .admin-table-customers thead tr {
     position: absolute;
     top: -9999px;
     left: -9999px;
   }
 
-  .admin-table tr {
+  .admin-table-customers tr {
     border: 1px solid #000;
     margin-bottom: 20px;
     border-radius: 8px;
@@ -139,7 +139,7 @@ h2 {
     padding: 10px 0;
   }
 
-  .admin-table td {
+  .admin-table-customers td {
     border: none !important;
     padding: 12px 15px !important;
     min-height: 45px;
@@ -150,12 +150,12 @@ h2 {
     word-break: break-all; /* Coupe les emails trop longs pour éviter qu'ils sortent de l'écran */
   }
 
-  .admin-table td:last-child {
+  .admin-table-customers td:last-child {
     border-bottom: none !important;
   }
 
   /* Le label (Titre) */
-  .admin-table td::before {
+  .admin-table-customers td::before {
     content: attr(data-label);
     font-weight: 700;
     font-size: 0.75rem;

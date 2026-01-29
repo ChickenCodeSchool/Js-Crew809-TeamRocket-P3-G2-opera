@@ -5,13 +5,15 @@ type BrandData = {
   brand_id: number;
   name: string;
   description: string;
+  url: string;
 };
 
 type Props = {
   brandId: number;
+  isVisible?: boolean;
 };
 
-function BrandDescription({ brandId }: Props) {
+function BrandDescription({ brandId, isVisible = false }: Props) {
   const [brand, setBrand] = useState<BrandData | null>(null);
 
   useEffect(() => {
@@ -25,7 +27,9 @@ function BrandDescription({ brandId }: Props) {
   return (
     <section className="brand-desc-section">
       <div className="brand-desc-container">
-        <p className="brand-text">{brand.description}</p>
+        <p className={`brand-text ${isVisible ? "visible" : ""}`}>
+          {brand.description}
+        </p>
       </div>
     </section>
   );

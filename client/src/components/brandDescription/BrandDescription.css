@@ -3,9 +3,7 @@
   justify-content: center;
   align-items: center;
   position: relative;
-  padding: 6rem;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  padding: 8rem;
 }
 
 .brand-desc-container {
@@ -16,19 +14,50 @@
   align-items: center;
 }
 
+.brand-logo {
+  position: absolute;
+  top: 2rem;
+  right: 5rem;
+  width: 13rem;
+  height: auto;
+  object-fit: contain;
+}
+
 .brand-text {
   font-size: 1.5rem;
   line-height: 1.8;
   text-align: center;
   font-weight: 500;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+
+  /* Animation */
+  opacity: 0;
+}
+
+.brand-text.visible {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .brand-loading,
 .brand-error {
   padding-top: 150px;
   text-align: center;
+}
+
+@media (max-width: 1050px) {
+  .brand-logo {
+    top: 2rem;
+    right: 2rem;
+    width: 12rem;
+  }
 }
 
 @media (max-width: 768px) {
@@ -38,5 +67,9 @@
 
   .brand-text {
     font-size: 1.2rem;
+  }
+
+  .brand-logo {
+    display: none;
   }
 }

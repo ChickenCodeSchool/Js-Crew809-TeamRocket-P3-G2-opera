@@ -25,7 +25,7 @@ export default function CustomerManagement() {
         </button>
       </div>
       <div className="table-responsive-container">
-        <table className="admin-table">
+        <table className="admin-table-customers">
           <thead>
             <tr className="admin-tr-table">
               <th>Réf.</th> {/* Nouvelle colonne */}
