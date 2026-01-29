@@ -5,9 +5,10 @@ import type { Auth } from "../../App";
 interface ProfileMenuProps {
   auth: Auth | null;
   setAuth: (auth: Auth | null) => void;
+  theme: "light" | "dark";
 }
 
-function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
+function ProfileMenu({ auth, setAuth, theme }: ProfileMenuProps) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -15,12 +16,16 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
     navigate("/");
   };
 
+  const menuClass = `profile_menu ${theme}`;
+
   if (auth?.user) {
+    const profileRoute = auth.user.role === 1 ? "/admin" : "/profile";
+
     return (
-      <div className="profile_menu">
+      <div className={menuClass}>
         <p>{auth.user.firstname}</p>
-        <button type="button" onClick={() => navigate("/profile")}>
-          Mon profil
+        <button type="button" onClick={() => navigate(profileRoute)}>
+          Profil
         </button>
         <button type="button" onClick={handleLogout}>
           Déconnexion
@@ -30,11 +35,12 @@ function ProfileMenu({ auth, setAuth }: ProfileMenuProps) {
   }
 
   return (
-    <div className="profile_menu">
+    <div className={menuClass}>
       <button type="button" onClick={() => navigate("/auth")}>
         Se connecter
       </button>
     </div>
   );
 }
+
 export default ProfileMenu;

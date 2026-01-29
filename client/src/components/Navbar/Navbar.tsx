@@ -29,7 +29,6 @@ function Navbar({ auth, setAuth }: NavbarProps) {
   console.log("pathname:", location.pathname, "isLanding:", isLanding);
 
   const darkNavbarPages = [
-    "/nouscontacter",
     "/register",
     "/auth",
     "/adminproducts",
@@ -123,7 +122,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
 
           <div className="profile_container">
             <FiUser size={24} className="user_navbar" />
-            <ProfileMenu auth={auth} setAuth={setAuth} />
+            <ProfileMenu auth={auth} setAuth={setAuth} theme={theme} />
           </div>
 
           <button
