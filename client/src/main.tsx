@@ -15,6 +15,7 @@ import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import Cart from "./pages/Cart/Cart";
+import OrderSummary from "./pages/ConfirmCart/ConfirmCart";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
@@ -27,7 +28,6 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
-import OrderSummary from "./pages/ConfirmCart/ConfirmCart";
 
 const router = createBrowserRouter([
   {
