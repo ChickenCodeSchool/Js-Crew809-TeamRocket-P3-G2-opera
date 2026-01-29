@@ -59,6 +59,8 @@ function App() {
     fetchSession();
   }, []);
 
+  const isBrandPage = location.pathname.startsWith("/brand/");
+
   return (
     <>
       {!isAdmin && (
@@ -67,7 +69,7 @@ function App() {
       <div className={!isLanding && !isAdmin ? "with-fixed-navbar" : ""}>
         <Outlet context={{ auth, setAuth }} />
       </div>
-      {!isAdmin && <Footer />}
+      {!isAdmin && !isBrandPage && <Footer />}
     </>
   );
 }

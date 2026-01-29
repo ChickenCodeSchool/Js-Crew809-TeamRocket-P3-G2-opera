@@ -144,3 +144,15 @@
     height: 20px;
   }
 }
+
+.navbar {
+  transition: color 0.3s ease;
+}
+
+.navbar_icons {
+  transition: color 0.3s ease;
+}
+
+.title_navbar {
+  transition: color 0.3s ease;
+}
