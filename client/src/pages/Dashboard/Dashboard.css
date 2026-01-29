@@ -1,125 +1,114 @@
 .dashboard-container {
-  padding: 30px;
-  font-family: "Inter", "Arial", sans-serif;
-  background-color: #f5f6fa;
   min-height: 100vh;
-  color: #333;
-}
-
-.dashboard-container h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #1f2a3b;
-}
-
-.dashboard-filters {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-bottom: 30px;
-}
-
-.dashboard-filters label {
-  font-weight: 500;
-  color: #555;
-  display: flex;
-  flex-direction: column;
-  font-size: 0.95rem;
-}
-
-.dashboard-filters select {
-  margin-top: 5px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-filters select:hover {
-  border-color: #4e54c8;
-  box-shadow: 0 0 5px rgba(78, 84, 200, 0.3);
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 30px;
-  justify-items: stretch;
-}
-
-.dashboard-card {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-card-header {
-  padding: 20px;
-  font-weight: 700;
-  font-size: 1.2rem;
-  background: linear-gradient(90deg, #4e54c8, #8f94fb);
+  background: radial-gradient(circle at top, #141414, #0b0b0b 70%);
   color: #fff;
-}
-
-.dashboard-card-kpi {
-  padding: 15px 20px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #1f2a3b;
-  background-color: #f0f2f8;
-  border-bottom: 1px solid #e1e4eb;
-}
-
-.dashboard-card-body {
-  padding: 25px;
-  flex: 1;
+  font-family: "Montserrat", sans-serif;
+  padding: 60px 80px;
   display: flex;
   flex-direction: column;
-}
-
-.dashboard-card-body .recharts-wrapper {
-  flex: 1;
+  gap: 60px;
 }
 
 .dashboard-loading {
   text-align: center;
-  font-size: 1.3rem;
-  color: #888;
-  margin-top: 60px;
+  font-size: 1.4rem;
+  color: #777;
+  margin-top: 100px;
 }
 
-@media (max-width: 1024px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
+.dashboard-top {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
 }
 
-@media (max-width: 768px) {
-  .dashboard-container {
-    padding: 20px;
-  }
+.dashboard-left {
+  flex: 0 0 auto; /* largeur fixe pour le camembert */
+}
 
-  .dashboard-card-body {
-    padding: 20px;
-  }
+.dashboard-right {
+  flex: 1; /* prend le reste de la largeur disponible */
+}
 
-  .dashboard-filters {
+/* Cartes du bas */
+.dashboard-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+/* Cartes générales */
+.dashboard-section {
+  padding: 30px;
+  border-radius: 16px;
+  border: 1px solid #555;
+  background-color: rgba(20, 20, 20, 0.6);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+.section-footer {
+  text-align: center;
+  margin-top: 18px;
+}
+
+.section-kpi {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.section-title {
+  font-size: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #d4af37;
+  margin-top: 6px;
+}
+
+.recharts-pie-sector:hover {
+  fill: rgba(255, 255, 255, 0.2) !important;
+  cursor: pointer;
+}
+
+.recharts-bar-rectangle:hover {
+  fill-opacity: 0.7 !important;
+  cursor: pointer;
+}
+
+.recharts-tooltip-label {
+  color: #d4af37 !important;
+}
+
+.recharts-xAxis text,
+.recharts-yAxis text {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .dashboard-top {
     flex-direction: column;
-    gap: 15px;
+    gap: 40px;
+  }
+
+  .dashboard-left,
+  .dashboard-right {
+    width: 100%;
+  }
+}
+
+@media (max-width: 900px) {
+  .dashboard-container {
+    padding: 30px 15px;
+    gap: 40px;
+  }
+
+  .dashboard-section {
+    padding: 20px 15px;
   }
 }

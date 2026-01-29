@@ -1,0 +1,173 @@
+/* ============================================================
+   1. STYLES COMMUNS
+   ============================================================ */
+.admin-customer-container {
+  padding: 40px;
+  padding-top: 200px;
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+}
+
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-headeradmin {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.add-btn {
+  background-color: #ffffff;
+  color: #666666;
+  border: 1px solid #e0e0e0;
+  padding: 8px 16px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.add-btn:hover {
+  color: #1a1a1a;
+  border-color: black;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.action-btn {
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  cursor: pointer;
+  border-radius: 4px;
+  width: 34px;
+  height: 34px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 4px;
+  color: #888;
+}
+
+.role-badge {
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+/* ============================================================
+   2. VERSION DESKTOP (Ordinateur > 768px)
+   ============================================================ */
+@media screen and (min-width: 769px) {
+  .table-responsive-container {
+    max-height: 60vh;
+    overflow-y: auto;
+    border: 1px solid #000;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+
+  .admin-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .admin-table thead th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    text-align: center;
+    font-size: 0.8rem;
+  }
+
+  .admin-table td {
+    padding: 20px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+    display: table-cell !important;
+  }
+}
+
+/* ============================================================
+   3. VERSION MOBILE (Smartphone <= 768px)
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  .admin-customer-container {
+    padding: 20px;
+    padding-top: 120px;
+  }
+
+  .table-responsive-container {
+    border: none;
+    max-height: none;
+    overflow: visible;
+  }
+
+  .admin-table,
+  .admin-table thead,
+  .admin-table tbody,
+  .admin-table tr,
+  .admin-table td {
+    display: block !important;
+    width: 100%;
+  }
+
+  .admin-table thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  .admin-table tr {
+    border: 1px solid #000;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background: #fff;
+    padding: 10px 0;
+  }
+
+  .admin-table td {
+    border: none !important;
+    padding: 12px 15px !important;
+    min-height: 45px;
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between; /* Pousse le titre à gauche et la valeur à droite */
+    border-bottom: 1px solid #f0f0f0 !important;
+    word-break: break-all; /* Coupe les emails trop longs pour éviter qu'ils sortent de l'écran */
+  }
+
+  .admin-table td:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Le label (Titre) */
+  .admin-table td::before {
+    content: attr(data-label);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #888;
+    margin-right: 15px;
+    flex-shrink: 0; /* Empêche le titre de rétrécir */
+    text-align: left;
+  }
+
+  .add-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
