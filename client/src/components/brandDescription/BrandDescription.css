@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /*min-height: 60vh;*/
-  height: 40vh;
   position: relative;
-  padding: 8rem;
+  padding: 6rem;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .brand-desc-container {
@@ -21,6 +21,8 @@
   line-height: 1.8;
   text-align: center;
   font-weight: 500;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .brand-loading,

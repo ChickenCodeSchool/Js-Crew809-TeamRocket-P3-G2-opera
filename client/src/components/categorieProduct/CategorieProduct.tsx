@@ -23,8 +23,12 @@ function CategorieProduct({ products, brandId }: CategorieProductProps) {
 
   return (
     <div className="products-grid">
-      {products.map((product) => (
-        <div key={product.product_id} className="product-card">
+      {products.map((product, index) => (
+        <div
+          key={product.product_id}
+          className="product-card"
+          style={{ animationDelay: `${index * 0.1}s` }}
+        >
           <div
             className="image-container"
             onClick={() => handleNavigation(product.product_id)}
