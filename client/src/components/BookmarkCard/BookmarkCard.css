@@ -9,17 +9,24 @@
   border-radius: 14px;
   border: 1px solid rgba(2, 2, 2, 0.15);
   overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   width: 22%;
-  height: 500px; /*ici modification à voir si ok avec toutes les autres cartes des autres marques après avant il n'y avait pas*/
+  height: 500px;
+
+  /* Animation simple */
+  opacity: 0;
 }
 
-.bookmark-card:hover {
+.bookmark-card.visible {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.bookmark-card.visible:hover {
   transform: translateY(-6px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
 .bookmark-card-image {
@@ -41,6 +48,15 @@
   font-family: "Bodoni Moda SC", serif;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (max-width: 768px) {
   .bookmark-card {
     display: inline-block;
@@ -53,7 +69,7 @@
     background-color: white;
   }
 
-  .bookmark-card:hover {
+  .bookmark-card.visible:hover {
     transform: none;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
   }

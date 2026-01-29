@@ -1,3 +1,5 @@
+import { GoogleLogin } from "@react-oauth/google";
+import type { CredentialResponse } from "@react-oauth/google";
 import { useRef } from "react";
 import type { FormEventHandler } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
@@ -61,6 +63,45 @@ function Login() {
     }
   };
 
+  const handleGoogleSuccess = async (
+    credentialResponse: CredentialResponse,
+  ) => {
+    try {
+      const response = await fetch("http://localhost:3310/auth/google", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ credential: credentialResponse.credential }),
+      });
+
+      if (response.ok) {
+        const data: Auth = await response.json();
+
+        if (!data.token || !data.user) {
+          toast.error("Erreur serveur : données manquantes");
+          return;
+        }
+
+        setAuth(data);
+
+        if (data.user.role === 1) {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+      } else {
+        toast.error("Erreur de connexion avec Google");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Erreur serveur");
+    }
+  };
+
+  const handleGoogleError = () => {
+    toast.error("Échec de la connexion avec Google");
+  };
+
   return (
     <>
       <form onSubmit={handleSubmit} className="login_form">
@@ -72,6 +113,7 @@ function Login() {
             type="email"
             id="email"
             placeholder=" "
+            autoComplete="email"
             required
           />
           <label htmlFor="email">E-mail</label>
@@ -83,6 +125,7 @@ function Login() {
             type="password"
             id="password"
             placeholder=" "
+            autoComplete="current-password"
             required
           />
           <label htmlFor="password">Mot de passe</label>
@@ -95,6 +138,20 @@ function Login() {
         <Link to="/forgot-password" className="forgot-passwordlink">
           Mot de passe oublié ?
         </Link>
+
+        <div className="google-login-divider">
+          <span>OU</span>
+        </div>
+
+        <div className="google-login-wrapper">
+          <GoogleLogin
+            onSuccess={handleGoogleSuccess}
+            onError={handleGoogleError}
+            theme="outline"
+            size="large"
+            text="continue_with"
+          />
+        </div>
       </form>
 
       <ToastContainer
