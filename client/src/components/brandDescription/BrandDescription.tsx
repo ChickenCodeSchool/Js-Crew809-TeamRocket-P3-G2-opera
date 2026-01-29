@@ -25,13 +25,6 @@ function BrandDescription({ brandId }: Props) {
 
   return (
     <section className="brand-desc-section">
-      {brand.url && (
-        <img
-          src={`${import.meta.env.VITE_API_URL}${brand.url}`}
-          alt={`Logo ${brand.name}`}
-          className="brand-logo"
-        />
-      )}
       <div className="brand-desc-container">
         <p className="brand-text">{brand.description}</p>
       </div>
