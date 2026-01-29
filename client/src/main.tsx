@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import AdminOrderEdit from "./components/AdminOrderEdit/AdminOrderEdit";
+import CustomerManagement from "./components/CustomerManagement/CustomerManagement";
 import Footer from "./components/Footer/Footer";
 import ForgotPassword from "./components/MdpOublie/forgotpassword";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -21,6 +22,7 @@ import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
 import Profile from "./pages/Profile/Profile";
+/*import Login from "./components/login/Login";*/
 /*import Clients from "./pages/Admin/pages/Clients";*/
 import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
@@ -36,6 +38,27 @@ const router = createBrowserRouter([
     path: "/",
     element: <App />,
     children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/brand/:id",
+        element: <BrandPage />,
+      },
+      {
+        path: "/auth",
+        element: <Authentification />,
+      },
+      /*
+      {
+        path: "login",
+        element: <Login />,
+      },
+      {
+        path: "register",
+        element: <Register />,
+      },*/
       { path: "/", element: <HomePage /> },
       { path: "/brand/:id", element: <BrandPage /> },
       { path: "/auth", element: <Authentification /> },
@@ -79,7 +102,7 @@ const router = createBrowserRouter([
         children: [
           { path: "", element: <Dashboard /> },
           { path: "orders", element: <AdminOrderEdit /> },
-          /* { path: "clients", element: <Clients /> },   */
+          { path: "clients", element: <CustomerManagement /> },
         ],
       },
       {
@@ -95,6 +118,10 @@ const router = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPassword />,
+      },
+      {
+        path: "/admin/customers",
+        element: <CustomerManagement />,
       },
     ],
   },
