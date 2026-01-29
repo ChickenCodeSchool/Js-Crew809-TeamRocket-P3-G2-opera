@@ -1,114 +1,128 @@
 .dashboard-container {
   min-height: 100vh;
-  background: radial-gradient(circle at top, #141414, #0b0b0b 70%);
-  color: #fff;
+  background: radial-gradient(circle at top, #16181D, #0A0A0A 80%);
   font-family: "Montserrat", sans-serif;
   padding: 60px 80px;
   display: flex;
   flex-direction: column;
-  gap: 60px; 
+  gap: 80px;
 }
 
 .dashboard-loading {
   text-align: center;
-  font-size: 1.4rem;
-  color: #777;
+  color: #555;
   margin-top: 100px;
 }
 
 .dashboard-top {
   display: flex;
   gap: 40px;
-  align-items: flex-start;
 }
 
 .dashboard-left {
-  flex: 0 0 auto; /* largeur fixe pour le camembert */
+  flex: 0 0 auto;
 }
 
 .dashboard-right {
-  flex: 1; /* prend le reste de la largeur disponible */
+  flex: 1;
 }
 
-/* Cartes du bas */
 .dashboard-bottom {
   display: flex;
   flex-direction: column;
   gap: 60px;
 }
 
-/* Cartes générales */
 .dashboard-section {
-  padding: 30px;
-  border-radius: 16px;
-  border: 1px solid #555;
-  background-color: rgba(20,20,20,0.6);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid #2D2D2D;
+  background-color: #111318;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
 }
 
 .dashboard-section:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+  border-color: #4D4D4D;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
 }
 
 .section-footer {
   text-align: center;
-  margin-top: 18px;
-}
-
-.section-kpi {
-  font-size: 2.2rem;
-  font-weight: 600;
-  color: #fff;
+  margin-top: 20px;
 }
 
 .section-title {
-  font-size: 1rem;
-  letter-spacing: 2px;
+  color: #8E8E8E; 
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  color: #d4af37;
-  margin-top: 6px;
+  font-size: 24px;
+  font-weight: 500; 
+  margin-bottom: 5px;
+}
+
+.section-kpi {
+  font-size: 16px;
+  color: #E5E5E5; 
+  font-weight: 400; 
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.recharts-default-tooltip {
+  border: none !important;
+}
+
+.recharts-pie-sector {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  outline: none;
 }
 
 .recharts-pie-sector:hover {
-  fill: rgba(255, 255, 255, 0.2) !important;
-  cursor: pointer;
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
 }
 
-.recharts-bar-rectangle:hover {
-  fill-opacity: 0.7 !important;
-  cursor: pointer;
-}
-
-.recharts-tooltip-label {
-  color: #d4af37 !important;
-}
-
-.recharts-xAxis text,
-.recharts-yAxis text {
+.recharts-cartesian-grid-vertical {
   display: none;
 }
 
-@media (max-width: 1200px) {
-  .dashboard-top {
-    flex-direction: column;
-    gap: 40px;
-  }
-
-  .dashboard-left,
-  .dashboard-right {
-    width: 100%;
-  }
-}
-
-@media (max-width: 900px) {
+@media (max-width: 768px) {
   .dashboard-container {
     padding: 30px 15px;
     gap: 40px;
   }
 
+  .dashboard-top {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .dashboard-left,
+  .dashboard-right {
+    flex: 1 1 100%;
+  }
+
+  .dashboard-bottom {
+    gap: 40px;
+  }
+
   .dashboard-section {
-    padding: 20px 15px;
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-kpi {
+    font-size: 14px;
+  }
+
+  .dashboard-loading {
+    margin-top: 60px;
+    font-size: 14px;
   }
 }
