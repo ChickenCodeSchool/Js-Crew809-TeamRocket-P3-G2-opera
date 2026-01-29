@@ -15,38 +15,48 @@ function Cart() {
     );
   }
 
-  const handleCheckout = async () => {
+  // const handleCheckout = async () => {
+  //   if (items.length === 0) {
+  //     alert("Votre panier est vide");
+  //     return;
+  //   }
+
+  //   try {
+  //     const response = await fetch(
+  //       `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
+  //       {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           items: items.map((item) => ({
+  //             name: item.name,
+  //             price: item.price,
+  //             quantity: item.quantity,
+  //             size_label: item.size_label,
+  //           })),
+  //         }),
+  //       },
+  //     );
+
+  //     const data = await response.json();
+
+  //     if (data.url) {
+  //       window.location.href = data.url;
+  //     }
+  //   } catch (error) {
+  //     console.error("Erreur checkout:", error);
+  //     alert("Erreur lors du paiement");
+  //   }
+  // };
+
+  const handleValidateCart = () => {
     if (items.length === 0) {
       alert("Votre panier est vide");
       return;
     }
 
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            items: items.map((item) => ({
-              name: item.name,
-              price: item.price,
-              quantity: item.quantity,
-              size_label: item.size_label,
-            })),
-          }),
-        },
-      );
-
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error("Erreur checkout:", error);
-      alert("Erreur lors du paiement");
-    }
+    // Rediriger vers la page de récapitulatif
+    navigate("/order-summary");
   };
 
   const handleContinueShopping = () => {
@@ -96,9 +106,7 @@ function Cart() {
                     <p className="item-size">Taille : {item.size_label}</p>
                   )}
                 </div>
-                <div className="item-price">
-                  € {Math.floor(+item.price.toFixed(2))}
-                </div>
+                <div className="item-price">€ {Math.floor(item.price)}</div>
 
                 <div className="item-action">
                   <button
@@ -165,15 +173,15 @@ function Cart() {
 
             <div className="summary-row total">
               <span>Total</span>
-              <span>€ {Math.floor(+getTotal().toFixed(2))}</span>
+              <span>€ {Math.floor(getTotal())}</span>
             </div>
 
             <button
               type="button"
               className="checkout-btn"
-              onClick={handleCheckout}
+              onClick={handleValidateCart}
             >
-              Procéder au paiement
+              Valider mon panier
             </button>
 
             <button

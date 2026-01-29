@@ -124,8 +124,12 @@ router.get(
   "/api/dashboard/customers-per-day",
   dashboardActions.customersPerDay,
 );
-
-//ROUTE CONNEXION GOOGLE
-// router.post("/auth/google", authActions.googleLogin);
+import cartActions from "./modules/cart/cartActions";
+router.post("/api/cartitem", cartActions.addNewCartItem);
+router.post("/cartitem", cartActions.addNewCartItem);
+router.get("/api/cart/:customerId", cartActions.getCart);
+router.put("/api/cartitem/:cartItemId", cartActions.updateCartItem);
+router.delete("/api/cartitem/:cartItemId", cartActions.removeCartItem);
+router.post("/api/cart/sync", cartActions.syncCart);
 
 export default router;

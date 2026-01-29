@@ -15,68 +15,91 @@ export const useCart = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const isInitialMount = useRef(true);
 
-  // Charger depuis localStorage au montage
-  useEffect(() => {
-    const storedItems = localStorage.getItem("cart");
-    if (storedItems) {
-      try {
-        const parsedItems = JSON.parse(storedItems);
-        // Convertir les prix en nombres
-        const normalizedItems = parsedItems.map((item: CartItem) => ({
-          ...item,
-          price:
-            typeof item.price === "string"
-              ? Number.parseFloat(item.price)
-              : item.price,
-        }));
-        setItems(normalizedItems);
-      } catch (error) {
-        console.error("Erreur lors du chargement du panier:", error);
-        setItems([]);
-      }
-    }
-    setIsLoaded(true);
-  }, []);
+  const isAuthenticated = !!localStorage.getItem("token");
 
-  // Sauvegarder dans localStorage chaque fois que les items changent
   useEffect(() => {
-    // Ne pas sauvegarder au premier render (on vient de charger depuis localStorage)
-    console.log("coucou");
+    const loadCart = async () => {
+      //  NON CONNECTÉE  localStorage
+      if (!isAuthenticated) {
+        const storedItems = localStorage.getItem("cart");
+        if (storedItems) {
+          try {
+            setItems(JSON.parse(storedItems));
+          } catch {
+            setItems([]);
+          }
+        }
+      }
+
+      // CONNECTÉE API
+      else {
+        const res = await fetch("/api/cart", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          setItems(data.items || []);
+        }
+      }
+
+      setIsLoaded(true);
+    };
+
+    loadCart();
+  }, [isAuthenticated]);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    // évite la sauvegarde au premier render
     if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
 
-    if (isLoaded) {
-      console.log("items for useEffect", items);
-      const jsonString = JSON.stringify(items);
-      localStorage.setItem("cart", jsonString);
-      console.log("💾 localStorage mis à jour:", jsonString);
-    }
-  }, [items, isLoaded]);
+    const saveCart = async () => {
+      // NON CONNECTÉE → localStorage
+      if (!isAuthenticated) {
+        localStorage.setItem("cart", JSON.stringify(items));
+      }
+
+      // CONNECTÉE → API
+      else {
+        await fetch("/api/cart", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          body: JSON.stringify({ items }),
+        });
+      }
+    };
+
+    saveCart();
+  }, [items, isLoaded, isAuthenticated]);
 
   const addToCart = (item: CartItem) => {
-    const normalizedItem = {
-      ...item,
-      price:
-        typeof item.price === "string"
-          ? Number.parseFloat(item.price)
-          : item.price,
-    };
     setItems((prevItems) => {
       const existingItem = prevItems.find(
-        (cartItem) => cartItem.product_id === normalizedItem.product_id,
+        (cartItem) =>
+          cartItem.product_id === item.product_id &&
+          cartItem.size_id === item.size_id,
       );
 
       if (existingItem) {
         return prevItems.map((cartItem) =>
-          cartItem.product_id === normalizedItem.product_id
+          cartItem.product_id === item.product_id &&
+          cartItem.size_id === item.size_id
             ? { ...cartItem, quantity: cartItem.quantity + 1 }
             : cartItem,
         );
       }
 
-      return [...prevItems, { ...normalizedItem, quantity: 1 }];
+      return [...prevItems, { ...item, quantity: 1 }];
     });
   };
 
@@ -88,23 +111,18 @@ export const useCart = () => {
     );
   };
 
-  // Dans useCart.ts
-
   const updateQuantity = (
     productId: number,
     quantity: number,
     sizeId: number,
   ) => {
     if (quantity <= 0) {
-      // TypeScript ne fera plus d'erreur ici si removeFromCart
-      // accepte bien deux arguments désormais
       removeFromCart(productId, sizeId);
       return;
     }
 
     setItems((prevItems) =>
       prevItems.map((item) =>
-        // On compare le couple Produit + Taille pour mettre à jour la bonne ligne
         item.product_id === productId && item.size_id === sizeId
           ? { ...item, quantity }
           : item,

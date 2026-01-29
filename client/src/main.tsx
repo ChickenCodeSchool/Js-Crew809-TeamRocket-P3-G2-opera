@@ -27,6 +27,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import OrderSummary from "./pages/ConfirmCart/ConfirmCart";
 
 const router = createBrowserRouter([
   {
@@ -92,6 +93,11 @@ const router = createBrowserRouter([
       {
         path: "/reset-password",
         element: <ResetPassword />,
+      },
+
+      {
+        path: "/order-summary",
+        element: <OrderSummary />, // ✅ Nouvelle route
       },
     ],
   },
