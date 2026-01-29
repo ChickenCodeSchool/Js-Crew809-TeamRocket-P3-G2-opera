@@ -77,6 +77,28 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     return () => clearTimeout(timeout);
   }, [location.pathname, isLanding, shouldBeDark]);
 
+  useEffect(() => {
+    const handleThemeChange = () => {
+      const theme = document.body.getAttribute("data-navbar-theme") as
+        | "light"
+        | "dark"
+        | null;
+      if (theme) {
+        setTheme(theme);
+      }
+    };
+
+    handleThemeChange();
+
+    const observer = new MutationObserver(handleThemeChange);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-navbar-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <header className={`navbar ${theme}`}>
