@@ -139,6 +139,7 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-container">
+      <h1 className="dash-title">DASHBOARD</h1>
       <div className="dashboard-top">
         <section className="dashboard-section dashboard-left">
           <ResponsiveContainer width={500} height={500}>
