@@ -5,7 +5,6 @@ import cartRepository from "./cartRepository";
 const addNewCartItem: RequestHandler = async (req, res, next) => {
   try {
     console.log("➕ addNewCartItem appelée");
-    console.log("📥 Body reçu:", req.body);
 
     const { cart_id, product_id, size_id, quantity, unit_price } = req.body;
 
@@ -16,7 +15,6 @@ const addNewCartItem: RequestHandler = async (req, res, next) => {
       return;
     }
 
-    // ✅ Vérifier si l'item existe déjà
     const existing = await cartRepository.findCartItemByProductAndSize(
       cart_id,
       product_id,
@@ -27,7 +25,6 @@ const addNewCartItem: RequestHandler = async (req, res, next) => {
 
     if (existing) {
       console.log("🔄 Item existe déjà, mise à jour quantité");
-      // Mettre à jour la quantité
       await cartRepository.updateCartItemQuantity(
         existing.cart_item_id,
         existing.quantity + quantity,
@@ -35,7 +32,7 @@ const addNewCartItem: RequestHandler = async (req, res, next) => {
       cartItemId = existing.cart_item_id;
     } else {
       console.log("➕ Ajout nouvel item");
-      // Ajouter le nouvel item
+
       cartItemId = await cartRepository.addCartItem({
         cart_id,
         product_id,
@@ -57,7 +54,6 @@ const addNewCartItem: RequestHandler = async (req, res, next) => {
   }
 };
 
-// ✅ Nouvelle action : Récupérer le panier d'un client
 const getCart: RequestHandler = async (req, res, next) => {
   try {
     const customerId = Number.parseInt(req.params.customerId);
@@ -76,7 +72,6 @@ const getCart: RequestHandler = async (req, res, next) => {
   }
 };
 
-// ✅ Nouvelle action : Synchroniser le panier localStorage avec DB
 const syncCart: RequestHandler = async (req, res, next) => {
   try {
     console.log("🔵 syncCart appelée");

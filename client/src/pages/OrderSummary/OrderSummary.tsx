@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCartContext } from "../../contexts/CartContext";
-import "./ConfirmCart.css";
+import "./OrderSummary.css";
 
 type User = {
   customer_id: number;
@@ -20,7 +20,6 @@ function OrderSummary() {
   const [user, setUser] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  // Charger les infos utilisateur
   useEffect(() => {
     const loadUser = () => {
       try {
@@ -29,7 +28,6 @@ function OrderSummary() {
           const userData = JSON.parse(userStr);
           setUser(userData);
         } else {
-          // Pas connecté, rediriger vers la connexion
           navigate("/auth");
         }
       } catch (error) {
@@ -49,10 +47,9 @@ function OrderSummary() {
       return;
     }
 
-    // Vérifier que l'adresse est complète
     if (!user?.adress || !user?.postal_code || !user?.country) {
       alert("Veuillez compléter votre adresse de livraison dans votre profil");
-      navigate("/profile"); // Vous pouvez créer une page profil ou rediriger ailleurs
+      navigate("/profile");
       return;
     }
 
@@ -120,39 +117,42 @@ function OrderSummary() {
     <div className="order-summary-container">
       <h1>Récapitulatif de commande</h1>
 
-      <div className="order-content">
-        {/* Section articles */}
-        <div className="order-items-section">
-          <div className="section-header">
+      <div className="order-summary-content">
+        <div className="order-summary-items-section">
+          <div className="section-header-summary">
             <h2>Vos articles ({items.length})</h2>
             <button
               type="button"
-              className="edit-cart-btn"
+              className="edit-summarycart-btn"
               onClick={handleEditCart}
             >
               Modifier le panier
             </button>
           </div>
 
-          <div className="order-items-list">
+          <div className="order-summary-items-list">
             {items.map((item) => (
               <div
                 key={`${item.product_id}-${item.size_id}`}
-                className="order-item"
+                className="order-summary-item"
               >
                 <img
                   src={`${baseUrl}${item.image_url}`}
                   alt={item.name}
-                  className="order-item-image"
+                  className="order-summary-item-image"
                 />
-                <div className="order-item-details">
+                <div className="order-summary-item-details">
                   <h3>{item.name}</h3>
                   {item.size_label && (
-                    <p className="item-size">Taille : {item.size_label}</p>
+                    <p className="item-summary-size">
+                      Taille : {item.size_label}
+                    </p>
                   )}
-                  <p className="item-quantity">Quantité : {item.quantity}</p>
+                  <p className="item-summary-quantity">
+                    Quantité : {item.quantity}
+                  </p>
                 </div>
-                <div className="order-item-price">
+                <div className="order-summary-item-price">
                   {Number(item.price).toFixed(2)} €
                 </div>
               </div>
@@ -160,12 +160,11 @@ function OrderSummary() {
           </div>
         </div>
 
-        {/* Section adresse de livraison */}
-        <div className="delivery-section">
+        <div className="delivery-summary-section">
           <h2>Adresse de livraison</h2>
           {user?.adress && user?.postal_code && user?.country ? (
-            <div className="delivery-address">
-              <p className="delivery-name">
+            <div className="delivery-summary-address">
+              <p className="delivery-summary-name">
                 {user.firstname} {user.lastname}
               </p>
               <p>{user.adress}</p>
@@ -173,22 +172,24 @@ function OrderSummary() {
                 {user.postal_code} {user.country}
               </p>
               {user.phone && <p>Tél : {user.phone}</p>}
-              <p className="delivery-email">{user.mail}</p>
+              <p className="delivery-summary-email">{user.mail}</p>
 
               <button
                 type="button"
-                className="edit-address-btn"
+                className="summary-edit-address-btn"
                 onClick={() => navigate("/profile")}
               >
                 Modifier l'adresse
               </button>
             </div>
           ) : (
-            <div className="delivery-address incomplete">
-              <p className="warning-text">⚠️ Adresse de livraison incomplète</p>
+            <div className="delivery-summary-address incomplete">
+              <p className="summary-warning-text">
+                ⚠️ Adresse de livraison incomplète
+              </p>
               <button
                 type="button"
-                className="add-address-btn"
+                className="summary-add-address-btn"
                 onClick={() => navigate("/profile")}
               >
                 Ajouter une adresse
@@ -197,23 +198,22 @@ function OrderSummary() {
           )}
         </div>
 
-        {/* Section récapitulatif prix */}
-        <div className="order-total-section">
+        <div className="order-summary-total-section">
           <h2>Récapitulatif</h2>
 
-          <div className="total-row">
+          <div className="summary-total-row">
             <span>Sous-total</span>
             <span>{getTotal().toFixed(2)} €</span>
           </div>
 
-          <div className="total-row">
+          <div className="summary-total-row">
             <span>Livraison</span>
-            <span className="free-delivery">Gratuite</span>
+            <span className="summary-free-delivery">Gratuite</span>
           </div>
 
           <hr />
 
-          <div className="total-row final-total">
+          <div className="summary-total-row final-total">
             <span>Total</span>
             <span>{getTotal().toFixed(2)} €</span>
           </div>

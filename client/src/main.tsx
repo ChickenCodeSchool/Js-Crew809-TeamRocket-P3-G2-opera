@@ -15,11 +15,11 @@ import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
 import Cart from "./pages/Cart/Cart";
-import OrderSummary from "./pages/ConfirmCart/ConfirmCart";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
+import OrderSummary from "./pages/OrderSummary/OrderSummary";
 import Profile from "./pages/Profile/Profile";
 /*import Clients from "./pages/Admin/pages/Clients";*/
 import ProtectedExample from "./pages/ProtectedExample/ProtectedExample";
@@ -97,7 +97,7 @@ const router = createBrowserRouter([
 
       {
         path: "/order-summary",
-        element: <OrderSummary />, // ✅ Nouvelle route
+        element: <OrderSummary />,
       },
     ],
   },

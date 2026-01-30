@@ -54,8 +54,6 @@ function Cart() {
       alert("Votre panier est vide");
       return;
     }
-
-    // Rediriger vers la page de récapitulatif
     navigate("/order-summary");
   };
 
