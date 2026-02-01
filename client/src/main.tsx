@@ -21,6 +21,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
+import OrderConfirmation from "./pages/OrderConfirmation/OrderConfirmation";
+import OrderSummary from "./pages/OrderSummary/OrderSummary";
 import Profile from "./pages/Profile/Profile";
 /*import Login from "./components/login/Login";*/
 /*import Clients from "./pages/Admin/pages/Clients";*/
@@ -30,7 +32,6 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
-
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const router = createBrowserRouter([
@@ -122,6 +123,16 @@ const router = createBrowserRouter([
       {
         path: "/admin/customers",
         element: <CustomerManagement />,
+      },
+
+      {
+        path: "/order-summary",
+        element: <OrderSummary />,
+      },
+
+      {
+        path: "/order-confirmation",
+        element: <OrderConfirmation />,
       },
     ],
   },

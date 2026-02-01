@@ -8,6 +8,7 @@ import type { Auth } from "../../App";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import { Link } from "react-router-dom";
+import { useCartContext } from "../../contexts/CartContext";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -17,6 +18,7 @@ function Login() {
     setAuth: (auth: Auth | null) => void;
   }>();
   const navigate = useNavigate();
+  const { syncWithDatabase } = useCartContext();
 
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
@@ -39,6 +41,7 @@ function Login() {
 
       if (response.ok) {
         const data: Auth = await response.json();
+        console.log("✅ Données reçues du login:", data); // 👀 LOG
 
         if (!data.token || !data.user) {
           toast.error("Erreur serveur : données manquantes");
@@ -46,6 +49,18 @@ function Login() {
         }
 
         setAuth(data);
+
+        console.log(
+          "🔄 Tentative de sync avec customer_id:",
+          data.user.customer_id,
+        ); // 👀 LOG
+
+        try {
+          await syncWithDatabase(data.user.customer_id);
+          toast.success("Panier synchronisé !");
+        } catch (error) {
+          console.error("❌ Erreur sync panier:", error);
+        }
 
         if (data.user.role === 1) {
           navigate("/admin");
