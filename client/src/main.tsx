@@ -11,6 +11,7 @@ import AdminProducts from "./components/admin/admin_categorie/admin_product";
 import CarouselLp from "./components/carouselLp/carouselLp";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AdminPage from "./pages/Admin/AdminPage";
+import DetailAdminClient from "./pages/Admin/Clients/DetailAdminClient";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
@@ -99,6 +100,7 @@ const router = createBrowserRouter([
           { path: "", element: <Dashboard /> },
           { path: "orders", element: <AdminOrderEdit /> },
           { path: "clients", element: <CustomerManagement /> },
+          { path: "client/:id", element: <DetailAdminClient /> },
         ],
       },
       {

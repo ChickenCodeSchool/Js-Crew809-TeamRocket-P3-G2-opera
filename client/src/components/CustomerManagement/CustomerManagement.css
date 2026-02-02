@@ -18,31 +18,22 @@ h2 {
   justify-content: center;
 }
 
-.admin-headeradmin {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-.add-btn {
-  background-color: #ffffff;
-  color: #666666;
-  border: 1px solid #e0e0e0;
-  padding: 8px 16px;
-  font-family: "Montserrat", sans-serif;
-  font-size: 0.85rem;
-  cursor: pointer;
+/* INTERACTIVITÉ : Style pour les liens Ref et Nom */
+.client-data-link {
+  text-decoration: none;
+  color: inherit; /* Garde la couleur noire par défaut */
+  font-weight: 500;
   transition: all 0.2s ease;
-  border-radius: 4px;
+  display: inline-block;
 }
 
-.add-btn:hover {
-  color: #1a1a1a;
-  border-color: black;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.client-data-link:hover {
+  color: #000000; /* Noir au survol pour indiquer le clic */
+  text-decoration: underline;
+  transform: translateX(3px); /* Petit effet de glissement fluide */
 }
 
+/* Boutons d'actions restants (Edit / Delete) */
 .action-btn {
   background-color: #ffffff;
   border: 1px solid #e0e0e0;
@@ -55,6 +46,18 @@ h2 {
   justify-content: center;
   margin: 0 4px;
   color: #888;
+  transition: all 0.2s ease;
+}
+
+.action-btn:hover {
+  border-color: #1a1a1a;
+  color: #1a1a1a;
+}
+
+.delete-btn:hover {
+  border-color: #000000;
+  color: #000000; /* Le rouge est supprimé ici */
+  background-color: #f9f9f9; /* Optionnel : un léger gris pour le clic */
 }
 
 .role-badge {
@@ -71,7 +74,7 @@ h2 {
   .table-responsive-container {
     max-height: 60vh;
     overflow-y: auto;
-    border: 1px solid #000;
+    border: 1px solid #84848463;
     border-radius: 8px;
     margin-top: 20px;
   }
@@ -110,25 +113,15 @@ h2 {
     padding-top: 120px;
   }
 
-  .table-responsive-container {
-    border: none;
-    max-height: none;
-    overflow: visible;
-  }
-
   .admin-table,
-  .admin-table thead,
-  .admin-table tbody,
   .admin-table tr,
   .admin-table td {
     display: block !important;
     width: 100%;
   }
 
-  .admin-table thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
+  .admin-table thead {
+    display: none; /* Cache les titres proprement en mobile */
   }
 
   .admin-table tr {
@@ -142,32 +135,21 @@ h2 {
   .admin-table td {
     border: none !important;
     padding: 12px 15px !important;
-    min-height: 45px;
     display: flex !important;
     align-items: center;
-    justify-content: space-between; /* Pousse le titre à gauche et la valeur à droite */
+    justify-content: space-between;
     border-bottom: 1px solid #f0f0f0 !important;
-    word-break: break-all; /* Coupe les emails trop longs pour éviter qu'ils sortent de l'écran */
   }
 
   .admin-table td:last-child {
     border-bottom: none !important;
   }
 
-  /* Le label (Titre) */
   .admin-table td::before {
     content: attr(data-label);
     font-weight: 700;
     font-size: 0.75rem;
     text-transform: uppercase;
     color: #888;
-    margin-right: 15px;
-    flex-shrink: 0; /* Empêche le titre de rétrécir */
-    text-align: left;
-  }
-
-  .add-btn {
-    width: 100%;
-    justify-content: center;
   }
 }

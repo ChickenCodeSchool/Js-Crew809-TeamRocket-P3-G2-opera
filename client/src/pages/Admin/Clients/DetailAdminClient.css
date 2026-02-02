@@ -1,0 +1,99 @@
+/* ============================================================
+   1. STRUCTURE ET TYPOGRAPHIE
+   ============================================================ */
+.admin-customer-container {
+  padding: 40px;
+  padding-top: 200px; /* Aligné avec la page gestion */
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre la fiche à l'écran */
+}
+
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* ============================================================
+   2. LA CARTE D'INFORMATION (INFO-CARD)
+   ============================================================ */
+.info-card {
+  width: 100%;
+  max-width: 600px; /* Évite que la fiche soit trop large sur PC */
+  border: 1px solid #84848463; /* Même bordure que ton tableau */
+  padding: 40px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Léger relief */
+}
+
+.info-card p {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0; /* Lignes de séparation comme le tableau */
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between; /* Aligne libellé à gauche, info à droite */
+}
+
+.info-card p:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.info-card strong {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   3. BOUTON RETOUR (ADD-BTN)
+   ============================================================ */
+.add-btn {
+  margin-top: 40px;
+  padding: 12px 30px;
+  background-color: #1a1a1a; /* Fond noir comme le header du tableau */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-btn:hover {
+  background-color: #000000;
+  /*transform: translateY(-20px); /* Petit effet de levée au survol */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-decoration: underline;
+  transform: translateY(3px); /* Petit effet de glissement fluide */
+}
+
+/* ============================================================
+   4. ADAPTATION MOBILE
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  .admin-customer-container {
+    padding: 20px;
+    padding-top: 120px;
+  }
+
+  .info-card {
+    padding: 20px;
+  }
+
+  .info-card p {
+    flex-direction: column; /* Libellé au dessus de l'info en mobile */
+    align-items: flex-start;
+  }
+}
