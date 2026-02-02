@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
+import imageopera from "../../assets/images/imageopera.jpg";
 import AllProducts, {
   type GlobalProduct,
 } from "../../components/AllProducts/AllProducts";
 import ButtonFilterBar from "../../components/buttonFilterBar/ButtonFilterBar";
 import FilterBar from "../../components/filterBar/FilterBar";
-import imageopera from "../../assets/images/imageopera.jpg";
 import "./AllProductsPage.css";
 
 function AllProductsPage() {
