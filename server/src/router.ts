@@ -115,9 +115,8 @@ import stripeActions from "./modules/Stripe/stripeAction";
 router.post(
   "/api/stripe/create-checkout-session",
   stripeActions.createCheckoutSession,
-
-  router.post("/api/stripe/verify-payment", stripeActions.verifyPayment),
 );
+router.post("/api/stripe/verify-payment", stripeActions.verifyPayment);
 
 import * as dashboardActions from "./modules/dashboard/dashboardActions";
 router.get("/api/dashboard/revenue", dashboardActions.revenuePerMonth);

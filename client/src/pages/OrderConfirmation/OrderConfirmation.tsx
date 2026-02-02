@@ -13,7 +13,7 @@ type OrderDetails = {
     quantity: number;
     price: number;
     size_label?: string;
-    image_url?: string;
+    url?: string;
   }>;
   customers: {
     firstname: string;
@@ -162,9 +162,9 @@ function OrderConfirmation() {
           <div className="order-items-list">
             {orderDetails.items.map((item) => (
               <div key={item.product_name} className="order-item">
-                {item.image_url && (
+                {item.url && (
                   <img
-                    src={`${baseUrl}${item.image_url}`}
+                    src={`${baseUrl}${item.url}`}
                     alt={item.product_name}
                     className="order-item-image"
                   />

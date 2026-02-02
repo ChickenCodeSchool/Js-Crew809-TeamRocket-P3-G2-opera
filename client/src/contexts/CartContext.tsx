@@ -11,7 +11,7 @@ type CartItem = {
   product_id: number;
   name: string;
   price: number;
-  image_url: string;
+  url: string;
   quantity: number;
   size_id: number;
   size_label: string;
@@ -31,23 +31,15 @@ type CartContextType = {
   getItemCount: () => number;
   isLoaded: boolean;
   syncWithDatabase: (customerId: number) => Promise<void>;
-  clearCart: () => Promise<void>; // ← Changez ici de void à Promise<void>
+  clearCart: () => Promise<void>;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-// ✅ Ajouter cette fonction AVANT CartProvider
-/**
- * Parse en toute sécurité une valeur du localStorage
- * @param key - Clé du localStorage
- * @param defaultValue - Valeur par défaut si parsing échoue
- * @returns La valeur parsée ou la valeur par défaut
- */
 const safeParseJSON = <T,>(key: string, defaultValue: T): T => {
   try {
     const item = localStorage.getItem(key);
 
-    // Vérifier que la valeur existe et n'est pas une chaîne invalide
     if (!item || item === "undefined" || item === "null") {
       return defaultValue;
     }
@@ -55,12 +47,11 @@ const safeParseJSON = <T,>(key: string, defaultValue: T): T => {
     return JSON.parse(item) as T;
   } catch (error) {
     console.error(`Erreur parsing ${key}:`, error);
-    localStorage.removeItem(key); // Nettoyer les données corrompues
+    localStorage.removeItem(key); // Nettoie les données corrompues
     return defaultValue;
   }
 };
 
-// ✅ Maintenant le CartProvider
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -69,27 +60,61 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const baseUrl = import.meta.env.VITE_API_URL;
 
-  // Charger le panier au démarrage
+  // Charge le panier au démarrage
   useEffect(() => {
     loadCart();
   }, []);
 
-  // Sauvegarder dans localStorage à chaque changement
+  // Surveille les changements d'authentification
   useEffect(() => {
-    if (isLoaded) {
+    const handleStorageChange = () => {
+      const user = safeParseJSON<{ customer_id: number } | null>("user", null);
+      const token = localStorage.getItem("token");
+
+      // Si pas de user/token mais qu'on a encore customerId → déconnexion
+      if ((!user || !token) && customerId) {
+        setCustomerId(null);
+        setCartId(null);
+
+        // Charger le panier local s'il existe
+        const localCart = safeParseJSON<CartItem[]>("cart", []);
+        setItems(localCart);
+      }
+
+      // Si user existe mais pas de customerId → reconnexion
+      if (user?.customer_id && !customerId) {
+        loadCart();
+      }
+    };
+
+    // Écouter les changements du localStorage
+    window.addEventListener("storage", handleStorageChange);
+
+    // Vérifier aussi toutes les 500ms (au cas où storage event ne fire pas)
+    const interval = setInterval(handleStorageChange, 500);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [customerId]); // ← Dépend de customerId
+
+  useEffect(() => {
+    if (isLoaded && !customerId) {
       localStorage.setItem("cart", JSON.stringify(items));
+      console.log("💾 Panier sauvegardé dans localStorage:", items);
     }
-  }, [items, isLoaded]);
+  }, [items, isLoaded, customerId]);
 
   const loadCart = async () => {
     try {
       const user = safeParseJSON<{ customer_id: number } | null>("user", null);
 
-      console.log("👤 User récupéré:", user); // 👀 LOG
+      console.log("👤 User récupéré:", user);
 
       if (user?.customer_id) {
-        console.log("✅ User connecté, customer_id:", user.customer_id); // 👀 LOG
-        setCustomerId(user.customer_id); // ✅ Cette ligne est importante
+        console.log("✅ User connecté, customer_id:", user.customer_id);
+        setCustomerId(user.customer_id);
 
         try {
           const response = await fetch(
@@ -97,7 +122,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           );
           if (response.ok) {
             const data = await response.json();
-            console.log("📦 Panier chargé depuis DB:", data); // 👀 LOG
+            console.log("📦 Panier chargé depuis DB:", data);
             setCartId(data.cartId);
             setItems(data.items || []);
           } else {
@@ -110,7 +135,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           setItems(localCart);
         }
       } else {
-        console.log("⚠️ User non connecté"); // 👀 LOG
+        console.log("⚠️ User non connecté");
         const localCart = safeParseJSON<CartItem[]>("cart", []);
         setItems(localCart);
       }
@@ -124,7 +149,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const syncWithDatabase = async (customerId: number) => {
     console.log("🔄 syncWithDatabase appelée avec customerId:", customerId);
-    console.log("📦 Items à synchroniser:", items);
+
+    const localCart = safeParseJSON<CartItem[]>("cart", []);
+    console.log("📦 Items à synchroniser:", localCart);
 
     try {
       const response = await fetch(`${baseUrl}/api/cart/sync`, {
@@ -132,7 +159,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           customerId: customerId,
-          items: items,
+          items: localCart,
         }),
       });
 
@@ -144,7 +171,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
         setCustomerId(customerId);
         setCartId(data.cartId);
-        setItems(data.items || []); // ✅ Les items de la DB ont des cart_item_id
+        setItems(data.items || []);
 
         localStorage.removeItem("cart");
 
@@ -171,7 +198,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
     let updatedItems: CartItem[];
 
-    // Si connecté, envoyer à la DB AVANT de mettre à jour le state
     if (customerId && cartId) {
       try {
         console.log("🔄 Envoi à la DB");
@@ -185,6 +211,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
             size_id: newItem.size_id,
             quantity: newItem.quantity,
             unit_price: newItem.price,
+            url: newItem.url,
           }),
         });
 
@@ -192,17 +219,14 @@ export function CartProvider({ children }: { children: ReactNode }) {
           const data = await response.json();
           console.log("✅ Réponse DB:", data);
 
-          // ✅ Récupérer le cart_item_id depuis la DB
           const cartItemId = data.cartItemId;
 
           if (existingIndex > -1) {
-            // Mettre à jour l'item existant avec le cart_item_id
             updatedItems = [...items];
             updatedItems[existingIndex].quantity += newItem.quantity;
-            updatedItems[existingIndex].cart_item_id = cartItemId; // ✅ Ajouter l'ID
+            updatedItems[existingIndex].cart_item_id = cartItemId;
           } else {
-            // Ajouter le nouvel item avec le cart_item_id
-            updatedItems = [...items, { ...newItem, cart_item_id: cartItemId }]; // ✅ Ajouter l'ID
+            updatedItems = [...items, { ...newItem, cart_item_id: cartItemId }];
           }
         } else {
           console.error("❌ Erreur ajout DB:", await response.text());
@@ -241,8 +265,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const removeFromCart = async (productId: number, sizeId: number) => {
     console.log("🗑️ removeFromCart appelée:", { productId, sizeId });
-    console.log("👤 customerId actuel:", customerId); // 👀 LOG IMPORTANT
-    console.log("🛒 cartId actuel:", cartId); // 👀 LOG IMPORTANT
+    console.log("👤 customerId actuel:", customerId);
+    console.log("🛒 cartId actuel:", cartId);
 
     const item = items.find(
       (i) => i.product_id === productId && i.size_id === sizeId,
@@ -295,7 +319,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     quantity: number,
     sizeId: number,
   ) => {
-    console.log("🔄 updateQuantity appelée:", { productId, quantity, sizeId }); // 👀 LOG
+    console.log("🔄 updateQuantity appelée:", { productId, quantity, sizeId });
 
     if (quantity < 1) {
       await removeFromCart(productId, sizeId);
@@ -306,11 +330,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       (i) => i.product_id === productId && i.size_id === sizeId,
     );
 
-    console.log("🔍 Item trouvé pour update:", item); // 👀 LOG
+    console.log("🔍 Item trouvé pour update:", item);
 
     // Si connecté, mettre à jour la DB
     if (customerId && item?.cart_item_id) {
-      console.log("🔄 Mise à jour dans la DB"); // 👀 LOG
+      console.log("🔄 Mise à jour dans la DB");
 
       try {
         const response = await fetch(
@@ -322,7 +346,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
           },
         );
 
-        console.log("📡 Réponse update DB:", response.status); // 👀 LOG
+        console.log("📡 Réponse update DB:", response.status);
 
         if (!response.ok) {
           console.error("❌ Erreur update DB:", await response.text());
@@ -377,7 +401,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         console.error("Erreur vidage panier:", error);
       }
     }
-  }, []); // Pas de dépendances car elle n'utilise que des valeurs stables
+  }, []);
 
   return (
     <CartContext.Provider

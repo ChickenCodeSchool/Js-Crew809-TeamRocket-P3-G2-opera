@@ -30,7 +30,7 @@ function AddtocartButton({
       product_id: productId,
       name: productName,
       price,
-      image_url: imageUrl,
+      url: imageUrl,
       quantity: 1,
       size_id: selectedSize,
       size_label: selectedSizeLabel || "",

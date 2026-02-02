@@ -12,6 +12,9 @@ function ProfileMenu({ auth, setAuth, theme }: ProfileMenuProps) {
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("cart");
     setAuth(null);
     navigate("/");
   };

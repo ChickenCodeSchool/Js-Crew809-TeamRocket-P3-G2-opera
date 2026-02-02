@@ -15,40 +15,6 @@ function Cart() {
     );
   }
 
-  // const handleCheckout = async () => {
-  //   if (items.length === 0) {
-  //     alert("Votre panier est vide");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(
-  //       `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
-  //       {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({
-  //           items: items.map((item) => ({
-  //             name: item.name,
-  //             price: item.price,
-  //             quantity: item.quantity,
-  //             size_label: item.size_label,
-  //           })),
-  //         }),
-  //       },
-  //     );
-
-  //     const data = await response.json();
-
-  //     if (data.url) {
-  //       window.location.href = data.url;
-  //     }
-  //   } catch (error) {
-  //     console.error("Erreur checkout:", error);
-  //     alert("Erreur lors du paiement");
-  //   }
-  // };
-
   const handleValidateCart = () => {
     if (items.length === 0) {
       alert("Votre panier est vide");
@@ -93,7 +59,7 @@ function Cart() {
               className="cart-item"
             >
               <img
-                src={`${baseUrl}${item.image_url}`}
+                src={`${baseUrl}${item.url}`}
                 alt={item.name}
                 className="item-image"
               />

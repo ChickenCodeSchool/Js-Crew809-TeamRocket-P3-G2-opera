@@ -102,7 +102,8 @@ class CartRepository {
       JOIN product p ON ci.product_id = p.product_id
       LEFT JOIN product_image pi ON p.product_id = pi.product_id AND pi.is_main = 1
       LEFT JOIN size s ON ci.size_id = s.size_id
-      WHERE ci.cart_id = "?";`[cartId],
+      WHERE ci.cart_id = ?;`,
+      [cartId],
     );
     return rows;
   }
