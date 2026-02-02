@@ -3,22 +3,27 @@ import type { Rows } from "../../../database/client";
 
 class FilterBarRepository {
   async readFiltered(
-    brandId: number,
+    brandId?: number,
     categoryId?: number,
     color?: string,
     size?: string,
     priceRange?: string,
   ) {
     let sql = `
-      SELECT DISTINCT p.product_id, p.name, p.price, p.color, pi.url as image_url
+      SELECT DISTINCT p.product_id, p.name, p.price, p.color, p.brand_id, pi.url as image_url
       FROM product p
       JOIN product_categories pc ON p.product_id = pc.product_id
       LEFT JOIN product_image pi ON p.product_id = pi.product_id AND pi.is_main = 1
       LEFT JOIN size s ON p.product_id = s.product_id 
-      WHERE p.brand_id = ?
+      WHERE 1=1 
     `;
 
-    const params: (string | number)[] = [brandId];
+    const params: (string | number)[] = [];
+
+    if (brandId) {
+      sql += " AND p.brand_id = ?";
+      params.push(brandId);
+    }
 
     if (categoryId) {
       sql += " AND pc.categorie_id = ?";
@@ -111,15 +116,21 @@ class FilterBarRepository {
     return rows;
   }
 
-  async readSizes(brandId: number, categoryId?: number) {
+  async readSizes(brandId?: number, categoryId?: number) {
     let sql = `
       SELECT DISTINCT s.size_label
       FROM size s
       JOIN product p ON s.product_id = p.product_id
       JOIN product_categories pc ON p.product_id = pc.product_id
-      WHERE p.brand_id = ?
+      WHERE 1=1
     `;
-    const params: (string | number)[] = [brandId];
+    const params: (string | number)[] = [];
+
+    if (brandId) {
+      sql += " AND p.brand_id = ?";
+      params.push(brandId);
+    }
+
     if (categoryId) {
       sql += " AND pc.categorie_id = ?";
       params.push(categoryId);
@@ -129,14 +140,19 @@ class FilterBarRepository {
     return rows;
   }
 
-  async readColors(brandId: number, categoryId?: number) {
+  async readColors(brandId?: number, categoryId?: number) {
     let sql = `
       SELECT DISTINCT p.color
       FROM product p
       JOIN product_categories pc ON p.product_id = pc.product_id
-      WHERE p.brand_id = ?
+      WHERE 1=1
     `;
-    const params: (string | number)[] = [brandId];
+    const params: (string | number)[] = [];
+
+    if (brandId) {
+      sql += " AND p.brand_id = ?";
+      params.push(brandId);
+    }
 
     if (categoryId) {
       sql += " AND pc.categorie_id = ?";

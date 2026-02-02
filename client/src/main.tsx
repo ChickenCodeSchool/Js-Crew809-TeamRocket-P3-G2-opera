@@ -30,6 +30,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import AllProductsPage from "./pages/AllProductsPage/AllProductsPage";
 
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
@@ -122,6 +123,10 @@ const router = createBrowserRouter([
       {
         path: "/admin/customers",
         element: <CustomerManagement />,
+      },
+      {
+        path: "/all",
+        element: <AllProductsPage />,
       },
     ],
   },
