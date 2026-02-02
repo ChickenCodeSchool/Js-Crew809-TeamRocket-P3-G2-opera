@@ -1,3 +1,4 @@
+import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import HeroProduct from "../../components/HeroProduct/heroProduct";
 import CarouselImgArticle from "../../components/carouselImgArticle/carouselImgArticle";
 import DescriptionArticle from "../../components/descriptionArticle/descriptionArticle";
@@ -15,6 +16,7 @@ function articlePage() {
   return (
     <>
       <HeroProduct brandId={SelectedBrandId} />
+      {SelectedProductId && <Breadcrumb productId={SelectedProductId} />}
       <div className="article-page">
         {SelectedProductId && (
           <>

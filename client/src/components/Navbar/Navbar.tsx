@@ -35,6 +35,8 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     "/panier",
     "/forgot-password",
     "/reset-password",
+    "/order-confirmation",
+    "/order-summary",
   ];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
