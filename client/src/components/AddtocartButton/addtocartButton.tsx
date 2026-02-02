@@ -1,12 +1,13 @@
-import { useState } from "react";
 import { useCartContext } from "../../contexts/CartContext";
-import "../AddtocartButton/addtocartButton.css";
+import "./addtocartButton.css";
 
-type AddtocartButtonProps = {
+type Props = {
   productId: number;
   productName: string;
   price: number;
   imageUrl: string;
+  selectedSize?: number | null;
+  selectedSizeLabel?: string;
 };
 
 function AddtocartButton({
@@ -14,32 +15,36 @@ function AddtocartButton({
   productName,
   price,
   imageUrl,
-}: AddtocartButtonProps) {
+  selectedSize,
+  selectedSizeLabel,
+}: Props) {
   const { addToCart } = useCartContext();
-  const [isAdded, setIsAdded] = useState(false);
 
   const handleAddToCart = () => {
+    if (!selectedSize) {
+      alert("Veuillez sélectionner une taille");
+      return;
+    }
+
     addToCart({
       product_id: productId,
       name: productName,
       price,
-      image_url: imageUrl,
+      url: imageUrl,
+      quantity: 1,
+      size_id: selectedSize,
+      size_label: selectedSizeLabel || "",
     });
-
-    setIsAdded(true);
-    setTimeout(() => setIsAdded(false), 5000);
   };
 
   return (
-    <div>
-      <button
-        type="button"
-        className={`add-to-cart-button ${isAdded ? "added" : ""}`}
-        onClick={handleAddToCart}
-      >
-        {isAdded ? "Ajouté au panier" : "Ajouter au panier"}
-      </button>
-    </div>
+    <button
+      type="button"
+      className="add-to-cart-button"
+      onClick={handleAddToCart}
+    >
+      Ajouter au panier
+    </button>
   );
 }
 
