@@ -28,7 +28,15 @@ type Category = {
   name: string;
 };
 
-export default function FormulaireProduct() {
+type FormulaireProductProps = {
+  onSuccess?: () => void;
+  onCancel?: () => void;
+};
+
+export default function FormulaireProduct({
+  onSuccess,
+  onCancel,
+}: FormulaireProductProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState<NewProductData>({
     name: "",
@@ -112,11 +120,9 @@ export default function FormulaireProduct() {
   const removeImage = (index: number) => {
     setImages((prev) => {
       const newImages = prev.filter((_, i) => i !== index);
-      // Si on supprime l'image principale et qu'il reste des images
       if (prev[index].isMain && newImages.length > 0) {
         newImages[0].isMain = true;
       }
-      // Libérer la mémoire
       URL.revokeObjectURL(prev[index].preview);
       return newImages;
     });
@@ -143,7 +149,6 @@ export default function FormulaireProduct() {
     }
   };
 
-  //On recherche les catégories
   useEffect(() => {
     const fetchCategories = async () => {
       const API_URL = import.meta.env.VITE_API_URL;
@@ -162,13 +167,34 @@ export default function FormulaireProduct() {
     fetchCategories();
   }, []);
 
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      description: "",
+      brand_id: 0,
+      price: 0,
+      color: "",
+      gender: "",
+      category_id: 0,
+    });
+
+    for (const img of images) {
+      URL.revokeObjectURL(img.preview);
+    }
+    setImages([]);
+
+    const fileInput = document.querySelector(
+      'input[type="file"]',
+    ) as HTMLInputElement;
+    if (fileInput) fileInput.value = "";
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     const API_URL = import.meta.env.VITE_API_URL;
 
     try {
-      // 1️⃣ créer le produit
       const response = await fetch(`${API_URL}/api/products`, {
         method: "POST",
         headers: {
@@ -186,37 +212,15 @@ export default function FormulaireProduct() {
         throw new Error("Erreur lors de la création du produit");
       }
 
-      // ⚠️ RÉCUPÉRER L'ID DU PRODUIT
       const data: { product_id: number } = await response.json();
 
-      // 2️⃣ uploader les images
       if (images.length > 0) {
         await uploadImages(data.product_id);
       }
 
       alert("Produit + images créés 🎉");
-
-      // reset
-      setFormData({
-        name: "",
-        description: "",
-        brand_id: 0,
-        price: 0,
-        color: "",
-        gender: "",
-        category_id: 0,
-      });
-
-      for (const img of images) {
-        URL.revokeObjectURL(img.preview);
-      }
-      setImages([]);
-
-      // Reset input file
-      const fileInput = document.querySelector(
-        'input[type="file"]',
-      ) as HTMLInputElement;
-      if (fileInput) fileInput.value = "";
+      resetForm();
+      onSuccess?.(); // Ferme le modal après succès
     } catch (error) {
       console.error(error);
       alert(error instanceof Error ? error.message : "Une erreur est survenue");
@@ -226,20 +230,8 @@ export default function FormulaireProduct() {
   };
 
   const handleCancel = () => {
-    setFormData({
-      name: "",
-      description: "",
-      brand_id: 0,
-      price: 0,
-      color: "",
-      gender: "",
-      category_id: 0,
-    });
-    for (const img of images) {
-      URL.revokeObjectURL(img.preview);
-    }
-
-    setImages([]);
+    resetForm();
+    onCancel?.(); // Ferme le modal
   };
 
   return (
@@ -275,7 +267,7 @@ export default function FormulaireProduct() {
         />
       </div>
 
-      {/* Marque et Prix */}
+      {/* Marque, Catégorie et Prix */}
       <div className="product-form__row">
         <div className="product-form__field">
           <label htmlFor="brand_id" className="product-form__label">
@@ -300,7 +292,6 @@ export default function FormulaireProduct() {
           <label htmlFor="category_id" className="product-form__label">
             Catégorie
           </label>
-
           <select
             name="category_id"
             value={formData.category_id}
@@ -349,7 +340,6 @@ export default function FormulaireProduct() {
             placeholder="Marron, Noir, Rouge..."
           />
         </div>
-
         <div className="product-form__field">
           <label htmlFor="gender" className="product-form__label">
             Genre
@@ -398,20 +388,16 @@ export default function FormulaireProduct() {
                 }`}
                 onClick={() => setMainImage(index)}
                 aria-pressed={img.isMain}
-                aria-label={`Définir l’image ${index + 1} comme principale`}
+                aria-label={`Définir l'image ${index + 1} comme principale`}
               >
                 <img
                   src={img.preview}
                   alt={`Preview ${index + 1}`}
                   className="product-form__image-preview"
                 />
-
-                {/* Badge principale */}
                 {img.isMain && (
                   <div className="product-form__main-badge">★ Principale</div>
                 )}
-
-                {/* Bouton supprimer */}
                 <button
                   type="button"
                   onClick={(e) => {
@@ -423,8 +409,6 @@ export default function FormulaireProduct() {
                 >
                   ×
                 </button>
-
-                {/* Overlay hover */}
                 {!img.isMain && (
                   <div className="product-form__image-overlay">
                     <span>Définir comme principale</span>
