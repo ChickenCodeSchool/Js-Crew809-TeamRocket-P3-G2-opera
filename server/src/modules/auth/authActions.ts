@@ -1,8 +1,20 @@
 import bcrypt from "bcrypt";
 import type { RequestHandler } from "express";
+import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
 import { sendResetEmail } from "../../../utils/email";
 import customerRepository from "../user/customerRepository";
+
+const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+interface GoogleTokenPayload {
+  email: string;
+  name: string;
+  given_name: string;
+  family_name: string;
+  picture?: string;
+  sub: string;
+}
 
 interface MyPayload {
   sub: string;
@@ -199,6 +211,115 @@ const resetPassword: RequestHandler = async (req, res, next) => {
   }
 };
 
+// CONNEXION GOOGLE
+const googleLogin: RequestHandler = async (req, res, next) => {
+  try {
+    const { credential } = req.body;
+
+    if (!credential) {
+      res.status(400).json({ error: "Google credential is required" });
+      return;
+    }
+
+    if (!process.env.GOOGLE_CLIENT_ID) {
+      console.error("GOOGLE_CLIENT_ID not found in environment variables");
+      res.status(500).json({ error: "Server configuration error" });
+      return;
+    }
+
+    console.log("Verifying Google token...");
+
+    const ticket = await googleClient.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload || !payload.email) {
+      res.status(401).json({ error: "Invalid Google token" });
+      return;
+    }
+
+    // Chercher si l'utilisateur existe déjà
+    let customer = await customerRepository.readByEmailWithPassword(
+      payload.email,
+    );
+
+    // Si l'utilisateur n'existe pas, le créer
+    if (!customer) {
+      console.log("Creating new user from Google account");
+      const newCustomer = {
+        firstname:
+          payload.given_name || payload.name?.split(" ")[0] || "Utilisateur",
+        lastname:
+          payload.family_name ||
+          payload.name?.split(" ").slice(1).join(" ") ||
+          "Google",
+        mail: payload.email,
+        password: await bcrypt.hash(payload.sub, SALT_ROUNDS),
+        role: 0 as const,
+        birthday: null, // Valeur par défaut au lieu de null
+        adress: "", // Valeur par défaut au lieu de null
+        postal_code: "", // Valeur par défaut au lieu de null
+        country: "", // Valeur par défaut au lieu de null
+        phone: "", // Valeur par défaut au lieu de null
+        created_at: new Date(),
+        updated_at: new Date(),
+      };
+
+      const insertId = await customerRepository.create(newCustomer);
+      customer = await customerRepository.readByEmailWithPassword(
+        payload.email,
+      );
+    }
+
+    if (!customer) {
+      res.status(500).json({ error: "Failed to create or retrieve user" });
+      return;
+    }
+
+    const { password: _password, ...customerWithoutPassword } = customer;
+
+    const jwtPayload: MyPayload = {
+      sub: customer.customer_id.toString(),
+    };
+
+    const token = jwt.sign(jwtPayload, process.env.APP_SECRET as string, {
+      expiresIn: "1h",
+    });
+
+    res.cookie("auth_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 1000,
+    });
+
+    console.log("Google login successful for:", payload.email);
+
+    res.json({
+      token,
+      user: customerWithoutPassword,
+    });
+  } catch (err) {
+    console.error("Google login error:", err);
+    res.status(500).json({
+      error: "Authentication failed",
+      details: err instanceof Error ? err.message : "Unknown error",
+    });
+  }
+};
+
+const logout: RequestHandler = (req, res) => {
+  res.clearCookie("auth_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "lax",
+  });
+  res.json({ message: "Déconnecté avec succès" });
+};
+
 export default {
   login,
   getSession,
@@ -206,4 +327,6 @@ export default {
   verifyToken,
   forgotPassword,
   resetPassword,
+  googleLogin,
+  logout,
 };

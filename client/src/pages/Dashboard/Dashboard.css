@@ -1,125 +1,136 @@
-.dashboard-container {
-  padding: 30px;
-  font-family: "Inter", "Arial", sans-serif;
-  background-color: #f5f6fa;
-  min-height: 100vh;
-  color: #333;
-}
-
-.dashboard-container h1 {
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: #1f2a3b;
-}
-
-.dashboard-filters {
+.dash-title {
+  color: #bcbcbc;
+  font-family: "Bodoni Moda SC", serif;
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 30px;
+  font-size: 3.5rem;
 }
 
-.dashboard-filters label {
-  font-weight: 500;
-  color: #555;
+.dashboard-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #16181d, #0a0a0a 80%);
+  font-family: "Montserrat", sans-serif;
+  padding: 60px 80px;
   display: flex;
   flex-direction: column;
-  font-size: 0.95rem;
-}
-
-.dashboard-filters select {
-  margin-top: 5px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: #fff;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: border 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-filters select:hover {
-  border-color: #4e54c8;
-  box-shadow: 0 0 5px rgba(78, 84, 200, 0.3);
-}
-
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-  gap: 30px;
-  justify-items: stretch;
-}
-
-.dashboard-card {
-  background-color: #fff;
-  border-radius: 20px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 18px 35px rgba(0, 0, 0, 0.1);
-}
-
-.dashboard-card-header {
-  padding: 20px;
-  font-weight: 700;
-  font-size: 1.2rem;
-  background: linear-gradient(90deg, #4e54c8, #8f94fb);
-  color: #fff;
-}
-
-.dashboard-card-kpi {
-  padding: 15px 20px;
-  font-size: 1.4rem;
-  font-weight: 600;
-  color: #1f2a3b;
-  background-color: #f0f2f8;
-  border-bottom: 1px solid #e1e4eb;
-}
-
-.dashboard-card-body {
-  padding: 25px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.dashboard-card-body .recharts-wrapper {
-  flex: 1;
+  gap: 80px;
 }
 
 .dashboard-loading {
   text-align: center;
-  font-size: 1.3rem;
-  color: #888;
-  margin-top: 60px;
+  color: #555;
+  margin-top: 100px;
 }
 
-@media (max-width: 1024px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr;
-  }
+.dashboard-top {
+  display: flex;
+  gap: 40px;
+}
+
+.dashboard-left {
+  flex: 0 0 auto;
+}
+
+.dashboard-right {
+  flex: 1;
+}
+
+.dashboard-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+}
+
+.dashboard-section {
+  padding: 24px;
+  border-radius: 20px;
+  border: 1px solid #2d2d2d;
+  background-color: #111318;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.dashboard-section:hover {
+  transform: translateY(-4px);
+  border-color: #4d4d4d;
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.7);
+}
+
+.section-footer {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.section-title {
+  color: #8e8e8e;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 24px;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.section-kpi {
+  font-size: 16px;
+  color: #e5e5e5;
+  font-weight: 400;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.recharts-default-tooltip {
+  border: none !important;
+}
+
+.recharts-pie-sector {
+  transition: transform 0.3s ease, filter 0.3s ease;
+  outline: none;
+}
+
+.recharts-pie-sector:hover {
+  transform: scale(1.04);
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.3));
+}
+
+.recharts-cartesian-grid-vertical {
+  display: none;
 }
 
 @media (max-width: 768px) {
   .dashboard-container {
-    padding: 20px;
+    padding: 30px 15px;
+    gap: 40px;
   }
 
-  .dashboard-card-body {
-    padding: 20px;
-  }
-
-  .dashboard-filters {
+  .dashboard-top {
     flex-direction: column;
-    gap: 15px;
+    gap: 30px;
+  }
+
+  .dashboard-left,
+  .dashboard-right {
+    flex: 1 1 100%;
+  }
+
+  .dashboard-bottom {
+    gap: 40px;
+  }
+
+  .dashboard-section {
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-kpi {
+    font-size: 14px;
+  }
+
+  .dashboard-loading {
+    margin-top: 60px;
+    font-size: 14px;
   }
 }

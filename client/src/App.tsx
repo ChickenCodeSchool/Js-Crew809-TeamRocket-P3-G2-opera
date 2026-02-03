@@ -35,6 +35,32 @@ function App() {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const res = await fetch("http://localhost:3310/auth/session", {
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.user) {
+            setAuth({ token: "", user: data.user });
+          }
+        } else {
+          setAuth(null);
+        }
+      } catch (err) {
+        console.error("Erreur lors de la récupération de la session:", err);
+        setAuth(null);
+      }
+    };
+
+    fetchSession();
+  }, []);
+
+  const isSnapBrandPage = /^\/brand\/\d+$/.test(location.pathname);
+
   return (
     <>
       {!isAdmin && (
@@ -43,7 +69,7 @@ function App() {
       <div className={!isLanding && !isAdmin ? "with-fixed-navbar" : ""}>
         <Outlet context={{ auth, setAuth }} />
       </div>
-      {!isAdmin && <Footer />}
+      {!isAdmin && !isSnapBrandPage && <Footer />}
     </>
   );
 }

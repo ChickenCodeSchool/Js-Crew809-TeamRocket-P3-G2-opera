@@ -1,104 +1,155 @@
-import { useEffect, useState } from "react";
+// import { useEffect, useRef, useState } from "react";
 
-export type CartItem = {
-  product_id: number;
-  name: string;
-  price: number;
-  image_url: string;
-  quantity: number;
-};
+// export type CartItem = {
+//   product_id: number;
+//   name: string;
+//   price: number;
+//   image_url: string;
+//   quantity: number;
+//   size_label: string;
+//   size_id: number;
+// };
 
-export const useCart = () => {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+// export const useCart = () => {
+//   const [items, setItems] = useState<CartItem[]>([]);
+//   const [isLoaded, setIsLoaded] = useState(false);
+//   const isInitialMount = useRef(true);
 
-  // Charger depuis localStorage au montage
-  useEffect(() => {
-    const storedItems = localStorage.getItem("cart");
-    if (storedItems) {
-      try {
-        const parsedItems = JSON.parse(storedItems);
-        // Convertir les prix en nombres
-        const normalizedItems = parsedItems.map((item: CartItem) => ({
-          ...item,
-          price:
-            typeof item.price === "string"
-              ? Number.parseFloat(item.price)
-              : item.price,
-        }));
-        setItems(normalizedItems);
-      } catch (error) {
-        console.error("Erreur lors du chargement du panier:", error);
-        setItems([]);
-      }
-    }
-    setIsLoaded(true);
-  }, []);
+//   const isAuthenticated = !!localStorage.getItem("token");
 
-  // Sauvegarder dans localStorage chaque fois que les items changent
-  useEffect(() => {
-    if (isLoaded) {
-      localStorage.setItem("cart", JSON.stringify(items));
-    }
-  }, [items, isLoaded]);
+//   useEffect(() => {
+//     const loadCart = async () => {
+//       //  NON CONNECTÉE  localStorage
+//       if (!isAuthenticated) {
+//         const storedItems = localStorage.getItem("cart");
+//         if (storedItems) {
+//           try {
+//             setItems(JSON.parse(storedItems));
+//           } catch {
+//             setItems([]);
+//           }
+//         }
+//       }
 
-  const addToCart = (item: Omit<CartItem, "quantity">) => {
-    setItems((prevItems) => {
-      const existingItem = prevItems.find(
-        (cartItem) => cartItem.product_id === item.product_id,
-      );
+//       // CONNECTÉE API
+//       else {
+//         const res = await fetch("/api/cart", {
+//           headers: {
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//           },
+//         });
 
-      if (existingItem) {
-        return prevItems.map((cartItem) =>
-          cartItem.product_id === item.product_id
-            ? { ...cartItem, quantity: cartItem.quantity + 1 }
-            : cartItem,
-        );
-      }
+//         if (res.ok) {
+//           const data = await res.json();
+//           setItems(data.items || []);
+//         }
+//       }
 
-      return [...prevItems, { ...item, quantity: 1 }];
-    });
-  };
+//       setIsLoaded(true);
+//     };
 
-  const removeFromCart = (productId: number) => {
-    setItems((prevItems) =>
-      prevItems.filter((item) => item.product_id !== productId),
-    );
-  };
+//     loadCart();
+//   }, [isAuthenticated]);
 
-  const updateQuantity = (productId: number, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(productId);
-      return;
-    }
+//   useEffect(() => {
+//     if (!isLoaded) return;
 
-    setItems((prevItems) =>
-      prevItems.map((item) =>
-        item.product_id === productId ? { ...item, quantity } : item,
-      ),
-    );
-  };
+//     // évite la sauvegarde au premier render
+//     if (isInitialMount.current) {
+//       isInitialMount.current = false;
+//       return;
+//     }
 
-  const clearCart = () => {
-    setItems([]);
-  };
+//     const saveCart = async () => {
+//       // NON CONNECTÉE → localStorage
+//       if (!isAuthenticated) {
+//         localStorage.setItem("cart", JSON.stringify(items));
+//       }
 
-  const getTotal = () => {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
-  };
+//       // CONNECTÉE → API
+//       else {
+//         await fetch("/api/cart", {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${localStorage.getItem("token")}`,
+//           },
+//           body: JSON.stringify({ items }),
+//         });
+//       }
+//     };
 
-  const getItemCount = () => {
-    return items.reduce((count, item) => count + item.quantity, 0);
-  };
+//     saveCart();
+//   }, [items, isLoaded, isAuthenticated]);
 
-  return {
-    items,
-    addToCart,
-    removeFromCart,
-    updateQuantity,
-    clearCart,
-    getTotal,
-    getItemCount,
-    isLoaded,
-  };
-};
+//   const addToCart = (item: CartItem) => {
+//     setItems((prevItems) => {
+//       const existingItem = prevItems.find(
+//         (cartItem) =>
+//           cartItem.product_id === item.product_id &&
+//           cartItem.size_id === item.size_id,
+//       );
+
+//       if (existingItem) {
+//         return prevItems.map((cartItem) =>
+//           cartItem.product_id === item.product_id &&
+//           cartItem.size_id === item.size_id
+//             ? { ...cartItem, quantity: cartItem.quantity + 1 }
+//             : cartItem,
+//         );
+//       }
+
+//       return [...prevItems, { ...item, quantity: 1 }];
+//     });
+//   };
+
+//   const removeFromCart = (productId: number, sizeId: number) => {
+//     setItems((prevItems) =>
+//       prevItems.filter(
+//         (item) => !(item.product_id === productId && item.size_id === sizeId),
+//       ),
+//     );
+//   };
+
+//   const updateQuantity = (
+//     productId: number,
+//     quantity: number,
+//     sizeId: number,
+//   ) => {
+//     if (quantity <= 0) {
+//       removeFromCart(productId, sizeId);
+//       return;
+//     }
+
+//     setItems((prevItems) =>
+//       prevItems.map((item) =>
+//         item.product_id === productId && item.size_id === sizeId
+//           ? { ...item, quantity }
+//           : item,
+//       ),
+//     );
+//   };
+
+//   const clearCart = () => {
+//     setItems([]);
+//   };
+
+//   const getTotal = () => {
+//     return items.reduce((total, item) => total + item.price * item.quantity, 0);
+//   };
+
+//   const getItemCount = () => {
+//     return items.reduce((count, item) => count + item.quantity, 0);
+//   };
+
+//   return {
+//     items,
+//     addToCart,
+//     removeFromCart,
+//     updateQuantity,
+//     clearCart,
+//     getTotal,
+//     getItemCount,
+//     isLoaded,
+//   };
+// };

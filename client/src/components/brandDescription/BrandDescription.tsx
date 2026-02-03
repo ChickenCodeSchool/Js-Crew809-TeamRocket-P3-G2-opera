@@ -10,9 +10,10 @@ type BrandData = {
 
 type Props = {
   brandId: number;
+  isVisible?: boolean;
 };
 
-function BrandDescription({ brandId }: Props) {
+function BrandDescription({ brandId, isVisible = false }: Props) {
   const [brand, setBrand] = useState<BrandData | null>(null);
 
   useEffect(() => {
@@ -25,15 +26,10 @@ function BrandDescription({ brandId }: Props) {
 
   return (
     <section className="brand-desc-section">
-      {brand.url && (
-        <img
-          src={`${import.meta.env.VITE_API_URL}${brand.url}`}
-          alt={`Logo ${brand.name}`}
-          className="brand-logo"
-        />
-      )}
       <div className="brand-desc-container">
-        <p className="brand-text">{brand.description}</p>
+        <p className={`brand-text ${isVisible ? "visible" : ""}`}>
+          {brand.description}
+        </p>
       </div>
     </section>
   );

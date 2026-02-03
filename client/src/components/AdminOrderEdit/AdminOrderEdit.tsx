@@ -1,5 +1,48 @@
 import { useCallback, useEffect, useState } from "react";
+import {
+  FaChevronDown,
+  FaChevronUp,
+  FaSave,
+  FaSearch,
+  FaTimes,
+  FaTrash,
+} from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./AdminOrderEdit.css";
+
+const ConfirmationToast = ({
+  message,
+  onConfirm,
+  closeToast,
+}: {
+  message: string;
+  onConfirm: () => void;
+  closeToast?: () => void;
+}) => (
+  <div className="confirm-toast-content-orderAdmin">
+    <p className="confirm-toast-text-orderAdmin">{message}</p>
+    <div className="confirm-toast-actions-orderAdmin">
+      <button
+        type="button"
+        className="confirm-btn-yes-orderAdmin"
+        onClick={() => {
+          onConfirm();
+          if (closeToast) closeToast();
+        }}
+      >
+        Confirmer
+      </button>
+      <button
+        type="button"
+        className="confirm-btn-no-orderAdmin"
+        onClick={closeToast}
+      >
+        Annuler
+      </button>
+    </div>
+  </div>
+);
 
 interface OrderItem {
   product_id: number;
@@ -43,6 +86,7 @@ function AdminOrderEdit() {
       setOrders(data);
     } catch (err) {
       console.error(err);
+      toast.error("Erreur de connexion au serveur");
     }
   }, []);
 
@@ -53,7 +97,7 @@ function AdminOrderEdit() {
   const handleSearch = () => {
     const idToFind = Number(searchInput);
     if (!searchInput || Number.isNaN(idToFind)) {
-      window.alert("Veuillez entrer un numéro valide.");
+      toast.warn("Veuillez entrer un numéro valide.");
       return;
     }
 
@@ -64,78 +108,114 @@ function AdminOrderEdit() {
       setTimeout(() => {
         element.classList.remove("highlight-row-orderAdmin");
       }, 2000);
+      toast.info(`Commande #${idToFind} trouvée`);
     } else {
-      window.alert(`Commande #${idToFind} introuvable dans la liste.`);
+      toast.error(`Commande #${idToFind} introuvable dans la liste.`);
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     const idToDelete = Number(deleteInput);
     if (!deleteInput || Number.isNaN(idToDelete)) {
-      window.alert("Veuillez entrer un numéro de commande valide.");
+      toast.warn("Veuillez entrer un numéro de commande valide.");
       return;
     }
-    if (
-      !window.confirm(
-        `Êtes-vous sûr de vouloir supprimer la commande #${idToDelete} ?`,
-      )
-    ) {
-      return;
-    }
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/admin/orders/${idToDelete}`,
-        { method: "DELETE" },
-      );
-      if (response.ok) {
-        window.alert("Commande supprimée.");
-        setDeleteInput("");
-        fetchOrders();
-      } else {
-        window.alert("Erreur suppression.");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+
+    toast(
+      <ConfirmationToast
+        message={`Supprimer la commande #${idToDelete} ?`}
+        onConfirm={async () => {
+          try {
+            const response = await fetch(
+              `${import.meta.env.VITE_API_URL}/api/admin/orders/${idToDelete}`,
+              { method: "DELETE" },
+            );
+            if (response.ok) {
+              toast.success("Commande supprimée avec succès.");
+              setDeleteInput("");
+              fetchOrders();
+            } else {
+              toast.error("Erreur lors de la suppression.");
+            }
+          } catch (error) {
+            console.error(error);
+            toast.error("Erreur serveur lors de la suppression.");
+          }
+        }}
+      />,
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        draggable: false,
+        closeButton: false,
+      },
+    );
   };
 
-  const handleRowDelete = async (id: number) => {
-    if (
-      !window.confirm(`Êtes-vous sûr de vouloir supprimer la commande #${id} ?`)
-    ) {
-      return;
-    }
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/admin/orders/${id}`,
-        { method: "DELETE" },
-      );
-      if (response.ok) {
-        fetchOrders();
-      } else {
-        window.alert("Erreur suppression.");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+  const handleRowDelete = (id: number) => {
+    toast(
+      <ConfirmationToast
+        message={`Voulez-vous vraiment supprimer la commande #${id} ?`}
+        onConfirm={async () => {
+          try {
+            const response = await fetch(
+              `${import.meta.env.VITE_API_URL}/api/admin/orders/${id}`,
+              { method: "DELETE" },
+            );
+            if (response.ok) {
+              toast.success(`Commande #${id} supprimée.`);
+              fetchOrders();
+            } else {
+              toast.error("Erreur suppression.");
+            }
+          } catch (error) {
+            console.error(error);
+            toast.error("Erreur serveur.");
+          }
+        }}
+      />,
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        draggable: false,
+        closeButton: false,
+      },
+    );
   };
 
-  const handleRemoveItem = async (orderId: number, productId: number) => {
-    if (!window.confirm("Retirer cet article de la commande ?")) return;
-
-    try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/admin/orders/${orderId}/items/${productId}`,
-        { method: "DELETE" },
-      );
-      if (res.ok) {
-        fetchOrders();
-      } else {
-        console.error("Erreur API");
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  const handleRemoveItem = (orderId: number, productId: number) => {
+    toast(
+      <ConfirmationToast
+        message="Retirer cet article de la commande ?"
+        onConfirm={async () => {
+          try {
+            const res = await fetch(
+              `${import.meta.env.VITE_API_URL}/api/admin/orders/${orderId}/items/${productId}`,
+              { method: "DELETE" },
+            );
+            if (res.ok) {
+              toast.success("Article retiré du panier.");
+              fetchOrders();
+            } else {
+              console.error("Erreur API");
+              toast.error("Impossible de retirer l'article.");
+            }
+          } catch (err) {
+            console.error(err);
+            toast.error("Erreur serveur.");
+          }
+        }}
+      />,
+      {
+        position: "top-center",
+        autoClose: false,
+        closeOnClick: false,
+        draggable: false,
+        closeButton: false,
+      },
+    );
   };
 
   const toggleItems = (orderId: number) => {
@@ -203,14 +283,16 @@ function AdminOrderEdit() {
       );
 
       if (res.ok) {
+        toast.success("Modification enregistrée !");
         fetchOrders();
         setEditingState(null);
       } else {
         console.error("Erreur save");
-        window.alert("Erreur lors de la sauvegarde.");
+        toast.error("Erreur lors de la sauvegarde.");
       }
     } catch (error) {
       console.error(error);
+      toast.error("Erreur serveur lors de la sauvegarde.");
     }
   };
 
@@ -240,7 +322,7 @@ function AdminOrderEdit() {
               onClick={handleSearch}
               className="control-btn-orderAdmin search-btn-orderAdmin"
             >
-              Trouver
+              <FaSearch style={{ marginRight: "5px" }} /> Trouver
             </button>
           </div>
         </div>
@@ -261,7 +343,7 @@ function AdminOrderEdit() {
               onClick={handleDelete}
               className="control-btn-orderAdmin delete-btn-orderAdmin"
             >
-              Supprimer
+              <FaTrash style={{ marginRight: "5px" }} /> Supprimer
             </button>
           </div>
         </div>
@@ -275,6 +357,7 @@ function AdminOrderEdit() {
         <div className="header-cell-orderAdmin">Livraison</div>
         <div className="header-cell-orderAdmin">Prix total</div>
         <div className="header-cell-orderAdmin">Statut</div>
+        <div className="header-cell-orderAdmin">Suppr.</div>
       </div>
 
       <div className="list-body-orderAdmin">
@@ -294,7 +377,7 @@ function AdminOrderEdit() {
             <div
               key={order.order_id}
               id={`order-row-${order.order_id}`}
-              className="list-row-container-orderAdmin"
+              className={`list-row-container-orderAdmin ${isExpanded ? "is-expanded-orderAdmin" : ""}`}
             >
               <div className="list-row-orderAdmin">
                 <div className="list-cell-orderAdmin cell-id-orderAdmin">
@@ -312,7 +395,10 @@ function AdminOrderEdit() {
                   className="list-cell-orderAdmin clickable-cell-orderAdmin items-toggle-orderAdmin"
                   onClick={() => toggleItems(order.order_id)}
                 >
-                  {order.items.length} article(s) {isExpanded ? "▲" : "▼"}
+                  <span className="items-toggle-text-orderAdmin">
+                    {isExpanded ? "Masquer détails" : "Voir détails"}
+                  </span>
+                  {isExpanded ? <FaChevronUp /> : <FaChevronDown />}
                 </button>
 
                 <button
@@ -340,7 +426,7 @@ function AdminOrderEdit() {
                           }}
                           className="save-mini-btn-orderAdmin"
                         >
-                          💾
+                          <FaSave />
                         </button>
                         <button
                           type="button"
@@ -350,7 +436,7 @@ function AdminOrderEdit() {
                           }}
                           className="cancel-mini-btn-orderAdmin"
                         >
-                          ✖
+                          <FaTimes />
                         </button>
                       </div>
                     </div>
@@ -384,7 +470,7 @@ function AdminOrderEdit() {
                           }}
                           className="save-mini-btn-orderAdmin"
                         >
-                          💾
+                          <FaSave />
                         </button>
                         <button
                           type="button"
@@ -394,7 +480,7 @@ function AdminOrderEdit() {
                           }}
                           className="cancel-mini-btn-orderAdmin"
                         >
-                          ✖
+                          <FaTimes />
                         </button>
                       </div>
                     </div>
@@ -438,7 +524,7 @@ function AdminOrderEdit() {
                           }}
                           className="save-mini-btn-orderAdmin"
                         >
-                          💾
+                          <FaSave />
                         </button>
                         <button
                           type="button"
@@ -448,7 +534,7 @@ function AdminOrderEdit() {
                           }}
                           className="cancel-mini-btn-orderAdmin"
                         >
-                          ✖
+                          <FaTimes />
                         </button>
                       </div>
                     </div>
@@ -464,7 +550,7 @@ function AdminOrderEdit() {
                     onClick={() => handleRowDelete(order.order_id)}
                     title="Supprimer la commande"
                   >
-                    ✖
+                    <FaTrash />
                   </button>
                 </div>
               </div>
@@ -492,7 +578,7 @@ function AdminOrderEdit() {
                             }
                             title="Supprimer cet article"
                           >
-                            ✖
+                            <FaTrash />
                           </button>
                         </li>
                       ))}
@@ -506,6 +592,11 @@ function AdminOrderEdit() {
           );
         })}
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        toastClassName="order-toast-orderAdmin"
+      />
     </div>
   );
 }

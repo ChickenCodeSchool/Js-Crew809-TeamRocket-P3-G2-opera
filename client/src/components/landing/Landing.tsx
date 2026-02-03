@@ -3,6 +3,7 @@ import Footer from "../Footer/Footer";
 import CarouselLp from "../carouselLp/carouselLp";
 import CollectionLp from "../collectionLp/CollectionLp";
 import "./landing.css";
+import { Link } from "react-router";
 
 type Background = {
   brand_picture_id: number;
@@ -186,7 +187,9 @@ export default function Landing() {
                   playsInline
                 />
               ) : (
-                <div className="discover-btn">Découvrir</div>
+                <Link to="/brand/5" className="discover-btn">
+                  Découvrir
+                </Link>
               )}
             </div>
           );
