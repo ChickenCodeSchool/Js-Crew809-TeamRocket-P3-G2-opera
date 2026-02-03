@@ -78,15 +78,13 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
       className={`burger-menu-root ${isOpen ? "open" : ""}`}
       aria-hidden={!isOpen}
     >
-      <div
+      <button
+        type="button"
         className="burger-overlay"
         onClick={onClose}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") onClose();
-        }}
-        role="button"
-        tabIndex={0}
         aria-label="Fermer le menu"
+        tabIndex={-1}
+        style={{ border: "none", cursor: "default" }}
       />
 
       <div className="burger-panel">
@@ -103,6 +101,7 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
 
         <div className="burger-content">
           <ul className="burger-list main-list">
+            {/* Liste des Marques */}
             {brands.map((brand) => (
               <li key={brand.id}>
                 <button
@@ -114,6 +113,21 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
                 </button>
               </li>
             ))}
+            <li
+              style={{
+                marginTop: "15px",
+                paddingTop: "15px",
+                borderTop: "1px solid rgba(255, 255, 255, 0.2)",
+              }}
+            >
+              <button
+                type="button"
+                onClick={() => handleNavigation("/all")}
+                className="burger-link-btn"
+              >
+                Toutes les collections
+              </button>
+            </li>
           </ul>
 
           <ul className="burger-list utility-list">
