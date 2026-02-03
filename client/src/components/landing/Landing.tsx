@@ -4,6 +4,7 @@ import Footer from "../Footer/Footer";
 import CarouselLp from "../carouselLp/carouselLp";
 import CollectionLp from "../collectionLp/CollectionLp";
 import "./landing.css";
+import { Link } from "react-router";
 
 type Background = {
   brand_picture_id: number;

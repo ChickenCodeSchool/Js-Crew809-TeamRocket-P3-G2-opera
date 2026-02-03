@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "./admin_product.css";
-import { Link } from "react-router";
+import FormulaireProduct from "../../FormulaireProduct/FormulaireProduct.tsx";
+import Modal from "../../Modal/Modal.tsx";
 
 type Product = {
   product_id: number;
@@ -34,7 +35,10 @@ export default function AdminProducts() {
   const [loading, setLoading] = useState<boolean>(true);
   const [searchInput, setSearchInput] = useState("");
 
-  // States pour le modal
+  // State pour le modal d'ajout
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  // States pour le modal d'édition
   const [editingProduct, setEditingProduct] = useState<Product | null>(null);
   const [editForm, setEditForm] = useState({
     name: "",
@@ -42,6 +46,23 @@ export default function AdminProducts() {
     price: 0,
     color: "",
   });
+
+  // Fonction pour recharger les produits après ajout
+  const refreshProducts = async () => {
+    try {
+      const params = new URLSearchParams();
+      if (search) params.append("search", search);
+      if (selectedBrand) params.append("brandId", selectedBrand);
+      if (selectedCategory) params.append("categoryId", selectedCategory);
+
+      const url = `${import.meta.env.VITE_API_URL}/api/admin/products?${params.toString()}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      setProducts(data);
+    } catch (error) {
+      console.error("Erreur chargement produits:", error);
+    }
+  };
 
   useEffect(() => {
     const fetchFiltersData = async () => {
@@ -99,7 +120,6 @@ export default function AdminProducts() {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
-  // Fonction pour ouvrir le modal
   const handleEditClick = (product: Product) => {
     setEditingProduct(product);
     setEditForm({
@@ -110,7 +130,6 @@ export default function AdminProducts() {
     });
   };
 
-  // Fonction pour enregistrer les modifications
   const handleSaveEdit = async () => {
     if (!editingProduct) return;
 
@@ -139,7 +158,6 @@ export default function AdminProducts() {
     }
   };
 
-  // Fonction pour supprimer un produit
   const handleDelete = async (productId: number) => {
     if (!window.confirm("Supprimer ce produit ?")) return;
 
@@ -155,6 +173,12 @@ export default function AdminProducts() {
     } catch (error) {
       console.error("Erreur suppression:", error);
     }
+  };
+
+  // Callback quand un produit est ajouté avec succès
+  const handleAddSuccess = () => {
+    setIsAddModalOpen(false);
+    refreshProducts(); // Recharge la liste
   };
 
   return (
@@ -197,10 +221,15 @@ export default function AdminProducts() {
             </option>
           ))}
         </select>
-        <Link to="/newproduct" className="add-product-link">
-          {" "}
+
+        {/* Bouton qui ouvre le modal */}
+        <button
+          type="button"
+          className="add-product-btn"
+          onClick={() => setIsAddModalOpen(true)}
+        >
           Ajouter un produit
-        </Link>
+        </button>
       </div>
 
       <p>{products.length} produit(s) trouvé(s)</p>
@@ -260,6 +289,19 @@ export default function AdminProducts() {
         </table>
       )}
 
+      {/* Modal pour AJOUTER un produit */}
+      <Modal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        title="Nouveau produit"
+      >
+        <FormulaireProduct
+          onSuccess={handleAddSuccess}
+          onCancel={() => setIsAddModalOpen(false)}
+        />
+      </Modal>
+
+      {/* Modal pour ÉDITER un produit (ton code existant) */}
       {editingProduct && (
         <>
           {/* biome-ignore lint/a11y/useKeyWithClickEvents: overlay click to close */}

@@ -3,7 +3,8 @@ import filterBarRepository from "./filterBarRepository";
 
 const browse = async (req: Request, res: Response) => {
   try {
-    const brandId = Number(req.query.brandId);
+    const brandId = req.query.brandId ? Number(req.query.brandId) : undefined;
+
     const categoryId = req.query.categoryId
       ? Number(req.query.categoryId)
       : undefined;
@@ -12,11 +13,6 @@ const browse = async (req: Request, res: Response) => {
     const priceRange = req.query.priceRange
       ? String(req.query.priceRange)
       : undefined;
-
-    if (!brandId) {
-      res.status(400).json({ error: "Brand ID is required" });
-      return;
-    }
 
     const products = await filterBarRepository.readFiltered(
       brandId,
@@ -59,15 +55,10 @@ const getBrands = async (req: Request, res: Response) => {
 
 const getSizes = async (req: Request, res: Response) => {
   try {
-    const brandId = Number(req.query.brandId);
+    const brandId = req.query.brandId ? Number(req.query.brandId) : undefined;
     const categoryId = req.query.categoryId
       ? Number(req.query.categoryId)
       : undefined;
-
-    if (!brandId) {
-      res.status(400).json({ error: "Brand ID requise" });
-      return;
-    }
 
     const sizes = await filterBarRepository.readSizes(brandId, categoryId);
     res.json(sizes);
@@ -79,15 +70,10 @@ const getSizes = async (req: Request, res: Response) => {
 
 const getColors = async (req: Request, res: Response) => {
   try {
-    const brandId = Number(req.query.brandId);
+    const brandId = req.query.brandId ? Number(req.query.brandId) : undefined;
     const categoryId = req.query.categoryId
       ? Number(req.query.categoryId)
       : undefined;
-
-    if (!brandId) {
-      res.status(400).json({ error: "Brand ID requise" });
-      return;
-    }
 
     const colors = await filterBarRepository.readColors(brandId, categoryId);
     res.json(colors);
