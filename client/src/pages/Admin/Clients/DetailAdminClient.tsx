@@ -128,7 +128,9 @@ export default function DetailAdminClient() {
                     <tr key={order.order_id}>
                       <td>#{order.order_id}</td>
                       <td>{new Date(order.date).toLocaleDateString()}</td>
-                      <td>{order.total} €</td>
+                      <td>
+                        {new Intl.NumberFormat("fr-FR").format(order.total)} €
+                      </td>
                       <td>
                         <span className={`status-badge ${order.status}`}>
                           {order.status}
