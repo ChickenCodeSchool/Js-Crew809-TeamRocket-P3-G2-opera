@@ -1,0 +1,30 @@
+.container-AllProductsPage {
+  position: relative;
+  min-height: 100vh;
+}
+
+.hero-container-AllProductsPage {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+}
+
+.hero-image-AllProductsPage {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+.title-AllProductsPage {
+  text-align: center;
+  padding: 20px 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2rem;
+  margin-top: 5rem;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  display: flex;
+  justify-content: center;
+}

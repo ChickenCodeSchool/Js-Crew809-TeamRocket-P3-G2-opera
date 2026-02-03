@@ -10,20 +10,22 @@ type FilterBarProps = {
     color: string;
     size: string;
     priceRange: string;
+    brandId?: string;
   };
   setFilters: (filters: {
     categoryId: string | undefined;
     color: string;
     size: string;
     priceRange: string;
+    brandId?: string;
   }) => void;
 };
 
-// type BrandItem = {
-//   id: number;
-//   name: string;
-//   default_category_id: number | null;
-// };
+type BrandItem = {
+  id: number;
+  name: string;
+  default_category_id: number | null;
+};
 
 type Item = {
   id: number;
@@ -63,10 +65,10 @@ export default function FilterBar({
   filters,
   setFilters,
 }: FilterBarProps) {
+  // brandId vient de l'URL (ex: /brand/1). Il est undefined sur /all
   const { brandId } = useParams();
-  // const navigate = useNavigate();
 
-  // const [brands, setBrands] = useState<BrandItem[]>([]);
+  const [brands, setBrands] = useState<BrandItem[]>([]);
   const [categories, setCategories] = useState<Item[]>([]);
   const [sizes, setSizes] = useState<SizeOption[]>([]);
   const [availableColors, setAvailableColors] = useState<ColorOption[]>([]);
@@ -82,27 +84,34 @@ export default function FilterBar({
     category: false,
   });
 
-  // 1. Chargement des Marques
-  // useEffect(() => {
-  //   let url = `${import.meta.env.VITE_API_URL}/api/filter/brands`;
-  //   if (filters.categoryId) {
-  //     url += `?categoryId=${filters.categoryId}`;
-  //   }
+  // 1. Chargement des Marques (UNIQUEMENT si on n'est pas sur une page marque)
+  useEffect(() => {
+    if (brandId) return;
 
-  //   fetch(url)
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (Array.isArray(data)) setBrands(data);
-  //     })
-  //     .catch((err) => console.error(err));
-  // }, [filters.categoryId]);
+    let url = `${import.meta.env.VITE_API_URL}/api/filter/brands`;
+    if (filters.categoryId) {
+      url += `?categoryId=${filters.categoryId}`;
+    }
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((data) => {
+        if (Array.isArray(data)) setBrands(data);
+      })
+      .catch((err) => console.error(err));
+  }, [filters.categoryId, brandId]);
 
   // 2. Chargement des Catégories
   useEffect(() => {
-    if (!brandId) return;
-    fetch(
-      `${import.meta.env.VITE_API_URL}/api/filter/categories?brandId=${brandId}`,
-    )
+    let url = `${import.meta.env.VITE_API_URL}/api/filter/categories`;
+
+    const activeBrandId = brandId || filters.brandId;
+
+    if (activeBrandId) {
+      url += `?brandId=${activeBrandId}`;
+    }
+
+    fetch(url)
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) setCategories(data);
@@ -112,16 +121,22 @@ export default function FilterBar({
         console.error(err);
         setCategories([]);
       });
-  }, [brandId]);
+  }, [brandId, filters.brandId]);
 
   // 3. Chargement des Tailles
   useEffect(() => {
-    if (!brandId) return;
     if (!filters.categoryId) {
       setSizes([]);
       return;
     }
-    const url = `${import.meta.env.VITE_API_URL}/api/sizes?brandId=${brandId}&categoryId=${filters.categoryId}`;
+
+    const activeBrandId = brandId || filters.brandId;
+    let url = `${import.meta.env.VITE_API_URL}/api/sizes?categoryId=${filters.categoryId}`;
+
+    if (activeBrandId) {
+      url += `&brandId=${activeBrandId}`;
+    }
+
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
@@ -132,15 +147,20 @@ export default function FilterBar({
         console.error(err);
         setSizes([]);
       });
-  }, [brandId, filters.categoryId]);
+  }, [brandId, filters.brandId, filters.categoryId]);
 
   // 4. Chargement des Couleurs
   useEffect(() => {
-    if (!brandId) return;
+    let url = `${import.meta.env.VITE_API_URL}/api/filter/colors`;
+    const params = [];
 
-    let url = `${import.meta.env.VITE_API_URL}/api/filter/colors?brandId=${brandId}`;
-    if (filters.categoryId) {
-      url += `&categoryId=${filters.categoryId}`;
+    const activeBrandId = brandId || filters.brandId;
+
+    if (activeBrandId) params.push(`brandId=${activeBrandId}`);
+    if (filters.categoryId) params.push(`categoryId=${filters.categoryId}`);
+
+    if (params.length > 0) {
+      url += `?${params.join("&")}`;
     }
 
     fetch(url)
@@ -153,7 +173,7 @@ export default function FilterBar({
         console.error(err);
         setAvailableColors([]);
       });
-  }, [brandId, filters.categoryId]);
+  }, [brandId, filters.brandId, filters.categoryId]);
 
   const toggleSection = (
     section: "brand" | "color" | "size" | "category" | "price",
@@ -164,17 +184,14 @@ export default function FilterBar({
     }));
   };
 
-  // const handleBrandClick = (brand: BrandItem) => {
-  //   if (brandId === brand.id.toString()) return;
-
-  //   let targetCategoryId = filters.categoryId
-  //     ? Number(filters.categoryId)
-  //     : brand.default_category_id;
-  //   if (!targetCategoryId) targetCategoryId = 1;
-
-  //   navigate(`/brand/${brand.id}/category/${targetCategoryId}`);
-  //   onClose();
-  // };
+  const handleBrandClick = (id: number) => {
+    const idString = id.toString();
+    setFilters({
+      ...filters,
+      brandId: filters.brandId === idString ? "" : idString,
+      categoryId: undefined,
+    });
+  };
 
   const handleColorClick = (colorName: string) => {
     setFilters({
@@ -220,37 +237,75 @@ export default function FilterBar({
           FERMER
         </button>
 
-        {/* 1. MARQUE */}
-        {/* <div className="filter-section">
+        {/* 1. MARQUE - Affiché SEULEMENT si 'brandId' n'est pas dans l'URL (donc page AllProducts) */}
+        {!brandId && (
+          <div className="filter-section">
+            <button
+              type="button"
+              className="filter-header"
+              onClick={() => toggleSection("brand")}
+            >
+              <span>MARQUE</span>
+              <span className="toggle-icon">
+                {openSections.brand ? "-" : "+"}
+              </span>
+            </button>
+            {openSections.brand && (
+              <div className="filter-options">
+                {brands.map((brand) => (
+                  <button
+                    type="button"
+                    key={brand.id}
+                    className={`category-item ${
+                      filters.brandId === brand.id.toString() ? "selected" : ""
+                    }`}
+                    onClick={() => handleBrandClick(brand.id)}
+                  >
+                    {brand.name}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 2. CATÉGORIES */}
+        <div className="filter-section">
           <button
             type="button"
             className="filter-header"
-            onClick={() => toggleSection("brand")}
+            onClick={() => toggleSection("category")}
           >
-            <span>MARQUE</span>
+            <span>CATÉGORIES</span>
             <span className="toggle-icon">
-              {openSections.brand ? "-" : "+"}
+              {openSections.category ? "-" : "+"}
             </span>
           </button>
-          {openSections.brand && (
+          {openSections.category && (
             <div className="filter-options">
-              {brands.map((brand) => (
-                <button
-                  type="button"
-                  key={brand.id}
-                  className={`category-item ${
-                    brandId === brand.id.toString() ? "selected" : ""
-                  }`}
-                  onClick={() => handleBrandClick(brand)}
-                >
-                  {brand.name}
-                </button>
-              ))}
+              {categories.length === 0 ? (
+                <span className="info-text">Aucune catégorie disponible.</span>
+              ) : (
+                categories.map((cat) => (
+                  <button
+                    type="button"
+                    key={cat.id}
+                    className={`category-item ${
+                      filters.categoryId === cat.id?.toString()
+                        ? "selected"
+                        : ""
+                    }`}
+                    onClick={() => cat.id && handleCategoryClick(cat.id)}
+                  >
+                    {cat.name}
+                  </button>
+                ))
+              )}
             </div>
           )}
-        </div> */}
+        </div>
 
-        {/* 2. COULEUR */}
+        {/* 3. COULEUR */}
         <div className="filter-section">
           <button
             type="button"
@@ -299,7 +354,7 @@ export default function FilterBar({
           )}
         </div>
 
-        {/* 3. TAILLE */}
+        {/* 4. TAILLE */}
         <div className="filter-section">
           <button
             type="button"
@@ -335,7 +390,7 @@ export default function FilterBar({
           )}
         </div>
 
-        {/* 4. PRIX */}
+        {/* 5. PRIX */}
         <div className="filter-section">
           <button
             type="button"
@@ -375,44 +430,6 @@ export default function FilterBar({
               >
                 OK
               </button>
-            </div>
-          )}
-        </div>
-
-        {/* 5. CATÉGORIES */}
-        <div className="filter-section">
-          <button
-            type="button"
-            className="filter-header"
-            onClick={() => toggleSection("category")}
-          >
-            <span>CATÉGORIES</span>
-            <span className="toggle-icon">
-              {openSections.category ? "-" : "+"}
-            </span>
-          </button>
-          {openSections.category && (
-            <div className="filter-options">
-              {categories.length === 0 ? (
-                <span className="info-text">
-                  Aucune catégorie trouvée pour cette marque.
-                </span>
-              ) : (
-                categories.map((cat) => (
-                  <button
-                    type="button"
-                    key={cat.id}
-                    className={`category-item ${
-                      filters.categoryId === cat.id?.toString()
-                        ? "selected"
-                        : ""
-                    }`}
-                    onClick={() => cat.id && handleCategoryClick(cat.id)}
-                  >
-                    {cat.name}
-                  </button>
-                ))
-              )}
             </div>
           )}
         </div>
