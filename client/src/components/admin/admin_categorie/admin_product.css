@@ -255,3 +255,19 @@ dialog.admin-modal::backdrop {
 .admin-btn-save:hover {
   background: #eee;
 }
+
+.add-product-btn {
+  padding: 8px 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+}
+
+.add-product-btn:hover {
+  background-color: #555;
+}

@@ -9,7 +9,15 @@ export type ArticleDetails = {
   price: number;
   color: string;
   images: ArticleDetailsImages[];
+  sizes: ArticleSize[];
 };
+
+export type ArticleSize = {
+  size_id: number;
+  size_label: string;
+  stock_id: number;
+};
+
 export type ArticleDetailsImages = {
   product_image_id: number;
   url: string;
@@ -27,6 +35,9 @@ type ProductRow = {
   product_image_id: number;
   url: string;
   is_main: boolean;
+  size_id: number | null;
+  size_label: string | null;
+  stock_id: number | null;
 };
 
 type CreateArticle = {
@@ -47,17 +58,22 @@ class ArticleDetailsRepository {
           p.name,
           p.description,
           p.brand_id,
-            p.price,
-            p.color,
-            pi.product_image_id,
-            pi.url,
-            pi.is_main
+          p.price,
+          p.color,
+          pi.product_image_id,
+          pi.url,
+          pi.is_main,
+          s.size_id,
+          s.size_label,
+          s.stock_id
         FROM product p
         LEFT JOIN product_image pi ON p.product_id = pi.product_id
+        LEFT JOIN size s ON p.product_id = s.product_id
         WHERE p.product_id = ?
         `;
     const [rows] = await databaseClient.query(query, [productId]);
     const result = rows as ProductRow[];
+
     if (result.length === 0) {
       return null;
     }
@@ -71,12 +87,64 @@ class ArticleDetailsRepository {
       price: firstRow.price,
       color: firstRow.color,
       images: result
-        .filter((row) => row.product_image_id !== null)
-        .map((row) => ({
-          product_image_id: row.product_image_id,
-          url: row.url as string,
-          is_main: Boolean(row.is_main),
-        })),
+        .filter(
+          (
+            row,
+          ): row is ProductRow & {
+            product_image_id: number;
+            url: string;
+            is_main: boolean;
+          } =>
+            row.product_image_id !== null &&
+            row.url !== null &&
+            row.is_main !== null,
+        )
+        .reduce((acc: ArticleDetailsImages[], row) => {
+          if (
+            !acc.find((img) => img.product_image_id === row.product_image_id)
+          ) {
+            acc.push({
+              product_image_id: row.product_image_id,
+              url: row.url,
+              is_main: Boolean(row.is_main),
+            });
+          }
+          return acc;
+        }, []),
+
+      sizes: result
+        .filter(
+          (
+            row,
+          ): row is ProductRow & {
+            size_id: number;
+            size_label: string;
+            stock_id: number;
+          } =>
+            row.size_id !== null &&
+            row.size_label !== null &&
+            row.stock_id !== null,
+        )
+        .reduce((acc: ArticleSize[], row) => {
+          // Éviter les doublons
+          if (!acc.find((s) => s.size_id === row.size_id)) {
+            acc.push({
+              size_id: row.size_id,
+              size_label: row.size_label,
+              stock_id: row.stock_id,
+            });
+          }
+          return acc;
+        }, [])
+        .sort((a, b) => {
+          // Tri numérique des tailles
+          const aNum = Number.parseInt(a.size_label);
+          const bNum = Number.parseInt(b.size_label);
+          if (!Number.isNaN(aNum) && !Number.isNaN(bNum)) {
+            return aNum - bNum;
+          }
+          return a.size_label.localeCompare(b.size_label);
+        }),
     };
 
     return productData;
