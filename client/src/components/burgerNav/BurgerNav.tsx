@@ -78,15 +78,12 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
       className={`burger-menu-root ${isOpen ? "open" : ""}`}
       aria-hidden={!isOpen}
     >
-      <div
+      <button
+        type="button"
         className="burger-overlay"
         onClick={onClose}
-        onKeyDown={(e) => {
-          if (e.key === "Enter" || e.key === " ") onClose();
-        }}
-        role="button"
-        tabIndex={0}
         aria-label="Fermer le menu"
+        tabIndex={-1}
       />
 
       <div className="burger-panel">
@@ -114,6 +111,15 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
                 </button>
               </li>
             ))}
+            <li className="all-collections-item">
+              <button
+                type="button"
+                onClick={() => handleNavigation("/all")}
+                className="burger-link-btn all-collections-link"
+              >
+                Toutes les collections
+              </button>
+            </li>
           </ul>
 
           <ul className="burger-list utility-list">

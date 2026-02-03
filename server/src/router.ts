@@ -135,6 +135,13 @@ router.delete("/api/cartitem/:cartItemId", cartActions.removeCartItem);
 router.post("/api/cart/sync", cartActions.syncCart);
 router.delete("/api/cart/:customerId/clear", cartActions.clearCart);
 
+import suggestionsActions from "./modules/suggestions/suggestionsActions";
+
+router.get(
+  "/api/products/:productId/suggestions",
+  suggestionsActions.getSuggestions,
+);
+
 //ROUTE CONNEXION GOOGLE
 router.post("/auth/google", authActions.googleLogin);
 

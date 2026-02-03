@@ -13,6 +13,7 @@ import CarouselLp from "./components/carouselLp/carouselLp";
 import { CartProvider } from "./contexts/CartContext";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AdminPage from "./pages/Admin/AdminPage";
+import AllProductsPage from "./pages/AllProductsPage/AllProductsPage";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
@@ -124,7 +125,10 @@ const router = createBrowserRouter([
         path: "/admin/customers",
         element: <CustomerManagement />,
       },
-
+      {
+        path: "/all",
+        element: <AllProductsPage />,
+      },
       {
         path: "/order-summary",
         element: <OrderSummary />,
