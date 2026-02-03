@@ -84,7 +84,6 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
         onClick={onClose}
         aria-label="Fermer le menu"
         tabIndex={-1}
-        style={{ border: "none", cursor: "default" }}
       />
 
       <div className="burger-panel">
@@ -101,7 +100,6 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
 
         <div className="burger-content">
           <ul className="burger-list main-list">
-            {/* Liste des Marques */}
             {brands.map((brand) => (
               <li key={brand.id}>
                 <button
@@ -113,17 +111,11 @@ function BurgerMenu({ isOpen, onClose }: BurgerMenuProps) {
                 </button>
               </li>
             ))}
-            <li
-              style={{
-                marginTop: "15px",
-                paddingTop: "15px",
-                borderTop: "1px solid rgba(255, 255, 255, 0.2)",
-              }}
-            >
+            <li className="all-collections-item">
               <button
                 type="button"
                 onClick={() => handleNavigation("/all")}
-                className="burger-link-btn"
+                className="burger-link-btn all-collections-link"
               >
                 Toutes les collections
               </button>
