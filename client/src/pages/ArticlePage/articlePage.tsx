@@ -2,7 +2,7 @@ import Breadcrumb from "../../components/BreadCrumb/BreadCrumb";
 import HeroProduct from "../../components/HeroProduct/heroProduct";
 import CarouselImgArticle from "../../components/carouselImgArticle/carouselImgArticle";
 import DescriptionArticle from "../../components/descriptionArticle/descriptionArticle";
-// import Suggestions from "../../components/suggestions/suggestions";
+import Suggestions from "../../components/suggestions/suggestions";
 import "./articlePage.css";
 import { useParams } from "react-router-dom";
 
@@ -25,9 +25,14 @@ function articlePage() {
           </>
         )}
       </div>
-      {/* <div className="suggestions-section">
-        <Suggestions />
-      </div> */}
+      {SelectedProductId && (
+        <div className="suggestions-section">
+          <Suggestions
+            productId={SelectedProductId}
+            brandId={SelectedBrandId}
+          />
+        </div>
+      )}
     </>
   );
 }
