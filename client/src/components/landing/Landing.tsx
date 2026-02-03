@@ -1,4 +1,5 @@
 import { type JSX, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import CarouselLp from "../carouselLp/carouselLp";
 import CollectionLp from "../collectionLp/CollectionLp";
@@ -23,6 +24,7 @@ export default function Landing() {
   const [backgrounds, setBackgrounds] = useState<Background[]>([]);
   const currentIndex = useRef(0);
   const isAnimating = useRef(false);
+  const navigate = useNavigate();
 
   const FRONT_ORDER = [6, 9, 1, 8];
 
@@ -33,6 +35,7 @@ export default function Landing() {
     8: "dark",
   };
 
+  // Fetch des images
   useEffect(() => {
     fetch("http://localhost:3310/api/landing")
       .then((res) => res.json())
@@ -45,12 +48,12 @@ export default function Landing() {
       });
   }, []);
 
+  // Scroll et restauration
   useEffect(() => {
     const previousRestoration = window.history.scrollRestoration;
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
-
     window.scrollTo(0, 0);
     currentIndex.current = 0;
     document.body.classList.add("landing-no-scroll");
@@ -62,6 +65,7 @@ export default function Landing() {
     };
   }, []);
 
+  // Animation scroll
   useEffect(() => {
     if (!backgrounds.length) return;
 
@@ -124,6 +128,7 @@ export default function Landing() {
     };
   }, [backgrounds]);
 
+  // Construction des sections
   const sections: Section[] = [];
   backgrounds.forEach((bg, index) => {
     sections.push({
@@ -186,7 +191,13 @@ export default function Landing() {
                   playsInline
                 />
               ) : (
-                <div className="discover-btn">Découvrir</div>
+                <button
+                  type="button"
+                  className="discover-btn"
+                  onClick={() => navigate(`/brand/${bg.brand_id}`)}
+                >
+                  Découvrir
+                </button>
               )}
             </div>
           );

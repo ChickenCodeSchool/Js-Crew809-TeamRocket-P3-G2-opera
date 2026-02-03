@@ -41,6 +41,7 @@ function Register() {
     mail: "",
     password: "",
   });
+  const [consent, setConsent] = useState(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -87,7 +88,6 @@ function Register() {
       }
       setAccountData({ ...accountData, firstname, lastname, phone });
     }
-    console.log(firstnameRef);
 
     setStep((prev) => prev + 1);
   };
@@ -98,11 +98,14 @@ function Register() {
   const handleSubmit: FormEventHandler = async (event) => {
     event.preventDefault();
 
-    const mail = accountData.mail;
-    const password = accountData.password;
-    const phone = accountData.phone;
-    const firstname = accountData.firstname;
-    const lastname = accountData.lastname;
+    if (!consent) {
+      toast.error(
+        "Vous devez accepter la politique de confidentialité pour créer un compte.",
+      );
+      return;
+    }
+
+    const { mail, password, firstname, lastname, phone } = accountData;
 
     if (!mail || !password) {
       toast.error("Email ou mot de passe manquant");
@@ -123,7 +126,6 @@ function Register() {
       postal_code,
       country,
     };
-    console.log(payload);
 
     try {
       const response = await fetch("http://localhost:3310/customers", {
@@ -292,6 +294,29 @@ function Register() {
               <input ref={countryRef} id="country" placeholder=" " />
               <label htmlFor="country">Pays</label>
             </div>
+
+            <div className="form_group checkbox_group">
+              <input
+                type="checkbox"
+                id="rgpd-consent"
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+              />
+              <label htmlFor="rgpd-consent">
+                En créant mon compte, j’accepte que mes données personnelles
+                soient traitées pour la gestion de mon compte et de mes
+                commandes, conformément à la{" "}
+                <a
+                  href="/privacy-policy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  politique de confidentialité
+                </a>
+                .
+              </label>
+            </div>
+
             <div className="register_buttons_group">
               <button
                 type="button"
