@@ -1,6 +1,5 @@
 import { type KeyboardEvent, useEffect, useState } from "react";
 import "./descriptionArticle.css";
-import { MdFavorite } from "react-icons/md";
 import AddtocartButton from "../AddtocartButton/addtocartButton";
 
 type ArticleImage = {
@@ -152,9 +151,6 @@ function DescriptionArticle({ productId }: Props) {
           price={articleData.price}
           imageUrl={mainImageUrl}
         />
-        <span className="add-to-favorite-button">
-          <MdFavorite />
-        </span>
       </div>
     </div>
   );

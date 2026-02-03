@@ -126,6 +126,13 @@ router.get(
   dashboardActions.customersPerDay,
 );
 
+import suggestionsActions from "./modules/suggestions/suggestionsActions";
+
+router.get(
+  "/api/products/:productId/suggestions",
+  suggestionsActions.getSuggestions,
+);
+
 //ROUTE CONNEXION GOOGLE
 router.post("/auth/google", authActions.googleLogin);
 

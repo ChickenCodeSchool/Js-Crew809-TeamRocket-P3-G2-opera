@@ -4,36 +4,53 @@
   padding: 20px;
   max-width: 800px;
   margin: 0 auto;
+  border-bottom: 50px;
 }
 
-.suggestions.header {
-  display: flex;
-  flex-direction: column;
-  font-family: "Montserrat Alternates", sans-serif;
-}
-
-.suggestion-title {
+.suggestions-title {
   display: block;
   font-family: "Montserrat Alternates", sans-serif;
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
-  text-transform: uppercase;
-  text-align: center;
+  place-self: center;
+}
+
+.suggestions-grid {
+  display: flex;
+  gap: 30px;
+  margin-left: 50px;
+  justify-content: center;
 }
 
 .suggestion-subtitle {
   font-family: "Montserrat Alternates", sans-serif;
   font-size: 16px;
   color: #747474;
-  margin-bottom: 20px;
   text-align: center;
 }
-
-suggestion-subtitle {
-  font-family: "Montserrat Alternates", sans-serif;
-  font-size: 16px;
-  color: #747474;
+.suggestion-image {
+  width: 250px;
+  transition: transform 0.3s ease;
+  transform-origin: center;
   margin-bottom: 20px;
-  text-align: center;
+}
+
+.suggestion-image:hover {
+  transform: scale(1.05);
+}
+
+.suggestion-article-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.suggestion-price {
+  font-weight: 400;
+  color: #747474;
+}
+
+.suggestion-card {
+  width: 260px;
+  cursor: pointer;
 }
