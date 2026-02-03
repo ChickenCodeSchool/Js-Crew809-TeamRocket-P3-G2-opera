@@ -99,6 +99,7 @@ import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
+router.get("/api/orders/customer/:id", orderActions.readByCustomer);
 
 import adminOrderActions from "./modules/orderDeliveryAdmin/adminOrderActions";
 

@@ -2,25 +2,36 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./DetailAdminClient.css";
 import type { Customer } from "../../../types/customer";
+import type { Order } from "../../../types/order"; // Ajout de l'import
 
 export default function DetailAdminClient() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [loading, setLoading] = useState(true);
+  const [orders, setOrders] = useState<Order[]>([]); // Nouvel état pour les commandes
 
   useEffect(() => {
+    setLoading(true);
+
+    // 1. Récupération du client
     fetch(`${import.meta.env.VITE_API_URL}/api/customers/${id}`)
       .then((res) => {
         if (!res.ok) throw new Error("Client introuvable");
         return res.json();
       })
+      .then((data) => setCustomer(data))
+      .catch((err) => console.error("Erreur client:", err));
+
+    // 2. Récupération des commandes (Assure-toi que cette route existe sur ton API)
+    fetch(`${import.meta.env.VITE_API_URL}/api/orders/customer/${id}`)
+      .then((res) => res.json())
       .then((data) => {
-        setCustomer(data);
+        setOrders(data);
         setLoading(false);
       })
       .catch((err) => {
-        console.error("Erreur récupération client:", err);
+        console.error("Erreur commandes:", err);
         setLoading(false);
       });
   }, [id]);
@@ -97,11 +108,40 @@ export default function DetailAdminClient() {
           <strong>Numero Telephone :</strong>
           {customer.phone || "Non renseigné"}
         </p>
-        <p>
+        <div>
           <strong>Histotique des commandes :</strong>
-        </p>
+          <div className="order-history-section">
+            {orders.length === 0 ? (
+              <p>Aucune commande passée pour ce client.</p>
+            ) : (
+              <table className="orders-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Date</th>
+                    <th>Total</th>
+                    <th>Statut</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order) => (
+                    <tr key={order.order_id}>
+                      <td>#{order.order_id}</td>
+                      <td>{new Date(order.date).toLocaleDateString()}</td>
+                      <td>{order.total} €</td>
+                      <td>
+                        <span className={`status-badge ${order.status}`}>
+                          {order.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
+        </div>
       </div>
-
       <button
         type="button"
         onClick={() => navigate("/admin/clients")}

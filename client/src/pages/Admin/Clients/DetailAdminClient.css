@@ -70,7 +70,99 @@ h2 {
   cursor: pointer;
   transition: all 0.3s ease;
 }
+/* 1. Force le conteneur de l'historique à prendre toute la largeur */
+.order-history-section {
+  width: 100%;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee; /* Petite ligne de séparation propre */
+}
 
+/* 2. Style du titre de l'historique */
+.order-history-section h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 3. Le tableau doit occuper 100% de son parent */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background-color: #fff;
+}
+
+.orders-table th {
+  background-color: #1a1a1a; /* Noir comme ton bouton */
+  color: #ffffff;
+  text-align: left;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  text-align: center; /* Force le centrage des titres */
+}
+
+.orders-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  text-align: center; /* Force le centrage des titres */
+}
+
+/* Cible la 3ème colonne (Total) pour aérer les chiffres */
+.orders-table td:nth-child(3) {
+  letter-spacing: 0.5px; /* Spacing très léger comme demandé */
+  font-variant-numeric: tabular-nums; /* Aligne les chiffres verticalement s'ils n'ont pas la même largeur */
+  font-weight: 500; /* Un peu plus épais pour la lisibilité */
+}
+
+/* 4. Style pour les badges de statut */
+.status-badge {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 9px; /* Plus petit = plus raffiné */
+  font-weight: 700; /* Plus gras pour compenser la petite taille */
+  text-transform: uppercase;
+  letter-spacing: 2.5px; /* Grand espacement pour l'aspect "boutique" */
+  border-radius: 0; /* Pas d'arrondi, style architectural */
+}
+
+.status-badge.pending {
+  background-color: transparent;
+  color: #999;
+  border: 1px solid #e0e0e0;
+}
+
+.status-badge.preparing {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+.status-badge.shipped {
+  background-color: #ebebeb;
+  color: black;
+  border: 1px solid #dbdbdb;
+}
+
+.status-badge.delivered {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+/* 5. Ajustement pour que l'info-card ne bloque pas la largeur */
+.info-card {
+  display: flex;
+  flex-direction: column; /* Aligne tout verticalement */
+  width: 100%;
+  max-width: 800px; /* Ou la largeur que tu souhaites pour la fiche */
+  margin: 0 auto;
+}
 .add-btn:hover {
   background-color: #000000;
   /*transform: translateY(-20px); /* Petit effet de levée au survol */

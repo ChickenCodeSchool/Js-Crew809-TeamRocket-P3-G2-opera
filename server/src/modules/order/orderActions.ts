@@ -15,6 +15,18 @@ const browse = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Erreur serveur" });
   }
 };
+const readByCustomer = async (req: Request, res: Response) => {
+  try {
+    const customerId = Number(req.params.id); // On récupère l'id depuis /api/orders/customer/:id
+    const orders = await orderRepository.readByCustomerId(customerId);
+
+    // Même si la liste est vide ([]), on renvoie 200 avec le tableau vide
+    res.json(orders);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Erreur serveur" });
+  }
+};
 
 const read = async (req: Request, res: Response) => {
   try {
@@ -31,4 +43,4 @@ const read = async (req: Request, res: Response) => {
   }
 };
 
-export default { browse, read };
+export default { browse, read, readByCustomer };
