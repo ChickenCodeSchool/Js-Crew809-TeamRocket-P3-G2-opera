@@ -1,8 +1,32 @@
-.brand-page {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: white;
+body.brand-no-scroll {
+  overflow: hidden !important;
+  height: 100vh;
+}
+
+.brand-page-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.brand-snap-section {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  will-change: transform;
+  overflow: hidden;
+}
+
+.brand-snap-section.content-section {
+  background: #fff;
+  overflow-y: auto;
+}
+
+.content-reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .brand-cards-wrapper {
@@ -10,14 +34,13 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
-  height: 80vh;
 }
 
-.brand-page .header-categorie-brandname {
+.brand-page-wrapper .header-categorie-brandname {
   display: none;
 }
 
-.brand-page hr {
+.brand-page-wrapper hr {
   display: none;
 }
 
@@ -36,4 +59,10 @@
   .brand-cards-wrapper::-webkit-scrollbar {
     display: none;
   }
+}
+.brand-snap-section.footer-section {
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

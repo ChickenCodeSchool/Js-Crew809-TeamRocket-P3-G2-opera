@@ -1,3 +1,4 @@
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
@@ -12,6 +13,7 @@ import CarouselLp from "./components/carouselLp/carouselLp";
 import { CartProvider } from "./contexts/CartContext";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AdminPage from "./pages/Admin/AdminPage";
+import AllProductsPage from "./pages/AllProductsPage/AllProductsPage";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
 import BrandPage from "./pages/BrandPage";
@@ -20,6 +22,8 @@ import Dashboard from "./pages/Dashboard/Dashboard";
 import HomePage from "./pages/HomePage";
 import MyOrderDetailPage from "./pages/MyOrderDetailPage/MyOrderDetailPage";
 import MyOrderPage from "./pages/MyOrderPage/MyOrderPage";
+import OrderConfirmation from "./pages/OrderConfirmation/OrderConfirmation";
+import OrderSummary from "./pages/OrderSummary/OrderSummary";
 import Profile from "./pages/Profile/Profile";
 /*import Login from "./components/login/Login";*/
 /*import Clients from "./pages/Admin/pages/Clients";*/
@@ -29,6 +33,7 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const router = createBrowserRouter([
   {
@@ -120,6 +125,19 @@ const router = createBrowserRouter([
         path: "/admin/customers",
         element: <CustomerManagement />,
       },
+      {
+        path: "/all",
+        element: <AllProductsPage />,
+      },
+      {
+        path: "/order-summary",
+        element: <OrderSummary />,
+      },
+
+      {
+        path: "/order-confirmation",
+        element: <OrderConfirmation />,
+      },
     ],
   },
 ]);
@@ -130,8 +148,10 @@ if (!rootElement)
 
 createRoot(rootElement).render(
   <StrictMode>
-    <CartProvider>
-      <RouterProvider router={router} />
-    </CartProvider>
+    <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
+    </GoogleOAuthProvider>
   </StrictMode>,
 );

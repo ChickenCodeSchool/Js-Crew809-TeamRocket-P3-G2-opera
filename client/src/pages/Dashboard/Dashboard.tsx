@@ -1,24 +1,56 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./Dashboard.css";
 import {
-  PieChart,
-  Pie,
+  Area,
+  AreaChart,
+  Bar,
+  BarChart,
+  CartesianGrid,
   Cell,
-  Tooltip,
+  Pie,
+  PieChart,
   ResponsiveContainer,
-  LineChart,
-  Line,
+  Tooltip,
   XAxis,
   YAxis,
-  CartesianGrid,
-  BarChart,
-  Bar,
 } from "recharts";
 
-interface RevenueData { month: string; total: number; }
-interface TopProduct { product_id: number; name: string; totalSold: number; }
-interface ItemsPerDay { day: string; totalItems: number; }
-interface CustomersPerDay { day: string; totalCustomers: number; }
+interface RevenueData {
+  month: string;
+  total: number;
+}
+interface TopProduct {
+  product_id: number;
+  name: string;
+  totalSold: number;
+}
+interface ItemsPerDay {
+  day: string;
+  totalItems: number;
+  timestamp: number;
+}
+interface CustomersPerDay {
+  day: string;
+  totalCustomers: number;
+  timestamp: number;
+}
+
+interface RawItemsData {
+  day: string;
+  totalItems: number;
+}
+interface RawCustomersData {
+  day: string;
+  totalCustomers: number;
+}
+
+const SILVER_MAIN = "#E5E5E5";
+const SILVER_MUTED = "#A6A6A6";
+const SILVER_DARK = "#4D4D4D";
+
+const PIE_COLORS = ["#E5E5E5", "#9A9A9A", "#2B2B2B"];
+
+const BAR_COLORS = ["#F0F0F0", "#2B2B2B", "#9E9E9E", "#6B6B6B", "#CFCFCF"];
 
 export default function Dashboard() {
   const [revenue, setRevenue] = useState<RevenueData[]>([]);
@@ -27,39 +59,90 @@ export default function Dashboard() {
   const [customersPerDay, setCustomersPerDay] = useState<CustomersPerDay[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const sharedTooltipStyle = useMemo(
+    () => ({
+      backgroundColor: "#1A1A1A",
+      border: `1px solid ${SILVER_DARK}`,
+      color: SILVER_MAIN,
+      fontWeight: 600,
+      borderRadius: "8px",
+      boxShadow: "0 4px 15px rgba(0,0,0,0.6)",
+      padding: "8px 12px",
+      fontSize: "13px",
+    }),
+    [],
+  );
+
   useEffect(() => {
+    let isMounted = true;
+
     async function fetchAll() {
       try {
-        const [rev, prod, items, customers] = await Promise.all([
-          fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/revenue`).then(r => r.json()),
-          fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/top-products?limit=5`).then(r => r.json()),
-          fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/items-per-day`).then(r => r.json()),
-          fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/customers-per-day`).then(r => r.json()),
+        const baseUrl = import.meta.env.VITE_API_URL;
+        const [revRes, prodRes, itemsRes, custRes] = await Promise.all([
+          fetch(`${baseUrl}/api/dashboard/revenue`),
+          fetch(`${baseUrl}/api/dashboard/top-products?limit=5`),
+          fetch(`${baseUrl}/api/dashboard/items-per-day`),
+          fetch(`${baseUrl}/api/dashboard/customers-per-day`),
         ]);
-        setRevenue(rev);
-        setTopProducts(prod);
-        setItemsPerDay(items);
-        setCustomersPerDay(customers);
-      } catch (e) { console.error(e); }
-      finally { setLoading(false); }
+
+        const rev: RevenueData[] = await revRes.json();
+        const prod: TopProduct[] = await prodRes.json();
+        const items: RawItemsData[] = await itemsRes.json();
+        const customers: RawCustomersData[] = await custRes.json();
+
+        if (isMounted) {
+          setRevenue(rev);
+          setTopProducts(prod);
+          setItemsPerDay(
+            items.map((i) => ({
+              ...i,
+              timestamp: new Date(i.day).getTime(),
+            })),
+          );
+          setCustomersPerDay(
+            customers.map((c) => ({
+              ...c,
+              timestamp: new Date(c.day).getTime(),
+            })),
+          );
+        }
+      } catch (e) {
+        console.error("Erreur de chargement des données :", e);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
     }
+
     fetchAll();
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  const totalRevenue = useMemo(
+    () => revenue.reduce((a, r) => a + r.total, 0),
+    [revenue],
+  );
+
+  const totalItems = useMemo(
+    () => itemsPerDay.reduce((a, i) => a + i.totalItems, 0),
+    [itemsPerDay],
+  );
+
+  const totalCustomers = useMemo(
+    () => customersPerDay.reduce((a, c) => a + c.totalCustomers, 0),
+    [customersPerDay],
+  );
 
   if (loading) return <div className="dashboard-loading">Chargement…</div>;
 
-  const totalRevenue = revenue.reduce((a, r) => a + r.total, 0);
-  const totalItems = itemsPerDay.reduce((a, i) => a + i.totalItems, 0);
-  const totalCustomers = customersPerDay.reduce((a, c) => a + c.totalCustomers, 0);
-  const GOLD_COLORS = ["#d4af37", "#c9a24d", "#b8944a", "#a8843f"];
-
   return (
     <div className="dashboard-container">
-
+      <h1 className="dash-title">DASHBOARD</h1>
       <div className="dashboard-top">
-
-        <section className="dashboard-section revenue dashboard-left">
-          <ResponsiveContainer width={400} height={400}>
+        <section className="dashboard-section dashboard-left">
+          <ResponsiveContainer width={500} height={500}>
             <PieChart>
               <Pie
                 data={revenue}
@@ -68,108 +151,240 @@ export default function Dashboard() {
                 cx="50%"
                 cy="50%"
                 outerRadius={200}
-                stroke="none"
                 paddingAngle={4}
+                stroke="#111318"
+                strokeWidth={2}
               >
                 {revenue.map((entry, index) => (
                   <Cell
-                    key={entry.month}
-                    fill={GOLD_COLORS[index % GOLD_COLORS.length]}
-                    stroke="#555"
-                    strokeWidth={2}
+                    key={`pie-${entry.month}`}
+                    fill={PIE_COLORS[index % PIE_COLORS.length]}
                   />
                 ))}
               </Pie>
               <Tooltip
-                formatter={(v) => v == null ? "0" : `€ ${Number(v).toLocaleString()}`}
-                labelFormatter={(l) => `Mois : ${l}`}
-                contentStyle={{ backgroundColor: "#8b8787", border: "1px solid #d4af37", color: "#d4af37", fontWeight: "600" }}
+                cursor={false}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+
+                  const date = new Date(payload[0].name);
+                  const formatted = date.toLocaleDateString("fr-FR", {
+                    month: "long",
+                    year: "numeric",
+                  });
+                  const formattedCapitalized =
+                    formatted.charAt(0).toUpperCase() + formatted.slice(1);
+
+                  return (
+                    <div style={sharedTooltipStyle}>
+                      <div style={{ color: "#FFFFFF", marginBottom: 4 }}>
+                        {formattedCapitalized}
+                      </div>
+                      <div style={{ color: SILVER_MUTED }}>
+                        {Number(payload[0].value).toLocaleString()} €
+                      </div>
+                    </div>
+                  );
+                }}
               />
             </PieChart>
           </ResponsiveContainer>
           <div className="section-footer">
-            <div className="section-title">Chiffre d'affaires</div>
-            <div className="section-kpi">€ {totalRevenue.toLocaleString()}</div>
+            <h3 className="section-title">Chiffre d'affaires</h3>
+            <p className="section-kpi">{totalRevenue.toLocaleString()}€</p>
           </div>
         </section>
 
-        <section className="dashboard-section large-card dashboard-right">
-          <ResponsiveContainer width="100%" height={400}>
-            <BarChart data={topProducts} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
-              <CartesianGrid stroke="#333" />
-              <XAxis dataKey="name" tick={false} />
-              <YAxis tick={{ fill: "#d4af37", fontSize: 12 }} />
-              <Tooltip
-                labelFormatter={(l) => `Produit : ${l}`}
-                formatter={(v) => v?.toLocaleString()}
-                contentStyle={{ backgroundColor: "#0b0b0b", border: "1px solid #d4af37", color: "#d4af37", fontWeight: "600" }}
+        <section className="dashboard-section dashboard-right">
+          <ResponsiveContainer width="100%" height={450}>
+            <BarChart
+              data={topProducts}
+              margin={{ top: 30, right: 30, left: 20, bottom: 20 }}
+            >
+              <CartesianGrid
+                stroke="#2D2D2D"
+                strokeDasharray="3 3"
+                vertical={false}
               />
-              <Bar dataKey="totalSold" fill="#d4af37" barSize={36} radius={[8, 8, 0, 0]} />
+              <XAxis
+                dataKey="name"
+                tick={false}
+                axisLine={{ stroke: "#333" }}
+              />
+              <YAxis
+                tick={{ fill: SILVER_MUTED }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip
+                cursor={{ fill: "#222", opacity: 0.4 }}
+                content={({ active, payload }) => {
+                  if (!active || !payload?.length) return null;
+                  return (
+                    <div style={sharedTooltipStyle}>
+                      <div style={{ color: "#FFFFFF", marginBottom: 4 }}>
+                        {payload[0].payload.name}
+                      </div>
+                      <div style={{ color: SILVER_MUTED }}>
+                        {payload[0].value} ventes
+                      </div>
+                    </div>
+                  );
+                }}
+              />
+              <Bar dataKey="totalSold" barSize={36} radius={[8, 8, 0, 0]}>
+                {topProducts.map((entry, index) => (
+                  <Cell
+                    key={entry.product_id}
+                    fill={BAR_COLORS[index % BAR_COLORS.length]}
+                  />
+                ))}
+              </Bar>
             </BarChart>
           </ResponsiveContainer>
           <div className="section-footer">
-            <div className="section-title">Produits les plus vendus</div>
+            <h3 className="section-title">Produits les plus vendus</h3>
           </div>
         </section>
-
       </div>
 
       <div className="dashboard-bottom">
-
-        <section className="dashboard-section large-card">
-          <ResponsiveContainer width="100%" height={350}>
-            <LineChart data={customersPerDay} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
-              <CartesianGrid stroke="#333" strokeDasharray="3 3" />
-              <XAxis dataKey="day" tick={false} />
-              <YAxis tick={{ fill: "#d4af37", fontSize: 12 }} />
-              <Tooltip
-                labelFormatter={(l) => `Date : ${new Date(l as string).toLocaleDateString()}`}
-                formatter={(v) => v?.toLocaleString()}
+        <section className="dashboard-section">
+          <ResponsiveContainer width="100%" height={400}>
+            <AreaChart data={customersPerDay}>
+              <defs>
+                <linearGradient id="areaCustomers" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="0%"
+                    stopColor={SILVER_MUTED}
+                    stopOpacity={0.2}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor={SILVER_MUTED}
+                    stopOpacity={0}
+                  />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                stroke="#2D2D2D"
+                strokeDasharray="3 3"
+                vertical={false}
               />
-              <Line
+              <XAxis
+                dataKey="timestamp"
+                type="number"
+                scale="time"
+                tick={false}
+                axisLine={false}
+                domain={["dataMin", "dataMax"]}
+              />
+              <YAxis
+                tick={{ fill: SILVER_MUTED, fontWeight: 500 }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (!active || !payload?.length) return null;
+                  return (
+                    <div style={sharedTooltipStyle}>
+                      <div style={{ color: "#FFFFFF", marginBottom: 4 }}>
+                        {new Date(label as number).toLocaleDateString()}
+                      </div>
+                      <div style={{ color: SILVER_MUTED }}>
+                        {payload[0].value} clients
+                      </div>
+                    </div>
+                  );
+                }}
+              />
+              <Area
                 type="monotone"
                 dataKey="totalCustomers"
-                stroke="#d4af37"
+                stroke={SILVER_MUTED}
                 strokeWidth={3}
-                dot={{ r: 4, stroke: "#d4af37", strokeWidth: 2, fill: "#fff" }}
-                activeDot={{ r: 6, fill: "#d4af37", stroke: "#fff", strokeWidth: 2 }}
+                fill="url(#areaCustomers)"
+                activeDot={{ r: 6, fill: SILVER_MUTED }}
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
           <div className="section-footer">
-            <div className="section-title">Clients</div>
-            <div className="section-kpi">{totalCustomers} clients</div>
+            <h3 className="section-title">Clients</h3>
+            <p className="section-kpi">
+              {totalCustomers.toLocaleString()} clients
+            </p>
           </div>
         </section>
 
-        <section className="dashboard-section large-card">
-          <ResponsiveContainer width="100%" height={350}>
-            <LineChart data={itemsPerDay} margin={{ top: 30, right: 30, left: 20, bottom: 20 }}>
-              <CartesianGrid stroke="#333" strokeDasharray="3 3" />
-              <XAxis dataKey="day" tick={false} />
-              <YAxis tick={{ fill: "#d4af37", fontSize: 12 }} />
-              <Tooltip
-                labelFormatter={(l) => `Date : ${new Date(l as string).toLocaleDateString()}`}
-                formatter={(v) => v?.toLocaleString()}
+        <section className="dashboard-section">
+          <ResponsiveContainer width="100%" height={400}>
+            <AreaChart data={itemsPerDay}>
+              <defs>
+                <linearGradient id="areaItems" x1="0" y1="0" x2="0" y2="1">
+                  <stop
+                    offset="0%"
+                    stopColor={SILVER_MUTED}
+                    stopOpacity={0.2}
+                  />
+                  <stop
+                    offset="100%"
+                    stopColor={SILVER_MUTED}
+                    stopOpacity={0}
+                  />
+                </linearGradient>
+              </defs>
+              <CartesianGrid
+                stroke="#2D2D2D"
+                strokeDasharray="3 3"
+                vertical={false}
               />
-              <Line
+              <XAxis
+                dataKey="timestamp"
+                type="number"
+                scale="time"
+                tick={false}
+                axisLine={false}
+                domain={["dataMin", "dataMax"]}
+              />
+              <YAxis
+                tick={{ fill: SILVER_MUTED, fontWeight: 500 }}
+                axisLine={false}
+                tickLine={false}
+              />
+              <Tooltip
+                content={({ active, payload, label }) => {
+                  if (!active || !payload?.length) return null;
+                  return (
+                    <div style={sharedTooltipStyle}>
+                      <div style={{ color: "#FFFFFF", marginBottom: 4 }}>
+                        {new Date(label as number).toLocaleDateString()}
+                      </div>
+                      <div style={{ color: SILVER_MUTED }}>
+                        {payload[0].value} articles
+                      </div>
+                    </div>
+                  );
+                }}
+              />
+              <Area
                 type="monotone"
                 dataKey="totalItems"
-                stroke="#d4af37"
+                stroke={SILVER_MUTED}
                 strokeWidth={3}
-                dot={{ r: 4, stroke: "#d4af37", strokeWidth: 2, fill: "#fff" }}
-                activeDot={{ r: 6, fill: "#d4af37", stroke: "#fff", strokeWidth: 2 }}
+                fill="url(#areaItems)"
+                activeDot={{ r: 6, fill: SILVER_MUTED }}
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
           <div className="section-footer">
-            <div className="section-title">Articles vendus</div>
-            <div className="section-kpi">{totalItems} articles</div>
+            <h3 className="section-title">Articles vendus</h3>
+            <p className="section-kpi">
+              {totalItems.toLocaleString()} articles
+            </p>
           </div>
         </section>
-
       </div>
-
     </div>
   );
 }

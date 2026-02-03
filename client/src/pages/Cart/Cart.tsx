@@ -15,38 +15,12 @@ function Cart() {
     );
   }
 
-  const handleCheckout = async () => {
+  const handleValidateCart = () => {
     if (items.length === 0) {
       alert("Votre panier est vide");
       return;
     }
-
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/stripe/create-checkout-session`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            items: items.map((item) => ({
-              name: item.name,
-              price: item.price,
-              quantity: 1,
-              // image_url: `${import.meta.env.VITE_API_URL}${item.image_url}`,
-            })),
-          }),
-        },
-      );
-
-      const data = await response.json();
-
-      if (data.url) {
-        window.location.href = data.url;
-      }
-    } catch (error) {
-      console.error("Erreur checkout:", error);
-      alert("Erreur lors du paiement");
-    }
+    navigate("/order-summary");
   };
 
   const handleContinueShopping = () => {
@@ -80,25 +54,31 @@ function Cart() {
       <div className="cart-content">
         <div className="cart-items">
           {items.map((item) => (
-            <div key={item.product_id} className="cart-item">
+            <div
+              key={`${item.product_id}-${item.size_id}`}
+              className="cart-item"
+            >
               <img
-                src={`${baseUrl}${item.image_url}`}
+                src={`${baseUrl}${item.url}`}
                 alt={item.name}
                 className="item-image"
               />
               <div className="item-product">
                 <div className="item-details">
                   <h3>{item.name}</h3>
+                  {item.size_label && (
+                    <p className="item-size">Taille : {item.size_label}</p>
+                  )}
                 </div>
-                <div className="item-price">
-                  € {Math.floor(+item.price.toFixed(2))}
-                </div>
+                <div className="item-price">€ {Math.floor(item.price)}</div>
 
                 <div className="item-action">
                   <button
                     type="button"
                     className="remove-btn"
-                    onClick={() => removeFromCart(item.product_id)}
+                    onClick={() =>
+                      removeFromCart(item.product_id, item.size_id)
+                    }
                   >
                     Retirer
                   </button>
@@ -110,7 +90,11 @@ function Cart() {
                   type="button"
                   className="qty-btn"
                   onClick={() =>
-                    updateQuantity(item.product_id, item.quantity - 1)
+                    updateQuantity(
+                      item.product_id,
+                      item.quantity - 1,
+                      item.size_id,
+                    )
                   }
                 >
                   −
@@ -120,7 +104,11 @@ function Cart() {
                   type="button"
                   className="qty-btn"
                   onClick={() =>
-                    updateQuantity(item.product_id, item.quantity + 1)
+                    updateQuantity(
+                      item.product_id,
+                      item.quantity + 1,
+                      item.size_id,
+                    )
                   }
                 >
                   +
@@ -135,7 +123,10 @@ function Cart() {
             <h2>Résumé de la commande</h2>
 
             <div className="summary-row">
-              <span>Nombre d'articles : ( {items.length} )</span>
+              <span>
+                Nombre d'articles : ({" "}
+                {items.reduce((total, item) => total + item.quantity, 0)} )
+              </span>
             </div>
 
             <div className="summary-row">
@@ -146,17 +137,24 @@ function Cart() {
 
             <div className="summary-row total">
               <span>Total</span>
-              <span>€ {Math.floor(+getTotal().toFixed(2))}</span>
+              <span>€ {Math.floor(getTotal())}</span>
             </div>
 
             <button
               type="button"
               className="checkout-btn"
+              onClick={handleValidateCart}
+            >
+              Valider mon panier
+            </button>
+
+            {/* <button
+              type="button"
+              className="checkout-btn"
               onClick={handleCheckout}
             >
               Procéder au paiement
-            </button>
-
+            </button> */}
             <button
               type="button"
               className="continue-shopping-btn"

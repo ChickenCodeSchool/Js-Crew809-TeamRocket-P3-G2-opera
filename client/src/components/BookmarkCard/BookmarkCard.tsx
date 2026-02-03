@@ -10,9 +10,10 @@ type MarkCard = {
 
 type Props = {
   brandId: number;
+  isVisible?: boolean;
 };
 
-export default function BookmarkCard({ brandId }: Props) {
+export default function BookmarkCard({ brandId, isVisible = false }: Props) {
   const [cards, setCards] = useState<MarkCard[]>([]);
   const navigate = useNavigate();
 
@@ -28,11 +29,12 @@ export default function BookmarkCard({ brandId }: Props) {
 
   return (
     <section className="brand-cards-wrapper">
-      {cards.map((card) => (
+      {cards.map((card, index) => (
         <button
           key={card.categorie_id}
           type="button"
-          className="bookmark-card"
+          className={`bookmark-card ${isVisible ? "visible" : ""}`}
+          style={{ animationDelay: `${index * 0.1}s` }}
           onClick={() => handleClick(card.categorie_id)}
         >
           <img

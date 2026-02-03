@@ -29,13 +29,14 @@ function Navbar({ auth, setAuth }: NavbarProps) {
   console.log("pathname:", location.pathname, "isLanding:", isLanding);
 
   const darkNavbarPages = [
-    "/nouscontacter",
     "/register",
     "/auth",
     "/adminproducts",
     "/panier",
     "/forgot-password",
     "/reset-password",
+    "/order-confirmation",
+    "/order-summary",
   ];
   const shouldBeDark = darkNavbarPages.includes(location.pathname);
 
@@ -78,6 +79,28 @@ function Navbar({ auth, setAuth }: NavbarProps) {
     return () => clearTimeout(timeout);
   }, [location.pathname, isLanding, shouldBeDark]);
 
+  useEffect(() => {
+    const handleThemeChange = () => {
+      const theme = document.body.getAttribute("data-navbar-theme") as
+        | "light"
+        | "dark"
+        | null;
+      if (theme) {
+        setTheme(theme);
+      }
+    };
+
+    handleThemeChange();
+
+    const observer = new MutationObserver(handleThemeChange);
+    observer.observe(document.body, {
+      attributes: true,
+      attributeFilter: ["data-navbar-theme"],
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <>
       <header className={`navbar ${theme}`}>
@@ -101,7 +124,7 @@ function Navbar({ auth, setAuth }: NavbarProps) {
 
           <div className="profile_container">
             <FiUser size={24} className="user_navbar" />
-            <ProfileMenu auth={auth} setAuth={setAuth} />
+            <ProfileMenu auth={auth} setAuth={setAuth} theme={theme} />
           </div>
 
           <button

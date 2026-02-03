@@ -66,6 +66,7 @@ router.get("/brands", brandActions.readAllBrands);
 import authActions from "./modules/auth/authActions";
 router.post("/auth/login", authActions.login);
 router.get("/auth/session", authActions.verifyToken, authActions.getSession);
+router.post("/auth/logout", authActions.logout);
 
 router.post("/auth/forgot-password", authActions.forgotPassword);
 router.post("/auth/reset-password", authActions.resetPassword);
@@ -115,6 +116,7 @@ router.post(
   "/api/stripe/create-checkout-session",
   stripeActions.createCheckoutSession,
 );
+router.post("/api/stripe/verify-payment", stripeActions.verifyPayment);
 
 import * as dashboardActions from "./modules/dashboard/dashboardActions";
 router.get("/api/dashboard/revenue", dashboardActions.revenuePerMonth);
@@ -124,5 +126,23 @@ router.get(
   "/api/dashboard/customers-per-day",
   dashboardActions.customersPerDay,
 );
+import cartActions from "./modules/cart/cartActions";
+router.post("/api/cartitem", cartActions.addNewCartItem);
+router.post("/cartitem", cartActions.addNewCartItem);
+router.get("/api/cart/:customerId", cartActions.getCart);
+router.put("/api/cartitem/:cartItemId", cartActions.updateCartItem);
+router.delete("/api/cartitem/:cartItemId", cartActions.removeCartItem);
+router.post("/api/cart/sync", cartActions.syncCart);
+router.delete("/api/cart/:customerId/clear", cartActions.clearCart);
+
+import suggestionsActions from "./modules/suggestions/suggestionsActions";
+
+router.get(
+  "/api/products/:productId/suggestions",
+  suggestionsActions.getSuggestions,
+);
+
+//ROUTE CONNEXION GOOGLE
+router.post("/auth/google", authActions.googleLogin);
 
 export default router;

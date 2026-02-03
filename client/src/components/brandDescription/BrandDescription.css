@@ -2,10 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /*min-height: 60vh;*/
-  height: 80vh;
   position: relative;
-  padding: 2rem;
+  padding-top: 8rem;
+  padding-bottom: 4rem;
 }
 
 .brand-desc-container {
@@ -30,6 +29,22 @@
   line-height: 1.8;
   text-align: center;
   font-weight: 500;
+
+  /* Animation */
+  opacity: 0;
+}
+
+.brand-text.visible {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .brand-loading,

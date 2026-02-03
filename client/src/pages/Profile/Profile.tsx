@@ -16,7 +16,6 @@ function Profile() {
   }
 
   const user: User = auth.user;
-
   const [editingSection, setEditingSection] = useState<
     "personal" | "address" | null
   >(null);
@@ -95,7 +94,6 @@ function Profile() {
                 </>
               )}
             </div>
-
             <div className="profile_info">
               {editingSection === "personal" ? (
                 <>
@@ -164,20 +162,9 @@ function Profile() {
                 </>
               )}
             </div>
-
             <div className="profile_info">
               {editingSection === "address" ? (
                 <>
-                  <input
-                    className="edit_input"
-                    value={editedUser.firstname}
-                    onChange={(e) => handleChange("firstname", e.target.value)}
-                  />
-                  <input
-                    className="edit_input"
-                    value={editedUser.lastname}
-                    onChange={(e) => handleChange("lastname", e.target.value)}
-                  />
                   <input
                     className="edit_input"
                     value={editedUser.adress ?? ""}
@@ -199,13 +186,6 @@ function Profile() {
               ) : (
                 <>
                   <p>
-                    <strong>Prénom :</strong>{" "}
-                    {user.firstname ?? "Non renseigné"}
-                  </p>
-                  <p>
-                    <strong>Nom :</strong> {user.lastname ?? "Non renseigné"}
-                  </p>
-                  <p>
                     <strong>Adresse :</strong> {user.adress ?? "Non renseignée"}
                   </p>
                   <p>
@@ -220,8 +200,6 @@ function Profile() {
             </div>
           </div>
         </div>
-
-        <div className="profile_column_right" />
       </div>
     </div>
   );
