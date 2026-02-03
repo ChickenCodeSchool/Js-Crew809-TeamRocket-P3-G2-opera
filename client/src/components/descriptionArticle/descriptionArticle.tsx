@@ -40,6 +40,21 @@ function DescriptionArticle({ productId }: Props) {
   const [isOpenComposition, setIsOpenComposition] = useState(false);
   const [isOpenDelivery, setIsOpenDelivery] = useState(false);
 
+  const sortSizes = (sizes: ArticleSize[]) => {
+    const sizeOrder = ["XS", "S", "M", "L", "XL", "XXL"];
+    return [...sizes].sort((a, b) => {
+      const indexA = sizeOrder.indexOf(a.size_label);
+      const indexB = sizeOrder.indexOf(b.size_label);
+
+      if (indexA !== -1 && indexB !== -1) {
+        return indexA - indexB;
+      }
+      if (indexA !== -1) return -1;
+      if (indexB !== -1) return 1;
+      return a.size_label.localeCompare(b.size_label);
+    });
+  };
+
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/products/${productId}`)
       .then((response) => response.json())
@@ -79,6 +94,9 @@ function DescriptionArticle({ productId }: Props) {
     return <div className="loading">Chargement...</div>;
   }
 
+  // Tri des tailles avant affichage
+  const sortedSizes = articleData?.sizes ? sortSizes(articleData.sizes) : [];
+
   return (
     <div className="article-container">
       <div className="articleheader">
@@ -99,8 +117,8 @@ function DescriptionArticle({ productId }: Props) {
 
       {isOpenSize && (
         <div className="size-options">
-          {articleData?.sizes && articleData.sizes.length > 0 ? (
-            articleData.sizes.map((size) => (
+          {sortedSizes.length > 0 ? (
+            sortedSizes.map((size) => (
               <span
                 key={size.size_id}
                 className={`size ${selectedSize === size.size_id ? "selected" : ""}`}

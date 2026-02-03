@@ -1,3 +1,7 @@
+.suggestions-section {
+  margin-bottom: 80px;
+}
+
 .suggestions.container {
   display: flex;
   flex-direction: column;
