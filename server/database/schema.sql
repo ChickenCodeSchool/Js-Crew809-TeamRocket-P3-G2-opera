@@ -19,9 +19,9 @@
 -- Current Database: `operaDB`
 --
 
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `operaDB` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `operadbv2` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
-USE `operaDB`;
+USE `operadbv2`;
 
 --
 -- Table structure for table `brand`
