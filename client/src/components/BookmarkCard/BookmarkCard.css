@@ -18,7 +18,7 @@
 }
 
 .bookmark-card.visible {
-  animation: fadeIn 0.2s ease-out forwards;
+  animation: fadeIn 0.5s ease-out forwards;
 }
 
 .bookmark-card.visible:hover {
