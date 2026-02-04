@@ -8,7 +8,7 @@ import type { Auth } from "../../App";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
 import { useCartContext } from "../../contexts/CartContext";
-import PrivacyModal from "../PolitiqueConfidentialité/PrivacyModal";
+import PrivacyModal from "../PolitiqueConfidentialite/PrivacyModal";
 
 function Login() {
   const emailRef = useRef<HTMLInputElement>(null);

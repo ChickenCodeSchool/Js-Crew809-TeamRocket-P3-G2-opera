@@ -16,7 +16,7 @@ import Stepper from "@mui/material/Stepper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import PrivacyModal from "../PolitiqueConfidentialité/PrivacyModal";
+import PrivacyModal from "../PolitiqueConfidentialite/PrivacyModal";
 
 function NumberStepIcon(props: StepIconProps) {
   const { active, completed, icon } = props;
