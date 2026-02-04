@@ -96,12 +96,14 @@
    ============================================================ */
 @media screen and (min-width: 769px) {
   .table-responsive-container {
-    width: 95%;
+    width: 98%;
     max-width: 1450px;
     margin: 0 auto 40px auto;
-    max-height: none; /* Scroll de page activé */
-    overflow-y: visible; /* Scroll de page activé */
+
+    /* On garde le scroll horizontal en "dernier recours" 
+       pour éviter que le bouton SUPPRIMER ne disparaisse */
     overflow-x: auto;
+    overflow-y: visible;
     border: 1px solid #84848463;
     border-radius: 8px;
   }
@@ -109,7 +111,9 @@
   .admin-table-customers {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto !important; /* Laisse les colonnes s'ajuster aux boutons */
+    /* 'auto' permet au tableau de se rétrécir jusqu'à ce que 
+        le texte commence à se chevaucher */
+    table-layout: auto !important;
   }
 
   .admin-tr-table {
@@ -129,17 +133,21 @@
     outline: none;
   }
 
+  /* On réduit le padding des cellules pour gagner de la place */
   .admin-table-customers td {
-    padding: 15px 25px;
+    padding: 12px 10px;
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #f0f0f0;
     display: table-cell !important;
+    font-size: 0.85rem; /* Un poil plus petit pour l'adaptabilité */
   }
 
-  /* SOLUTION FINALE : Alignement horizontal forcé via le Wrapper */
+  /* --- GESTION DE LA COLONNE ACTIONS --- */
   .actions-cell {
-    min-width: 300px !important;
+    /* On définit une largeur qui peut se réduire un peu */
+    width: 220px;
+    min-width: 210px !important;
   }
 
   .actions-wrapper {
@@ -147,9 +155,32 @@
     flex-direction: row !important;
     justify-content: center !important;
     align-items: center !important;
-    gap: 20px !important; /* Espace net entre les deux boutons */
-    width: 100% !important;
+    gap: 8px !important; /* Espace réduit pour gagner de la largeur */
     flex-wrap: nowrap !important;
+  }
+
+  .action-btn {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+
+    /* --- LES CORRECTIONS SONT ICI --- */
+    font-size: 0.75rem;
+    font-weight: 500; /* Réduit de 600 à 500 pour être moins "gras" */
+    text-transform: none; /* Annule le passage automatique en majuscules */
+    /* ------------------------------- */
+
+    transition: background-color 0.2s ease;
+    min-width: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 }
 
