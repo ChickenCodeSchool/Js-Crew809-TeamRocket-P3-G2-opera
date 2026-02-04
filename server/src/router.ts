@@ -73,14 +73,14 @@ router.post("/auth/reset-password", authActions.resetPassword);
 
 import customerActions from "./modules/user/customerActions";
 
-router.post("/customers", authActions.hashPassword, customerActions.add);
-router.get("/customers", customerActions.browse);
-router.get("/customers/:id", customerActions.read);
+router.post("/api/customers", authActions.hashPassword, customerActions.add);
+router.get("/api/customers", customerActions.browse);
+router.get("/api/customers/:id", customerActions.read);
 router.put(
-  "/customers/:id",
+  "/api/customers/:id",
   /*authActions.hashPassword,*/ customerActions.update,
 );
-router.put("/customers/:id", customerActions.update);
+router.put("/api/customers/:id", customerActions.update);
 router.delete(
   "/customers/:id",
   /*authActions.verifyToken,*/
@@ -100,6 +100,7 @@ import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
+router.get("/api/orders/customer/:id", orderActions.readByCustomer);
 
 import adminOrderActions from "./modules/orderDeliveryAdmin/adminOrderActions";
 
@@ -134,6 +135,13 @@ router.put("/api/cartitem/:cartItemId", cartActions.updateCartItem);
 router.delete("/api/cartitem/:cartItemId", cartActions.removeCartItem);
 router.post("/api/cart/sync", cartActions.syncCart);
 router.delete("/api/cart/:customerId/clear", cartActions.clearCart);
+
+import suggestionsActions from "./modules/suggestions/suggestionsActions";
+
+router.get(
+  "/api/products/:productId/suggestions",
+  suggestionsActions.getSuggestions,
+);
 
 //ROUTE CONNEXION GOOGLE
 router.post("/auth/google", authActions.googleLogin);

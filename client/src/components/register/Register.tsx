@@ -131,7 +131,7 @@ function Register() {
     };
 
     try {
-      const response = await fetch("http://localhost:3310/customers", {
+      const response = await fetch("http://localhost:3310/api/customers", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
