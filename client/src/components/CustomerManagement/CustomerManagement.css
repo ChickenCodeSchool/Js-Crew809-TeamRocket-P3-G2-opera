@@ -1,70 +1,94 @@
 /* ============================================================
-   1. STYLES COMMUNS
+   1. STYLES COMMUNS (Mobile & Desktop)
    ============================================================ */
 .admin-customer-container {
-  padding: 40px;
-  padding-top: 200px;
+  padding: 40px 20px;
+  padding-top: 150px;
   background-color: #ffffff;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h2 {
+.admin-customer-container h2 {
   text-transform: uppercase;
   letter-spacing: 3px;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
-  display: flex;
-  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
-/* INTERACTIVITÉ : Style pour les liens Ref et Nom */
+/* Barre de recherche centrée */
+.admin-search-container-centered {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+}
+
+.admin-search-input {
+  width: 350px;
+  padding: 10px 15px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.admin-search-input:focus {
+  border-color: #000;
+}
+
+/* Label compteur aligné à gauche du tableau */
+.admin-count-label {
+  width: 95%;
+  max-width: 1450px;
+  text-align: left;
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Liens Réf et Nom */
 .client-data-link {
   text-decoration: none;
-  color: inherit; /* Garde la couleur noire par défaut */
+  color: inherit;
   font-weight: 500;
   transition: all 0.2s ease;
   display: inline-block;
 }
 
 .client-data-link:hover {
-  color: #000000; /* Noir au survol pour indiquer le clic */
+  color: #000000;
   text-decoration: underline;
-  transform: translateX(3px); /* Petit effet de glissement fluide */
+  transform: translateX(3px);
 }
 
-/* Boutons d'actions restants (Edit / Delete) */
+/* Style des boutons (Look Gestion des Produits) */
 .action-btn {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  cursor: pointer;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
   border-radius: 4px;
-  width: 34px;
-  height: 34px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+  min-width: 120px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 4px;
-  color: #888;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0; /* Empêche le bouton de rétrécir */
 }
 
 .action-btn:hover {
-  border-color: #1a1a1a;
-  color: #1a1a1a;
-}
-
-.delete-btn:hover {
-  border-color: #000000;
-  color: #000000; /* Le rouge est supprimé ici */
-  background-color: #f9f9f9; /* Optionnel : un léger gris pour le clic */
-}
-
-.role-badge {
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: bold;
+  background-color: #333333;
 }
 
 /* ============================================================
@@ -72,36 +96,69 @@ h2 {
    ============================================================ */
 @media screen and (min-width: 769px) {
   .table-responsive-container {
-    max-height: 60vh;
-    overflow-y: auto;
+    width: 95%;
+    max-width: 1450px;
+    margin: 0 auto 40px auto;
+    max-height: none; /* Scroll de page activé */
+    overflow-y: visible; /* Scroll de page activé */
+    overflow-x: auto;
     border: 1px solid #84848463;
     border-radius: 8px;
-    margin-top: 20px;
   }
 
   .admin-table-customers {
     width: 100%;
     border-collapse: collapse;
+    table-layout: auto !important; /* Laisse les colonnes s'ajuster aux boutons */
+  }
+
+  .admin-tr-table {
+    background-color: #1a1a1a !important;
   }
 
   .admin-table-customers thead th {
     background-color: #1a1a1a;
     color: #ffffff;
-    padding: 15px;
+    padding: 18px;
     position: sticky;
     top: 0;
     z-index: 10;
     text-align: center;
     font-size: 0.8rem;
+    border: none;
+    outline: none;
   }
 
   .admin-table-customers td {
-    padding: 20px;
+    padding: 15px 25px;
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #f0f0f0;
     display: table-cell !important;
   }
+
+  /* SOLUTION FINALE : Alignement horizontal forcé via le Wrapper */
+  .actions-cell {
+    min-width: 300px !important;
+  }
+
+  .actions-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 20px !important; /* Espace net entre les deux boutons */
+    width: 100% !important;
+    flex-wrap: nowrap !important;
+  }
+}
+
+/* Ligne vide si aucun client */
+.no-result-row {
+  padding: 40px !important;
+  color: #888;
+  font-style: italic;
+  text-align: center;
 }
 
 /* ============================================================
@@ -111,6 +168,10 @@ h2 {
   .admin-customer-container {
     padding: 20px;
     padding-top: 120px;
+  }
+
+  .admin-search-input {
+    width: 90%;
   }
 
   .admin-table-customers,
@@ -149,7 +210,14 @@ h2 {
     border-bottom: none !important;
   }
 
-  /* Le label (Titre) */
+  /* On empile les boutons sur mobile pour que ça tienne */
+  .actions-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
   .admin-table-customers td::before {
     content: attr(data-label);
     font-weight: 700;
