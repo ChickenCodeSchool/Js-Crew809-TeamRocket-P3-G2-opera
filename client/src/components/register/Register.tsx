@@ -16,6 +16,8 @@ import Stepper from "@mui/material/Stepper";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import PrivacyModal from "../PolitiqueConfidentialité/PrivacyModal";
+
 function NumberStepIcon(props: StepIconProps) {
   const { active, completed, icon } = props;
   return (
@@ -42,6 +44,7 @@ function Register() {
     password: "",
   });
   const [consent, setConsent] = useState(false);
+  const [isPrivacyOpen, setIsPrivacyOpen] = useState(false);
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -306,13 +309,13 @@ function Register() {
                 En créant mon compte, j’accepte que mes données personnelles
                 soient traitées pour la gestion de mon compte et de mes
                 commandes, conformément à la{" "}
-                <a
-                  href="/privacy-policy"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  className="register_privacy_link"
+                  onClick={() => setIsPrivacyOpen(true)}
                 >
                   politique de confidentialité
-                </a>
+                </button>
                 .
               </label>
             </div>
@@ -332,6 +335,11 @@ function Register() {
           </>
         )}
       </form>
+
+      <PrivacyModal
+        isOpen={isPrivacyOpen}
+        onClose={() => setIsPrivacyOpen(false)}
+      />
 
       <ToastContainer position="top-left" autoClose={3000} limit={1} />
     </>

@@ -4,7 +4,6 @@ import Footer from "../Footer/Footer";
 import CarouselLp from "../carouselLp/carouselLp";
 import CollectionLp from "../collectionLp/CollectionLp";
 import "./landing.css";
-import { Link } from "react-router";
 
 type Background = {
   brand_picture_id: number;
@@ -36,7 +35,6 @@ export default function Landing() {
     8: "dark",
   };
 
-  // Fetch des images
   useEffect(() => {
     fetch("http://localhost:3310/api/landing")
       .then((res) => res.json())
@@ -49,7 +47,6 @@ export default function Landing() {
       });
   }, []);
 
-  // Scroll et restauration
   useEffect(() => {
     const previousRestoration = window.history.scrollRestoration;
     if ("scrollRestoration" in window.history) {
@@ -66,7 +63,6 @@ export default function Landing() {
     };
   }, []);
 
-  // Animation scroll
   useEffect(() => {
     if (!backgrounds.length) return;
 
@@ -129,7 +125,6 @@ export default function Landing() {
     };
   }, [backgrounds]);
 
-  // Construction des sections
   const sections: Section[] = [];
   backgrounds.forEach((bg, index) => {
     sections.push({

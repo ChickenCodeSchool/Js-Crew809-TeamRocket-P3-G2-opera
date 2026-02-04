@@ -15,8 +15,7 @@
 .profile_menu {
   position: absolute;
   top: calc(100% + 12px);
-  right: 0;
-
+  right: -17px;
   display: none;
   flex-direction: column;
   gap: 10px;

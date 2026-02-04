@@ -83,7 +83,7 @@ router.put(
 router.put("/customers/:id", customerActions.update);
 router.delete(
   "/customers/:id",
-  authActions.verifyToken,
+  /*authActions.verifyToken,*/
   customerActions.remove,
 );
 
