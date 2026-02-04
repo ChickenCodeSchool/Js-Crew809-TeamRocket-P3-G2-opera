@@ -85,8 +85,8 @@ function Footer() {
               }`}
             >
               <Link to="#">À propos de Opéra</Link>
-              <Link to="#">Code éthique</Link>
-              <Link to="#">Politiques de Confidentialité</Link>
+              <Link to="/general-terms">Conditions générales de vente</Link>
+              <Link to="/privacy-polity">Politique de Confidentialité</Link>
             </div>
           </div>
 

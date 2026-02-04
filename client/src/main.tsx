@@ -33,6 +33,8 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import GeneralTerms from "./pages/generalTerms/generalTerms";
+import PrivacyPolity from "./pages/privacyPolity/privacyPolity";
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const router = createBrowserRouter([
@@ -138,6 +140,8 @@ const router = createBrowserRouter([
         path: "/order-confirmation",
         element: <OrderConfirmation />,
       },
+      { path: "/privacy-polity", element: <PrivacyPolity /> },
+      { path: "/general-terms", element: <GeneralTerms /> },
     ],
   },
 ]);
