@@ -1,4 +1,4 @@
-// Dans src/data/mockCustomers.ts
+/*// Dans src/data/mockCustomers.ts
 import type { Customer } from "../types/customer";
 
 // Une fonction pour générer un client rapidement
@@ -23,4 +23,4 @@ export const mockCustomers: Customer[] = [
   createFakeCustomer(1, "Sofian", "Hanni"),
   createFakeCustomer(2, "Jean", "Dupont"),
   createFakeCustomer(3, "Marie", "Curie"),
-];
+];*/

@@ -1,0 +1,191 @@
+/* ============================================================
+   1. STRUCTURE ET TYPOGRAPHIE
+   ============================================================ */
+.admin-customer-container {
+  padding: 40px;
+  padding-top: 200px; /* Aligné avec la page gestion */
+  background-color: #ffffff;
+  min-height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centre la fiche à l'écran */
+}
+
+h2 {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* ============================================================
+   2. LA CARTE D'INFORMATION (INFO-CARD)
+   ============================================================ */
+.info-card {
+  width: 100%;
+  max-width: 600px; /* Évite que la fiche soit trop large sur PC */
+  border: 1px solid #84848463; /* Même bordure que ton tableau */
+  padding: 40px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Léger relief */
+}
+
+.info-card p {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0; /* Lignes de séparation comme le tableau */
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between; /* Aligne libellé à gauche, info à droite */
+}
+
+.info-card p:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+.info-card strong {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #888;
+  letter-spacing: 1px;
+}
+
+/* ============================================================
+   3. BOUTON RETOUR (ADD-BTN)
+   ============================================================ */
+.add-btn {
+  margin-top: 40px;
+  padding: 12px 30px;
+  background-color: #1a1a1a; /* Fond noir comme le header du tableau */
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+/* 1. Force le conteneur de l'historique à prendre toute la largeur */
+.order-history-section {
+  width: 100%;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee; /* Petite ligne de séparation propre */
+}
+
+/* 2. Style du titre de l'historique */
+.order-history-section h3 {
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* 3. Le tableau doit occuper 100% de son parent */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  background-color: #fff;
+}
+
+.orders-table th {
+  background-color: #1a1a1a; /* Noir comme ton bouton */
+  color: #ffffff;
+  text-align: left;
+  padding: 12px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  text-align: center; /* Force le centrage des titres */
+}
+
+.orders-table td {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+  vertical-align: middle;
+  text-align: center; /* Force le centrage des titres */
+}
+
+/* Cible la 3ème colonne (Total) pour aérer les chiffres */
+.orders-table td:nth-child(3) {
+  letter-spacing: 0.5px; /* Spacing très léger comme demandé */
+  font-variant-numeric: tabular-nums; /* Aligne les chiffres verticalement s'ils n'ont pas la même largeur */
+  font-weight: 500; /* Un peu plus épais pour la lisibilité */
+}
+
+/* 4. Style pour les badges de statut */
+.status-badge {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  padding: 6px 14px;
+  font-size: 9px; /* Plus petit = plus raffiné */
+  font-weight: 700; /* Plus gras pour compenser la petite taille */
+  text-transform: uppercase;
+  letter-spacing: 2.5px; /* Grand espacement pour l'aspect "boutique" */
+  border-radius: 0; /* Pas d'arrondi, style architectural */
+}
+
+.status-badge.pending {
+  background-color: transparent;
+  color: #999;
+  border: 1px solid #e0e0e0;
+}
+
+.status-badge.preparing {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+}
+
+.status-badge.shipped {
+  background-color: #ebebeb;
+  color: black;
+  border: 1px solid #dbdbdb;
+}
+
+.status-badge.delivered {
+  background-color: #000000;
+  color: #ffffff;
+  border: 1px solid #000000;
+}
+
+/* 5. Ajustement pour que l'info-card ne bloque pas la largeur */
+.info-card {
+  display: flex;
+  flex-direction: column; /* Aligne tout verticalement */
+  width: 100%;
+  max-width: 800px; /* Ou la largeur que tu souhaites pour la fiche */
+  margin: 0 auto;
+}
+.add-btn:hover {
+  background-color: #000000;
+  /*transform: translateY(-20px); /* Petit effet de levée au survol */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-decoration: underline;
+  transform: translateY(3px); /* Petit effet de glissement fluide */
+}
+
+/* ============================================================
+   4. ADAPTATION MOBILE
+   ============================================================ */
+@media screen and (max-width: 768px) {
+  .admin-customer-container {
+    padding: 20px;
+    padding-top: 120px;
+  }
+
+  .info-card {
+    padding: 20px;
+  }
+
+  .info-card p {
+    flex-direction: column; /* Libellé au dessus de l'info en mobile */
+    align-items: flex-start;
+  }
+}
