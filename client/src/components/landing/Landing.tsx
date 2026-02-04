@@ -1,9 +1,9 @@
 import { type JSX, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Footer from "../Footer/Footer";
 import CarouselLp from "../carouselLp/carouselLp";
 import CollectionLp from "../collectionLp/CollectionLp";
 import "./landing.css";
-import { Link } from "react-router";
 
 type Background = {
   brand_picture_id: number;
@@ -24,6 +24,7 @@ export default function Landing() {
   const [backgrounds, setBackgrounds] = useState<Background[]>([]);
   const currentIndex = useRef(0);
   const isAnimating = useRef(false);
+  const navigate = useNavigate();
 
   const FRONT_ORDER = [6, 9, 1, 8];
 
@@ -51,7 +52,6 @@ export default function Landing() {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
-
     window.scrollTo(0, 0);
     currentIndex.current = 0;
     document.body.classList.add("landing-no-scroll");
@@ -187,9 +187,13 @@ export default function Landing() {
                   playsInline
                 />
               ) : (
-                <Link to="/brand/5" className="discover-btn">
+                <button
+                  type="button"
+                  className="discover-btn"
+                  onClick={() => navigate(`/brand/${bg.brand_id}`)}
+                >
                   Découvrir
-                </Link>
+                </button>
               )}
             </div>
           );

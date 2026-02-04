@@ -82,8 +82,8 @@ router.put(
 );
 router.put("/api/customers/:id", customerActions.update);
 router.delete(
-  "/api/customers/:id",
-  authActions.verifyToken,
+  "/customers/:id",
+  /*authActions.verifyToken,*/
   customerActions.remove,
 );
 

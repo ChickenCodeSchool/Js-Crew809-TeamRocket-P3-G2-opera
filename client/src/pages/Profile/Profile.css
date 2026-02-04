@@ -142,6 +142,96 @@
   box-shadow: 0 0 8px rgba(49, 130, 206, 0.4);
 }
 
+.delete_account_section_top {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  padding-right: 2rem;
+}
+
+.delete_account_button_top {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #4a4a4a;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.delete_account_button_top:hover {
+  background-color: #e0e0e0;
+  color: #000;
+  transform: translateY(-2px);
+}
+
+.modal_overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.modal_overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.confirm_delete_modal {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+}
+
+.modal_overlay.active .confirm_delete_modal {
+  transform: translateY(0);
+}
+
+.confirm_delete_modal p {
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.confirm_delete_modal .delete_account_button_top {
+  margin-right: 10px;
+}
+
+.cancel_button {
+  background-color: #ffffff;
+  color: #000;
+  padding: 0.5rem 1.2rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border: 1px solid #4a4a4a;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s, transform 0.2s;
+}
+
+.cancel_button:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
 @media (max-width: 1024px) {
   .profile_cards {
     flex-direction: column;

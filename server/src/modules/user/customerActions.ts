@@ -1,10 +1,11 @@
 import type { RequestHandler } from "express";
+import databaseClient from "../../../database/client";
 import customerRepository from "./customerRepository";
 
 const browse: RequestHandler = async (req, res, next) => {
   try {
-    const customer = await customerRepository.readAll();
-    res.json(customer);
+    const customers = await customerRepository.readAll();
+    res.json(customers);
   } catch (err) {
     next(err);
   }
@@ -14,11 +15,11 @@ const read: RequestHandler = async (req, res, next) => {
   try {
     const id = Number(req.params.id);
     const customer = await customerRepository.read(id);
-    if (customer == null) {
+    if (!customer) {
       res.sendStatus(404);
-    } else {
-      res.json(customer);
+      return;
     }
+    res.json(customer);
   } catch (err) {
     next(err);
   }
@@ -29,7 +30,7 @@ const add: RequestHandler = async (req, res, next) => {
     const newCustomer = {
       firstname: req.body.firstname,
       lastname: req.body.lastname,
-      mail: req.body.mail,
+      mail: req.body.hashed_mail ?? req.body.mail,
       password: req.body.hashed_password,
       role: req.body.role ?? 0,
       birthday: req.body.birthday || null,
@@ -42,9 +43,7 @@ const add: RequestHandler = async (req, res, next) => {
     };
 
     const insertId = await customerRepository.create(newCustomer);
-
     const customer = await customerRepository.read(insertId);
-    console.log("customer", customer);
     res.status(201).json({ user: customer });
   } catch (err) {
     next(err);
@@ -71,16 +70,55 @@ const update: RequestHandler = async (req, res, next) => {
 };
 
 const remove: RequestHandler = async (req, res, next) => {
+  const customerId = Number(req.params.id);
+
   try {
-    const customerId = Number(req.params.id);
+    const [carts] = await databaseClient.query(
+      "SELECT cart_id FROM cart WHERE customer_id = ?",
+      [customerId],
+    );
+
+    for (const cart of carts as { cart_id: number }[]) {
+      await databaseClient.query("DELETE FROM cart_item WHERE cart_id = ?", [
+        cart.cart_id,
+      ]);
+    }
+
+    await databaseClient.query("DELETE FROM cart WHERE customer_id = ?", [
+      customerId,
+    ]);
+
+    const [orders] = await databaseClient.query(
+      "SELECT order_id FROM `order` WHERE customer_id = ?",
+      [customerId],
+    );
+
+    for (const order of orders as { order_id: number }[]) {
+      await databaseClient.query("DELETE FROM order_item WHERE order_id = ?", [
+        order.order_id,
+      ]);
+    }
+
+    await databaseClient.query("DELETE FROM `order` WHERE customer_id = ?", [
+      customerId,
+    ]);
+
     const affectedRows = await customerRepository.delete(customerId);
     if (affectedRows === 0) {
-      res.sendStatus(404);
+      res.status(404).json({ message: "Utilisateur non trouvé" });
       return;
     }
-    res.sendStatus(204);
+
+    res.clearCookie("auth_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+    });
+
+    res.json({ message: "Compte supprimé avec succès" });
   } catch (err) {
-    next(err);
+    console.error("Erreur DELETE customer:", err);
+    res.status(500).json({ message: "Erreur serveur lors de la suppression" });
   }
 };
 

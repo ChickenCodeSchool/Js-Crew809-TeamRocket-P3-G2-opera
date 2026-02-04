@@ -1,28 +1,33 @@
 import { Check, Pencil, X } from "lucide-react";
 import { useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import type { Auth, User } from "../../App";
 import "./Profile.css";
 import imageopera from "../../assets/images/imageopera.jpg";
 
 function Profile() {
+  const navigate = useNavigate();
+
   const { auth, setAuth } = useOutletContext<{
     auth: Auth | null;
     setAuth: (auth: Auth | null) => void;
   }>();
 
-  if (!auth || !auth.user) {
+  if (!auth?.user) {
     return <div className="profile_page" />;
   }
 
   const user: User = auth.user;
+
+  const [editedUser, setEditedUser] = useState<User>({ ...user });
   const [editingSection, setEditingSection] = useState<
     "personal" | "address" | null
   >(null);
-  const [editedUser, setEditedUser] = useState<User>(user);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
   const handleEdit = (section: "personal" | "address") =>
     setEditingSection(section);
+
   const handleChange = (field: keyof User, value: string) =>
     setEditedUser({ ...editedUser, [field]: value });
 
@@ -62,6 +67,47 @@ function Profile() {
     }
   };
 
+  const handleDeleteAccount = () => setShowConfirmModal(true);
+  const cancelDelete = () => setShowConfirmModal(false);
+
+  const confirmDelete = async () => {
+    if (!auth) {
+      alert("Impossible de supprimer le compte : utilisateur non connecté.");
+      return;
+    }
+
+    try {
+      const response = await fetch(
+        `http://localhost:3310/customers/${user.customer_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      if (response.ok) {
+        setAuth(null);
+
+        navigate("/");
+      } else {
+        let message = "Erreur serveur";
+        try {
+          const data = await response.json();
+          message = data.message ?? message;
+        } catch {
+          message = await response.text();
+        }
+        alert(`Erreur lors de la suppression du compte: ${message}`);
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Erreur serveur");
+    }
+  };
+
   return (
     <div className="profile_page">
       <img
@@ -69,6 +115,17 @@ function Profile() {
         alt="mini-hero-profil"
         className="mini-hero-profil"
       />
+
+      <div className="delete_account_section_top">
+        <button
+          type="button"
+          className="delete_account_button_top"
+          onClick={handleDeleteAccount}
+        >
+          Supprimer mon compte
+        </button>
+      </div>
+
       <h2 className="profile_title">Mon profil</h2>
 
       <div className="profile_content">
@@ -200,6 +257,31 @@ function Profile() {
             </div>
           </div>
         </div>
+      </div>
+
+      <div className={`modal_overlay ${showConfirmModal ? "active" : ""}`}>
+        {showConfirmModal && (
+          <div className="confirm_delete_modal">
+            <p>
+              Voulez-vous vraiment supprimer votre compte ? Cette action est
+              irréversible.
+            </p>
+            <button
+              type="button"
+              onClick={confirmDelete}
+              className="delete_account_button_top"
+            >
+              Oui, supprimer
+            </button>
+            <button
+              type="button"
+              onClick={cancelDelete}
+              className="cancel_button"
+            >
+              Annuler
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
