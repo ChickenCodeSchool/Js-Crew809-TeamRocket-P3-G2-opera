@@ -23,8 +23,8 @@ class CustomerRepository {
   ) {
     const [result] = await databaseClient.query<Result>(
       `INSERT INTO customers 
-       (firstname, lastname, mail, password, role, birthday, adress, postal_code, country, phone, created_at, updated_at)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ? , NOW(), NOW())`,
+      (firstname, lastname, mail, password, role, birthday, adress, postal_code, country, phone, created_at, updated_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())`, // Il faut bien 10 "?" ici
       [
         customer.firstname,
         customer.lastname,
@@ -43,7 +43,7 @@ class CustomerRepository {
 
   async read(id: number) {
     const [rows] = await databaseClient.query<Rows>(
-      "SELECT * FROM customers WHERE customer_id = ?",
+      "SELECT customer_id, firstname, lastname, mail, role, birthday, adress, postal_code, country, phone, created_at FROM customers WHERE customer_id = ?",
       [id],
     );
     return rows[0] as Customer;
@@ -58,7 +58,9 @@ class CustomerRepository {
   }
 
   async readAll() {
-    const [rows] = await databaseClient.query<Rows>("SELECT * FROM customers");
+    const [rows] = await databaseClient.query<Rows>(
+      "SELECT customer_id, firstname, lastname, mail, role, birthday, adress, postal_code, country, phone, created_at FROM customers",
+    );
     return rows as Customer[];
   }
 

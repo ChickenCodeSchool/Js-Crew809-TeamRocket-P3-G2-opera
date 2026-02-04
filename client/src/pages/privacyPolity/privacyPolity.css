@@ -1,0 +1,147 @@
+.privacy-page {
+  background-color: #ffffff;
+  color: #111111;
+  min-height: 100vh;
+  padding: 120px 20px 80px;
+  font-family: "Montserrat", sans-serif;
+}
+
+.privacy-container {
+  max-width: 75vw;
+  margin: 0 auto;
+}
+
+.privacy-header {
+  text-align: center;
+  margin-bottom: 100px;
+}
+
+.privacy-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 6px;
+  margin-bottom: 20px;
+  color: #000;
+}
+
+.privacy-meta {
+  font-size: 0.8rem;
+  color: #555;
+  font-weight: 500;
+  letter-spacing: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.separator {
+  font-size: 1.2rem;
+  line-height: 0;
+}
+
+.privacy-intro {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  text-align: justify;
+  margin-bottom: 80px;
+  font-weight: 400;
+  padding: 0 40px;
+}
+
+.privacy-section {
+  margin-bottom: 60px;
+  border-top: 1px solid #000;
+  padding-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.privacy-subtitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0;
+  color: #000;
+}
+
+.privacy-section p {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: #222;
+  text-align: justify;
+  margin: 0;
+}
+
+.privacy-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+}
+
+.privacy-list li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 15px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  text-align: justify;
+}
+
+.privacy-list li::before {
+  content: "—";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: bold;
+  color: #000;
+}
+
+.privacy-list strong {
+  font-weight: 600;
+  color: #000;
+}
+
+.privacy-contact {
+  font-weight: 600;
+  text-transform: lowercase;
+  letter-spacing: 1px;
+  margin-top: 10px !important;
+  display: inline-block;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.privacy-contact:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .privacy-page {
+    padding-top: 90px;
+  }
+
+  .privacy-title {
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+  }
+
+  .privacy-intro {
+    padding: 0;
+    text-align: left;
+  }
+
+  .privacy-section p,
+  .privacy-list li {
+    text-align: left;
+  }
+
+  .privacy-section {
+    padding-top: 20px;
+    margin-bottom: 40px;
+  }
+}
