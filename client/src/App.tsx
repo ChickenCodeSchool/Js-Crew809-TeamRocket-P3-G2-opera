@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
+import Chatbot from "./components/Chatbot/Chatbot";
 import Footer from "./components/Footer/Footer";
 import Navbar from "./components/Navbar/Navbar";
 import "./App.css";
@@ -99,6 +100,7 @@ function App() {
         <Outlet context={{ auth, setAuth }} />
       </div>
       {!isAdmin && !isSnapBrandPage && <Footer />}
+      <Chatbot />
     </>
   );
 }

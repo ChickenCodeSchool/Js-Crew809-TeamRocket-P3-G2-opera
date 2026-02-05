@@ -57,7 +57,7 @@ function OrderSummary() {
 
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/customers/${user.customer_id}`,
+        `${import.meta.env.VITE_API_URL}/api/customers/${user.customer_id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
