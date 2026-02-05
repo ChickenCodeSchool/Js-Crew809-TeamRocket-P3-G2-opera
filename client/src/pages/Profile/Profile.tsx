@@ -34,7 +34,7 @@ function Profile() {
   const handleSave = async (section: "personal" | "address") => {
     try {
       const response = await fetch(
-        `http://localhost:3310/customers/${user.customer_id}`,
+        `http://localhost:3310/api/customers/${user.customer_id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
