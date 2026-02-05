@@ -7,14 +7,22 @@ type Props = { order: OrderData };
 
 export default function OldOrder({ order }: Props) {
   const navigate = useNavigate();
+
+  const getDeliveryDate = () => {
+    if (order.delivery_date) {
+      return new Date(order.delivery_date).toLocaleDateString("fr-FR");
+    }
+
+    const fallbackDate = new Date(order.date);
+    fallbackDate.setDate(fallbackDate.getDate() + 7);
+    return fallbackDate.toLocaleDateString("fr-FR");
+  };
+
   return (
     <div className="old-order-card-order">
       <div className="order-header-order">
         <span className="order-date-label-order">
-          Livrée le{" "}
-          <strong>
-            {new Date(order.delivery_date).toLocaleDateString("fr-FR")}
-          </strong>
+          Livrée le <strong>{getDeliveryDate()}</strong>
         </span>
         <span className="order-amount-order">
           <span>Montant :</span>

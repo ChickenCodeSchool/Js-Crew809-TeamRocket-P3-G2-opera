@@ -15,7 +15,7 @@ export interface OrderData {
   date: string;
   total: number;
   status: "pending" | "preparing" | "shipped" | "delivered";
-  delivery_date: string;
+  delivery_date: string | null;
   items: OrderItem[];
 }
 
@@ -26,12 +26,23 @@ type Props = {
 export default function OrderInProgress({ order }: Props) {
   const navigate = useNavigate();
 
+  const getEstimatedDate = (orderDate: string, deliveryDate: string | null) => {
+    if (deliveryDate) {
+      return new Date(deliveryDate).toLocaleDateString("fr-FR");
+    }
+
+    const date = new Date(orderDate);
+    date.setDate(date.getDate() + 7);
+    return date.toLocaleDateString("fr-FR");
+  };
+
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("fr-FR");
   };
 
   const isShipped = order.status === "shipped";
   const progressWidth = isShipped ? "50%" : "15%";
+  const displayDeliveryDate = getEstimatedDate(order.date, order.delivery_date);
 
   return (
     <div className="order-progress-card-order">
@@ -85,7 +96,8 @@ export default function OrderInProgress({ order }: Props) {
         <div className="timeline-step-order step-end">
           <div className="step-dot-order" />
           <span className="step-label-order">
-            Prévu pour le {formatDate(order.delivery_date)}
+            {order.delivery_date ? "Prévu pour le " : "Estimé pour le "}
+            {displayDeliveryDate}
           </span>
         </div>
       </div>
