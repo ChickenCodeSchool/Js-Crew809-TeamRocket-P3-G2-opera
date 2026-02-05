@@ -1,14 +1,14 @@
 import "./CustomerManagement.css";
-import { useEffect, useState } from "react"; // Ajout des hooks
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"; // Ajout de useNavigate
 import type { Customer } from "../../types/customer";
 
 export default function CustomerManagement() {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState(""); // État pour la recherche
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate(); // Hook pour la redirection
 
-  // Appel à la base de données au montage du composant
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/customers`)
       .then((response) => response.json())
@@ -17,17 +17,15 @@ export default function CustomerManagement() {
         setLoading(false);
       })
       .catch((error) => {
-        console.error("Erreur lors de la récupération des clients :", error);
+        console.error("Erreur lors de la récupération :", error);
         setLoading(false);
       });
   }, []);
 
-  // Logique de filtrage identique à "Gestion des Produits"
-  // 1. D'abord on filtre
+  // Filtrage
   const matches = customers.filter((customer) => {
     const s = searchTerm.toLowerCase().trim();
     if (s === "") return true;
-
     const firstNameFirst =
       `${customer.firstname} ${customer.lastname}`.toLowerCase();
     const lastNameFirst =
@@ -41,20 +39,35 @@ export default function CustomerManagement() {
     );
   });
 
-  // 2. Ensuite on décide si on limite ou pas
   const filteredCustomers =
     searchTerm.length > 0 ? matches.slice(0, 10) : matches;
 
+  // LOGIQUE DES BOUTONS
   const handleEdit = (customerId: number) => {
-    alert(`Modifier le client ${customerId}`);
+    // Redirige vers la vue détaillée/édition
+    navigate(`/admin/client/${customerId}`);
   };
 
-  const handleDelete = (customerId: number) => {
-    alert(`Voulez-vous vraiment supprimer le client ${customerId} ?`);
-    // Plus tard, on ajoutera ici la logique de suppression
+  const handleDelete = async (customerId: number) => {
+    if (window.confirm("Supprimer définitivement ce client ?")) {
+      try {
+        const response = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/customers/${customerId}`,
+          { method: "DELETE" },
+        );
+
+        if (response.ok) {
+          setCustomers((prev) =>
+            prev.filter((c) => c.customer_id !== customerId),
+          );
+        }
+      } catch (error) {
+        console.error("Erreur suppression:", error);
+      }
+    }
   };
-  // --- LA LIGNE QUI RÈGLE TON ERREUR ---
-  // Ici, on lit la variable loading. TypeScript est maintenant content.
+
+  // Rendu conditionnel propre pour "loading"
   if (loading) {
     return (
       <div className="admin-customer-container">Chargement des données...</div>
@@ -65,7 +78,6 @@ export default function CustomerManagement() {
     <div className="admin-customer-container">
       <h2>Gestion des clients</h2>
 
-      {/* Barre de recherche centrée */}
       <div className="admin-search-container-centered">
         <input
           type="text"
@@ -76,7 +88,6 @@ export default function CustomerManagement() {
         />
       </div>
 
-      {/* Compteur de résultats aligné à gauche */}
       <div className="admin-count-label">
         {filteredCustomers.length} client(s) trouvé(s)
       </div>
