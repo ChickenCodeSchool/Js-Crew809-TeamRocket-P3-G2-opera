@@ -2,7 +2,6 @@
   width: 100%;
   max-width: 420px;
   padding: 48px 40px;
-
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -27,11 +26,9 @@
   width: 100%;
   padding: 18px 14px 14px;
   font-size: 15px;
-
   background: transparent;
   border: none;
   border-bottom: 1px solid #000;
-
   outline: none;
   transition: border-color 0.25s ease;
 }
@@ -44,11 +41,9 @@
   position: absolute;
   left: 0;
   top: 16px;
-
   font-size: 14px;
   color: #777;
   letter-spacing: 0.04em;
-
   pointer-events: none;
   transition: all 0.25s ease;
 }
@@ -57,21 +52,18 @@
 .form_group input:not(:placeholder-shown) + label {
   top: -6px;
   font-size: 11px;
-  color: #000;
+  color: #777;
 }
 
 .login_button {
   margin-top: 24px;
   padding: 16px;
-
   font-size: 14px;
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-
   background-color: #000;
   color: #fff;
-
   border: none;
   cursor: pointer;
   transition: opacity 0.25s ease;
@@ -92,10 +84,49 @@
   font-size: 15px;
 }
 
-@media (max-width: 480px) {
-  .login_form {
-    padding: 36px 24px;
-  }
+.checkbox_group {
+  position: static;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 16px;
+  margin-bottom: 32px;
+}
+
+.checkbox_group input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: #000;
+  cursor: pointer;
+  margin: 0;
+  margin-top: 2px;
+  transition: transform 0.1s ease;
+}
+
+.checkbox_group input[type="checkbox"]:active {
+  transform: scale(1.2);
+}
+
+.checkbox_group label {
+  position: static;
+  pointer-events: auto;
+  color: #777;
+  font-size: 13px;
+  line-height: 1.4;
+  margin-left: 12px;
+}
+
+.register_privacy_link {
+  color: #000;
+  text-decoration: underline;
+  font-weight: 500;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.register_privacy_link:hover {
+  opacity: 0.7;
 }
 
 .forgot-passwordlink {
@@ -104,7 +135,6 @@
   font-size: 13px;
 }
 
-/* CSS GOOGLE CONNEXION */
 .google-login-divider {
   display: flex;
   align-items: center;
@@ -129,4 +159,10 @@
   display: flex;
   justify-content: center;
   margin-top: 15px;
+}
+
+@media (max-width: 480px) {
+  .login_form {
+    padding: 36px 24px;
+  }
 }

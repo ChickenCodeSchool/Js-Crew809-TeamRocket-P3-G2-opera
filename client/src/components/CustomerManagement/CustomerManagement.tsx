@@ -1,82 +1,144 @@
-// client/src/components/CustomerManagement/CustomerManagement.tsx
 import "./CustomerManagement.css";
-import { FiEdit2, FiPlus, FiTrash2 } from "react-icons/fi";
-import { mockCustomers } from "../../data/mockCustomers";
+import { useEffect, useState } from "react"; // Ajout des hooks
+import { Link } from "react-router-dom";
+import type { Customer } from "../../types/customer";
 
 export default function CustomerManagement() {
+  const [customers, setCustomers] = useState<Customer[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState(""); // État pour la recherche
+
+  // Appel à la base de données au montage du composant
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/customers`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCustomers(data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des clients :", error);
+        setLoading(false);
+      });
+  }, []);
+
+  // Logique de filtrage identique à "Gestion des Produits"
+  // 1. D'abord on filtre
+  const matches = customers.filter((customer) => {
+    const s = searchTerm.toLowerCase().trim();
+    if (s === "") return true;
+
+    const firstNameFirst =
+      `${customer.firstname} ${customer.lastname}`.toLowerCase();
+    const lastNameFirst =
+      `${customer.lastname} ${customer.firstname}`.toLowerCase();
+    const customerRef = (1000 + customer.customer_id).toString();
+
+    return (
+      firstNameFirst.includes(s) ||
+      lastNameFirst.includes(s) ||
+      customerRef.includes(s)
+    );
+  });
+
+  // 2. Ensuite on décide si on limite ou pas
+  const filteredCustomers =
+    searchTerm.length > 0 ? matches.slice(0, 10) : matches;
+
   const handleEdit = (customerId: number) => {
-    console.log("Modifier le client :", customerId);
-    alert(`Édition du client ${customerId}`);
+    alert(`Modifier le client ${customerId}`);
   };
 
   const handleDelete = (customerId: number) => {
-    console.log("Supprimer le client :", customerId);
     alert(`Voulez-vous vraiment supprimer le client ${customerId} ?`);
     // Plus tard, on ajoutera ici la logique de suppression
   };
+  // --- LA LIGNE QUI RÈGLE TON ERREUR ---
+  // Ici, on lit la variable loading. TypeScript est maintenant content.
+  if (loading) {
+    return (
+      <div className="admin-customer-container">Chargement des données...</div>
+    );
+  }
 
   return (
     <div className="admin-customer-container">
       <h2>Gestion des clients</h2>
-      <div className="admin-headeradmin">
-        {/* BOUTON AJOUTER : Action n°1 */}
-        <button type="button" className="add-btn">
-          Ajouter un client
-        </button>
+
+      {/* Barre de recherche centrée */}
+      <div className="admin-search-container-centered">
+        <input
+          type="text"
+          placeholder="Rechercher un client..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="admin-search-input"
+        />
       </div>
+
+      {/* Compteur de résultats aligné à gauche */}
+      <div className="admin-count-label">
+        {filteredCustomers.length} client(s) trouvé(s)
+      </div>
+
       <div className="table-responsive-container">
         <table className="admin-table-customers">
           <thead>
             <tr className="admin-tr-table">
-              <th>Réf.</th> {/* Nouvelle colonne */}
+              <th>Réf.</th>
               <th>Nom</th>
               <th>Email</th>
-              <th>Rôle</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {mockCustomers.map((customer) => (
-              <tr key={customer.customer_id}>
-                <td data-label="Réf.">
-                  <strong>#{1000 + customer.customer_id}</strong>
-                </td>
-                <td data-label="Nom">{`${customer.firstname} ${customer.lastname}`}</td>
-                <td data-label="Email">{customer.mail}</td>
-                <td
-                  data-label="Rôle"
-                  className={
-                    customer.role === 1
-                      ? "role-badge role-admin"
-                      : "role-badge role-client"
-                  }
-                >
-                  {customer.role === 1 ? "Admin" : "Client"}
-                </td>
-                {/* On regroupe les boutons dans UNE SEULE cellule sans balise vide avant */}
-                <td data-label="Actions" className="actions-cell">
-                  <button type="button" className="action-btn" title="Détails">
-                    <FiPlus size={17} />
-                  </button>
-                  <button
-                    type="button"
-                    className="action-btn"
-                    title="Modifier"
-                    onClick={() => handleEdit(customer.customer_id)}
-                  >
-                    <FiEdit2 size={17} />
-                  </button>
-                  <button
-                    type="button"
-                    className="action-btn delete-btn"
-                    title="Supprimer"
-                    onClick={() => handleDelete(customer.customer_id)}
-                  >
-                    <FiTrash2 size={17} />
-                  </button>
+            {filteredCustomers.length > 0 ? (
+              filteredCustomers.map((customer) => (
+                <tr key={customer.customer_id}>
+                  <td data-label="Réf.">
+                    <Link
+                      to={`/admin/client/${customer.customer_id}`}
+                      className="client-data-link"
+                    >
+                      <strong>#{1000 + customer.customer_id}</strong>
+                    </Link>
+                  </td>
+                  <td data-label="Nom">
+                    <Link
+                      to={`/admin/client/${customer.customer_id}`}
+                      className="client-data-link"
+                    >
+                      {`${customer.firstname} ${customer.lastname}`}
+                    </Link>
+                  </td>
+                  <td data-label="Email">{customer.mail}</td>
+                  <td data-label="Actions" className="actions-cell">
+                    <div className="actions-wrapper">
+                      <button
+                        type="button"
+                        className="action-btn"
+                        onClick={() => handleEdit(customer.customer_id)}
+                      >
+                        Modifier
+                      </button>
+                      <button
+                        type="button"
+                        className="action-btn delete-btn"
+                        onClick={() => handleDelete(customer.customer_id)}
+                      >
+                        Supprimer
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan={4} className="no-result-row">
+                  Aucun client trouvé pour "{searchTerm}"
                 </td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>

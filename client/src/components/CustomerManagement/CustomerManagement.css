@@ -1,67 +1,94 @@
 /* ============================================================
-   1. STYLES COMMUNS
+   1. STYLES COMMUNS (Mobile & Desktop)
    ============================================================ */
 .admin-customer-container {
-  padding: 40px;
-  padding-top: 200px;
+  padding: 40px 20px;
+  padding-top: 150px;
   background-color: #ffffff;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-h2 {
+.admin-customer-container h2 {
   text-transform: uppercase;
   letter-spacing: 3px;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Barre de recherche centrée */
+.admin-search-container-centered {
+  width: 100%;
   display: flex;
   justify-content: center;
+  margin-bottom: 15px;
 }
 
-.admin-headeradmin {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: 20px;
-  width: 100%;
+.admin-search-input {
+  width: 350px;
+  padding: 10px 15px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  outline: none;
 }
 
-.add-btn {
-  background-color: #ffffff;
-  color: #666666;
-  border: 1px solid #e0e0e0;
-  padding: 8px 16px;
-  font-family: "Montserrat", sans-serif;
+.admin-search-input:focus {
+  border-color: #000;
+}
+
+/* Label compteur aligné à gauche du tableau */
+.admin-count-label {
+  width: 95%;
+  max-width: 1450px;
+  text-align: left;
   font-size: 0.85rem;
-  cursor: pointer;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+/* Liens Réf et Nom */
+.client-data-link {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 500;
   transition: all 0.2s ease;
-  border-radius: 4px;
+  display: inline-block;
 }
 
-.add-btn:hover {
-  color: #1a1a1a;
-  border-color: black;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.client-data-link:hover {
+  color: #000000;
+  text-decoration: underline;
+  transform: translateX(3px);
 }
 
+/* Style des boutons (Look Gestion des Produits) */
 .action-btn {
-  background-color: #ffffff;
-  border: 1px solid #e0e0e0;
-  cursor: pointer;
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
   border-radius: 4px;
-  width: 34px;
-  height: 34px;
+  cursor: pointer;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  transition: background-color 0.2s ease;
+  min-width: 120px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 4px;
-  color: #888;
+  white-space: nowrap;
+  flex-shrink: 0; /* Empêche le bouton de rétrécir */
 }
 
-.role-badge {
-  padding: 5px 10px;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  font-weight: bold;
+.action-btn:hover {
+  background-color: #333333;
 }
 
 /* ============================================================
@@ -69,36 +96,100 @@ h2 {
    ============================================================ */
 @media screen and (min-width: 769px) {
   .table-responsive-container {
-    max-height: 60vh;
-    overflow-y: auto;
-    border: 1px solid #000;
+    width: 98%;
+    max-width: 1450px;
+    margin: 0 auto 40px auto;
+
+    /* On garde le scroll horizontal en "dernier recours" 
+       pour éviter que le bouton SUPPRIMER ne disparaisse */
+    overflow-x: auto;
+    overflow-y: visible;
+    border: 1px solid #84848463;
     border-radius: 8px;
-    margin-top: 20px;
   }
 
   .admin-table-customers {
     width: 100%;
     border-collapse: collapse;
+    /* 'auto' permet au tableau de se rétrécir jusqu'à ce que 
+        le texte commence à se chevaucher */
+    table-layout: auto !important;
+  }
+
+  .admin-tr-table {
+    background-color: #1a1a1a !important;
   }
 
   .admin-table-customers thead th {
     background-color: #1a1a1a;
     color: #ffffff;
-    padding: 15px;
+    padding: 18px;
     position: sticky;
     top: 0;
     z-index: 10;
     text-align: center;
     font-size: 0.8rem;
+    border: none;
+    outline: none;
   }
 
+  /* On réduit le padding des cellules pour gagner de la place */
   .admin-table-customers td {
-    padding: 20px;
+    padding: 12px 10px;
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #f0f0f0;
     display: table-cell !important;
+    font-size: 0.85rem; /* Un poil plus petit pour l'adaptabilité */
   }
+
+  /* --- GESTION DE LA COLONNE ACTIONS --- */
+  .actions-cell {
+    /* On définit une largeur qui peut se réduire un peu */
+    width: 220px;
+    min-width: 210px !important;
+  }
+
+  .actions-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 8px !important; /* Espace réduit pour gagner de la largeur */
+    flex-wrap: nowrap !important;
+  }
+
+  .action-btn {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif;
+
+    /* --- LES CORRECTIONS SONT ICI --- */
+    font-size: 0.75rem;
+    font-weight: 500; /* Réduit de 600 à 500 pour être moins "gras" */
+    text-transform: none; /* Annule le passage automatique en majuscules */
+    /* ------------------------------- */
+
+    transition: background-color 0.2s ease;
+    min-width: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+
+/* Ligne vide si aucun client */
+.no-result-row {
+  padding: 40px !important;
+  color: #888;
+  font-style: italic;
+  text-align: center;
 }
 
 /* ============================================================
@@ -110,10 +201,8 @@ h2 {
     padding-top: 120px;
   }
 
-  .table-responsive-container {
-    border: none;
-    max-height: none;
-    overflow: visible;
+  .admin-search-input {
+    width: 90%;
   }
 
   .admin-table-customers,
@@ -142,32 +231,29 @@ h2 {
   .admin-table-customers td {
     border: none !important;
     padding: 12px 15px !important;
-    min-height: 45px;
     display: flex !important;
     align-items: center;
-    justify-content: space-between; /* Pousse le titre à gauche et la valeur à droite */
+    justify-content: space-between;
     border-bottom: 1px solid #f0f0f0 !important;
-    word-break: break-all; /* Coupe les emails trop longs pour éviter qu'ils sortent de l'écran */
   }
 
   .admin-table-customers td:last-child {
     border-bottom: none !important;
   }
 
-  /* Le label (Titre) */
+  /* On empile les boutons sur mobile pour que ça tienne */
+  .actions-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
   .admin-table-customers td::before {
     content: attr(data-label);
     font-weight: 700;
     font-size: 0.75rem;
     text-transform: uppercase;
     color: #888;
-    margin-right: 15px;
-    flex-shrink: 0; /* Empêche le titre de rétrécir */
-    text-align: left;
-  }
-
-  .add-btn {
-    width: 100%;
-    justify-content: center;
   }
 }

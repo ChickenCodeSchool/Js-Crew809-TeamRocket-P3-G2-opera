@@ -73,17 +73,17 @@ router.post("/auth/reset-password", authActions.resetPassword);
 
 import customerActions from "./modules/user/customerActions";
 
-router.post("/customers", authActions.hashPassword, customerActions.add);
-router.get("/customers", customerActions.browse);
-router.get("/customers/:id", customerActions.read);
+router.post("/api/customers", authActions.hashPassword, customerActions.add);
+router.get("/api/customers", customerActions.browse);
+router.get("/api/customers/:id", customerActions.read);
 router.put(
-  "/customers/:id",
+  "/api/customers/:id",
   /*authActions.hashPassword,*/ customerActions.update,
 );
-router.put("/customers/:id", customerActions.update);
+router.put("/api/customers/:id", customerActions.update);
 router.delete(
   "/customers/:id",
-  authActions.verifyToken,
+  /*authActions.verifyToken,*/
   customerActions.remove,
 );
 
@@ -100,6 +100,7 @@ import orderActions from "./modules/order/orderActions";
 
 router.get("/api/orders", orderActions.browse);
 router.get("/api/orders/:id", orderActions.read);
+router.get("/api/orders/customer/:id", orderActions.readByCustomer);
 
 import adminOrderActions from "./modules/orderDeliveryAdmin/adminOrderActions";
 

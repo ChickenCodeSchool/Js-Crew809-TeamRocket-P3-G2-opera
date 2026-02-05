@@ -13,6 +13,7 @@ import CarouselLp from "./components/carouselLp/carouselLp";
 import { CartProvider } from "./contexts/CartContext";
 import AddProduct from "./pages/AddProduct/AddProduct";
 import AdminPage from "./pages/Admin/AdminPage";
+import DetailAdminClient from "./pages/Admin/Clients/DetailAdminClient";
 import AllProductsPage from "./pages/AllProductsPage/AllProductsPage";
 import ArticlePage from "./pages/ArticlePage/articlePage";
 import BrandCategory from "./pages/BrandCategory/BrandCategory";
@@ -32,7 +33,9 @@ import ResetPassword from "./pages/ResetPassword/ResetPassword";
 /*import Register from "./components/register/Register";*/
 import Authentification from "./pages/authentification/Authentification";
 import Contact from "./pages/contactPage/contact";
+import GeneralTerms from "./pages/generalTerms/generalTerms";
 import PageTestLink from "./pages/pageTestLinkBurger/PageTestLink";
+import PrivacyPolity from "./pages/privacyPolity/privacyPolity";
 const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 const router = createBrowserRouter([
@@ -105,6 +108,7 @@ const router = createBrowserRouter([
           { path: "", element: <Dashboard /> },
           { path: "orders", element: <AdminOrderEdit /> },
           { path: "clients", element: <CustomerManagement /> },
+          { path: "client/:id", element: <DetailAdminClient /> },
         ],
       },
       {
@@ -138,6 +142,8 @@ const router = createBrowserRouter([
         path: "/order-confirmation",
         element: <OrderConfirmation />,
       },
+      { path: "/privacy-polity", element: <PrivacyPolity /> },
+      { path: "/general-terms", element: <GeneralTerms /> },
     ],
   },
 ]);
