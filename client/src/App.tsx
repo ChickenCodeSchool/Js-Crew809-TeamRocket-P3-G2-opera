@@ -34,7 +34,7 @@ function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
-
+  /*
   useEffect(() => {
     const fetchSession = async () => {
       try {
@@ -52,6 +52,35 @@ function App() {
         }
       } catch (err) {
         console.error("Erreur lors de la récupération de la session:", err);
+        setAuth(null);
+      }
+    };
+
+    fetchSession();
+  }, []);
+*/
+
+  useEffect(() => {
+    const fetchSession = async () => {
+      try {
+        const res = await fetch("http://localhost:3310/auth/session", {
+          credentials: "include",
+        });
+
+        if (!res.ok) {
+          setAuth(null);
+          return;
+        }
+
+        const data = await res.json();
+
+        if (data.user) {
+          setAuth({ user: data.user, token: "" });
+        } else {
+          setAuth(null);
+        }
+      } catch (err) {
+        console.error("Erreur session:", err);
         setAuth(null);
       }
     };
