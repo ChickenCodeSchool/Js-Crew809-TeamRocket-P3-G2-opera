@@ -155,24 +155,88 @@ h2 {
   border: 1px solid #000000;
 }
 
-/* 5. Ajustement pour que l'info-card ne bloque pas la largeur */
-.info-card {
+/* ============================================================
+   5. STYLES POUR LE MODE ÉDITION (AJOUTS)
+   ============================================================ */
+
+/* Aligne le titre et les boutons de contrôle en haut */
+.header-fiche-admin {
   display: flex;
-  flex-direction: column; /* Aligne tout verticalement */
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  max-width: 800px; /* Ou la largeur que tu souhaites pour la fiche */
-  margin: 0 auto;
+  max-width: 800px;
+  margin-bottom: 20px;
 }
-.add-btn:hover {
-  background-color: #000000;
-  /*transform: translateY(-20px); /* Petit effet de levée au survol */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  text-decoration: underline;
-  transform: translateY(3px); /* Petit effet de glissement fluide */
+
+/* Style des champs de saisie (Inputs) */
+.form-group {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* Aligne verticalement label et input */
+}
+
+.form-group input,
+.form-group select {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  width: 60%; /* Ajuste la largeur des champs */
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus {
+  border-color: #1a1a1a; /* Bordure noire au focus */
+}
+
+/* Conteneur des boutons de modification */
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+/* Boutons spécifiques à l'édition */
+.save-btn {
+  padding: 8px 15px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.cancel-btn {
+  padding: 8px 15px;
+  background-color: transparent;
+  color: #888;
+  border: 1px solid #e0e0e0;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.action-btn {
+  padding: 8px 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 1px;
+  cursor: pointer;
 }
 
 /* ============================================================
-   4. ADAPTATION MOBILE
+   6. ADAPTATION MOBILE
    ============================================================ */
 @media screen and (max-width: 768px) {
   .admin-customer-container {

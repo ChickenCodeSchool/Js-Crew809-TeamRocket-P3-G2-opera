@@ -44,8 +44,8 @@ export default function CustomerManagement() {
 
   // LOGIQUE DES BOUTONS
   const handleEdit = (customerId: number) => {
-    // Redirige vers la vue détaillée/édition
-    navigate(`/admin/client/${customerId}`);
+    // On envoie vers la fiche, mais on ajoute le "mode" édition dans l'URL
+    navigate(`/admin/client/${customerId}?edit=true`);
   };
 
   const handleDelete = async (customerId: number) => {
