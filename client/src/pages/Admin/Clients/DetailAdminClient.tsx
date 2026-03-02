@@ -213,6 +213,54 @@ export default function DetailAdminClient() {
             <span> {customer.phone || "Non renseigné"}</span>
           )}
         </div>
+        {/* Addresse */}
+        <div className="form-group">
+          <label htmlFor="adress">
+            <strong>Adresse :</strong>
+          </label>
+          {isEditing ? (
+            <input
+              id="adress"
+              name="adress"
+              value={customer.adress || ""}
+              onChange={handleChange}
+            />
+          ) : (
+            <span> {customer.adress || "Non renseigné"}</span>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="postal_code">
+            <strong> Code Postale :</strong>
+          </label>
+          {isEditing ? (
+            <input
+              id="postal_code"
+              name="postal_code"
+              value={customer.postal_code || ""}
+              onChange={handleChange}
+            />
+          ) : (
+            <span> {customer.postal_code || "Non renseigné"}</span>
+          )}
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="country">
+            <strong>Pays :</strong>
+          </label>
+          {isEditing ? (
+            <input
+              id="country"
+              name="country"
+              value={customer.country || ""}
+              onChange={handleChange}
+            />
+          ) : (
+            <span> {customer.country || "Non renseigné"}</span>
+          )}
+        </div>
 
         {/* Date Anniversaire */}
         <div className="form-group">

@@ -12,4 +12,5 @@ export interface Customer {
   phone: string | null;
   created_at: string | Date | null;
   updated_at?: string | Date | null;
+  password: string;
 }
