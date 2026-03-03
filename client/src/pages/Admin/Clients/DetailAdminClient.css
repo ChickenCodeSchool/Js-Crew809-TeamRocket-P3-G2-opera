@@ -1,65 +1,140 @@
 /* ============================================================
-   1. STRUCTURE ET TYPOGRAPHIE
+   1. STRUCTURE ET HEADER (AÉRÉ)
    ============================================================ */
 .admin-customer-container {
-  padding: 40px;
-  padding-top: 200px; /* Aligné avec la page gestion */
+  padding: 40px 20px;
+  padding-top: 150px;
   background-color: #ffffff;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centre la fiche à l'écran */
+  align-items: center;
 }
 
-h2 {
+.header-fiche-admin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 60px;
+}
+
+.header-fiche-admin h2 {
   text-transform: uppercase;
-  letter-spacing: 3px;
-  padding-bottom: 15px;
-  margin-bottom: 30px;
+  letter-spacing: 5px;
+  font-weight: 700;
+  margin: 0;
   text-align: center;
 }
 
+.header-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
 /* ============================================================
-   2. LA CARTE D'INFORMATION (INFO-CARD)
+   2. FICHE CLIENT (INFO-CARD)
    ============================================================ */
 .info-card {
   width: 100%;
-  max-width: 600px; /* Évite que la fiche soit trop large sur PC */
-  border: 1px solid #84848463; /* Même bordure que ton tableau */
-  padding: 40px;
-  border-radius: 8px;
+  max-width: 650px;
+  border: 1px solid #84848463;
+  padding: 50px;
+  border-radius: 12px;
   background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Léger relief */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
 }
 
-.info-card p {
-  margin-bottom: 20px;
-  border-bottom: 1px solid #f0f0f0; /* Lignes de séparation comme le tableau */
-  padding-bottom: 10px;
-  display: flex;
-  justify-content: space-between; /* Aligne libellé à gauche, info à droite */
-}
-
-.info-card p:last-child {
-  border-bottom: none;
-  margin-bottom: 0;
-}
-
-.info-card strong {
+.info-card h3 {
+  text-align: center;
   text-transform: uppercase;
+  font-size: 1.1rem;
+  letter-spacing: 3px;
+  margin-bottom: 45px;
+  color: #1a1a1a;
+  border-bottom: 2px solid #f2f2f2;
+  padding-bottom: 15px;
+}
+
+.form-group {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-group label {
   font-size: 0.75rem;
-  color: #888;
-  letter-spacing: 1px;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  width: 30%;
+}
+
+.form-group input,
+.form-group select {
+  width: 65%;
+  padding: 12px 15px;
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.95rem;
 }
 
 /* ============================================================
-   3. BOUTON RETOUR (ADD-BTN)
+   3. BOUTONS (ENREGISTRER / MODIFIER / ANNULER)
    ============================================================ */
+.save-btn,
+.action-btn {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 14px 35px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.save-btn:hover,
+.action-btn:hover {
+  background-color: #444;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cancel-btn {
+  background-color: transparent;
+  color: #888;
+  border: 1px solid #dbdbdb;
+  padding: 14px 35px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cancel-btn:hover {
+  color: #000;
+  border-color: #000;
+  background-color: #f9f9f9;
+}
+
+/* BOUTON RETOUR À LA LISTE (ESPACEMENT AJUSTÉ) */
 .add-btn {
-  margin-top: 40px;
-  padding: 12px 30px;
-  background-color: #1a1a1a; /* Fond noir comme le header du tableau */
+  margin-top: 60px; /* J'ai augmenté ici pour descendre le bouton */
+  padding: 14px 35px;
+  background-color: #1a1a1a;
   color: #ffffff;
   border: none;
   border-radius: 4px;
@@ -70,15 +145,22 @@ h2 {
   cursor: pointer;
   transition: all 0.3s ease;
 }
-/* 1. Force le conteneur de l'historique à prendre toute la largeur */
+
+.add-btn:hover {
+  background-color: #444;
+  transform: translateY(-3px);
+}
+
+/* ============================================================
+   4. HISTORIQUE DES COMMANDES (VISUEL ORIGINAL)
+   ============================================================ */
 .order-history-section {
   width: 100%;
   margin-top: 30px;
   padding-top: 20px;
-  border-top: 1px solid #eee; /* Petite ligne de séparation propre */
+  border-top: 1px solid #eee;
 }
 
-/* 2. Style du titre de l'historique */
 .order-history-section h3 {
   font-size: 1.1rem;
   color: #333;
@@ -87,7 +169,6 @@ h2 {
   letter-spacing: 1px;
 }
 
-/* 3. Le tableau doit occuper 100% de son parent */
 .orders-table {
   width: 100%;
   border-collapse: collapse;
@@ -96,39 +177,37 @@ h2 {
 }
 
 .orders-table th {
-  background-color: #1a1a1a; /* Noir comme ton bouton */
+  background-color: #1a1a1a;
   color: #ffffff;
-  text-align: left;
   padding: 12px;
   text-transform: uppercase;
   font-size: 0.75rem;
-  text-align: center; /* Force le centrage des titres */
+  text-align: center;
 }
 
 .orders-table td {
   padding: 12px;
   border-bottom: 1px solid #f0f0f0;
   vertical-align: middle;
-  text-align: center; /* Force le centrage des titres */
+  text-align: center;
 }
 
-/* Cible la 3ème colonne (Total) pour aérer les chiffres */
 .orders-table td:nth-child(3) {
-  letter-spacing: 0.5px; /* Spacing très léger comme demandé */
-  font-variant-numeric: tabular-nums; /* Aligne les chiffres verticalement s'ils n'ont pas la même largeur */
-  font-weight: 500; /* Un peu plus épais pour la lisibilité */
+  letter-spacing: 0.5px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
 }
 
-/* 4. Style pour les badges de statut */
+/* BADGES DE STATUT */
 .status-badge {
   font-family: "Montserrat", sans-serif;
   display: inline-block;
   padding: 6px 14px;
-  font-size: 9px; /* Plus petit = plus raffiné */
-  font-weight: 700; /* Plus gras pour compenser la petite taille */
+  font-size: 9px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 2.5px; /* Grand espacement pour l'aspect "boutique" */
-  border-radius: 0; /* Pas d'arrondi, style architectural */
+  letter-spacing: 2.5px;
+  border-radius: 0;
 }
 
 .status-badge.pending {
@@ -136,56 +215,54 @@ h2 {
   color: #999;
   border: 1px solid #e0e0e0;
 }
-
 .status-badge.preparing {
   background-color: #ffffff;
   color: #000000;
   border: 1px solid #000000;
 }
-
 .status-badge.shipped {
   background-color: #ebebeb;
   color: black;
   border: 1px solid #dbdbdb;
 }
-
 .status-badge.delivered {
   background-color: #000000;
   color: #ffffff;
   border: 1px solid #000000;
 }
 
-/* 5. Ajustement pour que l'info-card ne bloque pas la largeur */
-.info-card {
-  display: flex;
-  flex-direction: column; /* Aligne tout verticalement */
-  width: 100%;
-  max-width: 800px; /* Ou la largeur que tu souhaites pour la fiche */
-  margin: 0 auto;
-}
-.add-btn:hover {
-  background-color: #000000;
-  /*transform: translateY(-20px); /* Petit effet de levée au survol */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  text-decoration: underline;
-  transform: translateY(3px); /* Petit effet de glissement fluide */
-}
-
 /* ============================================================
-   4. ADAPTATION MOBILE
+   5. RESPONSIVE MOBILE
    ============================================================ */
 @media screen and (max-width: 768px) {
-  .admin-customer-container {
-    padding: 20px;
-    padding-top: 120px;
+  .header-fiche-admin {
+    gap: 20px;
+    margin-bottom: 40px;
   }
-
+  .header-actions {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+  }
   .info-card {
-    padding: 20px;
+    padding: 30px 20px;
   }
-
-  .info-card p {
-    flex-direction: column; /* Libellé au dessus de l'info en mobile */
+  .form-group {
+    flex-direction: column;
     align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 25px;
+  }
+  .form-group label,
+  .form-group input,
+  .form-group select {
+    width: 100%;
+  }
+  .save-btn,
+  .action-btn,
+  .cancel-btn,
+  .add-btn {
+    width: 100%;
+    text-align: center;
   }
 }

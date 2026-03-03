@@ -80,9 +80,8 @@ router.put(
   "/api/customers/:id",
   /*authActions.hashPassword,*/ customerActions.update,
 );
-router.put("/api/customers/:id", customerActions.update);
 router.delete(
-  "/customers/:id",
+  "/api/customers/:id",
   /*authActions.verifyToken,*/
   customerActions.remove,
 );
