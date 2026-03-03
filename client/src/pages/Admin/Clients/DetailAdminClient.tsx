@@ -200,7 +200,7 @@ export default function DetailAdminClient() {
         {/* Téléphone */}
         <div className="form-group">
           <label htmlFor="phone">
-            <strong>Numéro Téléphone :</strong>
+            <strong>Téléphone :</strong>
           </label>
           {isEditing ? (
             <input
@@ -265,7 +265,7 @@ export default function DetailAdminClient() {
         {/* Date Anniversaire */}
         <div className="form-group">
           <label htmlFor="birthday">
-            <strong>Date anniversaire :</strong>
+            <strong>Date de naissance :</strong>
           </label>
           {isEditing ? (
             <input

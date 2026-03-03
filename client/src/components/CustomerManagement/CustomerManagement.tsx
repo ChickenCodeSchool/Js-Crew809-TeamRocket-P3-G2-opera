@@ -4,27 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import type { Customer } from "../../types/customer";
 
 export default function CustomerManagement() {
-  // --- 1. ÉTATS (Hooks) ---
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const navigate = useNavigate();
 
-  // État initial pour le nouveau client avec tous les champs d'adresse
   const [newCustomer, setNewCustomer] = useState<Partial<Customer>>({
     firstname: "",
     lastname: "",
     mail: "",
     phone: "",
-    adress: "", // Note: orthographe "adress" pour coller à ta BDD
+    adress: "",
     postal_code: "",
     country: "",
     role: 0,
     password: "",
   });
 
-  // --- 2. RÉCUPÉRATION DES DONNÉES (Read) ---
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/customers`)
       .then((res) => res.json())
@@ -38,14 +35,16 @@ export default function CustomerManagement() {
       });
   }, []);
 
-  // --- 3. LOGIQUE DE FILTRAGE (Affichage) ---
   const matches = customers.filter((customer) => {
     const s = searchTerm.toLowerCase().trim();
     if (s === "") return true;
-    const fullName = `${customer.firstname} ${customer.lastname}`.toLowerCase();
-    const customerRef = (1000 + customer.customer_id).toString();
+
+    const idValue = customer.customer_id || 0;
+    const customerRef = (1000 + idValue).toString();
+    const fullName =
+      `${customer.firstname || ""} ${customer.lastname || ""}`.toLowerCase();
     const fullLocation =
-      `${customer.adress} ${customer.postal_code} ${customer.country}`.toLowerCase();
+      `${customer.adress || ""} ${customer.postal_code || ""} ${customer.country || ""}`.toLowerCase();
 
     return (
       fullName.includes(s) ||
@@ -57,10 +56,6 @@ export default function CustomerManagement() {
   const filteredCustomers =
     searchTerm.length > 0 ? matches.slice(0, 10) : matches;
 
-  // --- 4. ACTIONS MÉTIER (CRUD : C - U - D) ---
-
-  // CREATE : Enregistrement manuel en base de données
-
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!window.confirm("Confirmer la création en base de données ?")) return;
@@ -71,23 +66,25 @@ export default function CustomerManagement() {
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newCustomer), // Envoie tout l'objet, password inclus
+          body: JSON.stringify(newCustomer),
         },
       );
 
       if (response.ok) {
-        const result = await response.json(); // Le backend renvoie l'ID (ex: { insertId: 45 })
+        const result = await response.json();
+        const finalId =
+          result.user?.customer_id || result.insertId || result.id;
 
-        // On prépare l'objet complet pour l'affichage immédiat
+        if (!finalId) {
+          alert("Client créé mais ID non récupéré. Rafraîchissez la page.");
+          return;
+        }
+
         const customerToTable = {
           ...newCustomer,
-          customer_id: result.insertId || result.id, // On récupère l'ID auto-incrémenté
+          customer_id: finalId,
         } as Customer;
-
-        // On l'ajoute en haut de la liste pour qu'il soit visible et "recherchable"
         setCustomers((prev) => [customerToTable, ...prev]);
-
-        // On ferme le mode ajout et on vide le formulaire
         setIsAdding(false);
         setNewCustomer({
           firstname: "",
@@ -100,22 +97,13 @@ export default function CustomerManagement() {
           role: 0,
           password: "",
         });
-
-        alert("Client créé et sécurisé avec succès !");
-      } else {
-        alert("Erreur lors de la création. Vérifiez les champs.");
+        alert("Client créé avec succès !");
       }
     } catch (err) {
       console.error("Erreur création:", err);
     }
   };
 
-  // UPDATE : Navigation vers l'édition
-  const handleEdit = (customerId: number) => {
-    navigate(`/admin/client/${customerId}?edit=true`);
-  };
-
-  // DELETE : Suppression définitive
   const handleDelete = async (customerId: number) => {
     if (!window.confirm("Supprimer définitivement ce client ?")) return;
     try {
@@ -135,7 +123,6 @@ export default function CustomerManagement() {
     }
   };
 
-  // --- 5. RENDU (UI) ---
   if (loading)
     return <div className="admin-customer-container">Chargement...</div>;
 
@@ -153,11 +140,10 @@ export default function CustomerManagement() {
       </div>
 
       {isAdding ? (
-        /* FORMULAIRE DE CRÉATION COMPLET (Inspiré du design de image_0c8f8d.png) */
         <form className="info-card add-customer-form" onSubmit={handleCreate}>
           <div className="form-group">
             <label htmlFor="role">
-              <strong>RÔLE ACTUEL :</strong>
+              <strong>RÔLE :</strong>
             </label>
             <select
               id="role"
@@ -173,7 +159,6 @@ export default function CustomerManagement() {
               <option value={1}>Admin</option>
             </select>
           </div>
-
           <div className="form-group">
             <label htmlFor="firstname">
               <strong>PRÉNOM :</strong>
@@ -188,7 +173,6 @@ export default function CustomerManagement() {
               }
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="lastname">
               <strong>NOM :</strong>
@@ -203,7 +187,6 @@ export default function CustomerManagement() {
               }
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="mail">
               <strong>EMAIL :</strong>
@@ -218,7 +201,21 @@ export default function CustomerManagement() {
               }
             />
           </div>
+          <div className="form-group">
+            <label htmlFor="phone">
+              <strong>TÉLÉPHONE :</strong>
+            </label>
+            <input
+              id="phone"
+              type="text"
+              value={newCustomer.phone || ""}
+              onChange={(e) =>
+                setNewCustomer({ ...newCustomer, phone: e.target.value })
+              }
+            />
+          </div>
 
+          {/* --- LES CHAMPS RÉTABLIS ICI --- */}
           <div className="form-group">
             <label htmlFor="adress">
               <strong>ADRESSE :</strong>
@@ -232,7 +229,6 @@ export default function CustomerManagement() {
               }
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="postal_code">
               <strong>CODE POSTAL :</strong>
@@ -246,7 +242,6 @@ export default function CustomerManagement() {
               }
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="country">
               <strong>PAYS :</strong>
@@ -260,21 +255,19 @@ export default function CustomerManagement() {
               }
             />
           </div>
-
           <div className="form-group">
-            <label htmlFor="phone">
-              <strong>NUMÉRO TÉLÉPHONE :</strong>
+            <label htmlFor="birthday">
+              <strong>date de naissance :</strong>
             </label>
             <input
-              id="phone"
+              id="birthday"
               type="text"
-              value={newCustomer.phone || ""}
+              value={newCustomer.birthday || ""}
               onChange={(e) =>
-                setNewCustomer({ ...newCustomer, phone: e.target.value })
+                setNewCustomer({ ...newCustomer, birthday: e.target.value })
               }
             />
           </div>
-
           <div className="form-group">
             <label htmlFor="password">
               <strong>MOT DE PASSE :</strong>
@@ -282,15 +275,13 @@ export default function CustomerManagement() {
             <input
               id="password"
               type="password"
-              required // Obligatoire pour le hachage backend
-              placeholder="Mot de passe provisoire"
+              required
               value={newCustomer.password || ""}
               onChange={(e) =>
                 setNewCustomer({ ...newCustomer, password: e.target.value })
               }
             />
           </div>
-
           <div className="form-actions-centered">
             <button type="submit" className="save-btn">
               ENREGISTRER EN BDD
@@ -298,7 +289,6 @@ export default function CustomerManagement() {
           </div>
         </form>
       ) : (
-        /* LISTE DES CLIENTS (Tableau) */
         <>
           <div className="admin-search-container-centered">
             <input
@@ -319,7 +309,7 @@ export default function CustomerManagement() {
               <thead>
                 <tr className="admin-tr-table">
                   <th>Réf.</th>
-                  <th>Nom </th>
+                  <th>Nom / Prénom</th>
                   <th>Email</th>
                   <th>Actions</th>
                 </tr>
@@ -327,31 +317,33 @@ export default function CustomerManagement() {
               <tbody>
                 {filteredCustomers.map((customer) => (
                   <tr key={customer.customer_id}>
-                    <td data-label="Réf.">
+                    <td>
                       <Link
                         to={`/admin/client/${customer.customer_id}`}
                         className="client-data-link"
                       >
-                        <strong>#{1000 + customer.customer_id}</strong>
+                        <strong>#{1000 + (customer.customer_id || 0)}</strong>
                       </Link>
                     </td>
-                    <td data-label="Nom">
+                    <td>
                       <Link
                         to={`/admin/client/${customer.customer_id}`}
                         className="client-data-link"
                       >
-                        <div className="client-primary-info">
-                          {customer.firstname} {customer.lastname}
-                        </div>
+                        {customer.firstname} {customer.lastname}
                       </Link>
                     </td>
-                    <td data-label="Email">{customer.mail}</td>
-                    <td data-label="Actions" className="actions-cell">
+                    <td>{customer.mail}</td>
+                    <td className="actions-cell">
                       <div className="actions-wrapper">
                         <button
                           type="button"
                           className="action-btn"
-                          onClick={() => handleEdit(customer.customer_id)}
+                          onClick={() =>
+                            navigate(
+                              `/admin/client/${customer.customer_id}?edit=true`,
+                            )
+                          }
                         >
                           MODIFIER
                         </button>
